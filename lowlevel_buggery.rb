@@ -63,6 +63,7 @@ class Bugger
         # is built for us by FakeCOM
         @output_callback.add_function('PLP','L') {|p, mask, text| @output_buffer << text;0}
         @dc.SetOutputCallbacks( @output_callback.interface_ptr )
+        # Magic! kicks things into action or something?
         @dc.DebugControl.OutputCurrentState(1,0)
     end
 
@@ -112,7 +113,8 @@ class Bugger
 
     # In: Nothing
     # Out: Hash of String( reg_name )=>Integer( reg_value )
-    # Note that there are a LOT of registers.
+    # Note that there are a LOT of registers. Like 80ish.
+    # al, ah, ax are all 'separate' registers. etc.
     def registers
         indices=(0..register_count-1).to_a.pack('L*')
         out_ary=buf(32 * register_count)
@@ -143,14 +145,15 @@ class Bugger
             end_offset=buf(8)
             buf=buf(256)
             out_sz=ulong
-            @dc.DebugControl.Disassemble(old_end_offset[0..3].unpack('L')[0],
-                                                  old_end_offset[4..7].unpack('L')[0],
-                                                  0,
-                                                  buf,
-                                                  buf.size,
-                                                  out_sz,
-                                                  end_offset
-                                                 )
+            @dc.DebugControl.Disassemble(
+                old_end_offset[0..3].unpack('L')[0], # These two combine to make
+                old_end_offset[4..7].unpack('L')[0], # a 64 bit address. Win32API doesn't have 'Q' prototypes.
+                0,
+                buf,
+                buf.size,
+                out_sz,
+                end_offset
+            )
             raise_winerror( retval, __meth__ ) unless retval.zero?
             old_end_offset=end_offset
             results << ( buf[0,out_sz.unpack('L').first-1].squeeze(' ').chomp.split(' ',3) )
@@ -172,7 +175,17 @@ class Bugger
         extra_inf_sz=ulong
         desc=buf(256)
         desc_sz=ulong
-        retval=@dc.DebugControl.GetLastEventInformation(type,pid,tid,extra_inf,extra_inf.size,extra_inf_sz,desc,desc.size,desc_sz)
+        retval=@dc.DebugControl.GetLastEventInformation(
+            type,
+            pid,
+            tid,
+            extra_inf,
+            extra_inf.size, # size of our buffer
+            extra_inf_sz, # filled in with size used
+            desc,
+            desc.size, # size of our buffer
+            desc_sz # filled in with size used
+        )
         if retval.zero?
             type=type.unpack('L').first
             desc=desc[0,desc_sz.unpack('L').first-1] # Remove null terminator

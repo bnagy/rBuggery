@@ -1,3 +1,6 @@
+# Quick script to parse GUIDs from dbgeng.h into copy paste Ruby form
+# Out might need modification afterwards, but it's close enough.
+
 s=File.read "guids.txt"
 this_interface=''
 start=''

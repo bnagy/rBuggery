@@ -97,7 +97,7 @@ module RawBuggery
 
         # Need to get the interface pointer AFTER you have completed your vtable.
         def interface_ptr
-            # pack the callback addresses as an array in uint32 (pointers)
+            # pack the callback addresses as an array of uint32 (pointers)
             # and then use the 'P' pack directive to get a pointer to 
             # that string.
             [@vtable.map {|cb| cb.address }.pack('L*')].pack('P')
@@ -107,7 +107,7 @@ module RawBuggery
 =begin
     class Stub # EXAMPLE CLASS
         NUM_APIS=0 # fill in with correct number
-        # Local Constants
+        # Local Constants GO HERE
         def initialize( parent )
             # Get a pointer to the interface
             p = 0.chr*4

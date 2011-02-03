@@ -1,3 +1,7 @@
+# The idea of this script is to make sure that RawBuggery is loading the correct
+# DLLs for dbgeng and dbghlp. If you see no IIDs with a version > 2, you're 
+# probably only loading the old DLLs from system32
+
 require File.dirname(__FILE__) + "/raw_buggery"
 
 include RawBuggery
