@@ -2,6 +2,10 @@
 # COM interfaces exposed by the various dbgeng engine objects.
 # It's more rubyish than using RawBuggery methods directly.
 #
+# Note that I said THIN wrapper. If it doesn't have whatever
+# debugger stuff that you need wrapped, then use #execute( 'cmd' )
+# and parse the string result.
+#
 # Author: Ben Nagy
 # Copyright: Copyright (c) Ben Nagy, 2011.
 # License: The MIT License
@@ -10,7 +14,13 @@
 require File.dirname(__FILE__) + '/raw_buggery'
 include RawBuggery
 
-class Bugger
+OpenProcess=Win32::API.new('OpenProcess','LIL')
+DebugBreakProcess=Win32::API.new('DebugBreakProcess','L')
+CloseHandle=Win32::API.new('CloseHandle', 'L', 'B')
+
+PROCESS_ALL_ACCESS=0x1F0FFF
+
+class Buggery
     # Two way lookup, errors defined in WinError.h
     ERRORS={
         'S_OK'=>0x0,
@@ -45,7 +55,7 @@ class Bugger
         buf 4
     end
 
-    def raise_winerror( int, meth )
+    def raise_winerror( retval, meth )
         if ERRORS[retval]
             raise "#{meth} returned #{ERRORS[retval]}"
         else
@@ -63,20 +73,29 @@ class Bugger
         # is built for us by FakeCOM
         @output_callback.add_function('PLP','L') {|p, mask, text| @output_buffer << text;0}
         @dc.SetOutputCallbacks( @output_callback.interface_ptr )
-        # Magic! kicks things into action or something?
-        @dc.DebugControl.OutputCurrentState(1,0)
     end
 
     def get_output
-        @output_buffer
+        @dc.FlushCallbacks
+        @output_buffer.clone
     end
 
     def clear_output
+        @dc.FlushCallbacks
         @output_buffer.clear
+    end
+
+    # For raw access to the underlying RawBuggery object
+    # so you can call lowlevel APIs directly.
+    def raw
+        @dc
     end
 
     # In String( debugger_command ), Optional, Boolean( echo_command? )
     # Out: String( command_output )
+    # This command will also clear the output buffer BEFORE the command
+    # executes, so if you care what was in it, get_output first. This 
+    # is done to make sure you get only the output of your command.
     def execute( command_str, echo=false )
         clear_output
         @dc.DebugControl.Execute(
@@ -84,8 +103,7 @@ class Bugger
             command_str,
             echo ? DebugControl::DEBUG_EXECUTE_ECHO : DebugControl::DEBUG_EXECUTE_NOT_LOGGED
         )
-        @dc.FlushCallbacks
-        res=get_output.clone
+        res=get_output
         clear_output
         res
     end
@@ -93,37 +111,89 @@ class Bugger
     # In: String, Command line to execute
     # Out: true, or raise
     def create_process( command_str )
+        # Set the filter for the initial breakpoint event to break in
+        specific_filter_params=[
+            DebugControl::DEBUG_FILTER_BREAK, # ExecutionOption
+            0, # ContinueOption
+            0, # TextSize
+            0, # CommandSize
+            0 # ArgumentSize
+        ].pack('LLLLL')
+        @dc.DebugControl.SetSpecificFilterParameters(
+            DebugControl::DEBUG_FILTER_INITIAL_BREAKPOINT, # Start
+            1, # Count
+            specific_filter_params # params to set
+        )
+
+        # Create the process, catch the initial break, get the pid of the
+        # new process.
         retval=@dc.CreateProcess(0,0,command_str,DebugClient::DEBUG_PROCESS_ONLY_THIS_PROCESS)
+        wait_for_event( -1 ) # Which will be the initial breakpoint
+        pid=ulong
+        @dc.DebugSystemObjects.GetCurrentProcessSystemId( pid )
+        @pid=pid.unpack('L').first
+        go
+
         return true if retval.zero? # S_OK
-        raise_winerror( retval, __meth__ )
+        raise_winerror( retval, __method__ )
+    end
+
+    # In: Hexstring( exception_record_address ) Default: -1 (last exception)
+    # Out: Hash( record_key, record_val )
+    # This just wraps '.exr'
+    # There is a Description key which doesn't come from the engine, the value
+    # is the last line of the record which is, amazingly, a short description.
+    def exception_record( address=-1 )
+        raw=execute ".exr #{address}"
+        raw=raw.split("\n").map {|e| e.lstrip.split(': ')}
+        raw.each {|ary| ary.unshift( "Description" ) if ary.size!=2}
+        Hash[raw]
+    end
+
+    def go( status=DebugControl::DEBUG_STATUS_GO )
+        # "The SetExecutionStatus method requests that the debug
+        # engine enter an executable state. Actual execution will
+        # not occur until the next time WaitForEvent is called."
+        @dc.DebugControl.SetExecutionStatus( status )
+    end
+
+    def break
+        # Note - this will generate a breakpoint exception event
+        # You can't start executing commands until you handle
+        # that event somehow (wait_for_event, or event callbacks)
+        hProcess=OpenProcess.call(PROCESS_ALL_ACCESS, 0, @pid)
+        retval=DebugBreakProcess.call( hProcess )
+        raise RuntimeError, "#{__method__}: Failed to break in." if retval.zero?
+    ensure
+        CloseHandle.call( hProcess ) rescue false
     end
 
     # In: Timeout, -1 for infinite
     # Out: true, or raise. 
     def wait_for_event( timeout )
-        retval=@dc.DebugControl.WaitForEvent(DebugControl::DEBUG_WAIT_DEFAULT, timeout)
+        retval=@dc.DebugControl.WaitForEvent(0, timeout)
         return true if retval.zero?
-        raise_winerror( retval, __meth__ )
+        return false if retval=ERRORS['S_FALSE']
+        raise_winerror( retval, __method__ )
     end
 
     def lookup_event( event )
         EVENTS[event]
     end
 
-
     # In: Nothing
     # Out: Hash of String( reg_name )=>Integer( reg_value )
     # Note that there are a LOT of registers. Like 80ish.
     # al, ah, ax are all 'separate' registers. etc.
     def registers
-        indices=(0..register_count-1).to_a.pack('L*')
+        indices=(0...register_count).to_a.pack('L*')
         out_ary=buf(32 * register_count)
         retval=@dc.DebugRegisters.GetValues(register_count,indices,42,out_ary)
         if retval.zero?
             values=out_ary.unpack('Qx24'*register_count)
             Hash[*(register_descriptions.zip( values).flatten)]
         else
-            raise_winerror( retval, __meth__ )
+            raise_winerror( retval, __method__ )
         end
     end
 
@@ -131,14 +201,14 @@ class Bugger
     # Out: Array [ of [ Integer( address ), String( opcodes ), String( assembly ) ]
     def disassemble( addr, num_insns )
         addr64=[addr].pack('Q')
-        addr_hi=addr64[0..3].unpack('L').first
-        addr_lo=addr64[4..7].unpack('L').first
+        addr_hi=addr64[0..3].unpack('L').first # These two combine to make
+        addr_lo=addr64[4..7].unpack('L').first # a 64 bit address. Win32API doesn't have 'Q' prototypes.
         results=[]
         end_offset=buf(8)
         buf=buf(256)
         out_sz=ulong
         retval=@dc.DebugControl.Disassemble(addr_hi,addr_lo,0,buf,buf.size,out_sz,end_offset)
-        raise_winerror( retval, __meth__ ) unless retval.zero?
+        raise_winerror( retval, __method__ ) unless retval.zero?
         old_end_offset=end_offset
         results << ( buf[0,out_sz.unpack('L').first-1].squeeze(' ').chomp.split(' ',3) )
         (num_insns - 1).times do
@@ -146,15 +216,15 @@ class Bugger
             buf=buf(256)
             out_sz=ulong
             @dc.DebugControl.Disassemble(
-                old_end_offset[0..3].unpack('L')[0], # These two combine to make
-                old_end_offset[4..7].unpack('L')[0], # a 64 bit address. Win32API doesn't have 'Q' prototypes.
+                old_end_offset[0..3].unpack('L')[0],
+                old_end_offset[4..7].unpack('L')[0],
                 0,
                 buf,
                 buf.size,
                 out_sz,
                 end_offset
             )
-            raise_winerror( retval, __meth__ ) unless retval.zero?
+            raise_winerror( retval, __method__ ) unless retval.zero?
             old_end_offset=end_offset
             results << ( buf[0,out_sz.unpack('L').first-1].squeeze(' ').chomp.split(' ',3) )
         end
@@ -166,7 +236,7 @@ class Bugger
     end
 
     # In: Nothing
-    # Out: [Integer( event_type ), String( event_desc ), String( extra_info )]
+    # Out: [Integer( event_type ), String( event_desc ), String( extra_info_struct )]
     def get_last_event_information
         type=ulong
         pid=ulong
@@ -192,7 +262,7 @@ class Bugger
             extra_inf=extra_inf[0,extra_inf_sz.unpack('L').first]
             [type, desc, extra_inf]
         else
-            raise_winerror( retval, __meth__ )
+            raise_winerror( retval, __method__ )
         end
     end
 

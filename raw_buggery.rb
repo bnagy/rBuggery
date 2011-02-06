@@ -6,13 +6,24 @@
 # Copyright: Copyright (c) Ben Nagy, 2011.
 # License: The MIT License
 # (See README.TXT or http://www.opensource.org/licenses/mit-license.php for details.)
-# THANKS: Park Heesob and Daniel Berger, couldn't have done it without their help.
+# THANKS: Daniel Berger and especially Park Heesob, for the code behind FakeCOM
 
 require 'win32/api'
 
+# Might need to change this.
+DEBUGGER_PATH='C:\\Program Files\\Debugging Tools for Windows (x86)'
+unless File.exists? "#{DEBUGGER_PATH}\\dbgeng.dll"
+    raise RuntimeError, "Unable to load DLLs, please set DEBUGGER_PATH in raw_buggery.rb" 
+end
+
 Memcpy = Win32::API.new('memcpy', 'PLL', 'L','msvcrt')
-DebugCreate = Win32::API.new('DebugCreate', 'PP', 'L','dbgeng')
+LoadLibrary=Win32::API.new('LoadLibrary','P')
+LoadLibrary.call("#{DEBUGGER_PATH}\\dbghelp")
+DebugCreate = Win32::API.new('DebugCreate', 'PP', 'L',"#{DEBUGGER_PATH}\\dbgeng")
+
 # These are parsed out from dbgeng.h
+# Not all of these are implemented yet, sorry. I haven't needed
+# any of the later version APIs yet.
 IIDS={
     'RawBuggery::DebugAdvanced'=>[0xf2df5f53, 0x071f, 0x47bd, 0x9d, 0xe6, 0x57, 0x34, 0xc3, 0xfe, 0xd6, 0x89].pack('LSSC8'),
     'RawBuggery::DebugAdvanced2'=>[0x716d14c9, 0x119b, 0x4ba5, 0xaf, 0x1f, 0x08, 0x90, 0xe6, 0x72, 0x41, 0x6a].pack('LSSC8'),
@@ -90,7 +101,10 @@ module RawBuggery
 
         # Add a new function to the end of the vtable.
         def add_function( arg_prototype, ret_prototype, &blk )
-            raise ArgumentError "#{self.class}:#{__meth__}: Need a block to add!" unless block_given?
+            raise ArgumentError "#{self.class}:#{__method__}: Need a block to add!" unless block_given?
+            unless arg_prototype.size==blk.arity
+                raise ArgumentError "#{self.class}:#{__method__}: Prototype length doesn't match block arity!"
+            end
             @new=Win32::API::Callback.new(arg_prototype, ret_prototype, &blk)
             @vtable << @new
         end
@@ -209,6 +223,8 @@ module RawBuggery
         DEBUG_IOUTPUT_ADDR_TRANSLATE=0x08000000
         DEBUG_OUTPUT_IDENTITY_DEFAULT=0x00000000
 
+        NUM_APIS=48
+
         def initialize
             # Get a pointer to the IDebugClient interface
             ptr = 0.chr*4
@@ -218,11 +234,11 @@ module RawBuggery
             # *vtable
             lpVtbl = 0.chr * 4
             # malloc for vtable, 48 APIs * 4 byte addresses
-            @vtable = 0.chr * 4*48
+            @vtable = 0.chr * 4*NUM_APIS
             # Copy *vtable from interface
             Memcpy.call(lpVtbl,@interface_ptr,4)
             # Copy vtable contents into @vtable
-            Memcpy.call(@vtable,lpVtbl.unpack('L').first,4*48)
+            Memcpy.call(@vtable,lpVtbl.unpack('L').first,4*NUM_APIS)
             # Unpack into an array of addresses
             @vtable=@vtable.unpack('L*')
             @interface_table={} # empty for now, built as needed
@@ -299,8 +315,6 @@ module RawBuggery
     end
 
     class DebugRegisters
-        # Interface ID
-        NUM_APIS=14
         # Local Constants
         DEBUG_REGISTERS_DEFAULT=0x00000000
         DEBUG_REGISTERS_INT32=0x00000001
@@ -308,6 +322,9 @@ module RawBuggery
         DEBUG_REGISTERS_FLOAT=0x00000004
         DEBUG_REGISTERS_ALL=0x00000007
         DEBUG_REGISTER_SUB_REGISTER=0x00000001
+
+        NUM_APIS=14
+
         def initialize( parent )
             # Get a pointer to the interface
             p = 0.chr*4
