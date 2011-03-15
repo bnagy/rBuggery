@@ -14,12 +14,6 @@ OPTS=Trollop::options do
 end
 
 @bugger=Buggery.new(OPTS[:debug])
-p @bugger
-@bugger.create_process("c:\\Program Files\\Microsoft Office\\Office12\\WINWORD.EXE")
-sleep 5
-exit
 DRb.start_service( "druby://:#{OPTS[:port]}", @bugger )
 puts "Server running at #{DRb.uri}"
-
-trap("INT") { DRb.stop_service }
 DRb.thread.join

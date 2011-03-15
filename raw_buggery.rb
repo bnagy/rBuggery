@@ -79,7 +79,7 @@ module RawBuggery
         # this stuff, it's pretty ghetto...
         def initialize
             # All objects need to implement these functions from IUnknown
-            @QueryInterface = Win32::API::Callback.new('PPP','L',&lambda {|p,riid,ppv|
+            @QueryInterface = Win32::API::Callback.new('PPP','L') {|p,riid,ppv|
                 if riid == IID_IUnknown || riid == IID_IDispatch
                     refcount = 0.chr * 4
                     memcpy(refcount,p+4,4)
@@ -89,7 +89,7 @@ module RawBuggery
                     return S_OK
                 end
                 E_NOINTERFACE
-            })
+            }
             @AddRef = Win32::API::Callback.new('P','L') {|p|
                 1
             }
@@ -114,7 +114,7 @@ module RawBuggery
             # pack the callback addresses as an array of uint32 (pointers)
             # and then use the 'P' pack directive to get a pointer to 
             # that string.
-            [@vtable.map {|cb| cb.address }.pack('L*')].pack('P')
+            @iface_ptr=[@vtable.map {|cb| cb.address }.pack('L*')].pack('P')
         end
     end
 

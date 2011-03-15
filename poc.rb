@@ -4,6 +4,7 @@ require File.dirname(__FILE__) + '/lowlevel_buggery'
 debug_client=Buggery.new
 
 i=0
+mark=Time.now
 100.times do
     begin
         debug_client.create_process("c:\\Windows\\System32\\notepad.exe")
@@ -22,3 +23,4 @@ i=0
     end
     puts i+=1
 end
+puts Time.now - mark

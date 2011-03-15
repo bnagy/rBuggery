@@ -15,10 +15,6 @@ end
 
 @bugger=Buggery.new(OPTS[:debug])
 server = MessagePack::RPC::Server.new
-server.listen('0.0.0.0', 8888, @bugger)
-begin
+server.listen('0.0.0.0', OPTS[:port], @bugger)
 server.run
-rescue
-    puts $!
-end
 

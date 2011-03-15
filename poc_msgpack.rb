@@ -18,10 +18,11 @@ end
 debug_client=Debugger.new('127.0.0.1',8888)
 
 
+mark=Time.now
+loop do
+debug_client.create_process("c:\\Program Files\\Microsoft Office\\Office12\\WINWORD.EXE")
 debug_client.execute ".symopt+0x100" # NO_UNQUALIFIED_LOADS
 debug_client.execute ".sympath C:\\windows\\system32;C:\\localsymbols"
-(1..100).each {|i|
-debug_client.create_process("c:\\Program Files\\Microsoft Office\\Office12\\WINWORD.EXE")
 debug_client.clear_output # discard startup blurb
 
 debug_client.break
@@ -32,5 +33,5 @@ puts debug_client.execute ".lastevent"
 puts debug_client.disassemble( debug_client.registers['eip'], 10 ).map {|a| a.join(' ')}
 debug_client.go
 debug_client.terminate_process
-puts "That was #{i}"
-}
+end
+puts Time.now - mark
