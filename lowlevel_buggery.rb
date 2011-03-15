@@ -46,6 +46,9 @@ class Buggery
         'DEBUG_EVENT_CHANGE_SYMBOL_STATE'=>0x00001000
     }
     EVENTS.update EVENTS.invert
+    COMPONENT="Buggery"
+    VERSION="0.1"
+
 
     def buf( n )
         0.chr * n
@@ -64,7 +67,13 @@ class Buggery
         end
     end
 
-    def initialize
+    def debug_info( str )
+        warn "#{COMPONENT}-#{VERSION}: #{str}" if @debug
+    end
+
+
+    def initialize( debug=false )
+        @debug=debug
         @dc=DebugClient.new
         @output_callback=FakeCOM.new
         @output_buffer=""
@@ -111,6 +120,7 @@ class Buggery
     # In: String, Command line to execute
     # Out: true, or raise
     def create_process( command_str )
+        debug_info "Creating process with commandline #{command_str}"
         # Set the filter for the initial breakpoint event to break in
         specific_filter_params=[
             DebugControl::DEBUG_FILTER_BREAK, # ExecutionOption
@@ -128,10 +138,12 @@ class Buggery
         # Create the process, catch the initial break, get the pid of the
         # new process.
         retval=@dc.CreateProcess(0,0,command_str,DebugClient::DEBUG_PROCESS_ONLY_THIS_PROCESS)
+        debug_info "created, retval #{retval}"
         wait_for_event( -1 ) # Which will be the initial breakpoint
         pid=ulong
         @dc.DebugSystemObjects.GetCurrentProcessSystemId( pid )
         @pid=pid.unpack('L').first
+        debug_info "Created, pid is #{@pid}"
         go
 
         return true if retval.zero? # S_OK
