@@ -1,7 +1,5 @@
 require 'win32/api'
 require File.dirname(__FILE__) + '/lowlevel_buggery'
-require File.dirname(__FILE__) + '/struct_unpacks'
-
 
 debug_client=Buggery.new
 
@@ -13,12 +11,11 @@ i=0
         debug_client.execute ".sympath C:\\windows\\system32;C:\\localsymbols"
         debug_client.break
         debug_client.wait_for_event( -1 )
-        #type, desc, extra=debug_client.get_last_event_information
-        #puts debug_client.exception_record
+        type, desc, extra=debug_client.get_last_event_information
+        puts debug_client.exception_record
         puts debug_client.execute 'r'
-        #puts debug_client.disassemble( debug_client.registers['eip'], 10 ).map {|a| a.join(' ')}
+        puts debug_client.disassemble( debug_client.registers['eip'], 10 ).map {|a| a.join(' ')}
         debug_client.terminate_process
-        sleep 0.5
     rescue
         puts $!
         puts $@
