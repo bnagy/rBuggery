@@ -13,7 +13,6 @@ OPTS=Trollop::options do
     opt :debug, "Debug output", :type=>:boolean
 end
 
-@bugger=Buggery.new(OPTS[:debug])
-DRb.start_service( "druby://:#{OPTS[:port]}", @bugger )
+DRb.start_service( "druby://:#{OPTS[:port]}", Buggery.new(OPTS[:debug]) )
 puts "Server running at #{DRb.uri}"
 DRb.thread.join

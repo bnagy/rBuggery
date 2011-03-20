@@ -9,6 +9,7 @@
 # THANKS: Daniel Berger and especially Park Heesob, for the code behind FakeCOM
 
 require 'win32/api'
+require 'drb'
 
 # Might need to change this.
 DEBUGGER_PATH='C:\\Program Files\\Debugging Tools for Windows (x86)'

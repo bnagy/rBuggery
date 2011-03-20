@@ -7,6 +7,12 @@ require 'rubygems'
 require 'msgpack/rpc'
 
 class Debugger < BasicObject
+    # This is all a bit tragic. Normally I would just create a basic
+    # broker object via method_missing, but Rev gets upset due to
+    # some recursion error, so these methods need to be kept maunally
+    # in step with the Buggery class in lowlevel_buggery.rb. I would
+    # recommend using the DRb client / server code instead, but this
+    # is possibly fractionally faster.
 
     def initialize( addr, port )
         @debug_client=::MessagePack::RPC::Client.new( addr, port )

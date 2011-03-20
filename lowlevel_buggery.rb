@@ -96,6 +96,8 @@ class Buggery
 
     # For raw access to the underlying RawBuggery object
     # so you can call lowlevel APIs directly.
+    # DOES NOT WORK DISTRIBUTED since most of the Raw 
+    # methods rely on modifying the target of a pointer.
     def raw
         @dc
     end
@@ -276,6 +278,14 @@ class Buggery
         else
             raise_winerror( retval, __method__ )
         end
+    end
+
+    def target_running?
+        # 1==GO, 2==GO_HANDLED, 3==GO_NOT_HANDLED
+        # Don't know if the steps and such should be called running...
+        status=ulong
+        @dc.DebugControl.GetExecutionStatus( status )
+        (1..3).include? status.unpack('L').first
     end
 
     private
