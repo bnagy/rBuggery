@@ -9,7 +9,7 @@ require 'drb'
 require File.dirname(__FILE__) + '/lowlevel_buggery'
 
 OPTS=Trollop::options do
-    opt :port, "Port to listen on, default 8888", :type=>:integer, :default=>8888
+    opt :port, "Port to listen on, default 8889", :type=>:integer, :default=>8889
     opt :debug, "Debug output", :type=>:boolean
 end
 

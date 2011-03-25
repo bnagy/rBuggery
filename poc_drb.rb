@@ -3,9 +3,6 @@ require 'drb'
 require 'trollop'
 require 'win32/api'
 require File.dirname(__FILE__) + '/lowlevel_buggery'
-require File.dirname(__FILE__) + '/struct_unpacks'
-include DebugStructs
-
 
 OPTS=Trollop::options do
     opt :port, "Port to listen on", :type=>:integer, :default=>8888
@@ -17,16 +14,15 @@ end
 debug_client=DRbObject.new nil, "druby://127.0.0.1:#{OPTS[:port]+1}"
 mark=Time.now
 loop do
-    debug_client.create_process("c:\\Program Files\\Microsoft Office\\Office12\\WINWORD.EXE /Q")
     debug_client.execute ".symopt+0x100" # NO_UNQUALIFIED_LOADS
     debug_client.execute ".sympath C:\\windows\\system32;C:\\localsymbols"
-    debug_client.clear_output # discard startup blurb
-    puts debug_client.target_running?
-    sleep 5
+    puts debug_client.get_output
+    debug_client.create_process("c:\\Program Files\\Microsoft Office\\Office12\\WINWORD.EXE /Q")
+exit
     debug_client.break
-    debug_client.wait_for_event( -1 )
-    puts debug_client.target_running?
-    sleep 5
+    debug_client.wait_for_event( -1 ) # which will be the breakpoint event
+    puts debug_client.get_output
+    debug_client.clear_output # discard startup blurb
     type, desc, extra=debug_client.get_last_event_information
     p debug_client.exception_record
     puts debug_client.execute ".lastevent"
