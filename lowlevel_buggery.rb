@@ -300,6 +300,12 @@ class Buggery
         (1..3).include? status.unpack('L').first
     end
 
+    def destroy
+        terminate_process
+        execute "qd"
+        exit
+    end
+
     private
 
     def register_count
