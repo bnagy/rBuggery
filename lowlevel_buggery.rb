@@ -12,13 +12,24 @@
 # (See README.TXT or http://www.opensource.org/licenses/mit-license.php for details.)
 
 require File.dirname(__FILE__) + '/raw_buggery'
+require File.dirname(__FILE__) + '/fake_com'
+require File.dirname(__FILE__) + '/event_callbacks'
+require 'ffi'
 include RawBuggery
+include FFI
 
-OpenProcess=Win32::API.new('OpenProcess','LIL')
-DebugBreakProcess=Win32::API.new('DebugBreakProcess','L')
-CloseHandle=Win32::API.new('CloseHandle', 'L', 'B')
+module Kernel32
+    extend FFI::Library
+    ffi_lib "kernel32"
+    ffi_convention :stdcall
 
-PROCESS_ALL_ACCESS=0x1F0FFF
+    PROCESS_ALL_ACCESS=0x1F0FFF
+
+    attach_function :OpenProcess, [:ulong, :int, :ulong], :ulong
+    attach_function :DebugBreakProcess, [:ulong], :ulong
+    attach_function :CloseHandle, [:ulong], :bool
+end
+
 
 class Buggery
     # Two way lookup, errors defined in WinError.h
@@ -50,12 +61,20 @@ class Buggery
     VERSION="0.1"
 
 
-    def buf( n )
-        0.chr * n
+    def p_char( n )
+        MemoryPointer.new(:char,n)
     end
 
-    def ulong
-        buf 4
+    def p_ulong
+        MemoryPointer.new(:ulong)
+    end
+
+    def p_int
+        MemoryPointer.new(:int)
+    end
+
+    def p_ulong64
+        MemoryPointer.new(:uint64)
     end
 
     def raise_winerror( retval, meth )
@@ -71,23 +90,32 @@ class Buggery
         warn "#{COMPONENT}-#{VERSION}: #{str}" if @debug
     end
 
-
     def initialize( debug=false )
         @debug=debug
         @dc=DebugClient.new
-        @dc_mutex=Mutex.new
         @output_callback=FakeCOM.new
         @output_buffer=""
         # This is the only method the IDebugOutputCallbacks object 
         # needs to implement, apart from the IUnknown stuff which
         # is built for us by FakeCOM
-        @output_callback.add_function('PLP','L') {|p, mask, text| @output_buffer << text;0}
-        @dc.SetOutputCallbacks( @output_callback.interface_ptr )
+        @output_callback.add_function(:ulong, [:pointer, :ulong, :string]) {|p, mask, text| 
+            @output_buffer << text
+            0
+        }
+        @dc.SetOutputCallbacks( ptr=@output_callback.interface_ptr )
+        @dc.SetOutputMask DebugClient::DEBUG_OUTPUT_NORMAL
+        @cbh=EventCallbacks.new( @dc )
     end
 
     def get_output
         @dc.FlushCallbacks
         @output_buffer.clone
+    end
+
+    # DOES NOT WORK DISTRIBUTED because when you want to add a callback,
+    # Proc will not Marshal.
+    def event_callbacks
+        @cbh
     end
 
     def clear_output
@@ -123,41 +151,41 @@ class Buggery
     # In: Nothing
     # Out: Integer( target_pid )
     def current_process
-        pid=ulong
-        @dc.DebugSystemObjects.GetCurrentProcessSystemId( pid )
-        pid.unpack('L').first
+        @dc.DebugSystemObjects.GetCurrentProcessSystemId( pid=p_int )
+        pid.read_int
     end
 
     # In: String, Command line to execute
     # Out: true, or raise
     def create_process( command_str, create_broken=false )
-        @dc_mutex.synchronize {
-            @dc.TerminateProcesses # one at a time...
-            debug_info "Creating process with commandline #{command_str}"
-            # Set the filter for the initial breakpoint event to break in
-            specific_filter_params=[
-                DebugControl::DEBUG_FILTER_BREAK, # ExecutionOption
-                0, # ContinueOption
-                0, # TextSize
-                0, # CommandSize
-                0 # ArgumentSize
-            ].pack('LLLLL')
-            @dc.DebugControl.SetSpecificFilterParameters(
-                DebugControl::DEBUG_FILTER_INITIAL_BREAKPOINT, # Start
-                1, # Count
-                specific_filter_params # params to set
-            )
-
-            # Create the process, catch the initial break, get the pid of the
-            # new process.
-            retval=@dc.CreateProcess(0,0,command_str,DebugClient::DEBUG_PROCESS_ONLY_THIS_PROCESS)
-            wait_for_event( -1 ) # Which will be the initial breakpoint
-            @pid=current_process
-            debug_info "Created, pid is #{@pid}"
-            go unless create_broken
-            return true if retval.zero? # S_OK
-            raise_winerror( retval, __method__ )
-        }
+        @dc.TerminateProcesses # one at a time...
+        debug_info "Creating process with commandline #{command_str}"
+        # Set the filter for the initial breakpoint event to break in
+        specific_filter_params=MemoryPointer.from_string([
+             DebugControl::DEBUG_FILTER_BREAK, # ExecutionOption
+             0, # ContinueOption
+             0, # TextSize
+             0, # CommandSize
+             0 # ArgumentSize
+        ].pack('LLLLL'))
+        @dc.DebugControl.SetSpecificFilterParameters(
+            DebugControl::DEBUG_FILTER_INITIAL_BREAKPOINT, # Start
+            1, # Count
+            specific_filter_params # params to set
+        )
+        # Create the process, catch the initial break, get the pid of the
+        # new process.
+        retval=@dc.CreateProcess(
+            0,
+            command_str,
+            DebugClient::DEBUG_PROCESS_ONLY_THIS_PROCESS
+        )
+        wait_for_event( -1 ) # Which will be the initial breakpoint
+        @pid=current_process
+        debug_info "Created, pid is #{@pid}"
+        go unless create_broken
+        return true if retval.zero? # S_OK
+        raise_winerror( retval, __method__ )
     end
 
     # In: Hexstring( exception_record_address ) Default: -1 (last exception)
@@ -183,18 +211,18 @@ class Buggery
         # Note - this will generate a breakpoint exception event
         # You can't start executing commands until you handle
         # that event somehow (wait_for_event, or event callbacks)
-        hProcess=OpenProcess.call(PROCESS_ALL_ACCESS, 0, @pid)
-        retval=DebugBreakProcess.call( hProcess )
+        hProcess=Kernel32.OpenProcess(Kernel32::PROCESS_ALL_ACCESS, 0, @pid)
+        retval=Kernel32.DebugBreakProcess( hProcess )
         raise RuntimeError, "#{__method__}: Failed to break in." if retval.zero?
     ensure
-        CloseHandle.call( hProcess ) rescue false
+        Kernel32.CloseHandle( hProcess ) rescue false
     end
 
     # In: Timeout, -1 for infinite
     # Out: true (there's an event), false (timeout expired), or raise. 
     def wait_for_event( timeout=-1 )
         begin
-        retval=@dc.DebugControl.WaitForEvent(0, timeout)
+            retval=@dc.DebugControl.WaitForEvent(0, timeout)
         rescue
             puts $!
         end
@@ -212,38 +240,45 @@ class Buggery
     # Note that there are a LOT of registers. Like 80ish.
     # al, ah, ax are all 'separate' registers. etc.
     def registers
-        indices=(0...register_count).to_a.pack('L*')
-        out_ary=buf(32 * register_count)
+        indices=MemoryPointer.from_string((0...register_count).to_a.pack('L*'))
+        out_ary=p_char(32 * register_count)
         retval=@dc.DebugRegisters.GetValues(register_count,indices,42,out_ary)
         if retval.zero?
-            values=out_ary.unpack('Qx24'*register_count)
+            packed=out_ary.read_array_of_uint64( 32 * register_count / 8 ).pack('Q*')
+            values=packed.unpack('Qx24'*register_count) # get value, then skip 24 bytes
             Hash[*(register_descriptions.zip( values).flatten)]
         else
             raise_winerror( retval, __method__ )
         end
     end
 
+    def attach( pid, option_mask=0x0 )
+        # option_mask uses the DEBUG_ATTACH_XXX constants
+        @dc.AttachProcess( 0, 0, Integer( pid ), Integer( option_mask ) )
+        @pid=pid
+        # Still need to wait for event! Probably want to break first
+        # but can't mollycoddle the user if they want to use different
+        # option flags.
+    end
+
+
     # In: Integer( address ), Integer( num_instructions )
     # Out: Array [ of [ Integer( address ), String( opcodes ), String( assembly ) ]
     def disassemble( addr, num_insns )
-        addr64=[addr].pack('Q')
-        addr_hi=addr64[0..3].unpack('L').first # These two combine to make
-        addr_lo=addr64[4..7].unpack('L').first # a 64 bit address. Win32API doesn't have 'Q' prototypes.
-        results=[]
-        end_offset=buf(8)
-        buf=buf(256)
-        out_sz=ulong
-        retval=@dc.DebugControl.Disassemble(addr_hi,addr_lo,0,buf,buf.size,out_sz,end_offset)
+        buf=p_char(256)
+        out_sz=p_ulong
+        end_offset=p_ulong64
+        retval=@dc.DebugControl.Disassemble(addr,0,buf,buf.size,out_sz,end_offset)
         raise_winerror( retval, __method__ ) unless retval.zero?
-        old_end_offset=end_offset
-        results << ( buf[0,out_sz.unpack('L').first-1].squeeze(' ').chomp.split(' ',3) )
+        old_end_offset=end_offset.read_uint64
+        results=[]
+        results << ( buf.read_string[0,out_sz.read_ulong].squeeze(' ').chomp.split(' ',3) )
         (num_insns - 1).times do
-            end_offset=buf(8)
-            buf=buf(256)
-            out_sz=ulong
+            end_offset=p_ulong64
+            buf=p_char(256)
+            out_sz=p_ulong
             @dc.DebugControl.Disassemble(
-                old_end_offset[0..3].unpack('L')[0],
-                old_end_offset[4..7].unpack('L')[0],
+                old_end_offset,
                 0,
                 buf,
                 buf.size,
@@ -251,8 +286,8 @@ class Buggery
                 end_offset
             )
             raise_winerror( retval, __method__ ) unless retval.zero?
-            old_end_offset=end_offset
-            results << ( buf[0,out_sz.unpack('L').first-1].squeeze(' ').chomp.split(' ',3) )
+            old_end_offset=end_offset.read_uint64
+            results << ( buf.read_string[0,out_sz.read_ulong].squeeze(' ').chomp.split(' ',3) )
         end
         results
     end
@@ -264,13 +299,13 @@ class Buggery
     # In: Nothing
     # Out: [Integer( event_type ), String( event_desc ), String( extra_info_struct )]
     def get_last_event_information
-        type=ulong
-        pid=ulong
-        tid=ulong
-        extra_inf=buf(256)
-        extra_inf_sz=ulong
-        desc=buf(256)
-        desc_sz=ulong
+        type=p_ulong
+        pid=p_ulong
+        tid=p_ulong
+        extra_inf=p_char(256)
+        extra_inf_sz=p_ulong
+        desc=p_char(256)
+        desc_sz=p_ulong
         retval=@dc.DebugControl.GetLastEventInformation(
             type,
             pid,
@@ -283,9 +318,9 @@ class Buggery
             desc_sz # filled in with size used
         )
         if retval.zero?
-            type=type.unpack('L').first
-            desc=desc[0,desc_sz.unpack('L').first-1] # Remove null terminator
-            extra_inf=extra_inf[0,extra_inf_sz.unpack('L').first]
+            type=type.read_ulong
+            desc=desc.read_string[0,desc_sz.read_ulong-1] # Remove null terminator
+            extra_inf=extra_inf.read_string[0,extra_inf_sz.read_ulong]
             [type, desc, extra_inf]
         else
             raise_winerror( retval, __method__ )
@@ -295,24 +330,22 @@ class Buggery
     def target_running?
         # 1==GO, 2==GO_HANDLED, 3==GO_NOT_HANDLED
         # Don't know if the steps and such should be called running...
-        status=ulong
-        @dc.DebugControl.GetExecutionStatus( status )
-        (1..3).include? status.unpack('L').first
+        @dc.DebugControl.GetExecutionStatus( status=p_ulong )
+        (1..3).include? status.read_ulong
     end
 
     def destroy
         terminate_process
-        execute "qd"
-        exit
+        DRb.thread.exit rescue exit
     end
 
     private
 
     def register_count
         unless @reg_count
-            reg_count=ulong
+            reg_count=p_ulong
             @dc.DebugRegisters.GetNumberRegisters( reg_count )
-            @reg_count=reg_count.unpack('L').first
+            @reg_count=reg_count.read_ulong
         end
         @reg_count
     end
@@ -321,11 +354,11 @@ class Buggery
         unless @reg_descs
             @reg_descs=[]
             (0..register_count-1).each {|i|
-                regname=buf(16)
-                reg_desc=buf(28) # special struct
-                name_sz=ulong
+                regname=p_char(16)
+                reg_desc=p_char(28) # special struct
+                name_sz=p_ulong
                 @dc.DebugRegisters.GetDescription(i,regname,regname.size,name_sz,reg_desc)
-                @reg_descs << regname[0,name_sz.unpack('L').first-1]
+                @reg_descs << regname.read_string[0,name_sz.read_ulong-1]
             }
         end
         @reg_descs

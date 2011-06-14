@@ -1,1 +1,12 @@
-Sorry, not working enough to be documented yet. Give it a try if you dare, though.
+Initial work to wrap dbgeng.dll with FFI. The key to the project is the FakeCOM calss, which allows COM objects to be accessed through Ruby without the hefty comtypes style approach of registering DLLs and such.
+
+Currently working:
+* General wrapping, non-callback based, local and remote (via DRb)
+* Callback support, local only
+
+To do (LOTS)
+* Implement FakeCOM IDebugBreakpoint, add minimal sugar
+* Gradually expand sugar in the lowlevel API (not the Raw API)
+* Get callbacks working via DRb
+
+Alpha release, "it works for me" quality.
