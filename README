@@ -1,11 +1,11 @@
-Initial work to wrap dbgeng.dll with FFI. The key to the project is the FakeCOM calss, which allows COM objects to be accessed through Ruby without the hefty comtypes style approach of registering DLLs and such.
+Initial work to wrap dbgeng.dll with FFI. The key to the project is the FakeCOM class, which allows COM objects to be accessed through Ruby without the hefty comtypes style approach of registering DLLs and such.
 
 Currently working:
 * General wrapping, non-callback based, local and remote (via DRb)
 * Callback support, local only
+* IDebugBreakpoint wrapped via Breakpoint class
 
 To do (LOTS)
-* Implement FakeCOM IDebugBreakpoint, add minimal sugar
 * Gradually expand sugar in the lowlevel API (not the Raw API)
 * Get callbacks working via DRb
 
