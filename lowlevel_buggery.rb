@@ -14,6 +14,7 @@
 require File.dirname(__FILE__) + '/raw_buggery'
 require File.dirname(__FILE__) + '/fake_com'
 require File.dirname(__FILE__) + '/event_callbacks'
+require File.dirname(__FILE__) + '/breakpoint'
 require 'ffi'
 include RawBuggery
 include FFI
@@ -120,6 +121,7 @@ class Buggery
 
     def clear_output
         @dc.FlushCallbacks
+        @dc.FlushCallbacks
         @output_buffer.clear
     end
 
@@ -213,7 +215,6 @@ class Buggery
         # that event somehow (wait_for_event, or event callbacks)
         hProcess=Kernel32.OpenProcess(Kernel32::PROCESS_ALL_ACCESS, 0, @pid)
         retval=Kernel32.DebugBreakProcess( hProcess )
-        raise RuntimeError, "#{__method__}: Failed to break in." if retval.zero?
     ensure
         Kernel32.CloseHandle( hProcess ) rescue false
     end
