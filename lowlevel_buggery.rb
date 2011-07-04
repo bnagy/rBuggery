@@ -15,6 +15,7 @@ require File.dirname(__FILE__) + '/raw_buggery'
 require File.dirname(__FILE__) + '/fake_com'
 require File.dirname(__FILE__) + '/event_callbacks'
 require File.dirname(__FILE__) + '/breakpoint'
+require File.dirname(__FILE__) + '/exception'
 require 'ffi'
 include RawBuggery
 include FFI
