@@ -64,7 +64,7 @@ class EventCallbacks < FakeCOM
         #        ) PURE;
         @vtable << FFI::Function.new( :int, [:pointer, :pointer] ) {|this,mask|
             mask.write_uint32 @interest_mask
-            0
+            0 # S_OK
         }
         # Add the real callbacks, in order.
         add_com_callback( 

@@ -1,12 +1,13 @@
 require 'pp'
-require File.dirname(__FILE__) + '/lowlevel_buggery'
+require File.dirname(__FILE__) + '/../lowlevel_buggery'
 
 debug_client=Buggery.new
 
 debug_client.event_callbacks.add( :exception ) {|args|
-    # We can either use the EXCEPTION_RECORD64 directly
+    # FFI::Struct, with some extra sugar in the class
     exr=EXCEPTION_RECORD64.new args[:exception_record]
-    if args[:first_chance].zero? # Non-continuable exception
+    if args[:first_chance].zero?
+        # We can either use the EXCEPTION_RECORD64 directly
         puts "#{"%8.8x" % exr[:code]} - Second chance"
         @fatal_exception=true
         # Or any native windbg commands or extensions
@@ -16,7 +17,7 @@ debug_client.event_callbacks.add( :exception ) {|args|
         puts debug_client.execute "r"
     else
         puts "#{exr.code} - First chance"
-        # Or sugar for the .exr command
+        # Or sugar for the windbg '.exr' command
         pp debug_client.exception_record
     end
     puts "--------------"
@@ -24,8 +25,7 @@ debug_client.event_callbacks.add( :exception ) {|args|
 }
 
 debug_client.create_process(
-    "C:\\Program Files\\Microsoft Office\\Office12\\WINWORD.EXE" +
-    " #{ARGV[0]}"
+    "C:\\Program Files\\Microsoft Office\\Office12\\WINWORD.EXE #{ARGV[0]}"
 )
 debug_client.execute "!load winext\\msec.dll"
-debug_client.wait_for_event(10) until @fatal_exception
+debug_client.wait_for_event 10 until @fatal_exception

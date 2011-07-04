@@ -15,6 +15,7 @@ sleep 5 # give it time to start up
 debug_client=DRbObject.new nil, "druby://127.0.0.1:#{OPTS[:port]}"
 mark=Time.now
 1000.times do
+    # Just do some random stuff....
     debug_client.execute ".symopt+0x100" # NO_UNQUALIFIED_LOADS
     debug_client.execute ".sympath C:\\windows\\system32;C:\\localsymbols"
     puts debug_client.get_output
@@ -31,4 +32,4 @@ mark=Time.now
     debug_client.terminate_process
 end
 debug_client.destroy
-puts Time.now - mark
+puts Time.now - mark # ~150s on my MBP
