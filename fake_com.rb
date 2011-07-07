@@ -49,6 +49,14 @@ class FakeCOM
         # pack the callback addresses as an array of uint32 (pointers)
         # and then use the 'P' pack directive to get a pointer to 
         # that string.
-        @iface_ptr||=[@vtable.map {|func| func.address }.pack('L*')].pack('P')
+        @p=FFI::MemoryPointer.new :pointer, @vtable.size
+        @p.write_array_of_pointer @vtable.map {|f| f.address}
+        if FFI::Pointer.size==4
+            @iface_ptr||=[@p.address].pack('L')
+        elsif FFI::Pointer.size=8
+            @iface_ptr||=[@p.address].pack('Q')
+        else
+            raise "Unknown pointer size / arch"
+        end
     end
 end

@@ -63,7 +63,7 @@ class EventCallbacks < FakeCOM
         #        __out PULONG Mask
         #        ) PURE;
         @vtable << FFI::Function.new( :int, [:pointer, :pointer] ) {|this,mask|
-            mask.write_uint32 @interest_mask
+            mask.write_ulong @interest_mask
             0 # S_OK
         }
         # Add the real callbacks, in order.
