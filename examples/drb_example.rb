@@ -2,7 +2,7 @@ require 'rubygems'
 require 'drb'
 require 'trollop'
 require 'win32/api'
-require File.dirname(__FILE__) + '/../lowlevel_buggery'
+require File.dirname(__FILE__) + '/../buggery'
 
 OPTS=Trollop::options do
     opt :port, "Port to listen on", :type=>:integer, :default=>8889

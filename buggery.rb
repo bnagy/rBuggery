@@ -11,12 +11,12 @@
 # License: The MIT License
 # (See README.TXT or http://www.opensource.org/licenses/mit-license.php for details.)
 
-require File.dirname(__FILE__) + '/raw_buggery'
-require File.dirname(__FILE__) + '/fake_com'
-require File.dirname(__FILE__) + '/event_callbacks'
-require File.dirname(__FILE__) + '/breakpoint'
-require File.dirname(__FILE__) + '/exception'
-require File.dirname(__FILE__) + '/debug_value'
+require File.dirname(__FILE__) + '/lib/raw_buggery'
+require File.dirname(__FILE__) + '/lib/fake_com'
+require File.dirname(__FILE__) + '/lib/event_callbacks'
+require File.dirname(__FILE__) + '/lib/breakpoint'
+require File.dirname(__FILE__) + '/lib/exception'
+require File.dirname(__FILE__) + '/lib/debug_value'
 require 'ffi'
 include RawBuggery
 include FFI

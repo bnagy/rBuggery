@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../lowlevel_buggery'
+require File.dirname(__FILE__) + '/../buggery'
 
 debug_client=Buggery.new
 

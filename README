@@ -4,9 +4,11 @@ Currently working:
 * General wrapping, non-callback based, local and remote (via DRb)
 * Callback support, local only
 * IDebugBreakpoint wrapped via Breakpoint class
+* x86 only
 
 To do (LOTS)
 * Gradually expand sugar in the lowlevel API (not the Raw API)
 * Get callbacks working via DRb
+* Add x64 support (need 64 bit MRI / FFI)
 
 Alpha release, "it works for me" quality.
