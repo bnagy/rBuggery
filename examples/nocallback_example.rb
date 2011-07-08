@@ -1,5 +1,4 @@
-require 'win32/api'
-require File.dirname(__FILE__) + '/lowlevel_buggery'
+require File.dirname(__FILE__) + '/../lowlevel_buggery'
 
 debug_client=Buggery.new
 

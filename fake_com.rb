@@ -47,8 +47,10 @@ class FakeCOM
 
     def interface_ptr
         unless @iface_ptr
+            # Alloc a chunk of memory, platform specific pointer size
             @p=FFI::MemoryPointer.new :pointer, @vtable.size
             @p.write_array_of_pointer @vtable.map {|f| f.address}
+            # Interface pointer is **vtable
             @iface_ptr=FFI::MemoryPointer.new :pointer
             @iface_ptr.write_pointer @p.address
         end

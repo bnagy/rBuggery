@@ -16,6 +16,7 @@ require File.dirname(__FILE__) + '/fake_com'
 require File.dirname(__FILE__) + '/event_callbacks'
 require File.dirname(__FILE__) + '/breakpoint'
 require File.dirname(__FILE__) + '/exception'
+require File.dirname(__FILE__) + '/debug_value'
 require 'ffi'
 include RawBuggery
 include FFI
@@ -60,7 +61,7 @@ class Buggery
     }
     EVENTS.update EVENTS.invert
     COMPONENT="Buggery"
-    VERSION="0.1"
+    VERSION="0.2"
 
 
     def p_char( n )
@@ -242,13 +243,14 @@ class Buggery
     # Note that there are a LOT of registers. Like 80ish.
     # al, ah, ax are all 'separate' registers. etc.
     def registers
-        indices=MemoryPointer.from_string((0...register_count).to_a.pack('L*'))
-        out_ary=p_char(32 * register_count)
-        retval=@dc.DebugRegisters.GetValues(register_count,indices,42,out_ary)
+        @indices||=MemoryPointer.from_string (0...register_count).to_a.pack('L*')
+        out_ary=MemoryPointer.new DEBUG_VALUE, register_count 
+        retval=@dc.DebugRegisters.GetValues( register_count, @indices, 42, out_ary )
         if retval.zero?
-            packed=out_ary.read_array_of_uint64( 32 * register_count / 8 ).pack('Q*')
-            values=packed.unpack('Qx24'*register_count) # get value, then skip 24 bytes
-            Hash[*(register_descriptions.zip( values).flatten)]
+            values=register_count.times.map {|idx|
+                DEBUG_VALUE.new( out_ary + idx * DEBUG_VALUE.size ).get_value
+            }
+            Hash[register_descriptions.zip( values)]
         else
             raise_winerror( retval, __method__ )
         end
@@ -345,8 +347,7 @@ class Buggery
 
     def register_count
         unless @reg_count
-            reg_count=p_ulong
-            @dc.DebugRegisters.GetNumberRegisters( reg_count )
+            @dc.DebugRegisters.GetNumberRegisters( reg_count=p_ulong )
             @reg_count=reg_count.read_ulong
         end
         @reg_count
