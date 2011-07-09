@@ -63,36 +63,6 @@ class Buggery
     COMPONENT="Buggery"
     VERSION="0.2"
 
-
-    def p_char( n )
-        MemoryPointer.new(:char,n)
-    end
-
-    def p_ulong
-        MemoryPointer.new(:ulong)
-    end
-
-    def p_int
-        MemoryPointer.new(:int)
-    end
-
-    def p_ulong64
-        MemoryPointer.new(:uint64)
-    end
-
-    def raise_winerror( retval, meth )
-        if ERRORS[retval]
-            raise "#{meth} returned #{ERRORS[retval]}"
-        else
-            # Error codes are in WinError.h, look em up yourself.
-            raise "#{meth} returned unknown error code: #{"0x%.8x" % retval}"
-        end
-    end
-
-    def debug_info( str )
-        warn "#{COMPONENT}-#{VERSION}: #{str}" if @debug
-    end
-
     def initialize( debug=false )
         @debug=debug
         @dc=DebugClient.new
@@ -239,17 +209,35 @@ class Buggery
     end
 
     # In: Nothing
-    # Out: Hash of String( reg_name )=>Integer( reg_value )
+    # Out: Hash of String( reg_name )=>Integer||Array( reg_value )
     # Note that there are a LOT of registers. Like 80ish.
     # al, ah, ax are all 'separate' registers. etc.
     def registers
-        @indices||=MemoryPointer.from_string (0...register_count).to_a.pack('L*')
+        @indices||=(0...register_count).to_a.pack('L*')
         out_ary=MemoryPointer.new DEBUG_VALUE, register_count 
         retval=@dc.DebugRegisters.GetValues( register_count, @indices, 42, out_ary )
         if retval.zero?
             values=register_count.times.map {|idx|
                 DEBUG_VALUE.new( out_ary + idx * DEBUG_VALUE.size ).get_value
             }
+            Hash[register_descriptions.zip( values)]
+        else
+            raise_winerror( retval, __method__ )
+        end
+    end
+
+    # In: Nothing
+    # Out: Hash of String( reg_name )=>Integer||Array( reg_value )
+    # Note that there are a LOT of registers. Like 80ish.
+    # al, ah, ax are all 'separate' registers. etc.
+    # NB: This method only returns the first 64 bits of the union!
+    # DO NOT USE for 80 bit floating point registers, 128 bit vectors etc.
+    def registers64
+        @indices||=(0...register_count).to_a.pack('L*')
+        out_ary="\x00" * (32 * register_count)
+        retval=@dc.DebugRegisters.GetValues( register_count, @indices, 42, out_ary )
+        if retval.zero?
+            values=out_ary.unpack( 'Qx24' * register_count )
             Hash[register_descriptions.zip( values)]
         else
             raise_winerror( retval, __method__ )
@@ -264,7 +252,6 @@ class Buggery
         # but can't mollycoddle the user if they want to use different
         # option flags.
     end
-
 
     # In: Integer( address ), Integer( num_instructions )
     # Out: Array [ of [ Integer( address ), String( opcodes ), String( assembly ) ]
@@ -345,6 +332,35 @@ class Buggery
 
     private
 
+    def raise_winerror( retval, meth )
+        if ERRORS[retval]
+            raise "#{meth} returned #{ERRORS[retval]}"
+        else
+            # Error codes are in WinError.h, look em up yourself.
+            raise "#{meth} returned unknown error code: #{"0x%.8x" % retval}"
+        end
+    end
+
+    def debug_info( str )
+        warn "#{COMPONENT}-#{VERSION}: #{str}" if @debug
+    end
+
+    def p_char( n )
+        MemoryPointer.new(:char,n)
+    end
+
+    def p_ulong
+        MemoryPointer.new(:ulong)
+    end
+
+    def p_int
+        MemoryPointer.new(:int)
+    end
+
+    def p_ulong64
+        MemoryPointer.new(:uint64)
+    end
+
     def register_count
         unless @reg_count
             @dc.DebugRegisters.GetNumberRegisters( reg_count=p_ulong )
@@ -366,4 +382,5 @@ class Buggery
         end
         @reg_descs
     end
+
 end

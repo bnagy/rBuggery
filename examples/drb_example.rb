@@ -1,4 +1,5 @@
 require 'rubygems'
+require 'pp'
 require 'drb'
 require 'trollop'
 require 'win32/api'
@@ -25,11 +26,12 @@ mark=Time.now
     puts debug_client.get_output
     debug_client.clear_output # discard startup blurb
     type, desc, extra=debug_client.get_last_event_information
-    p debug_client.exception_record
+    pp debug_client.exception_record
     puts debug_client.execute ".lastevent"
-    puts debug_client.disassemble( debug_client.registers['eip'], 10 ).map {|a| a.join(' ')}
+    ip=debug_client.registers64[ 'eip' ]
+    puts debug_client.disassemble( ip, 10 ).map {|a| a.join(' ')}
     debug_client.go
     debug_client.terminate_process
 end
 debug_client.destroy
-puts Time.now - mark # ~150s on my MBP
+puts Time.now - mark # ~250s on my MBP
