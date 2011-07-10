@@ -4,6 +4,10 @@ require 'drb'
 require 'trollop'
 require File.dirname(__FILE__) + '/../buggery'
 
+# This is an example of using a separate process to run the debugger, and
+# connecting to it using DRb. It also doubles as a toy benchmark / memory leak
+# testing script (change from 1000.times to loop do for leak testing)
+
 OPTS=Trollop::options do
     opt :port, "Port to listen on", :type=>:integer, :default=>8889
     opt :debug, "Debug output", :type=>:boolean
@@ -14,7 +18,7 @@ sleep 5 # give it time to start up
 
 debug_client=DRbObject.new nil, "druby://127.0.0.1:#{OPTS[:port]}"
 mark=Time.now
-loop do
+1000.times do
     # Just do some random stuff....
     debug_client.execute ".symopt+0x100" # NO_UNQUALIFIED_LOADS
     debug_client.execute ".sympath C:\\windows\\system32;C:\\localsymbols"

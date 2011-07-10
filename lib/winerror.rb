@@ -1,10 +1,4 @@
-# I had some problems with Thread interactions with Sys::Proctable (which uses
-# WMI) causing faults in the interpreter, with 'handle is invalid' type errors.
-# Rewrote using the lower level ToolHelp32Snapshot style, and for FFI practice.
-#
-# Bear in mind that PROCESSENTRY32 contains much less information than you get
-# from WMI, so this approach is not always going to be suitable, and it's
-# pretty ugly if you need to use #each_pentry32 directly.
+# Quick helper to get formatted errors using GetLastError
 #
 # Author: Ben Nagy
 # Copyright: Copyright (c) Ben Nagy, 2006-2011.
