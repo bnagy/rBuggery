@@ -28,7 +28,7 @@ mark=Time.now
     type, desc, extra=debug_client.get_last_event_information
     pp debug_client.exception_record
     puts debug_client.execute ".lastevent"
-    ip=debug_client.registers64[ 'eip' ]
+    ip=debug_client.registers[ 'eip' ]
     puts debug_client.disassemble( ip, 10 ).map {|a| a.join(' ')}
     debug_client.go
     debug_client.terminate_process

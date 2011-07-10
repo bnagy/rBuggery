@@ -15,8 +15,7 @@ mark=Time.now
         puts desc
         puts debug_client.exception_record
         puts debug_client.execute 'r'
-        # #registers64 is twice as fast, but will be WRONG for any register that is > 64 bits
-        puts debug_client.disassemble( debug_client.registers64['eip'], 10 ).map {|a| a.join(' ')}
+        puts debug_client.disassemble( debug_client.registers['eip'], 10 ).map {|a| a.join(' ')}
         debug_client.go
         debug_client.wait_for_event 2000
         debug_client.break
