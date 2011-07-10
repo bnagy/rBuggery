@@ -1,5 +1,7 @@
-require 'pp'
 require File.dirname(__FILE__) + '/../buggery'
+
+# Toy example, gives you a short stack trace whenever a given filename is used
+# as a parameter by CreateFileW.
 
 target_filename=ARGV[0]
 debug_client=Buggery.new

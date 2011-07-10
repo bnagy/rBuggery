@@ -1,7 +1,9 @@
 require File.dirname(__FILE__) + '/../buggery'
 
 # This is a trivial example of manually managing events using #wait_for_event,
-# instead of callbacks
+# instead of callbacks. This pattern is the only one you can use for DRb style
+# programs, because the callback Procs don't Marshal yet.
+
 debug_client=Buggery.new
 
 puts "Creating..."

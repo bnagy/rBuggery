@@ -6,7 +6,6 @@
 # Copyright: Copyright (c) Ben Nagy, 2011.
 # License: The MIT License
 # (See README.TXT or http://www.opensource.org/licenses/mit-license.php for details.)
-# THANKS: Daniel Berger and especially Park Heesob, for the code behind FakeCOM
 
 require File.dirname(__FILE__) + '/fake_com'
 require 'ffi'
