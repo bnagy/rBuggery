@@ -1,5 +1,5 @@
 # A class to be a fake IDebugEventCallbacks COM object, based on the
-# FakeCOM class in RawBuggery. Exposes #add and #remove for Rubyness.
+# FakeCOM class. Exposes #add and #remove for Rubyness.
 # eg:
 # @cbh=CallbackHandler.new
 # @cbh.add(:breakpoint) {|args|
@@ -12,9 +12,8 @@
 # License: The MIT License
 # (See README.TXT or http://www.opensource.org/licenses/mit-license.php for details.)
 
-require File.dirname(__FILE__) + '/raw_buggery'
 require 'ffi'
-include RawBuggery
+require File.dirname( __FILE__ ) + '/fake_com'
 
 class EventCallbacks < FakeCOM
     MASKS={
