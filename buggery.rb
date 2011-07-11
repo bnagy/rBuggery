@@ -136,7 +136,7 @@ class Buggery
 
     # In: String, Command line to execute
     # Out: true, or raise
-    def create_process( command_str, create_broken=false )
+    def create_process( command_str, debug_children=false, create_broken=false )
         @debug_client.TerminateProcesses # one at a time...
         debug_info "Creating process with commandline #{command_str}"
         # Set the filter for the initial breakpoint event to break in
@@ -154,10 +154,15 @@ class Buggery
         )
         # Create the process, catch the initial break, get the pid of the
         # new process.
+        if debug_children
+            create_flags=DebugClient::DEBUG_PROCESS
+        else
+            create_flags=DebugClient::DEBUG_PROCESS_ONLY_THIS_PROCESS
+        end
         retval=@debug_client.CreateProcess(
             0,
             command_str,
-            DebugClient::DEBUG_PROCESS_ONLY_THIS_PROCESS
+            create_flags
         )
         raise_errorcode( retval, __method__ ) unless retval.zero? # S_OK
         wait_for_event( -1 ) # Which will be the initial breakpoint
@@ -243,7 +248,7 @@ class Buggery
     # option_mask uses the DEBUG_ATTACH_XXX constants.
     # After attaching, you still need to wait for an event! You probably want
     # to #break first but it depends on the option_mask you're using.
-    def attach( pid, option_mask=0x0 )
+    def attach( pid, option_mask=DebugClient::DEBUG_ATTACH_DEFAULT)
         retval=@debug_client.AttachProcess( 0, Integer( pid ), Integer( option_mask ) )
         raise_errorcode( retval, __method__ ) unless retval.zero? # S_OK
         @pid=pid

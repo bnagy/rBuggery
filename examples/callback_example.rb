@@ -15,7 +15,7 @@ debug_client.event_callbacks.add( :load_module ) {|args|
     )
     0 # DEBUG_STATUS_NO_CHANGE
 }
-debug_client.create_process "C:\\Program Files\\Microsoft Office\\Office12\\WINWORD.EXE"
+debug_client.create_process "C:\\Program Files\\Microsoft Office\\Office12\\EXCEL.EXE"
 loop do
     # It's not a bad idea to use a timeout here, because ^C won't interrupt
     # a #wait_for_event( -1 ).
