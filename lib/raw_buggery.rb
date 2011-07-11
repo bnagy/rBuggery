@@ -16,14 +16,6 @@ unless File.exists? "#{DEBUGGER_PATH}\\dbgeng.dll"
     raise RuntimeError, "Unable to load DLLs, please set DEBUGGER_PATH in raw_buggery.rb" 
 end
 
-module DbgEng
-    extend FFI::Library
-    ffi_lib "#{DEBUGGER_PATH}\\dbgeng"
-    ffi_convention :stdcall
-
-    attach_function :DebugCreate, [:string, :pointer], :ulong
-end
-
 module Kernel32
     extend FFI::Library
     ffi_lib "kernel32"
@@ -32,7 +24,22 @@ module Kernel32
     attach_function :LoadLibraryA, [:string], :ulong
 end
 
+# This is so that when dbgeng calls LoadLibrary on dbghelp the correct
+# one is already in memory and we don't get the old version from
+# %SYSTEMROOT%/system32
 Kernel32.LoadLibraryA "#{DEBUGGER_PATH}\\dbghelp"
+# If we load the correct dbgeng here, it seems to work without a path in the
+# ffi_lib call below. That call fails in Win7 if you give it a full path (don't
+# know why). Not that we work on Win7, yet, but hey, we're READY. :P
+Kernel32.LoadLibraryA "#{DEBUGGER_PATH}\\dbgeng"
+
+module DbgEng
+    extend FFI::Library
+    ffi_lib "dbgeng"
+    ffi_convention :stdcall
+
+    attach_function :DebugCreate, [:string, :pointer], :ulong
+end
 
 # These are parsed out from dbgeng.h
 # Not all of these are implemented yet, sorry. I haven't needed
