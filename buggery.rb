@@ -78,9 +78,17 @@ class Buggery
         }
         retval=@debug_client.SetOutputCallbacks( ptr=@output_callback.interface_ptr )
         raise_errorcode( retval, __method__ ) unless retval.zero? # S_OK
-        # Only 'normal' output - no prompts, register dump after every command,
-        # warnings etc.
-        retval=@debug_client.SetOutputMask DebugClient::DEBUG_OUTPUT_NORMAL
+        if @debug
+            mask=DebugClient::DEBUG_OUTPUT_NORMAL | 
+                DebugClient::DEBUG_OUTPUT_WARNING | 
+                DebugClient::DEBUG_OUTPUT_ERROR |
+                DebugClient::DEBUG_OUTPUT_VERBOSE |
+            retval=@debug_client.SetOutputMask mask
+        else
+            # Only 'normal' output - no prompts, register dump after every command,
+            # warnings etc.
+            retval=@debug_client.SetOutputMask DebugClient::DEBUG_OUTPUT_NORMAL
+        end
         raise_errorcode( retval, __method__ ) unless retval.zero? # S_OK
         @callback_handler=EventCallbacks.new( @debug_client )
     end
