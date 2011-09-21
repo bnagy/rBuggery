@@ -82,7 +82,7 @@ class Buggery
             mask=DebugClient::DEBUG_OUTPUT_NORMAL | 
                 DebugClient::DEBUG_OUTPUT_WARNING | 
                 DebugClient::DEBUG_OUTPUT_ERROR |
-                DebugClient::DEBUG_OUTPUT_VERBOSE |
+                DebugClient::DEBUG_OUTPUT_VERBOSE
             retval=@debug_client.SetOutputMask mask
         else
             # Only 'normal' output - no prompts, register dump after every command,
