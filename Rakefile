@@ -1,6 +1,7 @@
 require 'rake'
 require 'rake/clean'
 require 'rake/testtask'
+require 'rbconfig'
 
 CLEAN.include('**/*.rbc', '**/*.rbx', '**/*.gem')
 
@@ -15,6 +16,7 @@ namespace 'gem' do
   task :install => [:create] do
      file = Dir["*.gem"].first
      sh "gem install #{file}"
+     cp 'share/drb_debug_server.rb', Config::CONFIG['datadir']
   end
 end
 
