@@ -16,3 +16,6 @@
 * lib/buggery/winerror.rb
 * share/drb_debug_server.rb
 * test/test_buggery.rb
+* utils/dbgeng_parse_ffi.rb
+* utils/guids_check.rb
+* utils/guid_parse.rb
