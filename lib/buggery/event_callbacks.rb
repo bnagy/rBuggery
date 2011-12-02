@@ -17,19 +17,19 @@ require 'buggery/fake_com'
 
 class EventCallbacks < FakeCOM
     MASKS={
-        breakpoint: 0x00000001,
-        change_debuggee_state: 0x00000400,
-        change_engine_state: 0x00000800,
-        exception: 0x00000002,
-        load_module: 0x00000040,
-        unload_module: 0x00000080,
-        create_process: 0x00000010,
-        exit_process: 0x00000020,
-        session_status: 0x00000200,
-        change_symbol_state: 0x00001000,
-        system_error: 0x00000100,
-        create_thread: 0x00000004,
-        exit_thread: 0x00000008
+        :breakpoint => 0x00000001,
+        :change_debuggee_state => 0x00000400,
+        :change_engine_state => 0x00000800,
+        :exception => 0x00000002,
+        :load_module => 0x00000040,
+        :unload_module => 0x00000080,
+        :create_process => 0x00000010,
+        :exit_process => 0x00000020,
+        :session_status => 0x00000200,
+        :change_symbol_state => 0x00001000,
+        :system_error => 0x00000100,
+        :create_thread => 0x00000004,
+        :exit_thread => 0x00000008
     }
     DEBUG_STATUS_NO_CHANGE=0
     DEBUG_STATUS_GO=1
@@ -68,90 +68,90 @@ class EventCallbacks < FakeCOM
         # Add the real callbacks, in order.
         add_com_callback(
              :breakpoint,
-             this: :pointer,
-             breakpoint: :pointer
+             :this => :pointer,
+             :breakpoint => :pointer
         )
         add_com_callback(
              :exception,
-             this: :pointer,
-             exception_record: :pointer,
-             first_chance: :ulong
+             :this => :pointer,
+             :exception_record => :pointer,
+             :first_chance => :ulong
         )
         add_com_callback(
             :create_thread,
-            handle: :uint64,
-            data_offset: :uint64,
-            start_offset: :uint64
+            :handle => :uint64,
+            :data_offset => :uint64,
+            :start_offset => :uint64
         )
         add_com_callback(
              :exit_thread,
-             this: :pointer,
-             exit_code: :ulong
+             :this => :pointer,
+             :exit_code => :ulong
         )
         add_com_callback(
              :create_process,
-             this: :pointer,
-             image_file_handle: :uint64,
-             handle: :uint64,
-             base_offset: :uint64,
-             module_size: :ulong,
-             module_name: :string,
-             image_name: :string,
-             checksum: :ulong,
-             timestamp: :ulong,
-             initial_thread_handle: :uint64,
-             thread_data_offset: :uint64,
-             start_offset: :uint64
+             :this => :pointer,
+             :image_file_handle => :uint64,
+             :handle => :uint64,
+             :base_offset => :uint64,
+             :module_size => :ulong,
+             :module_name => :string,
+             :image_name => :string,
+             :checksum => :ulong,
+             :timestamp => :ulong,
+             :initial_thread_handle => :uint64,
+             :thread_data_offset => :uint64,
+             :start_offset => :uint64
         )
         add_com_callback(
              :exit_process,
-             this: :pointer,
-             exit_code: :ulong
+             :this => :pointer,
+             :exit_code => :ulong
         )
         add_com_callback(
              :load_module,
-             this: :pointer,
-             file_handle: :uint64,
-             base_offset: :uint64,
-             module_size: :ulong,
-             module_name: :string,
-             image_name: :string,
-             checksum: :ulong,
-             timestamp: :ulong
+             :this => :pointer,
+             :file_handle => :uint64,
+             :base_offset => :uint64,
+             :module_size => :ulong,
+             :module_name => :string,
+             :image_name => :string,
+             :checksum => :ulong,
+             :timestamp => :ulong
         )
         add_com_callback(
             :unload_module,
-            this: :pointer,
-            base_offset: :uint64
+            :this => :pointer,
+            :base_offset => :uint64
         )
         add_com_callback(
             :system_error,
-            this: :pointer,
-            error: :ulong,
-            level: :ulong
+            :this => :pointer,
+            :error => :ulong,
+            :level => :ulong
         )
         add_com_callback(
             :session_status,
-            this: :pointer,
-            status: :ulong,
+            :this => :pointer,
+            :status => :ulong
         )
         add_com_callback(
             :change_debuggee_state,
-            this: :pointer,
-            flags: :ulong,
-            argument: :uint64
+            :this => :pointer,
+            :flags => :ulong,
+            :argument => :uint64
         )
         add_com_callback(
             :change_engine_state,
-            this: :pointer,
-            flags: :ulong,
-            argument: :uint64
+            :this => :pointer,
+            :flags => :ulong,
+            :argument => :uint64
         )
         add_com_callback(
             :change_symbol_state,
-            this: :pointer,
-            flags: :ulong,
-            argument: :uint64
+            :this => :pointer,
+            :flags => :ulong,
+            :argument => :uint64
         )
         # Interest mask flags are from the DEBUG_EVENT_XXX constants in
         # dbgeng.h, copied above.
