@@ -4,7 +4,7 @@ Gem::Specification.new do |spec|
   spec.name       = 'rbuggery'
   spec.version    = '0.0.1'
   spec.author     = 'Ben Nagy'
-  spec.license    = 'To be determined'
+  spec.license    = 'MIT'
   spec.email      = 'ben@iagu.net'
   spec.homepage   = 'https://github.com/bnagy/rBuggery'
   spec.summary    = 'An interface to the Windows Debugging Engine'
