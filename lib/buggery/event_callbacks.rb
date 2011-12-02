@@ -13,7 +13,7 @@
 # (See README.TXT or http://www.opensource.org/licenses/mit-license.php for details.)
 
 require 'ffi'
-require File.dirname( __FILE__ ) + '/fake_com'
+require 'buggery/fake_com'
 
 class EventCallbacks < FakeCOM
     MASKS={
@@ -49,7 +49,7 @@ class EventCallbacks < FakeCOM
         # This callback table will be populated with user callbacks as they are
         # added with the #add method below, but install a placeholder in case
         # stuff gets called when it shouldn't.
-        @placeholder=Proc.new {|*args| 
+        @placeholder=Proc.new {|*args|
             raise "EventCallbacks: Callback called by system without user function defined"
             DEBUG_STATUS_BREAK
         }
@@ -66,12 +66,12 @@ class EventCallbacks < FakeCOM
             0 # S_OK
         }
         # Add the real callbacks, in order.
-        add_com_callback( 
-             :breakpoint, 
-             this: :pointer, 
-             breakpoint: :pointer 
+        add_com_callback(
+             :breakpoint,
+             this: :pointer,
+             breakpoint: :pointer
         )
-        add_com_callback( 
+        add_com_callback(
              :exception,
              this: :pointer,
              exception_record: :pointer,
@@ -83,14 +83,14 @@ class EventCallbacks < FakeCOM
             data_offset: :uint64,
             start_offset: :uint64
         )
-        add_com_callback( 
+        add_com_callback(
              :exit_thread,
              this: :pointer,
              exit_code: :ulong
         )
-        add_com_callback( 
-             :create_process, 
-             this: :pointer, 
+        add_com_callback(
+             :create_process,
+             this: :pointer,
              image_file_handle: :uint64,
              handle: :uint64,
              base_offset: :uint64,
@@ -103,13 +103,13 @@ class EventCallbacks < FakeCOM
              thread_data_offset: :uint64,
              start_offset: :uint64
         )
-        add_com_callback( 
+        add_com_callback(
              :exit_process,
              this: :pointer,
              exit_code: :ulong
         )
-        add_com_callback( 
-             :load_module, 
+        add_com_callback(
+             :load_module,
              this: :pointer,
              file_handle: :uint64,
              base_offset: :uint64,
@@ -178,7 +178,7 @@ class EventCallbacks < FakeCOM
         @callback_table[cb_name]=@placeholder
         @debugger.SetEventCallbacks( interface_ptr )
     end
-    
+
     private
 
     def add_com_callback( name, prototype )

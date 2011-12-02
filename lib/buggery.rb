@@ -11,13 +11,13 @@
 # License: The MIT License
 # (See README.TXT or http://www.opensource.org/licenses/mit-license.php for details.)
 
-require File.dirname(__FILE__) + '/lib/raw_buggery'
-require File.dirname(__FILE__) + '/lib/fake_com'
-require File.dirname(__FILE__) + '/lib/event_callbacks'
-require File.dirname(__FILE__) + '/lib/breakpoint'
-require File.dirname(__FILE__) + '/lib/exception'
-require File.dirname(__FILE__) + '/lib/debug_value'
-require File.dirname(__FILE__) + '/lib/winerror'
+require 'buggery/raw_buggery'
+require 'buggery/fake_com'
+require 'buggery/event_callbacks'
+require 'buggery/breakpoint'
+require 'buggery/exception'
+require 'buggery/debug_value'
+require 'buggery/winerror'
 require 'ffi'
 include RawBuggery
 include FFI
@@ -72,15 +72,15 @@ class Buggery
         # This is the Output method, which is the only method the
         # IDebugOutputCallbacks object needs to implement, apart from the
         # IUnknown stuff which is built for us by FakeCOM
-        @output_callback.add_function(:ulong, [:pointer, :ulong, :string]) {|p, mask, text| 
+        @output_callback.add_function(:ulong, [:pointer, :ulong, :string]) {|p, mask, text|
             @output_buffer << text
             0
         }
         retval=@debug_client.SetOutputCallbacks( ptr=@output_callback.interface_ptr )
         raise_errorcode( retval, __method__ ) unless retval.zero? # S_OK
         if @debug
-            mask=DebugClient::DEBUG_OUTPUT_NORMAL | 
-                DebugClient::DEBUG_OUTPUT_WARNING | 
+            mask=DebugClient::DEBUG_OUTPUT_NORMAL |
+                DebugClient::DEBUG_OUTPUT_WARNING |
                 DebugClient::DEBUG_OUTPUT_ERROR |
                 DebugClient::DEBUG_OUTPUT_VERBOSE
             retval=@debug_client.SetOutputMask mask
@@ -119,7 +119,7 @@ class Buggery
     # In String( debugger_command ), Optional, Boolean( echo_command? )
     # Out: String( command_output )
     # This command will also clear the output buffer BEFORE the command
-    # executes, so if you care what was in it, get_output first. This 
+    # executes, so if you care what was in it, get_output first. This
     # is done to make sure you get only the output of your command.
     def execute( command_str, echo=false )
         clear_output
@@ -198,7 +198,7 @@ class Buggery
     # engine enter an executable state. Actual execution will not occur until
     # the next time WaitForEvent is called."
     def go( status=DebugControl::DEBUG_STATUS_GO )
-        retval=@debug_client.DebugControl.SetExecutionStatus status 
+        retval=@debug_client.DebugControl.SetExecutionStatus status
         raise_errorcode( retval, __method__ ) unless retval.zero? # S_OK
         true
     end
@@ -211,7 +211,7 @@ class Buggery
     def break
         hProcess=Kernel32.OpenProcess Kernel32::PROCESS_ALL_ACCESS, 0, @pid
         raise_win32_error( __method__ ) if hProcess.zero? # NULL handle
-        retval=Kernel32.DebugBreakProcess hProcess 
+        retval=Kernel32.DebugBreakProcess hProcess
         raise_win32_error( __method__ ) if retval.zero? # 0 is bad, in this case
         true
     ensure
@@ -219,7 +219,7 @@ class Buggery
     end
 
     # In: Timeout, -1 for infinite
-    # Out: true (there's an event), false (timeout expired), or raise. 
+    # Out: true (there's an event), false (timeout expired), or raise.
     def wait_for_event( timeout=-1 )
         retval=@debug_client.DebugControl.WaitForEvent(0, timeout)
         return true if retval.zero?
@@ -242,7 +242,7 @@ class Buggery
         @indices||=(0...register_count).to_a.pack('L*')
         # Keep hold of this memory buffer - makes this method MUCH faster, but
         # it's an ugly pattern so it's not used everywhere.
-        @register_buffer||=MemoryPointer.new DEBUG_VALUE, register_count 
+        @register_buffer||=MemoryPointer.new DEBUG_VALUE, register_count
         retval=@debug_client.DebugRegisters.GetValues( register_count, @indices, 42, @register_buffer )
         raise_errorcode( retval, __method__ ) unless retval.zero? # S_OK
         values=register_count.times.map {|idx|
@@ -294,7 +294,7 @@ class Buggery
     end
 
     # In: Nothing
-    # Out: true or raise 
+    # Out: true or raise
     # From the docs: " The TerminateProcesses method attempts to terminate all
     # processes in all targets. Only live user-mode processes are terminated by
     # this method. For other targets, the target is detached from the debugger
@@ -376,11 +376,11 @@ class Buggery
     end
 
     def p_ulong
-        MemoryPointer.new :ulong 
+        MemoryPointer.new :ulong
     end
 
     def p_int
-        MemoryPointer.new :int 
+        MemoryPointer.new :int
     end
 
     def p_ulong64

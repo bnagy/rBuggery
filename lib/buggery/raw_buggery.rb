@@ -6,13 +6,13 @@
 # License: The MIT License
 # (See README.TXT or http://www.opensource.org/licenses/mit-license.php for details.)
 
-require File.dirname(__FILE__) + '/fake_com'
+require 'buggery/fake_com'
 require 'ffi'
 
 # Might need to change this.
 DEBUGGER_PATH='C:\\Program Files\\Debugging Tools for Windows (x86)'
 unless File.exists? "#{DEBUGGER_PATH}\\dbgeng.dll"
-    raise RuntimeError, "Unable to load DLLs, please set DEBUGGER_PATH in raw_buggery.rb" 
+    raise RuntimeError, "Unable to load DLLs, please set DEBUGGER_PATH in raw_buggery.rb"
 end
 
 module Kernel32
@@ -213,7 +213,7 @@ module RawBuggery
                 :GetEventCallbacks=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[45], convention: :stdcall  ),
                 :SetEventCallbacks=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[46], convention: :stdcall  ),
                 :FlushCallbacks=>FFI::Function.new( :ulong, [:pointer], @vtable[47], convention: :stdcall  )
-            }            
+            }
         end
 
         def ptr
@@ -227,7 +227,7 @@ module RawBuggery
                     @interface_table[meth]||=RawBuggery.const_get( meth ).new( self )
                 rescue
                     # Then again, maybe not.
-                    raise ArgumentError, "#{self.class}: Invalid API #{meth} #{$!}" 
+                    raise ArgumentError, "#{self.class}: Invalid API #{meth} #{$!}"
                 end
             else
                 @api_dispatch_table[meth].call( @interface_ptr, *args )
@@ -342,7 +342,7 @@ module RawBuggery
                 :SetQuitLockString=>FFI::Function.new( :ulong, [:pointer,:string], @vtable[92], convention: :stdcall  ),
                 :GetQuitLockStringWide=>FFI::Function.new( :ulong, [:pointer,:pointer,:ulong,:pointer], @vtable[93], convention: :stdcall  ),
                 :SetQuitLockStringWide=>FFI::Function.new( :ulong, [:pointer,:string], @vtable[94], convention: :stdcall  )
-            }            
+            }
         end
 
         def ptr
@@ -390,7 +390,7 @@ module RawBuggery
                 :GetInstructionOffset=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[11], convention: :stdcall  ),
                 :GetStackOffset=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[12], convention: :stdcall  ),
                 :GetFrameOffset=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[13], convention: :stdcall  )
-            }            
+            }
         end
 
         def ptr
@@ -653,7 +653,7 @@ module RawBuggery
                 :SetExceptionFilterSecondCommand=>FFI::Function.new( :ulong, [:pointer,:ulong,:string], @vtable[92], convention: :stdcall  ),
                 :WaitForEvent=>FFI::Function.new( :ulong, [:pointer,:ulong,:ulong], @vtable[93], convention: :stdcall  ),
                 :GetLastEventInformation=>FFI::Function.new( :ulong, [:pointer,:pointer,:pointer,:pointer,:pointer,:ulong,:pointer,:pointer,:ulong,:pointer], @vtable[94], convention: :stdcall  )
-            }            
+            }
         end
 
         def ptr
@@ -684,7 +684,7 @@ module RawBuggery
                 :Release=>FFI::Function.new( :ulong, [:pointer], @vtable[2], convention: :stdcall  ),
                 :GetThreadContext=>FFI::Function.new( :ulong, [:pointer,:pointer,:ulong], @vtable[3], convention: :stdcall  ),
                 :SetThreadContext=>FFI::Function.new( :ulong, [:pointer,:pointer,:ulong], @vtable[4], convention: :stdcall  )
-            }            
+            }
         end
 
         def ptr
@@ -733,7 +733,7 @@ module RawBuggery
                 :CheckLowMemory=>FFI::Function.new( :ulong, [:pointer], @vtable[20], convention: :stdcall  ),
                 :ReadDebuggerData=>FFI::Function.new( :ulong, [:pointer,:ulong,:pointer,:ulong,:pointer], @vtable[21], convention: :stdcall  ),
                 :ReadProcessorSystemData=>FFI::Function.new( :ulong, [:pointer,:ulong,:ulong,:pointer,:ulong,:pointer], @vtable[22], convention: :stdcall  )
-            }            
+            }
         end
 
         def ptr
@@ -848,7 +848,7 @@ module RawBuggery
                 :AppendSourcePath=>FFI::Function.new( :ulong, [:pointer,:string], @vtable[49], convention: :stdcall  ),
                 :FindSourceFile=>FFI::Function.new( :ulong, [:pointer,:ulong,:string,:ulong,:pointer,:pointer,:ulong,:pointer], @vtable[50], convention: :stdcall  ),
                 :GetSourceFileLineOffsets=>FFI::Function.new( :ulong, [:pointer,:string,:pointer,:ulong,:pointer], @vtable[51], convention: :stdcall  )
-            }            
+            }
         end
 
         def ptr
@@ -944,7 +944,7 @@ module RawBuggery
                 :AddTypeOptions=>FFI::Function.new( :ulong, [:pointer,:ulong], @vtable[57], convention: :stdcall  ),
                 :RemoveTypeOptions=>FFI::Function.new( :ulong, [:pointer,:ulong], @vtable[58], convention: :stdcall  ),
                 :SetTypeOptions=>FFI::Function.new( :ulong, [:pointer,:ulong], @vtable[59], convention: :stdcall  )
-            }            
+            }
         end
 
         def ptr
@@ -1003,7 +1003,7 @@ module RawBuggery
                 :GetCurrentProcessHandle=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[29], convention: :stdcall  ),
                 :GetProcessIdByHandle=>FFI::Function.new( :ulong, [:pointer,:uint64,:pointer], @vtable[30], convention: :stdcall  ),
                 :GetCurrentProcessExecutableName=>FFI::Function.new( :ulong, [:pointer,:pointer,:ulong,:pointer], @vtable[31], convention: :stdcall  )
-            }            
+            }
         end
 
         def ptr
@@ -1100,7 +1100,7 @@ module RawBuggery
                 :GetSourceFileInformationWide=>FFI::Function.new( :ulong, [:pointer,:ulong,:string,:uint64,:ulong,:pointer,:ulong,:pointer], @vtable[10], convention: :stdcall  ),
                 :FindSourceFileAndTokenWide=>FFI::Function.new( :ulong, [:pointer,:ulong,:uint64,:string,:ulong,:pointer,:ulong,:pointer,:pointer,:ulong,:pointer], @vtable[11], convention: :stdcall  ),
                 :GetSymbolInformationWide=>FFI::Function.new( :ulong, [:pointer,:ulong,:uint64,:ulong,:pointer,:ulong,:pointer,:pointer,:ulong,:pointer], @vtable[12], convention: :stdcall  )
-            }            
+            }
         end
 
         def ptr
