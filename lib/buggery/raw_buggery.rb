@@ -7,11 +7,14 @@
 # (See README.TXT or http://www.opensource.org/licenses/mit-license.php for details.)
 
 require 'buggery/fake_com'
+require 'win32/dir'
 require 'ffi'
 
-# Might need to change this.
-DEBUGGER_PATH='C:\\Program Files\\Debugging Tools for Windows (x86)'
-unless File.exists? "#{DEBUGGER_PATH}\\dbgeng.dll"
+# TODO: This needs to be configurable via a class method
+DEBUGGER_PATH = File.join(Dir::PROGRAM_FILES, "Debugging Tools for Windows (x86)")
+DEBUGGER_DLL  = File.join(DEBUGGER_PATH, "dbgeng.dll")
+
+unless File.exists? DEBUGGER_DLL
     raise RuntimeError, "Unable to load DLLs, please set DEBUGGER_PATH in raw_buggery.rb"
 end
 
