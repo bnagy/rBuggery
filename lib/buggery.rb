@@ -106,7 +106,11 @@ class Buggery
 
     def clear_output
         @debug_client.FlushCallbacks
-        @output_buffer.clear
+        if RUBY_VERSION.to_f < 1.9
+          @output_buffer.replace("")
+        else
+          @output_buffer.clear
+        end
     end
 
     # For raw access to the underlying RawBuggery object so you can call
