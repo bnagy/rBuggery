@@ -16,7 +16,6 @@ namespace 'gem' do
   task :install => [:create] do
      file = Dir["*.gem"].first
      sh "gem install #{file}"
-     cp 'share/drb_debug_server.rb', Config::CONFIG['datadir']
   end
 end
 
