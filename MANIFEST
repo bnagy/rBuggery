@@ -1,6 +1,7 @@
 * CHANGES
 * README
 * Rakefile
+* bin/drb_debug_server
 * examples/breakpoint_example.rb
 * examples/callback_example.rb
 * examples/drb_example.rb
@@ -14,7 +15,6 @@
 * lib/buggery/fake_com.rb
 * lib/buggery/raw_buggery.rb
 * lib/buggery/winerror.rb
-* share/drb_debug_server.rb
 * test/test_buggery.rb
 * utils/dbgeng_parse_ffi.rb
 * utils/guids_check.rb
