@@ -11,6 +11,7 @@ Gem::Specification.new do |spec|
   spec.test_files = Dir['test/*.rb']
   spec.files      = Dir['**/*'].delete_if{ |item| item.include?('git') }
 
+  spec.executables      = 'drb_debug_server'
   spec.extra_rdoc_files = ['CHANGES', 'README', 'MANIFEST']
 
   spec.add_dependency('ffi')
