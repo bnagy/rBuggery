@@ -20,7 +20,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency('trollop')
 
   spec.description = <<-EOF
-    The rdebuggery gem provides an interface for the Windows Debugging
-    Engine, i.e. dbgeng.dll.
+    The rBuggery gem provides an interface for the Windows Debugging
+    Engine, dbgeng.dll.
   EOF
 end
