@@ -52,7 +52,7 @@ s.each_line {|l|
             if l=~ /\) PURE;/
                 # finish definition
                 in_api=false 
-                apis.last << this_api_args.join(',') << "], @vtable[#{counter-1}], convention: :stdcall  ),"
+                apis.last << this_api_args.join(',') << "], @vtable[#{counter-1}], :convention=>:stdcall  ),"
                 this_api_args=[]
                 next
             end
