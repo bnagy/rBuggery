@@ -12,3 +12,7 @@ To do (LOTS)
 * Add x64 support (need 64 bit MRI / FFI)
 
 Alpha release, "it works for me" quality.
+
+NOTE: If the whole thing fails to work you might need to manually set DEBUGGER_PATH in raw_buggery.rb, especially if you have installed the debugging tools somewhere weird.
+
+NOTE: Unless you install the gem with the --development option, trollop will not be installed, and some of the examples and the DRb server depend on it.
