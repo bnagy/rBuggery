@@ -2,7 +2,7 @@ require 'rubygems'
 require 'pp'
 require 'drb'
 require 'trollop'
-require File.dirname(__FILE__) + '/../buggery'
+require 'buggery'
 
 # This is an example of using a separate process to run the debugger, and
 # connecting to it using DRb. It also doubles as a toy benchmark / memory leak

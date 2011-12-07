@@ -1,7 +1,11 @@
-require File.dirname(__FILE__) + '/../buggery'
+require 'buggery'
 
 # Toy example, gives you a short stack trace whenever a given filename is used
 # as a parameter by CreateFileW.
+#
+# The file you pass as the argument will not be opened automatically! You will
+# need to manually open it in Word before you see anything interesting (or just
+# hover your mouse over it).
 
 target_filename=ARGV[0]
 debug_client=Buggery.new

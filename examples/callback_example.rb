@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../buggery'
+require 'buggery'
 
 # Toy example, to demonstrate the use of event callbacks, by registering a
 # callback for LoadModule

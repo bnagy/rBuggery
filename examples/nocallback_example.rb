@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../buggery'
+require 'buggery'
 
 # This is a trivial example of manually managing events using #wait_for_event,
 # instead of callbacks. This pattern is the only one you can use for DRb style

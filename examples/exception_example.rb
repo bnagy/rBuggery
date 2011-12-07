@@ -1,5 +1,5 @@
 require 'pp'
-require File.dirname(__FILE__) + '/../buggery'
+require 'buggery'
 
 debug_client=Buggery.new
 
