@@ -2,9 +2,9 @@
 # wrap the APIs in dispatch tables and then pass things off via method_missing.
 #
 # Author: Ben Nagy
-# Copyright: Copyright (c) Ben Nagy, 2011.
+# Copyright: Copyright (c) Ben Nagy, 2012.
 # License: The MIT License
-# (See README.TXT or http://www.opensource.org/licenses/mit-license.php for details.)
+# (See http://www.opensource.org/licenses/mit-license.php for details.)
 
 require 'buggery/fake_com'
 require 'win32/dir'

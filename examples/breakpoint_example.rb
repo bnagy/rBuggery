@@ -8,8 +8,10 @@ require 'buggery'
 # hover your mouse over it).
 
 target_filename=ARGV[0]
+
 debug_client=Buggery.new
-debug_client.event_callbacks.add( :breakpoint ) {|args|
+
+bp_callback=lambda {|args|
     # Ruby level COM Object from FFI::Pointer
     bp=Breakpoint.new args[:breakpoint]
     # FFI::Struct
@@ -24,6 +26,9 @@ debug_client.event_callbacks.add( :breakpoint ) {|args|
     end
     1 # DEBUG_STATUS_GO
 }
+
+debug_client.event_callbacks.add( :breakpoint=>bp_callback )
+
 debug_client.create_process "C:\\Program Files\\Microsoft Office\\Office12\\WINWORD.EXE"
 # Custom breakpoint ID. Could also do this via the API.
 debug_client.execute "bp12 kernel32!CreateFileW"

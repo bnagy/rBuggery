@@ -3,7 +3,7 @@ require 'buggery'
 
 debug_client=Buggery.new
 
-debug_client.event_callbacks.add( :exception ) {|args|
+exception_callback=lambda {|args|
     # FFI::Struct, with some extra sugar in the class
     exr=EXCEPTION_RECORD64.new args[:exception_record]
     if args[:first_chance].zero?
@@ -23,6 +23,8 @@ debug_client.event_callbacks.add( :exception ) {|args|
     puts "--------------"
     1 # DEBUG_STATUS_GO
 }
+
+debug_client.event_callbacks.add( :exception=>exception_callback )
 
 debug_client.create_process(
     "C:\\Program Files\\Microsoft Office\\Office12\\WINWORD.EXE #{ARGV[0]}"

@@ -8,9 +8,9 @@
 # }
 #
 # Author: Ben Nagy
-# Copyright: Copyright (c) Ben Nagy, 2011.
+# Copyright: Copyright (c) Ben Nagy, 2012.
 # License: The MIT License
-# (See README.TXT or http://www.opensource.org/licenses/mit-license.php for details.)
+# (See http://www.opensource.org/licenses/mit-license.php for details.)
 
 require 'ffi'
 require 'buggery/fake_com'
@@ -159,18 +159,23 @@ class EventCallbacks < FakeCOM
     end
 
     def add( cb_name, &blk )
-        # This actually only changes the corresponding callback (Ruby level
+        # This actually only changes the corresponding callbacks (Ruby level
         # Proc) in the callback table, and updates the interest mask. The real
         # callback (FFI Function) was already added in initialize.
-        unless MASKS[cb_name]
-            raise ArgumentError, "#{self.class}:#{__method__}: Invalid callback: #{cb_name}"
-        end
-        @interest_mask |= MASKS[cb_name]
-        @callback_table[cb_name]=blk
-        @debugger.SetEventCallbacks( interface_ptr )
+        # INTERFACE CHANGE: All callbacks need to be added with one call to #add
+        cb_hsh.each {|cb_name, blk|
+            unless MASKS[cb_name]
+                raise ArgumentError, "#{self.class}:#{__method__}: Invalid callback: #{cb_name}"
+            end
+            @interest_mask |= MASKS[cb_name]
+            @callback_table[cb_name]=blk
+        }
+        @debugger.SetEventCallbacks interface_ptr 
     end
 
     def remove( cb_name, &blk )
+        # Can't modify callbacks once the object is set up, at the moment.
+        raise NotImplementedError
         unless MASKS[cb_name]
             raise ArgumentError, "#{self.class}:#{__method__}: Invalid callback: #{cb_name}"
         end

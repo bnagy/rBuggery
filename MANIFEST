@@ -3,6 +3,7 @@
 * Rakefile
 * bin/drb_debug_server
 * examples/breakpoint_example.rb
+* examples/multiple_callbacks.rb
 * examples/callback_example.rb
 * examples/drb_example.rb
 * examples/exception_example.rb

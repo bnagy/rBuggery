@@ -7,9 +7,9 @@
 # result.
 #
 # Author: Ben Nagy
-# Copyright: Copyright (c) Ben Nagy, 2011.
+# Copyright: Copyright (c) Ben Nagy, 2012.
 # License: The MIT License
-# (See README.TXT or http://www.opensource.org/licenses/mit-license.php for details.)
+# (See http://www.opensource.org/licenses/mit-license.php for details.)
 
 require 'buggery/raw_buggery'
 require 'buggery/fake_com'
@@ -33,7 +33,6 @@ module Kernel32
     attach_function :DebugBreakProcess, [:ulong], :ulong
     attach_function :CloseHandle, [:ulong], :bool
 end
-
 
 class Buggery
     # Two way lookup, errors defined in WinError.h
@@ -62,7 +61,7 @@ class Buggery
     }
     EVENTS.update EVENTS.invert
     COMPONENT="Buggery"
-    VERSION="0.3"
+    VERSION="0.3.1"
 
     def initialize( debug=false )
         @debug=debug
@@ -353,6 +352,7 @@ class Buggery
 
     def destroy
         terminate_process
+        system "exit"
         DRb.thread.exit rescue exit
     end
 
