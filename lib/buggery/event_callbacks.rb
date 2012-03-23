@@ -158,7 +158,7 @@ class EventCallbacks < FakeCOM
         @interest_mask=0x00000000
     end
 
-    def add( cb_name, &blk )
+    def add( cb_hsh, &blk )
         # This actually only changes the corresponding callbacks (Ruby level
         # Proc) in the callback table, and updates the interest mask. The real
         # callback (FFI Function) was already added in initialize.
