@@ -1,3 +1,7 @@
+<<<<<<< HEAD
 *.gem
 *.swp
 .DS_Store
+=======
+.DS_Store
+>>>>>>> refs/heads/unstable

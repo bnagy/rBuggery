@@ -15,9 +15,8 @@ Gem::Specification.new do |spec|
   spec.extra_rdoc_files = ['CHANGES', 'README', 'MANIFEST']
 
   spec.add_dependency('ffi')
-  spec.add_dependency('win32-dir')
+  spec.add_dependency('trollop')
   spec.add_development_dependency('test-unit')
-  spec.add_development_dependency('trollop')
 
   spec.description = <<-EOF
     The rBuggery gem provides an interface for the Windows Debugging
