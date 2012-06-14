@@ -340,6 +340,12 @@ class Buggery
         [type.read_ulong, desc.read_string, extra_inf_ptr]
     end
 
+    def get_exit_code
+        retval=@debug_client.GetExitCode( exit_code=p_ulong )
+        raise_errorcode( retval, __method__ ) unless retval.zero? # S_OK
+        exit_code.read_ulong
+    end
+
     # In: Nothing
     # Out: true or false
     def target_running?
