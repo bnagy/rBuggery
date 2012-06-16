@@ -61,7 +61,7 @@ class Buggery
     }
     EVENTS.update EVENTS.invert
     COMPONENT="Buggery"
-    VERSION="0.3.1"
+    VERSION="0.4.0"
 
     def initialize( debug=false )
         @debug=debug
@@ -113,7 +113,7 @@ class Buggery
     end
 
     # For raw access to the underlying RawBuggery object so you can call
-    # lowlevel APIs directly.  DOES NOT WORK DISTRIBUTED since most of the Raw
+    # lowlevel APIs directly. DOES NOT WORK DISTRIBUTED since most of the Raw
     # methods rely on modifying the target of a pointer.
     def raw
         @debug_client
@@ -271,14 +271,14 @@ class Buggery
     def disassemble( addr, num_insns )
         buf=p_char(256)
         out_sz=p_ulong
-        end_offset=p_ulong64
+        end_offset=p_ulong_long
         retval=@debug_client.DebugControl.Disassemble(addr,0,buf,buf.size,out_sz,end_offset)
         raise_errorcode( retval, __method__ ) unless retval.zero?
-        old_end_offset=end_offset.read_uint64
+        old_end_offset=end_offset.read_ulong_long
         results=[]
         results << ( buf.read_string[0,out_sz.read_ulong].squeeze(' ').chomp.split(' ',3) )
         (num_insns - 1).times do
-            end_offset=p_ulong64
+            end_offset=p_ulong_long
             buf=p_char(256)
             out_sz=p_ulong
             @debug_client.DebugControl.Disassemble(
@@ -290,7 +290,7 @@ class Buggery
                 end_offset
             )
             raise_errorcode( retval, __method__ ) unless retval.zero?
-            old_end_offset=end_offset.read_uint64
+            old_end_offset=end_offset.read_ulong_long
             results << ( buf.read_string[0,out_sz.read_ulong].squeeze(' ').chomp.split(' ',3) )
         end
         results
@@ -336,7 +336,7 @@ class Buggery
         # any docs on what struct is used for which events. Give the user a
         # pointer, let them sort it out.
         extra_inf_ptr=p_char extra_inf_sz.read_ulong
-        extra_inf_ptr.write_bytes extra_inf.read_bytes(extra_inf_sz.read_ulong)
+        extra_inf_ptr.write_array_of_char extra_inf.read_array_of_char(extra_inf_sz.read_ulong)
         [type.read_ulong, desc.read_string, extra_inf_ptr]
     end
 
@@ -354,6 +354,16 @@ class Buggery
         retval=@debug_client.DebugControl.GetExecutionStatus( status=p_ulong )
         raise_errorcode( retval, __method__ ) unless retval.zero? # S_OK
         (1..3).include? status.read_ulong
+    end
+
+    # In: Nothing
+    # Out: true or false
+    def has_target?
+        target_class=p_ulong
+        target_qualifier=p_ulong
+        retval=@debug_client.DebugControl.GetDebuggeeType( target_class, target_qualifier )
+        raise_errorcode( retval, __method__ ) unless retval.zero? # S_OK
+        target_class.read_int != DebugControl::DEBUG_CLASS_UNINITIALIZED
     end
 
     def destroy
@@ -393,8 +403,14 @@ class Buggery
         MemoryPointer.new :int
     end
 
+    # ALERT! In JRuby FFI you can't read_uint64 from a pointer so it might be
+    # better to use p_ulong_long.
     def p_ulong64
         MemoryPointer.new :uint64
+    end
+
+    def p_ulong_long
+        MemoryPointer.new :ulong_long
     end
 
     def register_count
