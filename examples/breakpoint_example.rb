@@ -8,6 +8,9 @@ require 'buggery'
 # hover your mouse over it).
 
 target_filename=ARGV[0]
+unless target_filename and File.file? target_filename
+    fail "Usage: ruby #{$0} target_filename" 
+end
 
 debug_client=Buggery.new
 
@@ -34,5 +37,6 @@ debug_client.create_process "C:\\Program Files\\Microsoft Office\\Office12\\WINW
 debug_client.execute "bp12 kernel32!CreateFileW"
 loop do
     debug_client.wait_for_event(10)
+    break unless debug_client.has_target?
 end
 
