@@ -46,14 +46,15 @@ class FakeCOM
     end
 
     def interface_ptr
-        unless @iface_ptr
-            # Alloc a chunk of memory, platform specific pointer size
-            @p=FFI::MemoryPointer.new :pointer, @vtable.size
-            @p.write_array_of_pointer @vtable.map {|f| FFI::Pointer.new(f.address) }
-            # Interface pointer is **vtable
-            @iface_ptr=FFI::MemoryPointer.new :pointer
-            @iface_ptr.write_pointer @p
-        end
+        # Usually this will only be called once per object, once the vtable is
+        # populated, but you never know.
+        @iface_ptr.free if @iface_ptr
+        # Alloc a chunk of memory, platform specific pointer size
+        @p=FFI::MemoryPointer.new :pointer, @vtable.size
+        @p.write_array_of_pointer @vtable
+        # Interface pointer is **vtable
+        @iface_ptr=FFI::MemoryPointer.new :pointer
+        @iface_ptr.write_pointer @p
         @iface_ptr
     end
 end
