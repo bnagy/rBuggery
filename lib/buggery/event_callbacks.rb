@@ -46,6 +46,9 @@ class EventCallbacks < FakeCOM
     def initialize( debugger )
         super() # Build IUnknown methods
         @debugger=debugger
+        # Interest mask flags are from the DEBUG_EVENT_XXX constants in
+        # dbgeng.h, copied above.
+        @interest_mask=0x00000000
         # This callback table will be populated with user callbacks as they are
         # added with the #add method below, but install a placeholder in case
         # stuff gets called when it shouldn't.
@@ -153,9 +156,6 @@ class EventCallbacks < FakeCOM
             :flags => :ulong,
             :argument => :uint64
         )
-        # Interest mask flags are from the DEBUG_EVENT_XXX constants in
-        # dbgeng.h, copied above.
-        @interest_mask=0x00000000
     end
 
     def add( cb_hsh, &blk )
@@ -170,7 +170,7 @@ class EventCallbacks < FakeCOM
             @interest_mask |= MASKS[cb_name]
             @callback_table[cb_name]=blk
         }
-        @debugger.SetEventCallbacks interface_ptr 
+        @debugger.SetEventCallbacks interface_ptr
     end
 
     def remove( cb_name, &blk )
