@@ -1,18 +1,23 @@
-Initial work to wrap dbgeng.dll with FFI. The key to the project is the FakeCOM class, which allows COM objects to be accessed through Ruby without the hefty comtypes style approach of registering DLLs and such.
+Initial work to wrap dbgeng.dll with FFI. The key to the project is the FakeCOM class, which allows
+COM objects to be accessed through Ruby without the hefty comtypes style approach of registering
+DLLs and such.
 
 Currently working:
 * General wrapping, non-callback based, local and remote (via DRb)
-* Callback support, local only
+* Callback support, in local process only
 * IDebugBreakpoint wrapped via Breakpoint class
-* x86 only
+* x86 in MRI and JRuby
+* x64 in JRuby with the 64 bit debugging tools
 
-To do (LOTS)
-* Gradually expand sugar in the lowlevel API (not the Raw API)
+To do
 * Get callbacks working via DRb
-* Add x64 support (need 64 bit MRI / FFI)
 
 Alpha release, "it works for me" quality.
 
-NOTE: If the whole thing fails to work you might need to manually set DEBUGGER_PATH in raw_buggery.rb, especially if you have installed the debugging tools somewhere weird.
+NOTE: Tested with / uses headers from version 6.12.2.633. Using different
+versions of the debugging tools can cause random access violations. Set the
+DEBUGGER_PATH environment variable to the root directory of your debugging
+tools, if you've installed it somewhere other than the default for the MSIs
+from here:
 
-NOTE: Unless you install the gem with the --development option, trollop will not be installed, and some of the examples and the DRb server depend on it.
+http://archive.msdn.microsoft.com/debugtoolswindows/Release/ProjectReleases.aspx?ReleaseId=4912
