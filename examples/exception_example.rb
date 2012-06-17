@@ -29,5 +29,9 @@ debug_client.event_callbacks.add( :exception=>exception_callback )
 debug_client.create_process(
     "C:\\Program Files\\Microsoft Office\\Office12\\WINWORD.EXE #{ARGV[0]}"
 )
-debug_client.execute "!load winext\\msec.dll"
-debug_client.wait_for_event 10 until @fatal_exception
+debug_client.execute "!load winext\\msec.dll" |
+loop do
+    debug_client.wait_for_event 10
+    break if @fatal_exception
+    break unless debug_client.has_target?
+end

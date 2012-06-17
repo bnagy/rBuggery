@@ -7,7 +7,7 @@ require 'buggery'
 debug_client=Buggery.new
 
 puts "Creating..."
-debug_client.create_process("C:\\Program Files\\Adobe\\Reader 10.0\\Reader\\AcroRd32.exe")
+debug_client.create_process("notepad.exe")
 debug_client.execute ".symopt+0x100" # NO_UNQUALIFIED_LOADS
 debug_client.execute ".sympath C:\\windows\\system32;C:\\localsymbols"
 debug_client.break

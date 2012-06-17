@@ -1,6 +1,6 @@
 require 'rubygems'
 require 'yaml'
-require '../lib/buggery'
+require 'buggery'
 
 # This is mainy in response to issue #1 - multiple event callbacks not working.
 # I had to change the EventCallbacks#add method to take a hash, since it seems
@@ -48,8 +48,12 @@ exception_callback=lambda { |args|
 debug_client.event_callbacks.add( :breakpoint=>bp_callback, :exception=>exception_callback )
 
 debug_client.create_process(
-    "C:\\Program Files\\Microsoft Office\\Office12\\WINWORD.EXE #{ARGV[0]}"
+    "notepad.exe #{ARGV[0]}"
 )
 
 debug_client.execute "!load winext\\msec.dll"
-debug_client.wait_for_event 10 until @fatal_exception
+loop do
+    debug_client.wait_for_event(10)
+    break if @fatal_exception
+    break unless debug_client.has_target?
+end

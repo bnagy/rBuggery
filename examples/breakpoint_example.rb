@@ -32,7 +32,7 @@ bp_callback=lambda {|args|
 
 debug_client.event_callbacks.add( :breakpoint=>bp_callback )
 
-debug_client.create_process "C:\\Program Files\\Microsoft Office\\Office12\\WINWORD.EXE"
+debug_client.create_process "notepad.exe"
 # Custom breakpoint ID. Could also do this via the API.
 debug_client.execute "bp12 kernel32!CreateFileW"
 loop do
