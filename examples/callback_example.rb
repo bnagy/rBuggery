@@ -19,10 +19,11 @@ lm_callback=lambda {|args|
 
 debug_client.event_callbacks.add( :load_module=>lm_callback )
 
-debug_client.create_process "C:\\Program Files\\Microsoft Office\\Office12\\EXCEL.EXE"
+debug_client.create_process "notepad.exe"
 loop do
     # It's not a bad idea to use a timeout here, because ^C won't interrupt
     # a #wait_for_event( -1 ).
     debug_client.wait_for_event 10 # msec
+    break unless debug_client.has_target?
 end
 

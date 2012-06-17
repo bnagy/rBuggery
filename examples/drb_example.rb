@@ -13,7 +13,10 @@ OPTS=Trollop::options do
     opt :debug, "Debug output", :type=>:boolean
 end
 
-system("start cmd /k drb_debug_server -p #{OPTS[:port]} #{OPTS[:debug]? ' -d' : ''}")
+Thread.new {
+    # Need to thread out for JRuby compatability, because system hangs.
+    system("start drb_debug_server -p #{OPTS[:port]} #{OPTS[:debug]? ' -d' : ''}")
+}
 sleep 5 # give it time to start up
 
 debug_client=DRbObject.new nil, "druby://127.0.0.1:#{OPTS[:port]}"
@@ -34,5 +37,5 @@ mark=Time.now
     debug_client.go
     debug_client.terminate_process
 end
-debug_client.destroy
 puts Time.now - mark # ~140s on my MBP
+debug_client.destroy rescue nil
