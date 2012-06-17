@@ -61,7 +61,7 @@ class DEBUG_VALUE < FFI::Struct
         when DEBUG_VALUE_INT32
             self[:u][:I32]
         when DEBUG_VALUE_INT64
-            self[:u][:I64Nat][:I64]
+            self[:u][:I64_nat][:I64]
         when DEBUG_VALUE_FLOAT32
             self[:u][:F32]
         when DEBUG_VALUE_FLOAT64
