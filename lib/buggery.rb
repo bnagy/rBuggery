@@ -65,6 +65,7 @@ class Buggery
 
     def initialize( debug=false )
         @debug=debug
+        debug_info "Starting up..."
         @debug_client=DebugClient.new
         @output_callback=FakeCOM.new
         @output_buffer=""
