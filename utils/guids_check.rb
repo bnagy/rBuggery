@@ -46,9 +46,9 @@ guids={
 
 dc=DebugClient.new
 guids.each {|name, iid|
-    p=0.chr*4
-    dc.QueryInterface( iid, p )
-    puts "#{name} -> #{p.unpack('L').first}"
+  p=0.chr*4
+  dc.QueryInterface( iid, p )
+  puts "#{name} -> #{p.unpack('L').first}"
 }
 
 

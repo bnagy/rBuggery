@@ -10,25 +10,25 @@ require 'buggery/fake_com'
 require 'ffi'
 
 if ENV['DEBUGGER_PATH']
-    DEBUGGER_PATH = ENV['DEBUGGER_PATH']
+  DEBUGGER_PATH = ENV['DEBUGGER_PATH']
 else
-    # Guess. Newer versions will be under the WDK or SDK though.
-    DEBUGGER_PATH = [ENV['ProgramFiles'], "Debugging Tools for Windows (x86)"].join("\\")
+  # Guess. Newer versions will be under the WDK or SDK though.
+  DEBUGGER_PATH = [ENV['ProgramFiles'], "Debugging Tools for Windows (x86)"].join("\\")
 end
 DEBUGGER_DLL  = [DEBUGGER_PATH, "dbgeng.dll"].join("\\")
 
 unless File.exists? DEBUGGER_DLL
-    raise RuntimeError, "Unable to find DLLs, please set DEBUGGER_PATH in your
-    Environment to the directory where you installed the Windows debugging
-    tools." 
+  raise RuntimeError, "Unable to find DLLs, please set DEBUGGER_PATH in your
+  Environment to the directory where you installed the Windows debugging
+  tools." 
 end
 
 module Kernel32
-    extend FFI::Library
-    ffi_lib "kernel32"
-    ffi_convention :stdcall
+  extend FFI::Library
+  ffi_lib "kernel32"
+  ffi_convention :stdcall
 
-    attach_function :LoadLibraryA, [:string], :ulong
+  attach_function :LoadLibraryA, [:string], :ulong
 end
 
 # This is so that when dbgeng calls LoadLibrary on dbghelp the correct
@@ -41,1083 +41,1083 @@ Kernel32.LoadLibraryA "#{DEBUGGER_PATH}\\dbghelp"
 Kernel32.LoadLibraryA "#{DEBUGGER_PATH}\\dbgeng"
 
 module DbgEng
-    extend FFI::Library
-    ffi_lib "dbgeng"
-    ffi_convention :stdcall
+  extend FFI::Library
+  ffi_lib "dbgeng"
+  ffi_convention :stdcall
 
-    attach_function :DebugCreate, [:string, :pointer], :ulong
+  attach_function :DebugCreate, [:string, :pointer], :ulong
 end
 
 # These are parsed out from dbgeng.h
 # Not all of these are implemented yet, sorry. I haven't needed any of the
 # later version APIs yet.
 IIDS={
-    'RawBuggery::DebugAdvanced'=>[0xf2df5f53, 0x071f, 0x47bd, 0x9d, 0xe6, 0x57, 0x34, 0xc3, 0xfe, 0xd6, 0x89].pack('LSSC8'),
-    'RawBuggery::DebugAdvanced2'=>[0x716d14c9, 0x119b, 0x4ba5, 0xaf, 0x1f, 0x08, 0x90, 0xe6, 0x72, 0x41, 0x6a].pack('LSSC8'),
-    'RawBuggery::DebugAdvanced3'=>[0xcba4abb4, 0x84c4, 0x444d, 0x87, 0xca, 0xa0, 0x4e, 0x13, 0x28, 0x67, 0x39].pack('LSSC8'),
-    'RawBuggery::DebugBreakpoint'=>[0x5bd9d474, 0x5975, 0x423a, 0xb8, 0x8b, 0x65, 0xa8, 0xe7, 0x11, 0x0e, 0x65].pack('LSSC8'),
-    'RawBuggery::DebugBreakpoint2'=>[0x1b278d20, 0x79f2, 0x426e, 0xa3, 0xf9, 0xc1, 0xdd, 0xf3, 0x75, 0xd4, 0x8e].pack('LSSC8'),
-    'RawBuggery::DebugClient'=>[0x27fe5639, 0x8407, 0x4f47, 0x83, 0x64, 0xee, 0x11, 0x8f, 0xb0, 0x8a, 0xc8].pack('LSSC8'),
-    'RawBuggery::DebugClient2'=>[0xedbed635, 0x372e, 0x4dab, 0xbb, 0xfe, 0xed, 0x0d, 0x2f, 0x63, 0xbe, 0x81].pack('LSSC8'),
-    'RawBuggery::DebugClient3'=>[0xdd492d7f, 0x71b8, 0x4ad6, 0xa8, 0xdc, 0x1c, 0x88, 0x74, 0x79, 0xff, 0x91].pack('LSSC8'),
-    'RawBuggery::DebugClient4'=>[0xca83c3de, 0x5089, 0x4cf8, 0x93, 0xc8, 0xd8, 0x92, 0x38, 0x7f, 0x2a, 0x5e].pack('LSSC8'),
-    'RawBuggery::DebugClient5'=>[0xe3acb9d7, 0x7ec2, 0x4f0c, 0xa0, 0xda, 0xe8, 0x1e, 0x0c, 0xbb, 0xe6, 0x28].pack('LSSC8'),
-    'RawBuggery::DebugControl'=>[0x5182e668, 0x105e, 0x416e, 0xad, 0x92, 0x24, 0xef, 0x80, 0x04, 0x24, 0xba].pack('LSSC8'),
-    'RawBuggery::DebugControl2'=>[0xd4366723, 0x44df, 0x4bed, 0x8c, 0x7e, 0x4c, 0x05, 0x42, 0x4f, 0x45, 0x88].pack('LSSC8'),
-    'RawBuggery::DebugControl3'=>[0x7df74a86, 0xb03f, 0x407f, 0x90, 0xab, 0xa2, 0x0d, 0xad, 0xce, 0xad, 0x08].pack('LSSC8'),
-    'RawBuggery::DebugControl4'=>[0x94e60ce9, 0x9b41, 0x4b19, 0x9f, 0xc0, 0x6d, 0x9e, 0xb3, 0x52, 0x72, 0xb3].pack('LSSC8'),
-    'RawBuggery::DebugDataSpaces'=>[0x88f7dfab, 0x3ea7, 0x4c3a, 0xae, 0xfb, 0xc4, 0xe8, 0x10, 0x61, 0x73, 0xaa].pack('LSSC8'),
-    'RawBuggery::DebugDataSpaces2'=>[0x7a5e852f, 0x96e9, 0x468f, 0xac, 0x1b, 0x0b, 0x3a, 0xdd, 0xc4, 0xa0, 0x49].pack('LSSC8'),
-    'RawBuggery::DebugDataSpaces3'=>[0x23f79d6c, 0x8aaf, 0x4f7c, 0xa6, 0x07, 0x99, 0x95, 0xf5, 0x40, 0x7e, 0x63].pack('LSSC8'),
-    'RawBuggery::DebugDataSpaces4'=>[0xd98ada1f, 0x29e9, 0x4ef5, 0xa6, 0xc0, 0xe5, 0x33, 0x49, 0x88, 0x32, 0x12].pack('LSSC8'),
-    'RawBuggery::DebugEventCallbacks'=>[0x337be28b, 0x5036, 0x4d72, 0xb6, 0xbf, 0xc4, 0x5f, 0xbb, 0x9f, 0x2e, 0xaa].pack('LSSC8'),
-    'RawBuggery::DebugEventCallbacksWide'=>[0x0690e046, 0x9c23, 0x45ac, 0xa0, 0x4f, 0x98, 0x7a, 0xc2, 0x9a, 0xd0, 0xd3].pack('LSSC8'),
-    'RawBuggery::DebugInputCallbacks'=>[0x9f50e42c, 0xf136, 0x499e, 0x9a, 0x97, 0x73, 0x03, 0x6c, 0x94, 0xed, 0x2d].pack('LSSC8'),
-    'RawBuggery::DebugOutputCallbacks'=>[0x4bf58045, 0xd654, 0x4c40, 0xb0, 0xaf, 0x68, 0x30, 0x90, 0xf3, 0x56, 0xdc].pack('LSSC8'),
-    'RawBuggery::DebugOutputCallbacksWide'=>[0x4c7fd663, 0xc394, 0x4e26, 0x8e, 0xf1, 0x34, 0xad, 0x5e, 0xd3, 0x76, 0x4c].pack('LSSC8'),
-    'RawBuggery::DebugOutputCallbacks2'=>[0x67721fe9, 0x56d2, 0x4a44, 0xa3, 0x25, 0x2b, 0x65, 0x51, 0x3c, 0xe6, 0xeb].pack('LSSC8'),
-    'RawBuggery::DebugRegisters'=>[0xce289126, 0x9e84, 0x45a7, 0x93, 0x7e, 0x67, 0xbb, 0x18, 0x69, 0x14, 0x93].pack('LSSC8'),
-    'RawBuggery::DebugRegisters2'=>[0x1656afa9, 0x19c6, 0x4e3a, 0x97, 0xe7, 0x5d, 0xc9, 0x16, 0x0c, 0xf9, 0xc4].pack('LSSC8'),
-    'RawBuggery::DebugSymbolGroup'=>[0xf2528316, 0x0f1a, 0x4431, 0xae, 0xed, 0x11, 0xd0, 0x96, 0xe1, 0xe2, 0xab].pack('LSSC8'),
-    'RawBuggery::DebugSymbolGroup2'=>[0x6a7ccc5f, 0xfb5e, 0x4dcc, 0xb4, 0x1c, 0x6c, 0x20, 0x30, 0x7b, 0xcc, 0xc7].pack('LSSC8'),
-    'RawBuggery::DebugSymbols'=>[0x8c31e98c, 0x983a, 0x48a5, 0x90, 0x16, 0x6f, 0xe5, 0xd6, 0x67, 0xa9, 0x50].pack('LSSC8'),
-    'RawBuggery::DebugSymbols2'=>[0x3a707211, 0xafdd, 0x4495, 0xad, 0x4f, 0x56, 0xfe, 0xcd, 0xf8, 0x16, 0x3f].pack('LSSC8'),
-    'RawBuggery::DebugSymbols3'=>[0xf02fbecc, 0x50ac, 0x4f36, 0x9a, 0xd9, 0xc9, 0x75, 0xe8, 0xf3, 0x2f, 0xf8].pack('LSSC8'),
-    'RawBuggery::DebugSystemObjects'=>[0x6b86fe2c, 0x2c4f, 0x4f0c, 0x9d, 0xa2, 0x17, 0x43, 0x11, 0xac, 0xc3, 0x27].pack('LSSC8'),
-    'RawBuggery::DebugSystemObjects2'=>[0x0ae9f5ff, 0x1852, 0x4679, 0xb0, 0x55, 0x49, 0x4b, 0xee, 0x64, 0x07, 0xee].pack('LSSC8'),
-    'RawBuggery::DebugSystemObjects3'=>[0xe9676e2f, 0xe286, 0x4ea3, 0xb0, 0xf9, 0xdf, 0xe5, 0xd9, 0xfc, 0x33, 0x0e].pack('LSSC8'),
-    'RawBuggery::DebugSystemObjects4'=>[0x489468e6, 0x7d0f, 0x4af5, 0x87, 0xab, 0x25, 0x20, 0x74, 0x54, 0xd5, 0x53].pack('LSSC8'),
+  'RawBuggery::DebugAdvanced'=>[0xf2df5f53, 0x071f, 0x47bd, 0x9d, 0xe6, 0x57, 0x34, 0xc3, 0xfe, 0xd6, 0x89].pack('LSSC8'),
+  'RawBuggery::DebugAdvanced2'=>[0x716d14c9, 0x119b, 0x4ba5, 0xaf, 0x1f, 0x08, 0x90, 0xe6, 0x72, 0x41, 0x6a].pack('LSSC8'),
+  'RawBuggery::DebugAdvanced3'=>[0xcba4abb4, 0x84c4, 0x444d, 0x87, 0xca, 0xa0, 0x4e, 0x13, 0x28, 0x67, 0x39].pack('LSSC8'),
+  'RawBuggery::DebugBreakpoint'=>[0x5bd9d474, 0x5975, 0x423a, 0xb8, 0x8b, 0x65, 0xa8, 0xe7, 0x11, 0x0e, 0x65].pack('LSSC8'),
+  'RawBuggery::DebugBreakpoint2'=>[0x1b278d20, 0x79f2, 0x426e, 0xa3, 0xf9, 0xc1, 0xdd, 0xf3, 0x75, 0xd4, 0x8e].pack('LSSC8'),
+  'RawBuggery::DebugClient'=>[0x27fe5639, 0x8407, 0x4f47, 0x83, 0x64, 0xee, 0x11, 0x8f, 0xb0, 0x8a, 0xc8].pack('LSSC8'),
+  'RawBuggery::DebugClient2'=>[0xedbed635, 0x372e, 0x4dab, 0xbb, 0xfe, 0xed, 0x0d, 0x2f, 0x63, 0xbe, 0x81].pack('LSSC8'),
+  'RawBuggery::DebugClient3'=>[0xdd492d7f, 0x71b8, 0x4ad6, 0xa8, 0xdc, 0x1c, 0x88, 0x74, 0x79, 0xff, 0x91].pack('LSSC8'),
+  'RawBuggery::DebugClient4'=>[0xca83c3de, 0x5089, 0x4cf8, 0x93, 0xc8, 0xd8, 0x92, 0x38, 0x7f, 0x2a, 0x5e].pack('LSSC8'),
+  'RawBuggery::DebugClient5'=>[0xe3acb9d7, 0x7ec2, 0x4f0c, 0xa0, 0xda, 0xe8, 0x1e, 0x0c, 0xbb, 0xe6, 0x28].pack('LSSC8'),
+  'RawBuggery::DebugControl'=>[0x5182e668, 0x105e, 0x416e, 0xad, 0x92, 0x24, 0xef, 0x80, 0x04, 0x24, 0xba].pack('LSSC8'),
+  'RawBuggery::DebugControl2'=>[0xd4366723, 0x44df, 0x4bed, 0x8c, 0x7e, 0x4c, 0x05, 0x42, 0x4f, 0x45, 0x88].pack('LSSC8'),
+  'RawBuggery::DebugControl3'=>[0x7df74a86, 0xb03f, 0x407f, 0x90, 0xab, 0xa2, 0x0d, 0xad, 0xce, 0xad, 0x08].pack('LSSC8'),
+  'RawBuggery::DebugControl4'=>[0x94e60ce9, 0x9b41, 0x4b19, 0x9f, 0xc0, 0x6d, 0x9e, 0xb3, 0x52, 0x72, 0xb3].pack('LSSC8'),
+  'RawBuggery::DebugDataSpaces'=>[0x88f7dfab, 0x3ea7, 0x4c3a, 0xae, 0xfb, 0xc4, 0xe8, 0x10, 0x61, 0x73, 0xaa].pack('LSSC8'),
+  'RawBuggery::DebugDataSpaces2'=>[0x7a5e852f, 0x96e9, 0x468f, 0xac, 0x1b, 0x0b, 0x3a, 0xdd, 0xc4, 0xa0, 0x49].pack('LSSC8'),
+  'RawBuggery::DebugDataSpaces3'=>[0x23f79d6c, 0x8aaf, 0x4f7c, 0xa6, 0x07, 0x99, 0x95, 0xf5, 0x40, 0x7e, 0x63].pack('LSSC8'),
+  'RawBuggery::DebugDataSpaces4'=>[0xd98ada1f, 0x29e9, 0x4ef5, 0xa6, 0xc0, 0xe5, 0x33, 0x49, 0x88, 0x32, 0x12].pack('LSSC8'),
+  'RawBuggery::DebugEventCallbacks'=>[0x337be28b, 0x5036, 0x4d72, 0xb6, 0xbf, 0xc4, 0x5f, 0xbb, 0x9f, 0x2e, 0xaa].pack('LSSC8'),
+  'RawBuggery::DebugEventCallbacksWide'=>[0x0690e046, 0x9c23, 0x45ac, 0xa0, 0x4f, 0x98, 0x7a, 0xc2, 0x9a, 0xd0, 0xd3].pack('LSSC8'),
+  'RawBuggery::DebugInputCallbacks'=>[0x9f50e42c, 0xf136, 0x499e, 0x9a, 0x97, 0x73, 0x03, 0x6c, 0x94, 0xed, 0x2d].pack('LSSC8'),
+  'RawBuggery::DebugOutputCallbacks'=>[0x4bf58045, 0xd654, 0x4c40, 0xb0, 0xaf, 0x68, 0x30, 0x90, 0xf3, 0x56, 0xdc].pack('LSSC8'),
+  'RawBuggery::DebugOutputCallbacksWide'=>[0x4c7fd663, 0xc394, 0x4e26, 0x8e, 0xf1, 0x34, 0xad, 0x5e, 0xd3, 0x76, 0x4c].pack('LSSC8'),
+  'RawBuggery::DebugOutputCallbacks2'=>[0x67721fe9, 0x56d2, 0x4a44, 0xa3, 0x25, 0x2b, 0x65, 0x51, 0x3c, 0xe6, 0xeb].pack('LSSC8'),
+  'RawBuggery::DebugRegisters'=>[0xce289126, 0x9e84, 0x45a7, 0x93, 0x7e, 0x67, 0xbb, 0x18, 0x69, 0x14, 0x93].pack('LSSC8'),
+  'RawBuggery::DebugRegisters2'=>[0x1656afa9, 0x19c6, 0x4e3a, 0x97, 0xe7, 0x5d, 0xc9, 0x16, 0x0c, 0xf9, 0xc4].pack('LSSC8'),
+  'RawBuggery::DebugSymbolGroup'=>[0xf2528316, 0x0f1a, 0x4431, 0xae, 0xed, 0x11, 0xd0, 0x96, 0xe1, 0xe2, 0xab].pack('LSSC8'),
+  'RawBuggery::DebugSymbolGroup2'=>[0x6a7ccc5f, 0xfb5e, 0x4dcc, 0xb4, 0x1c, 0x6c, 0x20, 0x30, 0x7b, 0xcc, 0xc7].pack('LSSC8'),
+  'RawBuggery::DebugSymbols'=>[0x8c31e98c, 0x983a, 0x48a5, 0x90, 0x16, 0x6f, 0xe5, 0xd6, 0x67, 0xa9, 0x50].pack('LSSC8'),
+  'RawBuggery::DebugSymbols2'=>[0x3a707211, 0xafdd, 0x4495, 0xad, 0x4f, 0x56, 0xfe, 0xcd, 0xf8, 0x16, 0x3f].pack('LSSC8'),
+  'RawBuggery::DebugSymbols3'=>[0xf02fbecc, 0x50ac, 0x4f36, 0x9a, 0xd9, 0xc9, 0x75, 0xe8, 0xf3, 0x2f, 0xf8].pack('LSSC8'),
+  'RawBuggery::DebugSystemObjects'=>[0x6b86fe2c, 0x2c4f, 0x4f0c, 0x9d, 0xa2, 0x17, 0x43, 0x11, 0xac, 0xc3, 0x27].pack('LSSC8'),
+  'RawBuggery::DebugSystemObjects2'=>[0x0ae9f5ff, 0x1852, 0x4679, 0xb0, 0x55, 0x49, 0x4b, 0xee, 0x64, 0x07, 0xee].pack('LSSC8'),
+  'RawBuggery::DebugSystemObjects3'=>[0xe9676e2f, 0xe286, 0x4ea3, 0xb0, 0xf9, 0xdf, 0xe5, 0xd9, 0xfc, 0x33, 0x0e].pack('LSSC8'),
+  'RawBuggery::DebugSystemObjects4'=>[0x489468e6, 0x7d0f, 0x4af5, 0x87, 0xab, 0x25, 0x20, 0x74, 0x54, 0xd5, 0x53].pack('LSSC8'),
 }
 IID_IUnknown=[0x00000000,0x0000,0x0000,0xC0,0x00,0x00,0x00,0x00,0x00,0x00,0x46].pack('LSSC8')
 IID_IDispatch=[0x00020400,0x0000,0x0000,0xC0,0x00,0x00,0x00,0x00,0x00,0x00,0x46].pack('LSSC8')
 S_OK=0
 
 module RawBuggery
-    class DebugClient
-        # This class is a little bit special, because it will not only
-        # dispatch to its own APIs from method_missing, but also to any
-        # of the defined client interfaces, like DebugAdvanced, DebugRegisters etc
+  class DebugClient
+    # This class is a little bit special, because it will not only
+    # dispatch to its own APIs from method_missing, but also to any
+    # of the defined client interfaces, like DebugAdvanced, DebugRegisters etc
 
-        # Local Constants
-        DEBUG_ATTACH_KERNEL_CONNECTION=0x00000000
-        DEBUG_ATTACH_LOCAL_KERNEL=0x00000001
-        DEBUG_ATTACH_EXDI_DRIVER=0x00000002
-        DEBUG_ATTACH_INSTALL_DRIVER=0x00000004
-        DEBUG_GET_PROC_DEFAULT=0x00000000
-        DEBUG_GET_PROC_FULL_MATCH=0x00000001
-        DEBUG_GET_PROC_ONLY_MATCH=0x00000002
-        DEBUG_GET_PROC_SERVICE_NAME=0x00000004
-        DEBUG_PROC_DESC_DEFAULT=0x00000000
-        DEBUG_PROC_DESC_NO_PATHS=0x00000001
-        DEBUG_PROC_DESC_NO_SERVICES=0x00000002
-        DEBUG_PROC_DESC_NO_MTS_PACKAGES=0x00000004
-        DEBUG_PROC_DESC_NO_COMMAND_LINE=0x00000008
-        DEBUG_PROC_DESC_NO_SESSION_ID=0x00000010
-        DEBUG_PROC_DESC_NO_USER_NAME=0x00000020
-        DEBUG_ATTACH_DEFAULT=0x00000000
-        DEBUG_ATTACH_NONINVASIVE=0x00000001
-        DEBUG_ATTACH_EXISTING=0x00000002
-        DEBUG_ATTACH_NONINVASIVE_NO_SUSPEND=0x00000004
-        DEBUG_ATTACH_INVASIVE_NO_INITIAL_BREAK=0x00000008
-        DEBUG_ATTACH_INVASIVE_RESUME_PROCESS=0x00000010
-        DEBUG_ATTACH_NONINVASIVE_ALLOW_PARTIAL=0x00000020
-        # Don't know where to find these at the moment
-        #DEBUG_CREATE_PROCESS_NO_DEBUG_HEAP=CREATE_UNICODE_ENVIRONMENT
-        #DEBUG_CREATE_PROCESS_THROUGH_RTL=STACK_SIZE_PARAM_IS_A_RESERVATION
-        DEBUG_ECREATE_PROCESS_DEFAULT=0x00000000
-        DEBUG_ECREATE_PROCESS_INHERIT_HANDLES=0x00000001
-        DEBUG_ECREATE_PROCESS_USE_VERIFIER_FLAGS=0x00000002
-        DEBUG_ECREATE_PROCESS_USE_IMPLICIT_COMMAND_LINE=0x00000004
-        DEBUG_PROCESS_DETACH_ON_EXIT=0x00000001
-        DEBUG_PROCESS_ONLY_THIS_PROCESS=0x00000002
-        DEBUG_PROCESS=0x00000001
-        DEBUG_CONNECT_SESSION_DEFAULT=0x00000000
-        DEBUG_CONNECT_SESSION_NO_VERSION=0x00000001
-        DEBUG_CONNECT_SESSION_NO_ANNOUNCE=0x00000002
-        DEBUG_SERVERS_DEBUGGER=0x00000001
-        DEBUG_SERVERS_PROCESS=0x00000002
-        DEBUG_SERVERS_ALL=0x00000003
-        DEBUG_END_PASSIVE=0x00000000
-        DEBUG_END_ACTIVE_TERMINATE=0x00000001
-        DEBUG_END_ACTIVE_DETACH=0x00000002
-        DEBUG_END_REENTRANT=0x00000003
-        DEBUG_END_DISCONNECT=0x00000004
-        DEBUG_OUTPUT_NORMAL=0x00000001
-        DEBUG_OUTPUT_ERROR=0x00000002
-        DEBUG_OUTPUT_WARNING=0x00000004
-        DEBUG_OUTPUT_VERBOSE=0x00000008
-        DEBUG_OUTPUT_PROMPT=0x00000010
-        DEBUG_OUTPUT_PROMPT_REGISTERS=0x00000020
-        DEBUG_OUTPUT_EXTENSION_WARNING=0x00000040
-        DEBUG_OUTPUT_DEBUGGEE=0x00000080
-        DEBUG_OUTPUT_DEBUGGEE_PROMPT=0x00000100
-        DEBUG_OUTPUT_SYMBOLS=0x00000200
-        DEBUG_IOUTPUT_KD_PROTOCOL=0x80000000
-        DEBUG_IOUTPUT_REMOTING=0x40000000
-        DEBUG_IOUTPUT_BREAKPOINT=0x20000000
-        DEBUG_IOUTPUT_EVENT=0x10000000
-        DEBUG_IOUTPUT_ADDR_TRANSLATE=0x08000000
-        DEBUG_OUTPUT_IDENTITY_DEFAULT=0x00000000
+    # Local Constants
+    DEBUG_ATTACH_KERNEL_CONNECTION=0x00000000
+    DEBUG_ATTACH_LOCAL_KERNEL=0x00000001
+    DEBUG_ATTACH_EXDI_DRIVER=0x00000002
+    DEBUG_ATTACH_INSTALL_DRIVER=0x00000004
+    DEBUG_GET_PROC_DEFAULT=0x00000000
+    DEBUG_GET_PROC_FULL_MATCH=0x00000001
+    DEBUG_GET_PROC_ONLY_MATCH=0x00000002
+    DEBUG_GET_PROC_SERVICE_NAME=0x00000004
+    DEBUG_PROC_DESC_DEFAULT=0x00000000
+    DEBUG_PROC_DESC_NO_PATHS=0x00000001
+    DEBUG_PROC_DESC_NO_SERVICES=0x00000002
+    DEBUG_PROC_DESC_NO_MTS_PACKAGES=0x00000004
+    DEBUG_PROC_DESC_NO_COMMAND_LINE=0x00000008
+    DEBUG_PROC_DESC_NO_SESSION_ID=0x00000010
+    DEBUG_PROC_DESC_NO_USER_NAME=0x00000020
+    DEBUG_ATTACH_DEFAULT=0x00000000
+    DEBUG_ATTACH_NONINVASIVE=0x00000001
+    DEBUG_ATTACH_EXISTING=0x00000002
+    DEBUG_ATTACH_NONINVASIVE_NO_SUSPEND=0x00000004
+    DEBUG_ATTACH_INVASIVE_NO_INITIAL_BREAK=0x00000008
+    DEBUG_ATTACH_INVASIVE_RESUME_PROCESS=0x00000010
+    DEBUG_ATTACH_NONINVASIVE_ALLOW_PARTIAL=0x00000020
+    # Don't know where to find these at the moment
+    #DEBUG_CREATE_PROCESS_NO_DEBUG_HEAP=CREATE_UNICODE_ENVIRONMENT
+    #DEBUG_CREATE_PROCESS_THROUGH_RTL=STACK_SIZE_PARAM_IS_A_RESERVATION
+    DEBUG_ECREATE_PROCESS_DEFAULT=0x00000000
+    DEBUG_ECREATE_PROCESS_INHERIT_HANDLES=0x00000001
+    DEBUG_ECREATE_PROCESS_USE_VERIFIER_FLAGS=0x00000002
+    DEBUG_ECREATE_PROCESS_USE_IMPLICIT_COMMAND_LINE=0x00000004
+    DEBUG_PROCESS_DETACH_ON_EXIT=0x00000001
+    DEBUG_PROCESS_ONLY_THIS_PROCESS=0x00000002
+    DEBUG_PROCESS=0x00000001
+    DEBUG_CONNECT_SESSION_DEFAULT=0x00000000
+    DEBUG_CONNECT_SESSION_NO_VERSION=0x00000001
+    DEBUG_CONNECT_SESSION_NO_ANNOUNCE=0x00000002
+    DEBUG_SERVERS_DEBUGGER=0x00000001
+    DEBUG_SERVERS_PROCESS=0x00000002
+    DEBUG_SERVERS_ALL=0x00000003
+    DEBUG_END_PASSIVE=0x00000000
+    DEBUG_END_ACTIVE_TERMINATE=0x00000001
+    DEBUG_END_ACTIVE_DETACH=0x00000002
+    DEBUG_END_REENTRANT=0x00000003
+    DEBUG_END_DISCONNECT=0x00000004
+    DEBUG_OUTPUT_NORMAL=0x00000001
+    DEBUG_OUTPUT_ERROR=0x00000002
+    DEBUG_OUTPUT_WARNING=0x00000004
+    DEBUG_OUTPUT_VERBOSE=0x00000008
+    DEBUG_OUTPUT_PROMPT=0x00000010
+    DEBUG_OUTPUT_PROMPT_REGISTERS=0x00000020
+    DEBUG_OUTPUT_EXTENSION_WARNING=0x00000040
+    DEBUG_OUTPUT_DEBUGGEE=0x00000080
+    DEBUG_OUTPUT_DEBUGGEE_PROMPT=0x00000100
+    DEBUG_OUTPUT_SYMBOLS=0x00000200
+    DEBUG_IOUTPUT_KD_PROTOCOL=0x80000000
+    DEBUG_IOUTPUT_REMOTING=0x40000000
+    DEBUG_IOUTPUT_BREAKPOINT=0x20000000
+    DEBUG_IOUTPUT_EVENT=0x10000000
+    DEBUG_IOUTPUT_ADDR_TRANSLATE=0x08000000
+    DEBUG_OUTPUT_IDENTITY_DEFAULT=0x00000000
 
-        NUM_APIS=48
+    NUM_APIS=48
 
-        def initialize
-            # Get a pointer to the IDebugClient interface
-            ptr = FFI::MemoryPointer.new :pointer
-            DbgEng.DebugCreate IIDS[self.class.to_s], ptr
-            @interface_ptr = ptr.get_pointer(0)
-            raise "#{self.class}: Unable to get interface pointer!" if @interface_ptr.address.zero?
-            @vtable=@interface_ptr.get_pointer(0).read_array_of_pointer( NUM_APIS ).map {|addr|
-                FFI::Pointer.new( addr )
-            }
-            @interface_table={} # empty for now, built as needed
-            # These are autogenerated from dbgeng.h and may contain errors!
-            @api_dispatch_table={
-                :QueryInterface=>FFI::Function.new( :ulong, [:pointer,:string,:pointer], @vtable[0], :convention => :stdcall  ),
-                :AddRef=>FFI::Function.new( :ulong, [:pointer], @vtable[1], :convention => :stdcall  ),
-                :Release=>FFI::Function.new( :ulong, [:pointer], @vtable[2], :convention => :stdcall  ),
-                :AttachKernel=>FFI::Function.new( :ulong, [:pointer,:ulong,:string], @vtable[3], :convention => :stdcall  ),
-                :GetKernelConnectionOptions=>FFI::Function.new( :ulong, [:pointer,:pointer,:ulong,:pointer], @vtable[4], :convention => :stdcall  ),
-                :SetKernelConnectionOptions=>FFI::Function.new( :ulong, [:pointer,:string], @vtable[5], :convention => :stdcall  ),
-                :StartProcessServer=>FFI::Function.new( :ulong, [:pointer,:ulong,:string,], @vtable[6], :convention => :stdcall  ),
-                :ConnectProcessServer=>FFI::Function.new( :ulong, [:pointer,:string,:pointer], @vtable[7], :convention => :stdcall  ),
-                :DisconnectProcessServer=>FFI::Function.new( :ulong, [:pointer,:uint64], @vtable[8], :convention => :stdcall  ),
-                :GetRunningProcessSystemIds=>FFI::Function.new( :ulong, [:pointer,:uint64,:pointer,:ulong,:pointer], @vtable[9], :convention => :stdcall  ),
-                :GetRunningProcessSystemIdByExecutableName=>FFI::Function.new( :ulong, [:pointer,:uint64,:string,:ulong,:pointer], @vtable[10], :convention => :stdcall  ),
-                :GetRunningProcessDescription=>FFI::Function.new( :ulong, [:pointer,:uint64,:ulong,:ulong,:pointer,:ulong,:pointer,:pointer,:ulong,:pointer], @vtable[11], :convention => :stdcall  ),
-                :AttachProcess=>FFI::Function.new( :ulong, [:pointer,:uint64,:ulong,:ulong], @vtable[12], :convention => :stdcall  ),
-                :CreateProcess=>FFI::Function.new( :ulong, [:pointer,:uint64,:string,:ulong], @vtable[13], :convention => :stdcall  ),
-                :CreateProcessAndAttach=>FFI::Function.new( :ulong, [:pointer,:uint64,:string,:ulong,:ulong,:ulong], @vtable[14], :convention => :stdcall  ),
-                :GetProcessOptions=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[15], :convention => :stdcall  ),
-                :AddProcessOptions=>FFI::Function.new( :ulong, [:pointer,:ulong], @vtable[16], :convention => :stdcall  ),
-                :RemoveProcessOptions=>FFI::Function.new( :ulong, [:pointer,:ulong], @vtable[17], :convention => :stdcall  ),
-                :SetProcessOptions=>FFI::Function.new( :ulong, [:pointer,:ulong], @vtable[18], :convention => :stdcall  ),
-                :OpenDumpFile=>FFI::Function.new( :ulong, [:pointer,:string], @vtable[19], :convention => :stdcall  ),
-                :WriteDumpFile=>FFI::Function.new( :ulong, [:pointer,:string,:ulong], @vtable[20], :convention => :stdcall  ),
-                :ConnectSession=>FFI::Function.new( :ulong, [:pointer,:ulong,:ulong], @vtable[21], :convention => :stdcall  ),
-                :StartServer=>FFI::Function.new( :ulong, [:pointer,:string], @vtable[22], :convention => :stdcall  ),
-                :OutputServers=>FFI::Function.new( :ulong, [:pointer,:ulong,:string,:ulong], @vtable[23], :convention => :stdcall  ),
-                :TerminateProcesses=>FFI::Function.new( :ulong, [:pointer], @vtable[24], :convention => :stdcall  ),
-                :DetachProcesses=>FFI::Function.new( :ulong, [:pointer], @vtable[25], :convention => :stdcall  ),
-                :EndSession=>FFI::Function.new( :ulong, [:pointer,:ulong], @vtable[26], :convention => :stdcall  ),
-                :GetExitCode=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[27], :convention => :stdcall  ),
-                :DispatchCallbacks=>FFI::Function.new( :ulong, [:pointer,:ulong], @vtable[28], :convention => :stdcall  ),
-                :ExitDispatch=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[29], :convention => :stdcall  ),
-                :CreateClient=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[30], :convention => :stdcall  ),
-                :GetInputCallbacks=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[31], :convention => :stdcall  ),
-                :SetInputCallbacks=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[32], :convention => :stdcall  ),
-                :GetOutputCallbacks=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[33], :convention => :stdcall  ),
-                :SetOutputCallbacks=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[34], :convention => :stdcall  ),
-                :GetOutputMask=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[35], :convention => :stdcall  ),
-                :SetOutputMask=>FFI::Function.new( :ulong, [:pointer,:ulong], @vtable[36], :convention => :stdcall  ),
-                :GetOtherOutputMask=>FFI::Function.new( :ulong, [:pointer,:pointer,:pointer], @vtable[37], :convention => :stdcall  ),
-                :SetOtherOutputMask=>FFI::Function.new( :ulong, [:pointer,:pointer,:ulong], @vtable[38], :convention => :stdcall  ),
-                :GetOutputWidth=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[39], :convention => :stdcall  ),
-                :SetOutputWidth=>FFI::Function.new( :ulong, [:pointer,:ulong], @vtable[40], :convention => :stdcall  ),
-                :GetOutputLinePrefix=>FFI::Function.new( :ulong, [:pointer,:pointer,:ulong,:pointer], @vtable[41], :convention => :stdcall  ),
-                :SetOutputLinePrefix=>FFI::Function.new( :ulong, [:pointer,:string], @vtable[42], :convention => :stdcall  ),
-                :GetIdentity=>FFI::Function.new( :ulong, [:pointer,:pointer,:ulong,:pointer], @vtable[43], :convention => :stdcall  ),
-                :OutputIdentity=>FFI::Function.new( :ulong, [:pointer,:ulong,:ulong,:string], @vtable[44], :convention => :stdcall  ),
-                :GetEventCallbacks=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[45], :convention => :stdcall  ),
-                :SetEventCallbacks=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[46], :convention => :stdcall  ),
-                :FlushCallbacks=>FFI::Function.new( :ulong, [:pointer], @vtable[47], :convention => :stdcall  )
-            }
-        end
-
-        def ptr
-            @interface_ptr
-        end
-
-        def method_missing( meth, *args )
-            unless @api_dispatch_table[meth]
-                begin
-                    # Maybe it's a subinterface?
-                    @interface_table[meth]||=RawBuggery.const_get( meth ).new( self )
-                rescue
-                    # Then again, maybe not.
-                    raise ArgumentError, "#{self.class}: Invalid API #{meth} #{$!}"
-                end
-            else
-                @api_dispatch_table[meth].call( @interface_ptr, *args )
-            end
-        end
+    def initialize
+      # Get a pointer to the IDebugClient interface
+      ptr = FFI::MemoryPointer.new :pointer
+      DbgEng.DebugCreate IIDS[self.class.to_s], ptr
+      @interface_ptr = ptr.get_pointer(0)
+      raise "#{self.class}: Unable to get interface pointer!" if @interface_ptr.address.zero?
+      @vtable=@interface_ptr.get_pointer(0).read_array_of_pointer( NUM_APIS ).map {|addr|
+        FFI::Pointer.new( addr )
+      }
+      @interface_table={} # empty for now, built as needed
+      # These are autogenerated from dbgeng.h and may contain errors!
+      @api_dispatch_table={
+        :QueryInterface=>FFI::Function.new( :ulong, [:pointer,:string,:pointer], @vtable[0], :convention => :stdcall  ),
+        :AddRef=>FFI::Function.new( :ulong, [:pointer], @vtable[1], :convention => :stdcall  ),
+        :Release=>FFI::Function.new( :ulong, [:pointer], @vtable[2], :convention => :stdcall  ),
+        :AttachKernel=>FFI::Function.new( :ulong, [:pointer,:ulong,:string], @vtable[3], :convention => :stdcall  ),
+        :GetKernelConnectionOptions=>FFI::Function.new( :ulong, [:pointer,:pointer,:ulong,:pointer], @vtable[4], :convention => :stdcall  ),
+        :SetKernelConnectionOptions=>FFI::Function.new( :ulong, [:pointer,:string], @vtable[5], :convention => :stdcall  ),
+        :StartProcessServer=>FFI::Function.new( :ulong, [:pointer,:ulong,:string,], @vtable[6], :convention => :stdcall  ),
+        :ConnectProcessServer=>FFI::Function.new( :ulong, [:pointer,:string,:pointer], @vtable[7], :convention => :stdcall  ),
+        :DisconnectProcessServer=>FFI::Function.new( :ulong, [:pointer,:uint64], @vtable[8], :convention => :stdcall  ),
+        :GetRunningProcessSystemIds=>FFI::Function.new( :ulong, [:pointer,:uint64,:pointer,:ulong,:pointer], @vtable[9], :convention => :stdcall  ),
+        :GetRunningProcessSystemIdByExecutableName=>FFI::Function.new( :ulong, [:pointer,:uint64,:string,:ulong,:pointer], @vtable[10], :convention => :stdcall  ),
+        :GetRunningProcessDescription=>FFI::Function.new( :ulong, [:pointer,:uint64,:ulong,:ulong,:pointer,:ulong,:pointer,:pointer,:ulong,:pointer], @vtable[11], :convention => :stdcall  ),
+        :AttachProcess=>FFI::Function.new( :ulong, [:pointer,:uint64,:ulong,:ulong], @vtable[12], :convention => :stdcall  ),
+        :CreateProcess=>FFI::Function.new( :ulong, [:pointer,:uint64,:string,:ulong], @vtable[13], :convention => :stdcall  ),
+        :CreateProcessAndAttach=>FFI::Function.new( :ulong, [:pointer,:uint64,:string,:ulong,:ulong,:ulong], @vtable[14], :convention => :stdcall  ),
+        :GetProcessOptions=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[15], :convention => :stdcall  ),
+        :AddProcessOptions=>FFI::Function.new( :ulong, [:pointer,:ulong], @vtable[16], :convention => :stdcall  ),
+        :RemoveProcessOptions=>FFI::Function.new( :ulong, [:pointer,:ulong], @vtable[17], :convention => :stdcall  ),
+        :SetProcessOptions=>FFI::Function.new( :ulong, [:pointer,:ulong], @vtable[18], :convention => :stdcall  ),
+        :OpenDumpFile=>FFI::Function.new( :ulong, [:pointer,:string], @vtable[19], :convention => :stdcall  ),
+        :WriteDumpFile=>FFI::Function.new( :ulong, [:pointer,:string,:ulong], @vtable[20], :convention => :stdcall  ),
+        :ConnectSession=>FFI::Function.new( :ulong, [:pointer,:ulong,:ulong], @vtable[21], :convention => :stdcall  ),
+        :StartServer=>FFI::Function.new( :ulong, [:pointer,:string], @vtable[22], :convention => :stdcall  ),
+        :OutputServers=>FFI::Function.new( :ulong, [:pointer,:ulong,:string,:ulong], @vtable[23], :convention => :stdcall  ),
+        :TerminateProcesses=>FFI::Function.new( :ulong, [:pointer], @vtable[24], :convention => :stdcall  ),
+        :DetachProcesses=>FFI::Function.new( :ulong, [:pointer], @vtable[25], :convention => :stdcall  ),
+        :EndSession=>FFI::Function.new( :ulong, [:pointer,:ulong], @vtable[26], :convention => :stdcall  ),
+        :GetExitCode=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[27], :convention => :stdcall  ),
+        :DispatchCallbacks=>FFI::Function.new( :ulong, [:pointer,:ulong], @vtable[28], :convention => :stdcall  ),
+        :ExitDispatch=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[29], :convention => :stdcall  ),
+        :CreateClient=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[30], :convention => :stdcall  ),
+        :GetInputCallbacks=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[31], :convention => :stdcall  ),
+        :SetInputCallbacks=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[32], :convention => :stdcall  ),
+        :GetOutputCallbacks=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[33], :convention => :stdcall  ),
+        :SetOutputCallbacks=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[34], :convention => :stdcall  ),
+        :GetOutputMask=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[35], :convention => :stdcall  ),
+        :SetOutputMask=>FFI::Function.new( :ulong, [:pointer,:ulong], @vtable[36], :convention => :stdcall  ),
+        :GetOtherOutputMask=>FFI::Function.new( :ulong, [:pointer,:pointer,:pointer], @vtable[37], :convention => :stdcall  ),
+        :SetOtherOutputMask=>FFI::Function.new( :ulong, [:pointer,:pointer,:ulong], @vtable[38], :convention => :stdcall  ),
+        :GetOutputWidth=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[39], :convention => :stdcall  ),
+        :SetOutputWidth=>FFI::Function.new( :ulong, [:pointer,:ulong], @vtable[40], :convention => :stdcall  ),
+        :GetOutputLinePrefix=>FFI::Function.new( :ulong, [:pointer,:pointer,:ulong,:pointer], @vtable[41], :convention => :stdcall  ),
+        :SetOutputLinePrefix=>FFI::Function.new( :ulong, [:pointer,:string], @vtable[42], :convention => :stdcall  ),
+        :GetIdentity=>FFI::Function.new( :ulong, [:pointer,:pointer,:ulong,:pointer], @vtable[43], :convention => :stdcall  ),
+        :OutputIdentity=>FFI::Function.new( :ulong, [:pointer,:ulong,:ulong,:string], @vtable[44], :convention => :stdcall  ),
+        :GetEventCallbacks=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[45], :convention => :stdcall  ),
+        :SetEventCallbacks=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[46], :convention => :stdcall  ),
+        :FlushCallbacks=>FFI::Function.new( :ulong, [:pointer], @vtable[47], :convention => :stdcall  )
+      }
     end
 
-    class DebugClient5
-        NUM_APIS=95 # fill in with correct number
-        def initialize( parent )
-            # Get a pointer to the interface
-            p=FFI::MemoryPointer.new(:pointer)
-            parent.QueryInterface(IIDS[self.class.to_s], p)
-            @interface_ptr = p.get_pointer(0)
-            @vtable=@interface_ptr.get_pointer(0).read_array_of_pointer( NUM_APIS ).map {|addr|
-                FFI::Pointer.new( addr )
-            }
-            # These are autogenerated from dbgeng.h and may contain errors!
-            @api_dispatch_table={
-                :QueryInterface=>FFI::Function.new( :ulong, [:pointer,:string,:pointer], @vtable[0], :convention => :stdcall  ),
-                :AddRef=>FFI::Function.new( :ulong, [:pointer], @vtable[1], :convention => :stdcall  ),
-                :Release=>FFI::Function.new( :ulong, [:pointer], @vtable[2], :convention => :stdcall  ),
-                :AttachKernel=>FFI::Function.new( :ulong, [:pointer,:ulong,:string], @vtable[3], :convention => :stdcall  ),
-                :GetKernelConnectionOptions=>FFI::Function.new( :ulong, [:pointer,:pointer,:ulong,:pointer], @vtable[4], :convention => :stdcall  ),
-                :SetKernelConnectionOptions=>FFI::Function.new( :ulong, [:pointer,:string], @vtable[5], :convention => :stdcall  ),
-                :StartProcessServer=>FFI::Function.new( :ulong, [:pointer,:ulong,:string,], @vtable[6], :convention => :stdcall  ),
-                :ConnectProcessServer=>FFI::Function.new( :ulong, [:pointer,:string,:pointer], @vtable[7], :convention => :stdcall  ),
-                :DisconnectProcessServer=>FFI::Function.new( :ulong, [:pointer,:uint64], @vtable[8], :convention => :stdcall  ),
-                :GetRunningProcessSystemIds=>FFI::Function.new( :ulong, [:pointer,:uint64,:pointer,:ulong,:pointer], @vtable[9], :convention => :stdcall  ),
-                :GetRunningProcessSystemIdByExecutableName=>FFI::Function.new( :ulong, [:pointer,:uint64,:string,:ulong,:pointer], @vtable[10], :convention => :stdcall  ),
-                :GetRunningProcessDescription=>FFI::Function.new( :ulong, [:pointer,:uint64,:ulong,:ulong,:pointer,:ulong,:pointer,:pointer,:ulong,:pointer], @vtable[11], :convention => :stdcall  ),
-                :AttachProcess=>FFI::Function.new( :ulong, [:pointer,:uint64,:ulong,:ulong], @vtable[12], :convention => :stdcall  ),
-                :CreateProcess=>FFI::Function.new( :ulong, [:pointer,:uint64,:string,:ulong], @vtable[13], :convention => :stdcall  ),
-                :CreateProcessAndAttach=>FFI::Function.new( :ulong, [:pointer,:uint64,:string,:ulong,:ulong,:ulong], @vtable[14], :convention => :stdcall  ),
-                :GetProcessOptions=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[15], :convention => :stdcall  ),
-                :AddProcessOptions=>FFI::Function.new( :ulong, [:pointer,:ulong], @vtable[16], :convention => :stdcall  ),
-                :RemoveProcessOptions=>FFI::Function.new( :ulong, [:pointer,:ulong], @vtable[17], :convention => :stdcall  ),
-                :SetProcessOptions=>FFI::Function.new( :ulong, [:pointer,:ulong], @vtable[18], :convention => :stdcall  ),
-                :OpenDumpFile=>FFI::Function.new( :ulong, [:pointer,:string], @vtable[19], :convention => :stdcall  ),
-                :WriteDumpFile=>FFI::Function.new( :ulong, [:pointer,:string,:ulong], @vtable[20], :convention => :stdcall  ),
-                :ConnectSession=>FFI::Function.new( :ulong, [:pointer,:ulong,:ulong], @vtable[21], :convention => :stdcall  ),
-                :StartServer=>FFI::Function.new( :ulong, [:pointer,:string], @vtable[22], :convention => :stdcall  ),
-                :OutputServers=>FFI::Function.new( :ulong, [:pointer,:ulong,:string,:ulong], @vtable[23], :convention => :stdcall  ),
-                :TerminateProcesses=>FFI::Function.new( :ulong, [:pointer], @vtable[24], :convention => :stdcall  ),
-                :DetachProcesses=>FFI::Function.new( :ulong, [:pointer], @vtable[25], :convention => :stdcall  ),
-                :EndSession=>FFI::Function.new( :ulong, [:pointer,:ulong], @vtable[26], :convention => :stdcall  ),
-                :GetExitCode=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[27], :convention => :stdcall  ),
-                :DispatchCallbacks=>FFI::Function.new( :ulong, [:pointer,:ulong], @vtable[28], :convention => :stdcall  ),
-                :ExitDispatch=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[29], :convention => :stdcall  ),
-                :CreateClient=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[30], :convention => :stdcall  ),
-                :GetInputCallbacks=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[31], :convention => :stdcall  ),
-                :SetInputCallbacks=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[32], :convention => :stdcall  ),
-                :GetOutputCallbacks=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[33], :convention => :stdcall  ),
-                :SetOutputCallbacks=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[34], :convention => :stdcall  ),
-                :GetOutputMask=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[35], :convention => :stdcall  ),
-                :SetOutputMask=>FFI::Function.new( :ulong, [:pointer,:ulong], @vtable[36], :convention => :stdcall  ),
-                :GetOtherOutputMask=>FFI::Function.new( :ulong, [:pointer,:pointer,:pointer], @vtable[37], :convention => :stdcall  ),
-                :SetOtherOutputMask=>FFI::Function.new( :ulong, [:pointer,:pointer,:ulong], @vtable[38], :convention => :stdcall  ),
-                :GetOutputWidth=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[39], :convention => :stdcall  ),
-                :SetOutputWidth=>FFI::Function.new( :ulong, [:pointer,:ulong], @vtable[40], :convention => :stdcall  ),
-                :GetOutputLinePrefix=>FFI::Function.new( :ulong, [:pointer,:pointer,:ulong,:pointer], @vtable[41], :convention => :stdcall  ),
-                :SetOutputLinePrefix=>FFI::Function.new( :ulong, [:pointer,:string], @vtable[42], :convention => :stdcall  ),
-                :GetIdentity=>FFI::Function.new( :ulong, [:pointer,:pointer,:ulong,:pointer], @vtable[43], :convention => :stdcall  ),
-                :OutputIdentity=>FFI::Function.new( :ulong, [:pointer,:ulong,:ulong,:string], @vtable[44], :convention => :stdcall  ),
-                :GetEventCallbacks=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[45], :convention => :stdcall  ),
-                :SetEventCallbacks=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[46], :convention => :stdcall  ),
-                :FlushCallbacks=>FFI::Function.new( :ulong, [:pointer], @vtable[47], :convention => :stdcall  ),
-                :WriteDumpFile2=>FFI::Function.new( :ulong, [:pointer,:string,:ulong,:ulong,:string], @vtable[48], :convention => :stdcall  ),
-                :AddDumpInformationFile=>FFI::Function.new( :ulong, [:pointer,:string,:ulong], @vtable[49], :convention => :stdcall  ),
-                :EndProcessServer=>FFI::Function.new( :ulong, [:pointer,:uint64], @vtable[50], :convention => :stdcall  ),
-                :WaitForProcessServerEnd=>FFI::Function.new( :ulong, [:pointer,:ulong], @vtable[51], :convention => :stdcall  ),
-                :IsKernelDebuggerEnabled=>FFI::Function.new( :ulong, [:pointer], @vtable[52], :convention => :stdcall  ),
-                :TerminateCurrentProcess=>FFI::Function.new( :ulong, [:pointer], @vtable[53], :convention => :stdcall  ),
-                :DetachCurrentProcess=>FFI::Function.new( :ulong, [:pointer], @vtable[54], :convention => :stdcall  ),
-                :AbandonCurrentProcess=>FFI::Function.new( :ulong, [:pointer], @vtable[55], :convention => :stdcall  ),
-                :GetRunningProcessSystemIdByExecutableNameWide=>FFI::Function.new( :ulong, [:pointer,:uint64,:string,:ulong,:pointer], @vtable[56], :convention => :stdcall  ),
-                :GetRunningProcessDescriptionWide=>FFI::Function.new( :ulong, [:pointer,:uint64,:ulong,:ulong,:pointer,:ulong,:pointer,:pointer,:ulong,:pointer], @vtable[57], :convention => :stdcall  ),
-                :CreateProcessWide=>FFI::Function.new( :ulong, [:pointer,:uint64,:string,:ulong], @vtable[58], :convention => :stdcall  ),
-                :CreateProcessAndAttachWide=>FFI::Function.new( :ulong, [:pointer,:uint64,:string,:ulong,:ulong,:ulong], @vtable[59], :convention => :stdcall  ),
-                :OpenDumpFileWide=>FFI::Function.new( :ulong, [:pointer,:string,:uint64], @vtable[60], :convention => :stdcall  ),
-                :WriteDumpFileWide=>FFI::Function.new( :ulong, [:pointer,:string,:uint64,:ulong,:ulong,:string], @vtable[61], :convention => :stdcall  ),
-                :AddDumpInformationFileWide=>FFI::Function.new( :ulong, [:pointer,:string,:uint64,:ulong], @vtable[62], :convention => :stdcall  ),
-                :GetNumberDumpFiles=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[63], :convention => :stdcall  ),
-                :GetDumpFile=>FFI::Function.new( :ulong, [:pointer,:ulong,:pointer,:ulong,:pointer,:pointer,:pointer], @vtable[64], :convention => :stdcall  ),
-                :GetDumpFileWide=>FFI::Function.new( :ulong, [:pointer,:ulong,:pointer,:ulong,:pointer,:pointer,:pointer], @vtable[65], :convention => :stdcall  ),
-                :AttachKernelWide=>FFI::Function.new( :ulong, [:pointer,:ulong,:string], @vtable[66], :convention => :stdcall  ),
-                :GetKernelConnectionOptionsWide=>FFI::Function.new( :ulong, [:pointer,:pointer,:ulong,:pointer], @vtable[67], :convention => :stdcall  ),
-                :SetKernelConnectionOptionsWide=>FFI::Function.new( :ulong, [:pointer,:string], @vtable[68], :convention => :stdcall  ),
-                :StartProcessServerWide=>FFI::Function.new( :ulong, [:pointer,:ulong,:string,], @vtable[69], :convention => :stdcall  ),
-                :ConnectProcessServerWide=>FFI::Function.new( :ulong, [:pointer,:string,:pointer], @vtable[70], :convention => :stdcall  ),
-                :StartServerWide=>FFI::Function.new( :ulong, [:pointer,:string], @vtable[71], :convention => :stdcall  ),
-                :OutputServersWide=>FFI::Function.new( :ulong, [:pointer,:ulong,:string,:ulong], @vtable[72], :convention => :stdcall  ),
-                :GetOutputCallbacksWide=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[73], :convention => :stdcall  ),
-                :SetOutputCallbacksWide=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[74], :convention => :stdcall  ),
-                :GetOutputLinePrefixWide=>FFI::Function.new( :ulong, [:pointer,:pointer,:ulong,:pointer], @vtable[75], :convention => :stdcall  ),
-                :SetOutputLinePrefixWide=>FFI::Function.new( :ulong, [:pointer,:string], @vtable[76], :convention => :stdcall  ),
-                :GetIdentityWide=>FFI::Function.new( :ulong, [:pointer,:pointer,:ulong,:pointer], @vtable[77], :convention => :stdcall  ),
-                :OutputIdentityWide=>FFI::Function.new( :ulong, [:pointer,:ulong,:ulong,:string], @vtable[78], :convention => :stdcall  ),
-                :GetEventCallbacksWide=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[79], :convention => :stdcall  ),
-                :SetEventCallbacksWide=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[80], :convention => :stdcall  ),
-                :CreateProcess2=>FFI::Function.new( :ulong, [:pointer,:uint64,:string,:pointer,:ulong,:string,:string], @vtable[81], :convention => :stdcall  ),
-                :CreateProcess2Wide=>FFI::Function.new( :ulong, [:pointer,:uint64,:string,:pointer,:ulong,:string,:string], @vtable[82], :convention => :stdcall  ),
-                :CreateProcessAndAttach2=>FFI::Function.new( :ulong, [:pointer,:uint64,:string,:pointer,:ulong,:string,:string,:ulong,:ulong], @vtable[83], :convention => :stdcall  ),
-                :CreateProcessAndAttach2Wide=>FFI::Function.new( :ulong, [:pointer,:uint64,:string,:pointer,:ulong,:string,:string,:ulong,:ulong], @vtable[84], :convention => :stdcall  ),
-                :PushOutputLinePrefix=>FFI::Function.new( :ulong, [:pointer,:string,:pointer], @vtable[85], :convention => :stdcall  ),
-                :PushOutputLinePrefixWide=>FFI::Function.new( :ulong, [:pointer,:string,:pointer], @vtable[86], :convention => :stdcall  ),
-                :PopOutputLinePrefix=>FFI::Function.new( :ulong, [:pointer,:uint64], @vtable[87], :convention => :stdcall  ),
-                :GetNumberInputCallbacks=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[88], :convention => :stdcall  ),
-                :GetNumberOutputCallbacks=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[89], :convention => :stdcall  ),
-                :GetNumberEventCallbacks=>FFI::Function.new( :ulong, [:pointer,:ulong,:pointer], @vtable[90], :convention => :stdcall  ),
-                :GetQuitLockString=>FFI::Function.new( :ulong, [:pointer,:pointer,:ulong,:pointer], @vtable[91], :convention => :stdcall  ),
-                :SetQuitLockString=>FFI::Function.new( :ulong, [:pointer,:string], @vtable[92], :convention => :stdcall  ),
-                :GetQuitLockStringWide=>FFI::Function.new( :ulong, [:pointer,:pointer,:ulong,:pointer], @vtable[93], :convention => :stdcall  ),
-                :SetQuitLockStringWide=>FFI::Function.new( :ulong, [:pointer,:string], @vtable[94], :convention => :stdcall  )
-            }
-        end
-
-        def ptr
-            @interface_ptr
-        end
-
-        def method_missing( meth, *args )
-            raise ArgumentError, "#{self.class}: Invalid API #{meth}" unless @api_dispatch_table[meth]
-            @api_dispatch_table[meth].call( @interface_ptr, *args )
-        end
+    def ptr
+      @interface_ptr
     end
 
-    class DebugRegisters
-        # Local Constants
-        DEBUG_REGISTERS_DEFAULT=0x00000000
-        DEBUG_REGISTERS_INT32=0x00000001
-        DEBUG_REGISTERS_INT64=0x00000002
-        DEBUG_REGISTERS_FLOAT=0x00000004
-        DEBUG_REGISTERS_ALL=0x00000007
-        DEBUG_REGISTER_SUB_REGISTER=0x00000001
-
-        NUM_APIS=14
-
-        def initialize( parent )
-            # Get a pointer to the interface
-            p=FFI::MemoryPointer.new(:pointer)
-            parent.QueryInterface(IIDS[self.class.to_s], p)
-            @interface_ptr = p.get_pointer(0)
-            @vtable=@interface_ptr.get_pointer(0).read_array_of_pointer( NUM_APIS ).map {|addr|
-                FFI::Pointer.new( addr )
-            }
-            # These are autogenerated from dbgeng.h and may contain errors!
-            @api_dispatch_table={
-                :QueryInterface=>FFI::Function.new( :ulong, [:pointer,:string,:pointer], @vtable[0], :convention => :stdcall  ),
-                :AddRef=>FFI::Function.new( :ulong, [:pointer], @vtable[1], :convention => :stdcall  ),
-                :Release=>FFI::Function.new( :ulong, [:pointer], @vtable[2], :convention => :stdcall  ),
-                :GetNumberRegisters=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[3], :convention => :stdcall  ),
-                :GetDescription=>FFI::Function.new( :ulong, [:pointer,:ulong,:pointer,:ulong,:pointer,:pointer], @vtable[4], :convention => :stdcall  ),
-                :GetIndexByName=>FFI::Function.new( :ulong, [:pointer,:string,:pointer], @vtable[5], :convention => :stdcall  ),
-                :GetValue=>FFI::Function.new( :ulong, [:pointer,:ulong,:pointer], @vtable[6], :convention => :stdcall  ),
-                :SetValue=>FFI::Function.new( :ulong, [:pointer,:ulong,:pointer], @vtable[7], :convention => :stdcall  ),
-                :GetValues=>FFI::Function.new( :ulong, [:pointer,:ulong,:pointer,:ulong,:pointer], @vtable[8], :convention => :stdcall  ),
-                :SetValues=>FFI::Function.new( :ulong, [:pointer,:ulong,:pointer,:ulong,:pointer], @vtable[9], :convention => :stdcall  ),
-                :OutputRegisters=>FFI::Function.new( :ulong, [:pointer,:ulong,:ulong], @vtable[10], :convention => :stdcall  ),
-                :GetInstructionOffset=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[11], :convention => :stdcall  ),
-                :GetStackOffset=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[12], :convention => :stdcall  ),
-                :GetFrameOffset=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[13], :convention => :stdcall  )
-            }
+    def method_missing( meth, *args )
+      unless @api_dispatch_table[meth]
+        begin
+          # Maybe it's a subinterface?
+          @interface_table[meth]||=RawBuggery.const_get( meth ).new( self )
+        rescue
+          # Then again, maybe not.
+          raise ArgumentError, "#{self.class}: Invalid API #{meth} #{$!}"
         end
+      else
+        @api_dispatch_table[meth].call( @interface_ptr, *args )
+      end
+    end
+  end
 
-        def ptr
-            @interface_ptr
-        end
-
-        def method_missing( meth, *args )
-            raise ArgumentError, "#{self.class}: Invalid API #{meth}" unless @api_dispatch_table[meth]
-            @api_dispatch_table[meth].call( @interface_ptr, *args )
-        end
+  class DebugClient5
+    NUM_APIS=95 # fill in with correct number
+    def initialize( parent )
+      # Get a pointer to the interface
+      p=FFI::MemoryPointer.new(:pointer)
+      parent.QueryInterface(IIDS[self.class.to_s], p)
+      @interface_ptr = p.get_pointer(0)
+      @vtable=@interface_ptr.get_pointer(0).read_array_of_pointer( NUM_APIS ).map {|addr|
+        FFI::Pointer.new( addr )
+      }
+      # These are autogenerated from dbgeng.h and may contain errors!
+      @api_dispatch_table={
+        :QueryInterface=>FFI::Function.new( :ulong, [:pointer,:string,:pointer], @vtable[0], :convention => :stdcall  ),
+        :AddRef=>FFI::Function.new( :ulong, [:pointer], @vtable[1], :convention => :stdcall  ),
+        :Release=>FFI::Function.new( :ulong, [:pointer], @vtable[2], :convention => :stdcall  ),
+        :AttachKernel=>FFI::Function.new( :ulong, [:pointer,:ulong,:string], @vtable[3], :convention => :stdcall  ),
+        :GetKernelConnectionOptions=>FFI::Function.new( :ulong, [:pointer,:pointer,:ulong,:pointer], @vtable[4], :convention => :stdcall  ),
+        :SetKernelConnectionOptions=>FFI::Function.new( :ulong, [:pointer,:string], @vtable[5], :convention => :stdcall  ),
+        :StartProcessServer=>FFI::Function.new( :ulong, [:pointer,:ulong,:string,], @vtable[6], :convention => :stdcall  ),
+        :ConnectProcessServer=>FFI::Function.new( :ulong, [:pointer,:string,:pointer], @vtable[7], :convention => :stdcall  ),
+        :DisconnectProcessServer=>FFI::Function.new( :ulong, [:pointer,:uint64], @vtable[8], :convention => :stdcall  ),
+        :GetRunningProcessSystemIds=>FFI::Function.new( :ulong, [:pointer,:uint64,:pointer,:ulong,:pointer], @vtable[9], :convention => :stdcall  ),
+        :GetRunningProcessSystemIdByExecutableName=>FFI::Function.new( :ulong, [:pointer,:uint64,:string,:ulong,:pointer], @vtable[10], :convention => :stdcall  ),
+        :GetRunningProcessDescription=>FFI::Function.new( :ulong, [:pointer,:uint64,:ulong,:ulong,:pointer,:ulong,:pointer,:pointer,:ulong,:pointer], @vtable[11], :convention => :stdcall  ),
+        :AttachProcess=>FFI::Function.new( :ulong, [:pointer,:uint64,:ulong,:ulong], @vtable[12], :convention => :stdcall  ),
+        :CreateProcess=>FFI::Function.new( :ulong, [:pointer,:uint64,:string,:ulong], @vtable[13], :convention => :stdcall  ),
+        :CreateProcessAndAttach=>FFI::Function.new( :ulong, [:pointer,:uint64,:string,:ulong,:ulong,:ulong], @vtable[14], :convention => :stdcall  ),
+        :GetProcessOptions=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[15], :convention => :stdcall  ),
+        :AddProcessOptions=>FFI::Function.new( :ulong, [:pointer,:ulong], @vtable[16], :convention => :stdcall  ),
+        :RemoveProcessOptions=>FFI::Function.new( :ulong, [:pointer,:ulong], @vtable[17], :convention => :stdcall  ),
+        :SetProcessOptions=>FFI::Function.new( :ulong, [:pointer,:ulong], @vtable[18], :convention => :stdcall  ),
+        :OpenDumpFile=>FFI::Function.new( :ulong, [:pointer,:string], @vtable[19], :convention => :stdcall  ),
+        :WriteDumpFile=>FFI::Function.new( :ulong, [:pointer,:string,:ulong], @vtable[20], :convention => :stdcall  ),
+        :ConnectSession=>FFI::Function.new( :ulong, [:pointer,:ulong,:ulong], @vtable[21], :convention => :stdcall  ),
+        :StartServer=>FFI::Function.new( :ulong, [:pointer,:string], @vtable[22], :convention => :stdcall  ),
+        :OutputServers=>FFI::Function.new( :ulong, [:pointer,:ulong,:string,:ulong], @vtable[23], :convention => :stdcall  ),
+        :TerminateProcesses=>FFI::Function.new( :ulong, [:pointer], @vtable[24], :convention => :stdcall  ),
+        :DetachProcesses=>FFI::Function.new( :ulong, [:pointer], @vtable[25], :convention => :stdcall  ),
+        :EndSession=>FFI::Function.new( :ulong, [:pointer,:ulong], @vtable[26], :convention => :stdcall  ),
+        :GetExitCode=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[27], :convention => :stdcall  ),
+        :DispatchCallbacks=>FFI::Function.new( :ulong, [:pointer,:ulong], @vtable[28], :convention => :stdcall  ),
+        :ExitDispatch=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[29], :convention => :stdcall  ),
+        :CreateClient=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[30], :convention => :stdcall  ),
+        :GetInputCallbacks=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[31], :convention => :stdcall  ),
+        :SetInputCallbacks=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[32], :convention => :stdcall  ),
+        :GetOutputCallbacks=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[33], :convention => :stdcall  ),
+        :SetOutputCallbacks=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[34], :convention => :stdcall  ),
+        :GetOutputMask=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[35], :convention => :stdcall  ),
+        :SetOutputMask=>FFI::Function.new( :ulong, [:pointer,:ulong], @vtable[36], :convention => :stdcall  ),
+        :GetOtherOutputMask=>FFI::Function.new( :ulong, [:pointer,:pointer,:pointer], @vtable[37], :convention => :stdcall  ),
+        :SetOtherOutputMask=>FFI::Function.new( :ulong, [:pointer,:pointer,:ulong], @vtable[38], :convention => :stdcall  ),
+        :GetOutputWidth=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[39], :convention => :stdcall  ),
+        :SetOutputWidth=>FFI::Function.new( :ulong, [:pointer,:ulong], @vtable[40], :convention => :stdcall  ),
+        :GetOutputLinePrefix=>FFI::Function.new( :ulong, [:pointer,:pointer,:ulong,:pointer], @vtable[41], :convention => :stdcall  ),
+        :SetOutputLinePrefix=>FFI::Function.new( :ulong, [:pointer,:string], @vtable[42], :convention => :stdcall  ),
+        :GetIdentity=>FFI::Function.new( :ulong, [:pointer,:pointer,:ulong,:pointer], @vtable[43], :convention => :stdcall  ),
+        :OutputIdentity=>FFI::Function.new( :ulong, [:pointer,:ulong,:ulong,:string], @vtable[44], :convention => :stdcall  ),
+        :GetEventCallbacks=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[45], :convention => :stdcall  ),
+        :SetEventCallbacks=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[46], :convention => :stdcall  ),
+        :FlushCallbacks=>FFI::Function.new( :ulong, [:pointer], @vtable[47], :convention => :stdcall  ),
+        :WriteDumpFile2=>FFI::Function.new( :ulong, [:pointer,:string,:ulong,:ulong,:string], @vtable[48], :convention => :stdcall  ),
+        :AddDumpInformationFile=>FFI::Function.new( :ulong, [:pointer,:string,:ulong], @vtable[49], :convention => :stdcall  ),
+        :EndProcessServer=>FFI::Function.new( :ulong, [:pointer,:uint64], @vtable[50], :convention => :stdcall  ),
+        :WaitForProcessServerEnd=>FFI::Function.new( :ulong, [:pointer,:ulong], @vtable[51], :convention => :stdcall  ),
+        :IsKernelDebuggerEnabled=>FFI::Function.new( :ulong, [:pointer], @vtable[52], :convention => :stdcall  ),
+        :TerminateCurrentProcess=>FFI::Function.new( :ulong, [:pointer], @vtable[53], :convention => :stdcall  ),
+        :DetachCurrentProcess=>FFI::Function.new( :ulong, [:pointer], @vtable[54], :convention => :stdcall  ),
+        :AbandonCurrentProcess=>FFI::Function.new( :ulong, [:pointer], @vtable[55], :convention => :stdcall  ),
+        :GetRunningProcessSystemIdByExecutableNameWide=>FFI::Function.new( :ulong, [:pointer,:uint64,:string,:ulong,:pointer], @vtable[56], :convention => :stdcall  ),
+        :GetRunningProcessDescriptionWide=>FFI::Function.new( :ulong, [:pointer,:uint64,:ulong,:ulong,:pointer,:ulong,:pointer,:pointer,:ulong,:pointer], @vtable[57], :convention => :stdcall  ),
+        :CreateProcessWide=>FFI::Function.new( :ulong, [:pointer,:uint64,:string,:ulong], @vtable[58], :convention => :stdcall  ),
+        :CreateProcessAndAttachWide=>FFI::Function.new( :ulong, [:pointer,:uint64,:string,:ulong,:ulong,:ulong], @vtable[59], :convention => :stdcall  ),
+        :OpenDumpFileWide=>FFI::Function.new( :ulong, [:pointer,:string,:uint64], @vtable[60], :convention => :stdcall  ),
+        :WriteDumpFileWide=>FFI::Function.new( :ulong, [:pointer,:string,:uint64,:ulong,:ulong,:string], @vtable[61], :convention => :stdcall  ),
+        :AddDumpInformationFileWide=>FFI::Function.new( :ulong, [:pointer,:string,:uint64,:ulong], @vtable[62], :convention => :stdcall  ),
+        :GetNumberDumpFiles=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[63], :convention => :stdcall  ),
+        :GetDumpFile=>FFI::Function.new( :ulong, [:pointer,:ulong,:pointer,:ulong,:pointer,:pointer,:pointer], @vtable[64], :convention => :stdcall  ),
+        :GetDumpFileWide=>FFI::Function.new( :ulong, [:pointer,:ulong,:pointer,:ulong,:pointer,:pointer,:pointer], @vtable[65], :convention => :stdcall  ),
+        :AttachKernelWide=>FFI::Function.new( :ulong, [:pointer,:ulong,:string], @vtable[66], :convention => :stdcall  ),
+        :GetKernelConnectionOptionsWide=>FFI::Function.new( :ulong, [:pointer,:pointer,:ulong,:pointer], @vtable[67], :convention => :stdcall  ),
+        :SetKernelConnectionOptionsWide=>FFI::Function.new( :ulong, [:pointer,:string], @vtable[68], :convention => :stdcall  ),
+        :StartProcessServerWide=>FFI::Function.new( :ulong, [:pointer,:ulong,:string,], @vtable[69], :convention => :stdcall  ),
+        :ConnectProcessServerWide=>FFI::Function.new( :ulong, [:pointer,:string,:pointer], @vtable[70], :convention => :stdcall  ),
+        :StartServerWide=>FFI::Function.new( :ulong, [:pointer,:string], @vtable[71], :convention => :stdcall  ),
+        :OutputServersWide=>FFI::Function.new( :ulong, [:pointer,:ulong,:string,:ulong], @vtable[72], :convention => :stdcall  ),
+        :GetOutputCallbacksWide=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[73], :convention => :stdcall  ),
+        :SetOutputCallbacksWide=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[74], :convention => :stdcall  ),
+        :GetOutputLinePrefixWide=>FFI::Function.new( :ulong, [:pointer,:pointer,:ulong,:pointer], @vtable[75], :convention => :stdcall  ),
+        :SetOutputLinePrefixWide=>FFI::Function.new( :ulong, [:pointer,:string], @vtable[76], :convention => :stdcall  ),
+        :GetIdentityWide=>FFI::Function.new( :ulong, [:pointer,:pointer,:ulong,:pointer], @vtable[77], :convention => :stdcall  ),
+        :OutputIdentityWide=>FFI::Function.new( :ulong, [:pointer,:ulong,:ulong,:string], @vtable[78], :convention => :stdcall  ),
+        :GetEventCallbacksWide=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[79], :convention => :stdcall  ),
+        :SetEventCallbacksWide=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[80], :convention => :stdcall  ),
+        :CreateProcess2=>FFI::Function.new( :ulong, [:pointer,:uint64,:string,:pointer,:ulong,:string,:string], @vtable[81], :convention => :stdcall  ),
+        :CreateProcess2Wide=>FFI::Function.new( :ulong, [:pointer,:uint64,:string,:pointer,:ulong,:string,:string], @vtable[82], :convention => :stdcall  ),
+        :CreateProcessAndAttach2=>FFI::Function.new( :ulong, [:pointer,:uint64,:string,:pointer,:ulong,:string,:string,:ulong,:ulong], @vtable[83], :convention => :stdcall  ),
+        :CreateProcessAndAttach2Wide=>FFI::Function.new( :ulong, [:pointer,:uint64,:string,:pointer,:ulong,:string,:string,:ulong,:ulong], @vtable[84], :convention => :stdcall  ),
+        :PushOutputLinePrefix=>FFI::Function.new( :ulong, [:pointer,:string,:pointer], @vtable[85], :convention => :stdcall  ),
+        :PushOutputLinePrefixWide=>FFI::Function.new( :ulong, [:pointer,:string,:pointer], @vtable[86], :convention => :stdcall  ),
+        :PopOutputLinePrefix=>FFI::Function.new( :ulong, [:pointer,:uint64], @vtable[87], :convention => :stdcall  ),
+        :GetNumberInputCallbacks=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[88], :convention => :stdcall  ),
+        :GetNumberOutputCallbacks=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[89], :convention => :stdcall  ),
+        :GetNumberEventCallbacks=>FFI::Function.new( :ulong, [:pointer,:ulong,:pointer], @vtable[90], :convention => :stdcall  ),
+        :GetQuitLockString=>FFI::Function.new( :ulong, [:pointer,:pointer,:ulong,:pointer], @vtable[91], :convention => :stdcall  ),
+        :SetQuitLockString=>FFI::Function.new( :ulong, [:pointer,:string], @vtable[92], :convention => :stdcall  ),
+        :GetQuitLockStringWide=>FFI::Function.new( :ulong, [:pointer,:pointer,:ulong,:pointer], @vtable[93], :convention => :stdcall  ),
+        :SetQuitLockStringWide=>FFI::Function.new( :ulong, [:pointer,:string], @vtable[94], :convention => :stdcall  )
+      }
     end
 
-    class DebugControl
-        # Local Constants
-        DEBUG_STATUS_NO_CHANGE=0
-        DEBUG_STATUS_GO=1
-        DEBUG_STATUS_GO_HANDLED=2
-        DEBUG_STATUS_GO_NOT_HANDLED=3
-        DEBUG_STATUS_STEP_OVER=4
-        DEBUG_STATUS_STEP_INTO=5
-        DEBUG_STATUS_BREAK=6
-        DEBUG_STATUS_NO_DEBUGGEE=7
-        DEBUG_STATUS_STEP_BRANCH=8
-        DEBUG_STATUS_IGNORE_EVENT=9
-        DEBUG_STATUS_RESTART_REQUESTED=10
-        DEBUG_STATUS_REVERSE_GO=11
-        DEBUG_STATUS_REVERSE_STEP_BRANCH=12
-        DEBUG_STATUS_REVERSE_STEP_OVER=13
-        DEBUG_STATUS_REVERSE_STEP_INTO=14
-        DEBUG_STATUS_MASK=0xf
-        DEBUG_STATUS_INSIDE_WAIT=0x100000000
-        DEBUG_STATUS_WAIT_TIMEOUT=0x200000000
-        DEBUG_OUTCTL_THIS_CLIENT=0x00000000
-        DEBUG_OUTCTL_ALL_CLIENTS=0x00000001
-        DEBUG_OUTCTL_ALL_OTHER_CLIENTS=0x00000002
-        DEBUG_OUTCTL_IGNORE=0x00000003
-        DEBUG_OUTCTL_LOG_ONLY=0x00000004
-        DEBUG_OUTCTL_SEND_MASK=0x00000007
-        DEBUG_OUTCTL_NOT_LOGGED=0x00000008
-        DEBUG_OUTCTL_OVERRIDE_MASK=0x00000010
-        DEBUG_OUTCTL_DML=0x00000020
-        DEBUG_OUTCTL_AMBIENT_DML=0xfffffffe
-        DEBUG_OUTCTL_AMBIENT_TEXT=0xffffffff
-        #DEBUG_OUTCTL_AMBIENT=DEBUG_OUTCTL_AMBIENT_TEXT
-        DEBUG_INTERRUPT_ACTIVE=0
-        DEBUG_INTERRUPT_PASSIVE=1
-        DEBUG_INTERRUPT_EXIT=2
-        DEBUG_CURRENT_DEFAULT=0x0000000f
-        DEBUG_CURRENT_SYMBOL=0x00000001
-        DEBUG_CURRENT_DISASM=0x00000002
-        DEBUG_CURRENT_REGISTERS=0x00000004
-        DEBUG_CURRENT_SOURCE_LINE=0x00000008
-        DEBUG_DISASM_EFFECTIVE_ADDRESS=0x00000001
-        DEBUG_DISASM_MATCHING_SYMBOLS=0x00000002
-        DEBUG_DISASM_SOURCE_LINE_NUMBER=0x00000004
-        DEBUG_DISASM_SOURCE_FILE_NAME=0x00000008
-        DEBUG_LEVEL_SOURCE=0
-        DEBUG_LEVEL_ASSEMBLY=1
-        DEBUG_ENGOPT_IGNORE_DBGHELP_VERSION=0x00000001
-        DEBUG_ENGOPT_IGNORE_EXTENSION_VERSIONS=0x00000002
-        DEBUG_ENGOPT_ALLOW_NETWORK_PATHS=0x00000004
-        DEBUG_ENGOPT_DISALLOW_NETWORK_PATHS=0x00000008
-        DEBUG_ENGOPT_NETWORK_PATHS=(0x00000004|0x00000008)
-        DEBUG_ENGOPT_IGNORE_LOADER_EXCEPTIONS=0x00000010
-        DEBUG_ENGOPT_INITIAL_BREAK=0x00000020
-        DEBUG_ENGOPT_INITIAL_MODULE_BREAK=0x00000040
-        DEBUG_ENGOPT_FINAL_BREAK=0x00000080
-        DEBUG_ENGOPT_NO_EXECUTE_REPEAT=0x00000100
-        DEBUG_ENGOPT_FAIL_INCOMPLETE_INFORMATION=0x00000200
-        DEBUG_ENGOPT_ALLOW_READ_ONLY_BREAKPOINTS=0x00000400
-        DEBUG_ENGOPT_SYNCHRONIZE_BREAKPOINTS=0x00000800
-        DEBUG_ENGOPT_DISALLOW_SHELL_COMMANDS=0x00001000
-        DEBUG_ENGOPT_KD_QUIET_MODE=0x00002000
-        DEBUG_ENGOPT_DISABLE_MANAGED_SUPPORT=0x00004000
-        DEBUG_ENGOPT_DISABLE_MODULE_SYMBOL_LOAD=0x00008000
-        DEBUG_ENGOPT_DISABLE_EXECUTION_COMMANDS=0x00010000
-        DEBUG_ENGOPT_DISALLOW_IMAGE_FILE_MAPPING=0x00020000
-        DEBUG_ENGOPT_PREFER_DML=0x00040000
-        DEBUG_ENGOPT_ALL=0x0007FFFF
-        DEBUG_ANY_ID=0xffffffff
-        DEBUG_STACK_ARGUMENTS=0x00000001
-        DEBUG_STACK_FUNCTION_INFO=0x00000002
-        DEBUG_STACK_SOURCE_LINE=0x00000004
-        DEBUG_STACK_FRAME_ADDRESSES=0x00000008
-        DEBUG_STACK_COLUMN_NAMES=0x00000010
-        DEBUG_STACK_NONVOLATILE_REGISTERS=0x00000020
-        DEBUG_STACK_FRAME_NUMBERS=0x00000040
-        DEBUG_STACK_PARAMETERS=0x00000080
-        DEBUG_STACK_FRAME_ADDRESSES_RA_ONLY=0x00000100
-        DEBUG_STACK_FRAME_MEMORY_USAGE=0x00000200
-        DEBUG_STACK_PARAMETERS_NEWLINE=0x00000400
-        DEBUG_STACK_DML=0x00000800
-        DEBUG_STACK_FRAME_OFFSETS=0x00001000
-        DEBUG_CLASS_UNINITIALIZED=0
-        DEBUG_CLASS_KERNEL=1
-        DEBUG_CLASS_USER_WINDOWS=2
-        DEBUG_CLASS_IMAGE_FILE=3
-        DEBUG_DUMP_SMALL=1024
-        DEBUG_DUMP_DEFAULT=1025
-        DEBUG_DUMP_FULL=1026
-        DEBUG_DUMP_IMAGE_FILE=1027
-        DEBUG_DUMP_TRACE_LOG=1028
-        DEBUG_DUMP_WINDOWS_CE=1029
-        DEBUG_KERNEL_CONNECTION=0
-        DEBUG_KERNEL_LOCAL=1
-        DEBUG_KERNEL_EXDI_DRIVER=2
-        DEBUG_KERNEL_IDNA=3
-        DEBUG_KERNEL_INSTALL_DRIVER=4
-        DEBUG_KERNEL_SMALL_DUMP=DEBUG_DUMP_SMALL
-        DEBUG_KERNEL_DUMP=DEBUG_DUMP_DEFAULT
-        DEBUG_KERNEL_FULL_DUMP=DEBUG_DUMP_FULL
-        DEBUG_KERNEL_TRACE_LOG=DEBUG_DUMP_TRACE_LOG
-        DEBUG_USER_WINDOWS_PROCESS=0
-        DEBUG_USER_WINDOWS_PROCESS_SERVER=1
-        DEBUG_USER_WINDOWS_IDNA=2
-        DEBUG_USER_WINDOWS_SMALL_DUMP=DEBUG_DUMP_SMALL
-        DEBUG_USER_WINDOWS_DUMP=DEBUG_DUMP_DEFAULT
-        DEBUG_USER_WINDOWS_DUMP_WINDOWS_CE=DEBUG_DUMP_WINDOWS_CE
-        DEBUG_EXTENSION_AT_ENGINE=0x00000000
-        DEBUG_EXECUTE_DEFAULT=0x00000000
-        DEBUG_EXECUTE_ECHO=0x00000001
-        DEBUG_EXECUTE_NOT_LOGGED=0x00000002
-        DEBUG_EXECUTE_NO_REPEAT=0x00000004
-        DEBUG_FILTER_CREATE_THREAD=0x00000000
-        DEBUG_FILTER_EXIT_THREAD=0x00000001
-        DEBUG_FILTER_CREATE_PROCESS=0x00000002
-        DEBUG_FILTER_EXIT_PROCESS=0x00000003
-        DEBUG_FILTER_LOAD_MODULE=0x00000004
-        DEBUG_FILTER_UNLOAD_MODULE=0x00000005
-        DEBUG_FILTER_SYSTEM_ERROR=0x00000006
-        DEBUG_FILTER_INITIAL_BREAKPOINT=0x00000007
-        DEBUG_FILTER_INITIAL_MODULE_LOAD=0x00000008
-        DEBUG_FILTER_DEBUGGEE_OUTPUT=0x00000009
-        DEBUG_FILTER_BREAK=0x00000000
-        DEBUG_FILTER_SECOND_CHANCE_BREAK=0x00000001
-        DEBUG_FILTER_OUTPUT=0x00000002
-        DEBUG_FILTER_IGNORE=0x00000003
-        DEBUG_FILTER_REMOVE=0x00000004
-        DEBUG_FILTER_GO_HANDLED=0x00000000
-        DEBUG_FILTER_GO_NOT_HANDLED=0x00000001
-        DEBUG_WAIT_DEFAULT=0x00000000
-        DEBUG_VALUE_INVALID=0
-        DEBUG_VALUE_INT8=1
-        DEBUG_VALUE_INT16=2
-        DEBUG_VALUE_INT32=3
-        DEBUG_VALUE_INT64=4
-        DEBUG_VALUE_FLOAT32=5
-        DEBUG_VALUE_FLOAT64=6
-        DEBUG_VALUE_FLOAT80=7
-        DEBUG_VALUE_FLOAT82=8
-        DEBUG_VALUE_FLOAT128=9
-        DEBUG_VALUE_VECTOR64=10
-        DEBUG_VALUE_VECTOR128=11
-        DEBUG_VALUE_TYPES=12
-
-        NUM_APIS=95
-
-        def initialize( parent )
-            # Get a pointer to the interface
-            # These are autogenerated from dbgeng.h and may contain errors!
-            p=FFI::MemoryPointer.new(:pointer)
-            parent.QueryInterface(IIDS[self.class.to_s], p)
-            @interface_ptr = p.get_pointer(0)
-            @vtable=@interface_ptr.get_pointer(0).read_array_of_pointer( NUM_APIS ).map {|addr|
-                FFI::Pointer.new( addr )
-            }
-            @api_dispatch_table={
-                :QueryInterface=>FFI::Function.new( :ulong, [:pointer,:string,:pointer], @vtable[0], :convention => :stdcall  ),
-                :AddRef=>FFI::Function.new( :ulong, [:pointer], @vtable[1], :convention => :stdcall  ),
-                :Release=>FFI::Function.new( :ulong, [:pointer], @vtable[2], :convention => :stdcall  ),
-                :GetInterrupt=>FFI::Function.new( :ulong, [:pointer], @vtable[3], :convention => :stdcall  ),
-                :SetInterrupt=>FFI::Function.new( :ulong, [:pointer,:ulong], @vtable[4], :convention => :stdcall  ),
-                :GetInterruptTimeout=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[5], :convention => :stdcall  ),
-                :SetInterruptTimeout=>FFI::Function.new( :ulong, [:pointer,:ulong], @vtable[6], :convention => :stdcall  ),
-                :GetLogFile=>FFI::Function.new( :ulong, [:pointer,:pointer,:ulong,:pointer,:pointer], @vtable[7], :convention => :stdcall  ),
-                :OpenLogFile=>FFI::Function.new( :ulong, [:pointer,:string,:int], @vtable[8], :convention => :stdcall  ),
-                :CloseLogFile=>FFI::Function.new( :ulong, [:pointer], @vtable[9], :convention => :stdcall  ),
-                :GetLogMask=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[10], :convention => :stdcall  ),
-                :SetLogMask=>FFI::Function.new( :ulong, [:pointer,:ulong], @vtable[11], :convention => :stdcall  ),
-                :Input=>FFI::Function.new( :ulong, [:pointer,:pointer,:ulong,:pointer], @vtable[12], :convention => :stdcall  ),
-                :ReturnInput=>FFI::Function.new( :ulong, [:pointer,:string], @vtable[13], :convention => :stdcall  ),
-                :Output=>FFI::Function.new( :ulong, [:pointer,:ulong,:string,], @vtable[14], :convention => :stdcall  ),
-                :OutputVaList=>FFI::Function.new( :ulong, [:pointer,:ulong,:string,], @vtable[15], :convention => :stdcall  ),
-                :ControlledOutput=>FFI::Function.new( :ulong, [:pointer,:ulong,:ulong,:string,], @vtable[16], :convention => :stdcall  ),
-                :ControlledOutputVaList=>FFI::Function.new( :ulong, [:pointer,:ulong,:ulong,:string,], @vtable[17], :convention => :stdcall  ),
-                :OutputPrompt=>FFI::Function.new( :ulong, [:pointer,:ulong,:string,], @vtable[18], :convention => :stdcall  ),
-                :OutputPromptVaList=>FFI::Function.new( :ulong, [:pointer,:ulong,:string,], @vtable[19], :convention => :stdcall  ),
-                :GetPromptText=>FFI::Function.new( :ulong, [:pointer,:pointer,:ulong,:pointer], @vtable[20], :convention => :stdcall  ),
-                :OutputCurrentState=>FFI::Function.new( :ulong, [:pointer,:ulong,:ulong], @vtable[21], :convention => :stdcall  ),
-                :OutputVersionInformation=>FFI::Function.new( :ulong, [:pointer,:ulong], @vtable[22], :convention => :stdcall  ),
-                :GetNotifyEventHandle=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[23], :convention => :stdcall  ),
-                :SetNotifyEventHandle=>FFI::Function.new( :ulong, [:pointer,:uint64], @vtable[24], :convention => :stdcall  ),
-                :Assemble=>FFI::Function.new( :ulong, [:pointer,:uint64,:string,:pointer], @vtable[25], :convention => :stdcall  ),
-                :Disassemble=>FFI::Function.new( :ulong, [:pointer,:uint64,:ulong,:pointer,:ulong,:pointer,:pointer], @vtable[26], :convention => :stdcall  ),
-                :GetDisassembleEffectiveOffset=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[27], :convention => :stdcall  ),
-                :OutputDisassembly=>FFI::Function.new( :ulong, [:pointer,:ulong,:uint64,:ulong,:pointer], @vtable[28], :convention => :stdcall  ),
-                :OutputDisassemblyLines=>FFI::Function.new( :ulong, [:pointer,:ulong,:ulong,:ulong,:uint64,:ulong,:pointer,:pointer,:pointer,:pointer], @vtable[29], :convention => :stdcall  ),
-                :GetNearInstruction=>FFI::Function.new( :ulong, [:pointer,:uint64,:ulong,:pointer], @vtable[30], :convention => :stdcall  ),
-                :GetStackTrace=>FFI::Function.new( :ulong, [:pointer,:uint64,:uint64,:uint64,:pointer,:ulong,:pointer], @vtable[31], :convention => :stdcall  ),
-                :GetReturnOffset=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[32], :convention => :stdcall  ),
-                :OutputStackTrace=>FFI::Function.new( :ulong, [:pointer,:ulong,:pointer,:ulong,:ulong], @vtable[33], :convention => :stdcall  ),
-                :GetDebuggeeType=>FFI::Function.new( :ulong, [:pointer,:pointer,:pointer], @vtable[34], :convention => :stdcall  ),
-                :GetActualProcessorType=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[35], :convention => :stdcall  ),
-                :GetExecutingProcessorType=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[36], :convention => :stdcall  ),
-                :GetNumberPossibleExecutingProcessorTypes=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[37], :convention => :stdcall  ),
-                :GetPossibleExecutingProcessorTypes=>FFI::Function.new( :ulong, [:pointer,:ulong,:ulong,:pointer], @vtable[38], :convention => :stdcall  ),
-                :GetNumberProcessors=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[39], :convention => :stdcall  ),
-                :GetSystemVersion=>FFI::Function.new( :ulong, [:pointer,:pointer,:pointer,:pointer,:pointer,:ulong,:pointer,:pointer,:pointer,:ulong,:pointer], @vtable[40], :convention => :stdcall  ),
-                :GetPageSize=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[41], :convention => :stdcall  ),
-                :IsPointer64Bit=>FFI::Function.new( :ulong, [:pointer], @vtable[42], :convention => :stdcall  ),
-                :ReadBugCheckData=>FFI::Function.new( :ulong, [:pointer,:pointer,:pointer,:pointer,:pointer,:pointer], @vtable[43], :convention => :stdcall  ),
-                :GetNumberSupportedProcessorTypes=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[44], :convention => :stdcall  ),
-                :GetSupportedProcessorTypes=>FFI::Function.new( :ulong, [:pointer,:ulong,:ulong,:pointer], @vtable[45], :convention => :stdcall  ),
-                :GetProcessorTypeNames=>FFI::Function.new( :ulong, [:pointer,:ulong,:pointer,:ulong,:pointer,:pointer,:ulong,:pointer], @vtable[46], :convention => :stdcall  ),
-                :GetEffectiveProcessorType=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[47], :convention => :stdcall  ),
-                :SetEffectiveProcessorType=>FFI::Function.new( :ulong, [:pointer,:ulong], @vtable[48], :convention => :stdcall  ),
-                :GetExecutionStatus=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[49], :convention => :stdcall  ),
-                :SetExecutionStatus=>FFI::Function.new( :ulong, [:pointer,:ulong], @vtable[50], :convention => :stdcall  ),
-                :GetCodeLevel=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[51], :convention => :stdcall  ),
-                :SetCodeLevel=>FFI::Function.new( :ulong, [:pointer,:ulong], @vtable[52], :convention => :stdcall  ),
-                :GetEngineOptions=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[53], :convention => :stdcall  ),
-                :AddEngineOptions=>FFI::Function.new( :ulong, [:pointer,:ulong], @vtable[54], :convention => :stdcall  ),
-                :RemoveEngineOptions=>FFI::Function.new( :ulong, [:pointer,:ulong], @vtable[55], :convention => :stdcall  ),
-                :SetEngineOptions=>FFI::Function.new( :ulong, [:pointer,:ulong], @vtable[56], :convention => :stdcall  ),
-                :GetSystemErrorControl=>FFI::Function.new( :ulong, [:pointer,:pointer,:pointer], @vtable[57], :convention => :stdcall  ),
-                :SetSystemErrorControl=>FFI::Function.new( :ulong, [:pointer,:ulong,:ulong], @vtable[58], :convention => :stdcall  ),
-                :GetTextMacro=>FFI::Function.new( :ulong, [:pointer,:ulong,:pointer,:ulong,:pointer], @vtable[59], :convention => :stdcall  ),
-                :SetTextMacro=>FFI::Function.new( :ulong, [:pointer,:ulong,:string], @vtable[60], :convention => :stdcall  ),
-                :GetRadix=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[61], :convention => :stdcall  ),
-                :SetRadix=>FFI::Function.new( :ulong, [:pointer,:ulong], @vtable[62], :convention => :stdcall  ),
-                :Evaluate=>FFI::Function.new( :ulong, [:pointer,:string,:ulong,:pointer,:pointer], @vtable[63], :convention => :stdcall  ),
-                :CoerceValue=>FFI::Function.new( :ulong, [:pointer,:pointer,:ulong,:pointer], @vtable[64], :convention => :stdcall  ),
-                :CoerceValues=>FFI::Function.new( :ulong, [:pointer,:ulong,:pointer,:pointer,:pointer], @vtable[65], :convention => :stdcall  ),
-                :Execute=>FFI::Function.new( :ulong, [:pointer,:ulong,:string,:ulong], @vtable[66], :convention => :stdcall  ),
-                :ExecuteCommandFile=>FFI::Function.new( :ulong, [:pointer,:ulong,:string,:ulong], @vtable[67], :convention => :stdcall  ),
-                :GetNumberBreakpoints=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[68], :convention => :stdcall  ),
-                :GetBreakpointByIndex=>FFI::Function.new( :ulong, [:pointer,:ulong,:pointer], @vtable[69], :convention => :stdcall  ),
-                :GetBreakpointById=>FFI::Function.new( :ulong, [:pointer,:ulong,:pointer], @vtable[70], :convention => :stdcall  ),
-                :GetBreakpointParameters=>FFI::Function.new( :ulong, [:pointer,:ulong,:pointer,:ulong,:pointer], @vtable[71], :convention => :stdcall  ),
-                :AddBreakpoint=>FFI::Function.new( :ulong, [:pointer,:ulong,:ulong,:pointer], @vtable[72], :convention => :stdcall  ),
-                :RemoveBreakpoint=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[73], :convention => :stdcall  ),
-                :AddExtension=>FFI::Function.new( :ulong, [:pointer,:string,:ulong,:pointer], @vtable[74], :convention => :stdcall  ),
-                :RemoveExtension=>FFI::Function.new( :ulong, [:pointer,:uint64], @vtable[75], :convention => :stdcall  ),
-                :GetExtensionByPath=>FFI::Function.new( :ulong, [:pointer,:string,:pointer], @vtable[76], :convention => :stdcall  ),
-                :CallExtension=>FFI::Function.new( :ulong, [:pointer,:uint64,:string,:string], @vtable[77], :convention => :stdcall  ),
-                :GetExtensionFunction=>FFI::Function.new( :ulong, [:pointer,:uint64,:string,], @vtable[78], :convention => :stdcall  ),
-                :GetWindbgExtensionApis32=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[79], :convention => :stdcall  ),
-                :GetWindbgExtensionApis64=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[80], :convention => :stdcall  ),
-                :GetNumberEventFilters=>FFI::Function.new( :ulong, [:pointer,:pointer,:pointer,:pointer], @vtable[81], :convention => :stdcall  ),
-                :GetEventFilterText=>FFI::Function.new( :ulong, [:pointer,:ulong,:pointer,:ulong,:pointer], @vtable[82], :convention => :stdcall  ),
-                :GetEventFilterCommand=>FFI::Function.new( :ulong, [:pointer,:ulong,:pointer,:ulong,:pointer], @vtable[83], :convention => :stdcall  ),
-                :SetEventFilterCommand=>FFI::Function.new( :ulong, [:pointer,:ulong,:string], @vtable[84], :convention => :stdcall  ),
-                :GetSpecificFilterParameters=>FFI::Function.new( :ulong, [:pointer,:ulong,:ulong,:pointer], @vtable[85], :convention => :stdcall  ),
-                :SetSpecificFilterParameters=>FFI::Function.new( :ulong, [:pointer,:ulong,:ulong,:pointer], @vtable[86], :convention => :stdcall  ),
-                :GetSpecificFilterArgument=>FFI::Function.new( :ulong, [:pointer,:ulong,:pointer,:ulong,:pointer], @vtable[87], :convention => :stdcall  ),
-                :SetSpecificFilterArgument=>FFI::Function.new( :ulong, [:pointer,:ulong,:string], @vtable[88], :convention => :stdcall  ),
-                :GetExceptionFilterParameters=>FFI::Function.new( :ulong, [:pointer,:ulong,:pointer,:ulong,:pointer], @vtable[89], :convention => :stdcall  ),
-                :SetExceptionFilterParameters=>FFI::Function.new( :ulong, [:pointer,:ulong,:pointer], @vtable[90], :convention => :stdcall  ),
-                :GetExceptionFilterSecondCommand=>FFI::Function.new( :ulong, [:pointer,:ulong,:pointer,:ulong,:pointer], @vtable[91], :convention => :stdcall  ),
-                :SetExceptionFilterSecondCommand=>FFI::Function.new( :ulong, [:pointer,:ulong,:string], @vtable[92], :convention => :stdcall  ),
-                :WaitForEvent=>FFI::Function.new( :ulong, [:pointer,:ulong,:ulong], @vtable[93], :convention => :stdcall  ),
-                :GetLastEventInformation=>FFI::Function.new( :ulong, [:pointer,:pointer,:pointer,:pointer,:pointer,:ulong,:pointer,:pointer,:ulong,:pointer], @vtable[94], :convention => :stdcall  )
-            }
-        end
-
-        def ptr
-            @interface_ptr
-        end
-
-        def method_missing( meth, *args )
-            raise ArgumentError, "#{self.class}: Invalid API #{meth}" unless @api_dispatch_table[meth]
-            @api_dispatch_table[meth].call( @interface_ptr, *args )
-        end
+    def ptr
+      @interface_ptr
     end
 
-    class DebugAdvanced
-        NUM_APIS=5
-        # Local Constants
-        def initialize( parent )
-            # Get a pointer to the interface
-            p=FFI::MemoryPointer.new(:pointer)
-            parent.QueryInterface(IIDS[self.class.to_s], p)
-            @interface_ptr = p.get_pointer(0)
-            @vtable=@interface_ptr.get_pointer(0).read_array_of_pointer( NUM_APIS ).map {|addr|
-                FFI::Pointer.new( addr )
-            }
-            # These are autogenerated from dbgeng.h and may contain errors!
-            @api_dispatch_table={
-                :QueryInterface=>FFI::Function.new( :ulong, [:pointer,:string,:pointer], @vtable[0], :convention => :stdcall  ),
-                :AddRef=>FFI::Function.new( :ulong, [:pointer], @vtable[1], :convention => :stdcall  ),
-                :Release=>FFI::Function.new( :ulong, [:pointer], @vtable[2], :convention => :stdcall  ),
-                :GetThreadContext=>FFI::Function.new( :ulong, [:pointer,:pointer,:ulong], @vtable[3], :convention => :stdcall  ),
-                :SetThreadContext=>FFI::Function.new( :ulong, [:pointer,:pointer,:ulong], @vtable[4], :convention => :stdcall  )
-            }
-        end
+    def method_missing( meth, *args )
+      raise ArgumentError, "#{self.class}: Invalid API #{meth}" unless @api_dispatch_table[meth]
+      @api_dispatch_table[meth].call( @interface_ptr, *args )
+    end
+  end
 
-        def ptr
-            @interface_ptr
-        end
+  class DebugRegisters
+    # Local Constants
+    DEBUG_REGISTERS_DEFAULT=0x00000000
+    DEBUG_REGISTERS_INT32=0x00000001
+    DEBUG_REGISTERS_INT64=0x00000002
+    DEBUG_REGISTERS_FLOAT=0x00000004
+    DEBUG_REGISTERS_ALL=0x00000007
+    DEBUG_REGISTER_SUB_REGISTER=0x00000001
 
-        def method_missing( meth, *args )
-            raise ArgumentError, "#{self.class}: Invalid API #{meth}" unless @api_dispatch_table[meth]
-            @api_dispatch_table[meth].call( @interface_ptr, *args )
-        end
+    NUM_APIS=14
+
+    def initialize( parent )
+      # Get a pointer to the interface
+      p=FFI::MemoryPointer.new(:pointer)
+      parent.QueryInterface(IIDS[self.class.to_s], p)
+      @interface_ptr = p.get_pointer(0)
+      @vtable=@interface_ptr.get_pointer(0).read_array_of_pointer( NUM_APIS ).map {|addr|
+        FFI::Pointer.new( addr )
+      }
+      # These are autogenerated from dbgeng.h and may contain errors!
+      @api_dispatch_table={
+        :QueryInterface=>FFI::Function.new( :ulong, [:pointer,:string,:pointer], @vtable[0], :convention => :stdcall  ),
+        :AddRef=>FFI::Function.new( :ulong, [:pointer], @vtable[1], :convention => :stdcall  ),
+        :Release=>FFI::Function.new( :ulong, [:pointer], @vtable[2], :convention => :stdcall  ),
+        :GetNumberRegisters=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[3], :convention => :stdcall  ),
+        :GetDescription=>FFI::Function.new( :ulong, [:pointer,:ulong,:pointer,:ulong,:pointer,:pointer], @vtable[4], :convention => :stdcall  ),
+        :GetIndexByName=>FFI::Function.new( :ulong, [:pointer,:string,:pointer], @vtable[5], :convention => :stdcall  ),
+        :GetValue=>FFI::Function.new( :ulong, [:pointer,:ulong,:pointer], @vtable[6], :convention => :stdcall  ),
+        :SetValue=>FFI::Function.new( :ulong, [:pointer,:ulong,:pointer], @vtable[7], :convention => :stdcall  ),
+        :GetValues=>FFI::Function.new( :ulong, [:pointer,:ulong,:pointer,:ulong,:pointer], @vtable[8], :convention => :stdcall  ),
+        :SetValues=>FFI::Function.new( :ulong, [:pointer,:ulong,:pointer,:ulong,:pointer], @vtable[9], :convention => :stdcall  ),
+        :OutputRegisters=>FFI::Function.new( :ulong, [:pointer,:ulong,:ulong], @vtable[10], :convention => :stdcall  ),
+        :GetInstructionOffset=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[11], :convention => :stdcall  ),
+        :GetStackOffset=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[12], :convention => :stdcall  ),
+        :GetFrameOffset=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[13], :convention => :stdcall  )
+      }
     end
 
-    class DebugDataSpaces
-        NUM_APIS= 23
-        # Local Constants
-        def initialize( parent )
-            # Get a pointer to the interface
-            p=FFI::MemoryPointer.new(:pointer)
-            parent.QueryInterface(IIDS[self.class.to_s], p)
-            @interface_ptr = p.get_pointer(0)
-            @vtable=@interface_ptr.get_pointer(0).read_array_of_pointer( NUM_APIS ).map {|addr|
-                FFI::Pointer.new( addr )
-            }
-            # These are autogenerated from dbgeng.h and may contain errors!
-            @api_dispatch_table={
-                :QueryInterface=>FFI::Function.new( :ulong, [:pointer,:string,:pointer], @vtable[0], :convention => :stdcall  ),
-                :AddRef=>FFI::Function.new( :ulong, [:pointer], @vtable[1], :convention => :stdcall  ),
-                :Release=>FFI::Function.new( :ulong, [:pointer], @vtable[2], :convention => :stdcall  ),
-                :ReadVirtual=>FFI::Function.new( :ulong, [:pointer,:uint64,:pointer,:ulong,:pointer], @vtable[3], :convention => :stdcall  ),
-                :WriteVirtual=>FFI::Function.new( :ulong, [:pointer,:uint64,:pointer,:ulong,:pointer], @vtable[4], :convention => :stdcall  ),
-                :SearchVirtual=>FFI::Function.new( :ulong, [:pointer,:uint64,:uint64,:pointer,:ulong,:ulong,:pointer], @vtable[5], :convention => :stdcall  ),
-                :ReadVirtualUncached=>FFI::Function.new( :ulong, [:pointer,:uint64,:pointer,:ulong,:pointer], @vtable[6], :convention => :stdcall  ),
-                :WriteVirtualUncached=>FFI::Function.new( :ulong, [:pointer,:uint64,:pointer,:ulong,:pointer], @vtable[7], :convention => :stdcall  ),
-                :ReadPointersVirtual=>FFI::Function.new( :ulong, [:pointer,:ulong,:uint64,:pointer], @vtable[8], :convention => :stdcall  ),
-                :WritePointersVirtual=>FFI::Function.new( :ulong, [:pointer,:ulong,:uint64,:pointer], @vtable[9], :convention => :stdcall  ),
-                :ReadPhysical=>FFI::Function.new( :ulong, [:pointer,:uint64,:pointer,:ulong,:pointer], @vtable[10], :convention => :stdcall  ),
-                :WritePhysical=>FFI::Function.new( :ulong, [:pointer,:uint64,:pointer,:ulong,:pointer], @vtable[11], :convention => :stdcall  ),
-                :ReadControl=>FFI::Function.new( :ulong, [:pointer,:ulong,:uint64,:pointer,:ulong,:pointer], @vtable[12], :convention => :stdcall  ),
-                :WriteControl=>FFI::Function.new( :ulong, [:pointer,:ulong,:uint64,:pointer,:ulong,:pointer], @vtable[13], :convention => :stdcall  ),
-                :ReadIo=>FFI::Function.new( :ulong, [:pointer,:ulong,:ulong,:ulong,:uint64,:pointer,:ulong,:pointer], @vtable[14], :convention => :stdcall  ),
-                :WriteIo=>FFI::Function.new( :ulong, [:pointer,:ulong,:ulong,:ulong,:uint64,:pointer,:ulong,:pointer], @vtable[15], :convention => :stdcall  ),
-                :ReadMsr=>FFI::Function.new( :ulong, [:pointer,:ulong,:pointer], @vtable[16], :convention => :stdcall  ),
-                :WriteMsr=>FFI::Function.new( :ulong, [:pointer,:ulong,:uint64], @vtable[17], :convention => :stdcall  ),
-                :ReadBusData=>FFI::Function.new( :ulong, [:pointer,:ulong,:ulong,:ulong,:ulong,:pointer,:ulong,:pointer], @vtable[18], :convention => :stdcall  ),
-                :WriteBusData=>FFI::Function.new( :ulong, [:pointer,:ulong,:ulong,:ulong,:ulong,:pointer,:ulong,:pointer], @vtable[19], :convention => :stdcall  ),
-                :CheckLowMemory=>FFI::Function.new( :ulong, [:pointer], @vtable[20], :convention => :stdcall  ),
-                :ReadDebuggerData=>FFI::Function.new( :ulong, [:pointer,:ulong,:pointer,:ulong,:pointer], @vtable[21], :convention => :stdcall  ),
-                :ReadProcessorSystemData=>FFI::Function.new( :ulong, [:pointer,:ulong,:ulong,:pointer,:ulong,:pointer], @vtable[22], :convention => :stdcall  )
-            }
-        end
-
-        def ptr
-            @interface_ptr
-        end
-
-        def method_missing( meth, *args )
-            raise ArgumentError, "#{self.class}: Invalid API #{meth}" unless @api_dispatch_table[meth]
-            @api_dispatch_table[meth].call( @interface_ptr, *args )
-        end
+    def ptr
+      @interface_ptr
     end
 
-    class DebugSymbols
-        NUM_APIS=52
-        # Local Constants
-        DEBUG_MODULE_LOADED=0x00000000
-        DEBUG_MODULE_UNLOADED=0x00000001
-        DEBUG_MODULE_USER_MODE=0x00000002
-        DEBUG_MODULE_EXE_MODULE=0x00000004
-        DEBUG_MODULE_EXPLICIT=0x00000008
-        DEBUG_MODULE_SECONDARY=0x00000010
-        DEBUG_MODULE_SYNTHETIC=0x00000020
-        DEBUG_MODULE_SYM_BAD_CHECKSUM=0x00010000
-        DEBUG_SYMTYPE_NONE=0
-        DEBUG_SYMTYPE_COFF=1
-        DEBUG_SYMTYPE_CODEVIEW=2
-        DEBUG_SYMTYPE_PDB=3
-        DEBUG_SYMTYPE_EXPORT=4
-        DEBUG_SYMTYPE_DEFERRED=5
-        DEBUG_SYMTYPE_SYM=6
-        DEBUG_SYMTYPE_DIA=7
-        DEBUG_SCOPE_GROUP_ARGUMENTS=0x00000001
-        DEBUG_SCOPE_GROUP_LOCALS=0x00000002
-        DEBUG_SCOPE_GROUP_ALL=0x00000003
-        DEBUG_OUTTYPE_DEFAULT=0x00000000
-        DEBUG_OUTTYPE_NO_INDENT=0x00000001
-        DEBUG_OUTTYPE_NO_OFFSET=0x00000002
-        DEBUG_OUTTYPE_VERBOSE=0x00000004
-        DEBUG_OUTTYPE_COMPACT_OUTPUT=0x00000008
-        DEBUG_OUTTYPE_ADDRESS_OF_FIELD=0x00010000
-        DEBUG_OUTTYPE_ADDRESS_AT_END=0x00020000
-        DEBUG_OUTTYPE_BLOCK_RECURSE=0x00200000
-        DEBUG_FIND_SOURCE_DEFAULT=0x00000000
-        DEBUG_FIND_SOURCE_FULL_PATH=0x00000001
-        DEBUG_FIND_SOURCE_BEST_MATCH=0x00000002
-        DEBUG_FIND_SOURCE_NO_SRCSRV=0x00000004
-        DEBUG_FIND_SOURCE_TOKEN_LOOKUP=0x00000008
-        DEBUG_INVALID_OFFSET=0xffffffffffffffff
-        MODULE_ORDERS_MASK=0xF0000000
-        MODULE_ORDERS_LOADTIME=0x10000000
-        MODULE_ORDERS_MODULENAME=0x20000000
+    def method_missing( meth, *args )
+      raise ArgumentError, "#{self.class}: Invalid API #{meth}" unless @api_dispatch_table[meth]
+      @api_dispatch_table[meth].call( @interface_ptr, *args )
+    end
+  end
 
-        def initialize( parent )
-            # Get a pointer to the interface
-            p=FFI::MemoryPointer.new(:pointer)
-            parent.QueryInterface(IIDS[self.class.to_s], p)
-            @interface_ptr = p.get_pointer(0)
-            @vtable=@interface_ptr.get_pointer(0).read_array_of_pointer( NUM_APIS ).map {|addr|
-                FFI::Pointer.new( addr )
-            }
-            # These are autogenerated from dbgeng.h and may contain errors!
-            @api_dispatch_table={
-                :QueryInterface=>FFI::Function.new( :ulong, [:pointer,:string,:pointer], @vtable[0], :convention => :stdcall  ),
-                :AddRef=>FFI::Function.new( :ulong, [:pointer], @vtable[1], :convention => :stdcall  ),
-                :Release=>FFI::Function.new( :ulong, [:pointer], @vtable[2], :convention => :stdcall  ),
-                :GetSymbolOptions=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[3], :convention => :stdcall  ),
-                :AddSymbolOptions=>FFI::Function.new( :ulong, [:pointer,:ulong], @vtable[4], :convention => :stdcall  ),
-                :RemoveSymbolOptions=>FFI::Function.new( :ulong, [:pointer,:ulong], @vtable[5], :convention => :stdcall  ),
-                :SetSymbolOptions=>FFI::Function.new( :ulong, [:pointer,:ulong], @vtable[6], :convention => :stdcall  ),
-                :GetNameByOffset=>FFI::Function.new( :ulong, [:pointer,:uint64,:pointer,:ulong,:pointer,:pointer], @vtable[7], :convention => :stdcall  ),
-                :GetOffsetByName=>FFI::Function.new( :ulong, [:pointer,:string,:pointer], @vtable[8], :convention => :stdcall  ),
-                :GetNearNameByOffset=>FFI::Function.new( :ulong, [:pointer,:uint64,:ulong,:pointer,:ulong,:pointer,:pointer], @vtable[9], :convention => :stdcall  ),
-                :GetLineByOffset=>FFI::Function.new( :ulong, [:pointer,:uint64,:pointer,:pointer,:ulong,:pointer,:pointer], @vtable[10], :convention => :stdcall  ),
-                :GetOffsetByLine=>FFI::Function.new( :ulong, [:pointer,:ulong,:string,:pointer], @vtable[11], :convention => :stdcall  ),
-                :GetNumberModules=>FFI::Function.new( :ulong, [:pointer,:pointer,:pointer], @vtable[12], :convention => :stdcall  ),
-                :GetModuleByIndex=>FFI::Function.new( :ulong, [:pointer,:ulong,:pointer], @vtable[13], :convention => :stdcall  ),
-                :GetModuleByModuleName=>FFI::Function.new( :ulong, [:pointer,:string,:ulong,:pointer,:pointer], @vtable[14], :convention => :stdcall  ),
-                :GetModuleByOffset=>FFI::Function.new( :ulong, [:pointer,:uint64,:ulong,:pointer,:pointer], @vtable[15], :convention => :stdcall  ),
-                :GetModuleNames=>FFI::Function.new( :ulong, [:pointer,:ulong,:uint64,:pointer,:ulong,:pointer,:pointer,:ulong,:pointer,:pointer,:ulong,:pointer], @vtable[16], :convention => :stdcall  ),
-                :GetModuleParameters=>FFI::Function.new( :ulong, [:pointer,:ulong,:pointer,:ulong,:pointer], @vtable[17], :convention => :stdcall  ),
-                :GetSymbolModule=>FFI::Function.new( :ulong, [:pointer,:string,:pointer], @vtable[18], :convention => :stdcall  ),
-                :GetTypeName=>FFI::Function.new( :ulong, [:pointer,:uint64,:ulong,:pointer,:ulong,:pointer], @vtable[19], :convention => :stdcall  ),
-                :GetTypeId=>FFI::Function.new( :ulong, [:pointer,:uint64,:string,:pointer], @vtable[20], :convention => :stdcall  ),
-                :GetTypeSize=>FFI::Function.new( :ulong, [:pointer,:uint64,:ulong,:pointer], @vtable[21], :convention => :stdcall  ),
-                :GetFieldOffset=>FFI::Function.new( :ulong, [:pointer,:uint64,:ulong,:string,:pointer], @vtable[22], :convention => :stdcall  ),
-                :GetSymbolTypeId=>FFI::Function.new( :ulong, [:pointer,:string,:pointer,:pointer], @vtable[23], :convention => :stdcall  ),
-                :GetOffsetTypeId=>FFI::Function.new( :ulong, [:pointer,:uint64,:pointer,:pointer], @vtable[24], :convention => :stdcall  ),
-                :ReadTypedDataVirtual=>FFI::Function.new( :ulong, [:pointer,:uint64,:uint64,:ulong,:pointer,:ulong,:pointer], @vtable[25], :convention => :stdcall  ),
-                :WriteTypedDataVirtual=>FFI::Function.new( :ulong, [:pointer,:uint64,:uint64,:ulong,:pointer,:ulong,:pointer], @vtable[26], :convention => :stdcall  ),
-                :OutputTypedDataVirtual=>FFI::Function.new( :ulong, [:pointer,:ulong,:uint64,:uint64,:ulong,:ulong], @vtable[27], :convention => :stdcall  ),
-                :ReadTypedDataPhysical=>FFI::Function.new( :ulong, [:pointer,:uint64,:uint64,:ulong,:pointer,:ulong,:pointer], @vtable[28], :convention => :stdcall  ),
-                :WriteTypedDataPhysical=>FFI::Function.new( :ulong, [:pointer,:uint64,:uint64,:ulong,:pointer,:ulong,:pointer], @vtable[29], :convention => :stdcall  ),
-                :OutputTypedDataPhysical=>FFI::Function.new( :ulong, [:pointer,:ulong,:uint64,:uint64,:ulong,:ulong], @vtable[30], :convention => :stdcall  ),
-                :GetScope=>FFI::Function.new( :ulong, [:pointer,:pointer,:pointer,:pointer,:ulong], @vtable[31], :convention => :stdcall  ),
-                :SetScope=>FFI::Function.new( :ulong, [:pointer,:uint64,:pointer,:pointer,:ulong], @vtable[32], :convention => :stdcall  ),
-                :ResetScope=>FFI::Function.new( :ulong, [:pointer], @vtable[33], :convention => :stdcall  ),
-                :GetScopeSymbolGroup=>FFI::Function.new( :ulong, [:pointer,:ulong,:pointer,:pointer], @vtable[34], :convention => :stdcall  ),
-                :CreateSymbolGroup=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[35], :convention => :stdcall  ),
-                :StartSymbolMatch=>FFI::Function.new( :ulong, [:pointer,:string,:pointer], @vtable[36], :convention => :stdcall  ),
-                :GetNextSymbolMatch=>FFI::Function.new( :ulong, [:pointer,:uint64,:pointer,:ulong,:pointer,:pointer], @vtable[37], :convention => :stdcall  ),
-                :EndSymbolMatch=>FFI::Function.new( :ulong, [:pointer,:uint64], @vtable[38], :convention => :stdcall  ),
-                :Reload=>FFI::Function.new( :ulong, [:pointer,:string], @vtable[39], :convention => :stdcall  ),
-                :GetSymbolPath=>FFI::Function.new( :ulong, [:pointer,:pointer,:ulong,:pointer], @vtable[40], :convention => :stdcall  ),
-                :SetSymbolPath=>FFI::Function.new( :ulong, [:pointer,:string], @vtable[41], :convention => :stdcall  ),
-                :AppendSymbolPath=>FFI::Function.new( :ulong, [:pointer,:string], @vtable[42], :convention => :stdcall  ),
-                :GetImagePath=>FFI::Function.new( :ulong, [:pointer,:pointer,:ulong,:pointer], @vtable[43], :convention => :stdcall  ),
-                :SetImagePath=>FFI::Function.new( :ulong, [:pointer,:string], @vtable[44], :convention => :stdcall  ),
-                :AppendImagePath=>FFI::Function.new( :ulong, [:pointer,:string], @vtable[45], :convention => :stdcall  ),
-                :GetSourcePath=>FFI::Function.new( :ulong, [:pointer,:pointer,:ulong,:pointer], @vtable[46], :convention => :stdcall  ),
-                :GetSourcePathElement=>FFI::Function.new( :ulong, [:pointer,:ulong,:pointer,:ulong,:pointer], @vtable[47], :convention => :stdcall  ),
-                :SetSourcePath=>FFI::Function.new( :ulong, [:pointer,:string], @vtable[48], :convention => :stdcall  ),
-                :AppendSourcePath=>FFI::Function.new( :ulong, [:pointer,:string], @vtable[49], :convention => :stdcall  ),
-                :FindSourceFile=>FFI::Function.new( :ulong, [:pointer,:ulong,:string,:ulong,:pointer,:pointer,:ulong,:pointer], @vtable[50], :convention => :stdcall  ),
-                :GetSourceFileLineOffsets=>FFI::Function.new( :ulong, [:pointer,:string,:pointer,:ulong,:pointer], @vtable[51], :convention => :stdcall  )
-            }
-        end
+  class DebugControl
+    # Local Constants
+    DEBUG_STATUS_NO_CHANGE=0
+    DEBUG_STATUS_GO=1
+    DEBUG_STATUS_GO_HANDLED=2
+    DEBUG_STATUS_GO_NOT_HANDLED=3
+    DEBUG_STATUS_STEP_OVER=4
+    DEBUG_STATUS_STEP_INTO=5
+    DEBUG_STATUS_BREAK=6
+    DEBUG_STATUS_NO_DEBUGGEE=7
+    DEBUG_STATUS_STEP_BRANCH=8
+    DEBUG_STATUS_IGNORE_EVENT=9
+    DEBUG_STATUS_RESTART_REQUESTED=10
+    DEBUG_STATUS_REVERSE_GO=11
+    DEBUG_STATUS_REVERSE_STEP_BRANCH=12
+    DEBUG_STATUS_REVERSE_STEP_OVER=13
+    DEBUG_STATUS_REVERSE_STEP_INTO=14
+    DEBUG_STATUS_MASK=0xf
+    DEBUG_STATUS_INSIDE_WAIT=0x100000000
+    DEBUG_STATUS_WAIT_TIMEOUT=0x200000000
+    DEBUG_OUTCTL_THIS_CLIENT=0x00000000
+    DEBUG_OUTCTL_ALL_CLIENTS=0x00000001
+    DEBUG_OUTCTL_ALL_OTHER_CLIENTS=0x00000002
+    DEBUG_OUTCTL_IGNORE=0x00000003
+    DEBUG_OUTCTL_LOG_ONLY=0x00000004
+    DEBUG_OUTCTL_SEND_MASK=0x00000007
+    DEBUG_OUTCTL_NOT_LOGGED=0x00000008
+    DEBUG_OUTCTL_OVERRIDE_MASK=0x00000010
+    DEBUG_OUTCTL_DML=0x00000020
+    DEBUG_OUTCTL_AMBIENT_DML=0xfffffffe
+    DEBUG_OUTCTL_AMBIENT_TEXT=0xffffffff
+    #DEBUG_OUTCTL_AMBIENT=DEBUG_OUTCTL_AMBIENT_TEXT
+    DEBUG_INTERRUPT_ACTIVE=0
+    DEBUG_INTERRUPT_PASSIVE=1
+    DEBUG_INTERRUPT_EXIT=2
+    DEBUG_CURRENT_DEFAULT=0x0000000f
+    DEBUG_CURRENT_SYMBOL=0x00000001
+    DEBUG_CURRENT_DISASM=0x00000002
+    DEBUG_CURRENT_REGISTERS=0x00000004
+    DEBUG_CURRENT_SOURCE_LINE=0x00000008
+    DEBUG_DISASM_EFFECTIVE_ADDRESS=0x00000001
+    DEBUG_DISASM_MATCHING_SYMBOLS=0x00000002
+    DEBUG_DISASM_SOURCE_LINE_NUMBER=0x00000004
+    DEBUG_DISASM_SOURCE_FILE_NAME=0x00000008
+    DEBUG_LEVEL_SOURCE=0
+    DEBUG_LEVEL_ASSEMBLY=1
+    DEBUG_ENGOPT_IGNORE_DBGHELP_VERSION=0x00000001
+    DEBUG_ENGOPT_IGNORE_EXTENSION_VERSIONS=0x00000002
+    DEBUG_ENGOPT_ALLOW_NETWORK_PATHS=0x00000004
+    DEBUG_ENGOPT_DISALLOW_NETWORK_PATHS=0x00000008
+    DEBUG_ENGOPT_NETWORK_PATHS=(0x00000004|0x00000008)
+    DEBUG_ENGOPT_IGNORE_LOADER_EXCEPTIONS=0x00000010
+    DEBUG_ENGOPT_INITIAL_BREAK=0x00000020
+    DEBUG_ENGOPT_INITIAL_MODULE_BREAK=0x00000040
+    DEBUG_ENGOPT_FINAL_BREAK=0x00000080
+    DEBUG_ENGOPT_NO_EXECUTE_REPEAT=0x00000100
+    DEBUG_ENGOPT_FAIL_INCOMPLETE_INFORMATION=0x00000200
+    DEBUG_ENGOPT_ALLOW_READ_ONLY_BREAKPOINTS=0x00000400
+    DEBUG_ENGOPT_SYNCHRONIZE_BREAKPOINTS=0x00000800
+    DEBUG_ENGOPT_DISALLOW_SHELL_COMMANDS=0x00001000
+    DEBUG_ENGOPT_KD_QUIET_MODE=0x00002000
+    DEBUG_ENGOPT_DISABLE_MANAGED_SUPPORT=0x00004000
+    DEBUG_ENGOPT_DISABLE_MODULE_SYMBOL_LOAD=0x00008000
+    DEBUG_ENGOPT_DISABLE_EXECUTION_COMMANDS=0x00010000
+    DEBUG_ENGOPT_DISALLOW_IMAGE_FILE_MAPPING=0x00020000
+    DEBUG_ENGOPT_PREFER_DML=0x00040000
+    DEBUG_ENGOPT_ALL=0x0007FFFF
+    DEBUG_ANY_ID=0xffffffff
+    DEBUG_STACK_ARGUMENTS=0x00000001
+    DEBUG_STACK_FUNCTION_INFO=0x00000002
+    DEBUG_STACK_SOURCE_LINE=0x00000004
+    DEBUG_STACK_FRAME_ADDRESSES=0x00000008
+    DEBUG_STACK_COLUMN_NAMES=0x00000010
+    DEBUG_STACK_NONVOLATILE_REGISTERS=0x00000020
+    DEBUG_STACK_FRAME_NUMBERS=0x00000040
+    DEBUG_STACK_PARAMETERS=0x00000080
+    DEBUG_STACK_FRAME_ADDRESSES_RA_ONLY=0x00000100
+    DEBUG_STACK_FRAME_MEMORY_USAGE=0x00000200
+    DEBUG_STACK_PARAMETERS_NEWLINE=0x00000400
+    DEBUG_STACK_DML=0x00000800
+    DEBUG_STACK_FRAME_OFFSETS=0x00001000
+    DEBUG_CLASS_UNINITIALIZED=0
+    DEBUG_CLASS_KERNEL=1
+    DEBUG_CLASS_USER_WINDOWS=2
+    DEBUG_CLASS_IMAGE_FILE=3
+    DEBUG_DUMP_SMALL=1024
+    DEBUG_DUMP_DEFAULT=1025
+    DEBUG_DUMP_FULL=1026
+    DEBUG_DUMP_IMAGE_FILE=1027
+    DEBUG_DUMP_TRACE_LOG=1028
+    DEBUG_DUMP_WINDOWS_CE=1029
+    DEBUG_KERNEL_CONNECTION=0
+    DEBUG_KERNEL_LOCAL=1
+    DEBUG_KERNEL_EXDI_DRIVER=2
+    DEBUG_KERNEL_IDNA=3
+    DEBUG_KERNEL_INSTALL_DRIVER=4
+    DEBUG_KERNEL_SMALL_DUMP=DEBUG_DUMP_SMALL
+    DEBUG_KERNEL_DUMP=DEBUG_DUMP_DEFAULT
+    DEBUG_KERNEL_FULL_DUMP=DEBUG_DUMP_FULL
+    DEBUG_KERNEL_TRACE_LOG=DEBUG_DUMP_TRACE_LOG
+    DEBUG_USER_WINDOWS_PROCESS=0
+    DEBUG_USER_WINDOWS_PROCESS_SERVER=1
+    DEBUG_USER_WINDOWS_IDNA=2
+    DEBUG_USER_WINDOWS_SMALL_DUMP=DEBUG_DUMP_SMALL
+    DEBUG_USER_WINDOWS_DUMP=DEBUG_DUMP_DEFAULT
+    DEBUG_USER_WINDOWS_DUMP_WINDOWS_CE=DEBUG_DUMP_WINDOWS_CE
+    DEBUG_EXTENSION_AT_ENGINE=0x00000000
+    DEBUG_EXECUTE_DEFAULT=0x00000000
+    DEBUG_EXECUTE_ECHO=0x00000001
+    DEBUG_EXECUTE_NOT_LOGGED=0x00000002
+    DEBUG_EXECUTE_NO_REPEAT=0x00000004
+    DEBUG_FILTER_CREATE_THREAD=0x00000000
+    DEBUG_FILTER_EXIT_THREAD=0x00000001
+    DEBUG_FILTER_CREATE_PROCESS=0x00000002
+    DEBUG_FILTER_EXIT_PROCESS=0x00000003
+    DEBUG_FILTER_LOAD_MODULE=0x00000004
+    DEBUG_FILTER_UNLOAD_MODULE=0x00000005
+    DEBUG_FILTER_SYSTEM_ERROR=0x00000006
+    DEBUG_FILTER_INITIAL_BREAKPOINT=0x00000007
+    DEBUG_FILTER_INITIAL_MODULE_LOAD=0x00000008
+    DEBUG_FILTER_DEBUGGEE_OUTPUT=0x00000009
+    DEBUG_FILTER_BREAK=0x00000000
+    DEBUG_FILTER_SECOND_CHANCE_BREAK=0x00000001
+    DEBUG_FILTER_OUTPUT=0x00000002
+    DEBUG_FILTER_IGNORE=0x00000003
+    DEBUG_FILTER_REMOVE=0x00000004
+    DEBUG_FILTER_GO_HANDLED=0x00000000
+    DEBUG_FILTER_GO_NOT_HANDLED=0x00000001
+    DEBUG_WAIT_DEFAULT=0x00000000
+    DEBUG_VALUE_INVALID=0
+    DEBUG_VALUE_INT8=1
+    DEBUG_VALUE_INT16=2
+    DEBUG_VALUE_INT32=3
+    DEBUG_VALUE_INT64=4
+    DEBUG_VALUE_FLOAT32=5
+    DEBUG_VALUE_FLOAT64=6
+    DEBUG_VALUE_FLOAT80=7
+    DEBUG_VALUE_FLOAT82=8
+    DEBUG_VALUE_FLOAT128=9
+    DEBUG_VALUE_VECTOR64=10
+    DEBUG_VALUE_VECTOR128=11
+    DEBUG_VALUE_TYPES=12
 
-        def ptr
-            @interface_ptr
-        end
+    NUM_APIS=95
 
-        def method_missing( meth, *args )
-            raise ArgumentError, "#{self.class}: Invalid API #{meth}" unless @api_dispatch_table[meth]
-            @api_dispatch_table[meth].call( @interface_ptr, *args )
-        end
+    def initialize( parent )
+      # Get a pointer to the interface
+      # These are autogenerated from dbgeng.h and may contain errors!
+      p=FFI::MemoryPointer.new(:pointer)
+      parent.QueryInterface(IIDS[self.class.to_s], p)
+      @interface_ptr = p.get_pointer(0)
+      @vtable=@interface_ptr.get_pointer(0).read_array_of_pointer( NUM_APIS ).map {|addr|
+        FFI::Pointer.new( addr )
+      }
+      @api_dispatch_table={
+        :QueryInterface=>FFI::Function.new( :ulong, [:pointer,:string,:pointer], @vtable[0], :convention => :stdcall  ),
+        :AddRef=>FFI::Function.new( :ulong, [:pointer], @vtable[1], :convention => :stdcall  ),
+        :Release=>FFI::Function.new( :ulong, [:pointer], @vtable[2], :convention => :stdcall  ),
+        :GetInterrupt=>FFI::Function.new( :ulong, [:pointer], @vtable[3], :convention => :stdcall  ),
+        :SetInterrupt=>FFI::Function.new( :ulong, [:pointer,:ulong], @vtable[4], :convention => :stdcall  ),
+        :GetInterruptTimeout=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[5], :convention => :stdcall  ),
+        :SetInterruptTimeout=>FFI::Function.new( :ulong, [:pointer,:ulong], @vtable[6], :convention => :stdcall  ),
+        :GetLogFile=>FFI::Function.new( :ulong, [:pointer,:pointer,:ulong,:pointer,:pointer], @vtable[7], :convention => :stdcall  ),
+        :OpenLogFile=>FFI::Function.new( :ulong, [:pointer,:string,:int], @vtable[8], :convention => :stdcall  ),
+        :CloseLogFile=>FFI::Function.new( :ulong, [:pointer], @vtable[9], :convention => :stdcall  ),
+        :GetLogMask=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[10], :convention => :stdcall  ),
+        :SetLogMask=>FFI::Function.new( :ulong, [:pointer,:ulong], @vtable[11], :convention => :stdcall  ),
+        :Input=>FFI::Function.new( :ulong, [:pointer,:pointer,:ulong,:pointer], @vtable[12], :convention => :stdcall  ),
+        :ReturnInput=>FFI::Function.new( :ulong, [:pointer,:string], @vtable[13], :convention => :stdcall  ),
+        :Output=>FFI::Function.new( :ulong, [:pointer,:ulong,:string,], @vtable[14], :convention => :stdcall  ),
+        :OutputVaList=>FFI::Function.new( :ulong, [:pointer,:ulong,:string,], @vtable[15], :convention => :stdcall  ),
+        :ControlledOutput=>FFI::Function.new( :ulong, [:pointer,:ulong,:ulong,:string,], @vtable[16], :convention => :stdcall  ),
+        :ControlledOutputVaList=>FFI::Function.new( :ulong, [:pointer,:ulong,:ulong,:string,], @vtable[17], :convention => :stdcall  ),
+        :OutputPrompt=>FFI::Function.new( :ulong, [:pointer,:ulong,:string,], @vtable[18], :convention => :stdcall  ),
+        :OutputPromptVaList=>FFI::Function.new( :ulong, [:pointer,:ulong,:string,], @vtable[19], :convention => :stdcall  ),
+        :GetPromptText=>FFI::Function.new( :ulong, [:pointer,:pointer,:ulong,:pointer], @vtable[20], :convention => :stdcall  ),
+        :OutputCurrentState=>FFI::Function.new( :ulong, [:pointer,:ulong,:ulong], @vtable[21], :convention => :stdcall  ),
+        :OutputVersionInformation=>FFI::Function.new( :ulong, [:pointer,:ulong], @vtable[22], :convention => :stdcall  ),
+        :GetNotifyEventHandle=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[23], :convention => :stdcall  ),
+        :SetNotifyEventHandle=>FFI::Function.new( :ulong, [:pointer,:uint64], @vtable[24], :convention => :stdcall  ),
+        :Assemble=>FFI::Function.new( :ulong, [:pointer,:uint64,:string,:pointer], @vtable[25], :convention => :stdcall  ),
+        :Disassemble=>FFI::Function.new( :ulong, [:pointer,:uint64,:ulong,:pointer,:ulong,:pointer,:pointer], @vtable[26], :convention => :stdcall  ),
+        :GetDisassembleEffectiveOffset=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[27], :convention => :stdcall  ),
+        :OutputDisassembly=>FFI::Function.new( :ulong, [:pointer,:ulong,:uint64,:ulong,:pointer], @vtable[28], :convention => :stdcall  ),
+        :OutputDisassemblyLines=>FFI::Function.new( :ulong, [:pointer,:ulong,:ulong,:ulong,:uint64,:ulong,:pointer,:pointer,:pointer,:pointer], @vtable[29], :convention => :stdcall  ),
+        :GetNearInstruction=>FFI::Function.new( :ulong, [:pointer,:uint64,:ulong,:pointer], @vtable[30], :convention => :stdcall  ),
+        :GetStackTrace=>FFI::Function.new( :ulong, [:pointer,:uint64,:uint64,:uint64,:pointer,:ulong,:pointer], @vtable[31], :convention => :stdcall  ),
+        :GetReturnOffset=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[32], :convention => :stdcall  ),
+        :OutputStackTrace=>FFI::Function.new( :ulong, [:pointer,:ulong,:pointer,:ulong,:ulong], @vtable[33], :convention => :stdcall  ),
+        :GetDebuggeeType=>FFI::Function.new( :ulong, [:pointer,:pointer,:pointer], @vtable[34], :convention => :stdcall  ),
+        :GetActualProcessorType=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[35], :convention => :stdcall  ),
+        :GetExecutingProcessorType=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[36], :convention => :stdcall  ),
+        :GetNumberPossibleExecutingProcessorTypes=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[37], :convention => :stdcall  ),
+        :GetPossibleExecutingProcessorTypes=>FFI::Function.new( :ulong, [:pointer,:ulong,:ulong,:pointer], @vtable[38], :convention => :stdcall  ),
+        :GetNumberProcessors=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[39], :convention => :stdcall  ),
+        :GetSystemVersion=>FFI::Function.new( :ulong, [:pointer,:pointer,:pointer,:pointer,:pointer,:ulong,:pointer,:pointer,:pointer,:ulong,:pointer], @vtable[40], :convention => :stdcall  ),
+        :GetPageSize=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[41], :convention => :stdcall  ),
+        :IsPointer64Bit=>FFI::Function.new( :ulong, [:pointer], @vtable[42], :convention => :stdcall  ),
+        :ReadBugCheckData=>FFI::Function.new( :ulong, [:pointer,:pointer,:pointer,:pointer,:pointer,:pointer], @vtable[43], :convention => :stdcall  ),
+        :GetNumberSupportedProcessorTypes=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[44], :convention => :stdcall  ),
+        :GetSupportedProcessorTypes=>FFI::Function.new( :ulong, [:pointer,:ulong,:ulong,:pointer], @vtable[45], :convention => :stdcall  ),
+        :GetProcessorTypeNames=>FFI::Function.new( :ulong, [:pointer,:ulong,:pointer,:ulong,:pointer,:pointer,:ulong,:pointer], @vtable[46], :convention => :stdcall  ),
+        :GetEffectiveProcessorType=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[47], :convention => :stdcall  ),
+        :SetEffectiveProcessorType=>FFI::Function.new( :ulong, [:pointer,:ulong], @vtable[48], :convention => :stdcall  ),
+        :GetExecutionStatus=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[49], :convention => :stdcall  ),
+        :SetExecutionStatus=>FFI::Function.new( :ulong, [:pointer,:ulong], @vtable[50], :convention => :stdcall  ),
+        :GetCodeLevel=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[51], :convention => :stdcall  ),
+        :SetCodeLevel=>FFI::Function.new( :ulong, [:pointer,:ulong], @vtable[52], :convention => :stdcall  ),
+        :GetEngineOptions=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[53], :convention => :stdcall  ),
+        :AddEngineOptions=>FFI::Function.new( :ulong, [:pointer,:ulong], @vtable[54], :convention => :stdcall  ),
+        :RemoveEngineOptions=>FFI::Function.new( :ulong, [:pointer,:ulong], @vtable[55], :convention => :stdcall  ),
+        :SetEngineOptions=>FFI::Function.new( :ulong, [:pointer,:ulong], @vtable[56], :convention => :stdcall  ),
+        :GetSystemErrorControl=>FFI::Function.new( :ulong, [:pointer,:pointer,:pointer], @vtable[57], :convention => :stdcall  ),
+        :SetSystemErrorControl=>FFI::Function.new( :ulong, [:pointer,:ulong,:ulong], @vtable[58], :convention => :stdcall  ),
+        :GetTextMacro=>FFI::Function.new( :ulong, [:pointer,:ulong,:pointer,:ulong,:pointer], @vtable[59], :convention => :stdcall  ),
+        :SetTextMacro=>FFI::Function.new( :ulong, [:pointer,:ulong,:string], @vtable[60], :convention => :stdcall  ),
+        :GetRadix=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[61], :convention => :stdcall  ),
+        :SetRadix=>FFI::Function.new( :ulong, [:pointer,:ulong], @vtable[62], :convention => :stdcall  ),
+        :Evaluate=>FFI::Function.new( :ulong, [:pointer,:string,:ulong,:pointer,:pointer], @vtable[63], :convention => :stdcall  ),
+        :CoerceValue=>FFI::Function.new( :ulong, [:pointer,:pointer,:ulong,:pointer], @vtable[64], :convention => :stdcall  ),
+        :CoerceValues=>FFI::Function.new( :ulong, [:pointer,:ulong,:pointer,:pointer,:pointer], @vtable[65], :convention => :stdcall  ),
+        :Execute=>FFI::Function.new( :ulong, [:pointer,:ulong,:string,:ulong], @vtable[66], :convention => :stdcall  ),
+        :ExecuteCommandFile=>FFI::Function.new( :ulong, [:pointer,:ulong,:string,:ulong], @vtable[67], :convention => :stdcall  ),
+        :GetNumberBreakpoints=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[68], :convention => :stdcall  ),
+        :GetBreakpointByIndex=>FFI::Function.new( :ulong, [:pointer,:ulong,:pointer], @vtable[69], :convention => :stdcall  ),
+        :GetBreakpointById=>FFI::Function.new( :ulong, [:pointer,:ulong,:pointer], @vtable[70], :convention => :stdcall  ),
+        :GetBreakpointParameters=>FFI::Function.new( :ulong, [:pointer,:ulong,:pointer,:ulong,:pointer], @vtable[71], :convention => :stdcall  ),
+        :AddBreakpoint=>FFI::Function.new( :ulong, [:pointer,:ulong,:ulong,:pointer], @vtable[72], :convention => :stdcall  ),
+        :RemoveBreakpoint=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[73], :convention => :stdcall  ),
+        :AddExtension=>FFI::Function.new( :ulong, [:pointer,:string,:ulong,:pointer], @vtable[74], :convention => :stdcall  ),
+        :RemoveExtension=>FFI::Function.new( :ulong, [:pointer,:uint64], @vtable[75], :convention => :stdcall  ),
+        :GetExtensionByPath=>FFI::Function.new( :ulong, [:pointer,:string,:pointer], @vtable[76], :convention => :stdcall  ),
+        :CallExtension=>FFI::Function.new( :ulong, [:pointer,:uint64,:string,:string], @vtable[77], :convention => :stdcall  ),
+        :GetExtensionFunction=>FFI::Function.new( :ulong, [:pointer,:uint64,:string,], @vtable[78], :convention => :stdcall  ),
+        :GetWindbgExtensionApis32=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[79], :convention => :stdcall  ),
+        :GetWindbgExtensionApis64=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[80], :convention => :stdcall  ),
+        :GetNumberEventFilters=>FFI::Function.new( :ulong, [:pointer,:pointer,:pointer,:pointer], @vtable[81], :convention => :stdcall  ),
+        :GetEventFilterText=>FFI::Function.new( :ulong, [:pointer,:ulong,:pointer,:ulong,:pointer], @vtable[82], :convention => :stdcall  ),
+        :GetEventFilterCommand=>FFI::Function.new( :ulong, [:pointer,:ulong,:pointer,:ulong,:pointer], @vtable[83], :convention => :stdcall  ),
+        :SetEventFilterCommand=>FFI::Function.new( :ulong, [:pointer,:ulong,:string], @vtable[84], :convention => :stdcall  ),
+        :GetSpecificFilterParameters=>FFI::Function.new( :ulong, [:pointer,:ulong,:ulong,:pointer], @vtable[85], :convention => :stdcall  ),
+        :SetSpecificFilterParameters=>FFI::Function.new( :ulong, [:pointer,:ulong,:ulong,:pointer], @vtable[86], :convention => :stdcall  ),
+        :GetSpecificFilterArgument=>FFI::Function.new( :ulong, [:pointer,:ulong,:pointer,:ulong,:pointer], @vtable[87], :convention => :stdcall  ),
+        :SetSpecificFilterArgument=>FFI::Function.new( :ulong, [:pointer,:ulong,:string], @vtable[88], :convention => :stdcall  ),
+        :GetExceptionFilterParameters=>FFI::Function.new( :ulong, [:pointer,:ulong,:pointer,:ulong,:pointer], @vtable[89], :convention => :stdcall  ),
+        :SetExceptionFilterParameters=>FFI::Function.new( :ulong, [:pointer,:ulong,:pointer], @vtable[90], :convention => :stdcall  ),
+        :GetExceptionFilterSecondCommand=>FFI::Function.new( :ulong, [:pointer,:ulong,:pointer,:ulong,:pointer], @vtable[91], :convention => :stdcall  ),
+        :SetExceptionFilterSecondCommand=>FFI::Function.new( :ulong, [:pointer,:ulong,:string], @vtable[92], :convention => :stdcall  ),
+        :WaitForEvent=>FFI::Function.new( :ulong, [:pointer,:ulong,:ulong], @vtable[93], :convention => :stdcall  ),
+        :GetLastEventInformation=>FFI::Function.new( :ulong, [:pointer,:pointer,:pointer,:pointer,:pointer,:ulong,:pointer,:pointer,:ulong,:pointer], @vtable[94], :convention => :stdcall  )
+      }
     end
 
-    class DebugSymbols2
-        NUM_APIS=60
-        # Local Constants
-        DEBUG_MODNAME_IMAGE=0x00000000
-        DEBUG_MODNAME_MODULE=0x00000001
-        DEBUG_MODNAME_LOADED_IMAGE=0x00000002
-        DEBUG_MODNAME_SYMBOL_FILE=0x00000003
-        DEBUG_MODNAME_MAPPED_IMAGE=0x00000004
-        DEBUG_TYPEOPTS_UNICODE_DISPLAY=0x00000001
-        DEBUG_TYPEOPTS_LONGSTATUS_DISPLAY=0x00000002
-        DEBUG_TYPEOPTS_FORCERADIX_OUTPUT=0x00000004
-        DEBUG_TYPEOPTS_MATCH_MAXSIZE=0x00000008
-
-        def initialize( parent )
-            # Get a pointer to the interface
-            p=FFI::MemoryPointer.new(:pointer)
-            parent.QueryInterface(IIDS[self.class.to_s], p)
-            @interface_ptr = p.get_pointer(0)
-            @vtable=@interface_ptr.get_pointer(0).read_array_of_pointer( NUM_APIS ).map {|addr|
-                FFI::Pointer.new( addr )
-            }
-            # These are autogenerated from dbgeng.h and may contain errors!
-            @api_dispatch_table={
-                :QueryInterface=>FFI::Function.new( :ulong, [:pointer,:string,:pointer], @vtable[0], :convention => :stdcall  ),
-                :AddRef=>FFI::Function.new( :ulong, [:pointer], @vtable[1], :convention => :stdcall  ),
-                :Release=>FFI::Function.new( :ulong, [:pointer], @vtable[2], :convention => :stdcall  ),
-                :GetSymbolOptions=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[3], :convention => :stdcall  ),
-                :AddSymbolOptions=>FFI::Function.new( :ulong, [:pointer,:ulong], @vtable[4], :convention => :stdcall  ),
-                :RemoveSymbolOptions=>FFI::Function.new( :ulong, [:pointer,:ulong], @vtable[5], :convention => :stdcall  ),
-                :SetSymbolOptions=>FFI::Function.new( :ulong, [:pointer,:ulong], @vtable[6], :convention => :stdcall  ),
-                :GetNameByOffset=>FFI::Function.new( :ulong, [:pointer,:uint64,:pointer,:ulong,:pointer,:pointer], @vtable[7], :convention => :stdcall  ),
-                :GetOffsetByName=>FFI::Function.new( :ulong, [:pointer,:string,:pointer], @vtable[8], :convention => :stdcall  ),
-                :GetNearNameByOffset=>FFI::Function.new( :ulong, [:pointer,:uint64,:ulong,:pointer,:ulong,:pointer,:pointer], @vtable[9], :convention => :stdcall  ),
-                :GetLineByOffset=>FFI::Function.new( :ulong, [:pointer,:uint64,:pointer,:pointer,:ulong,:pointer,:pointer], @vtable[10], :convention => :stdcall  ),
-                :GetOffsetByLine=>FFI::Function.new( :ulong, [:pointer,:ulong,:string,:pointer], @vtable[11], :convention => :stdcall  ),
-                :GetNumberModules=>FFI::Function.new( :ulong, [:pointer,:pointer,:pointer], @vtable[12], :convention => :stdcall  ),
-                :GetModuleByIndex=>FFI::Function.new( :ulong, [:pointer,:ulong,:pointer], @vtable[13], :convention => :stdcall  ),
-                :GetModuleByModuleName=>FFI::Function.new( :ulong, [:pointer,:string,:ulong,:pointer,:pointer], @vtable[14], :convention => :stdcall  ),
-                :GetModuleByOffset=>FFI::Function.new( :ulong, [:pointer,:uint64,:ulong,:pointer,:pointer], @vtable[15], :convention => :stdcall  ),
-                :GetModuleNames=>FFI::Function.new( :ulong, [:pointer,:ulong,:uint64,:pointer,:ulong,:pointer,:pointer,:ulong,:pointer,:pointer,:ulong,:pointer], @vtable[16], :convention => :stdcall  ),
-                :GetModuleParameters=>FFI::Function.new( :ulong, [:pointer,:ulong,:pointer,:ulong,:pointer], @vtable[17], :convention => :stdcall  ),
-                :GetSymbolModule=>FFI::Function.new( :ulong, [:pointer,:string,:pointer], @vtable[18], :convention => :stdcall  ),
-                :GetTypeName=>FFI::Function.new( :ulong, [:pointer,:uint64,:ulong,:pointer,:ulong,:pointer], @vtable[19], :convention => :stdcall  ),
-                :GetTypeId=>FFI::Function.new( :ulong, [:pointer,:uint64,:string,:pointer], @vtable[20], :convention => :stdcall  ),
-                :GetTypeSize=>FFI::Function.new( :ulong, [:pointer,:uint64,:ulong,:pointer], @vtable[21], :convention => :stdcall  ),
-                :GetFieldOffset=>FFI::Function.new( :ulong, [:pointer,:uint64,:ulong,:string,:pointer], @vtable[22], :convention => :stdcall  ),
-                :GetSymbolTypeId=>FFI::Function.new( :ulong, [:pointer,:string,:pointer,:pointer], @vtable[23], :convention => :stdcall  ),
-                :GetOffsetTypeId=>FFI::Function.new( :ulong, [:pointer,:uint64,:pointer,:pointer], @vtable[24], :convention => :stdcall  ),
-                :ReadTypedDataVirtual=>FFI::Function.new( :ulong, [:pointer,:uint64,:uint64,:ulong,:pointer,:ulong,:pointer], @vtable[25], :convention => :stdcall  ),
-                :WriteTypedDataVirtual=>FFI::Function.new( :ulong, [:pointer,:uint64,:uint64,:ulong,:pointer,:ulong,:pointer], @vtable[26], :convention => :stdcall  ),
-                :OutputTypedDataVirtual=>FFI::Function.new( :ulong, [:pointer,:ulong,:uint64,:uint64,:ulong,:ulong], @vtable[27], :convention => :stdcall  ),
-                :ReadTypedDataPhysical=>FFI::Function.new( :ulong, [:pointer,:uint64,:uint64,:ulong,:pointer,:ulong,:pointer], @vtable[28], :convention => :stdcall  ),
-                :WriteTypedDataPhysical=>FFI::Function.new( :ulong, [:pointer,:uint64,:uint64,:ulong,:pointer,:ulong,:pointer], @vtable[29], :convention => :stdcall  ),
-                :OutputTypedDataPhysical=>FFI::Function.new( :ulong, [:pointer,:ulong,:uint64,:uint64,:ulong,:ulong], @vtable[30], :convention => :stdcall  ),
-                :GetScope=>FFI::Function.new( :ulong, [:pointer,:pointer,:pointer,:pointer,:ulong], @vtable[31], :convention => :stdcall  ),
-                :SetScope=>FFI::Function.new( :ulong, [:pointer,:uint64,:pointer,:pointer,:ulong], @vtable[32], :convention => :stdcall  ),
-                :ResetScope=>FFI::Function.new( :ulong, [:pointer], @vtable[33], :convention => :stdcall  ),
-                :GetScopeSymbolGroup=>FFI::Function.new( :ulong, [:pointer,:ulong,:pointer,:pointer], @vtable[34], :convention => :stdcall  ),
-                :CreateSymbolGroup=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[35], :convention => :stdcall  ),
-                :StartSymbolMatch=>FFI::Function.new( :ulong, [:pointer,:string,:pointer], @vtable[36], :convention => :stdcall  ),
-                :GetNextSymbolMatch=>FFI::Function.new( :ulong, [:pointer,:uint64,:pointer,:ulong,:pointer,:pointer], @vtable[37], :convention => :stdcall  ),
-                :EndSymbolMatch=>FFI::Function.new( :ulong, [:pointer,:uint64], @vtable[38], :convention => :stdcall  ),
-                :Reload=>FFI::Function.new( :ulong, [:pointer,:string], @vtable[39], :convention => :stdcall  ),
-                :GetSymbolPath=>FFI::Function.new( :ulong, [:pointer,:pointer,:ulong,:pointer], @vtable[40], :convention => :stdcall  ),
-                :SetSymbolPath=>FFI::Function.new( :ulong, [:pointer,:string], @vtable[41], :convention => :stdcall  ),
-                :AppendSymbolPath=>FFI::Function.new( :ulong, [:pointer,:string], @vtable[42], :convention => :stdcall  ),
-                :GetImagePath=>FFI::Function.new( :ulong, [:pointer,:pointer,:ulong,:pointer], @vtable[43], :convention => :stdcall  ),
-                :SetImagePath=>FFI::Function.new( :ulong, [:pointer,:string], @vtable[44], :convention => :stdcall  ),
-                :AppendImagePath=>FFI::Function.new( :ulong, [:pointer,:string], @vtable[45], :convention => :stdcall  ),
-                :GetSourcePath=>FFI::Function.new( :ulong, [:pointer,:pointer,:ulong,:pointer], @vtable[46], :convention => :stdcall  ),
-                :GetSourcePathElement=>FFI::Function.new( :ulong, [:pointer,:ulong,:pointer,:ulong,:pointer], @vtable[47], :convention => :stdcall  ),
-                :SetSourcePath=>FFI::Function.new( :ulong, [:pointer,:string], @vtable[48], :convention => :stdcall  ),
-                :AppendSourcePath=>FFI::Function.new( :ulong, [:pointer,:string], @vtable[49], :convention => :stdcall  ),
-                :FindSourceFile=>FFI::Function.new( :ulong, [:pointer,:ulong,:string,:ulong,:pointer,:pointer,:ulong,:pointer], @vtable[50], :convention => :stdcall  ),
-                :GetSourceFileLineOffsets=>FFI::Function.new( :ulong, [:pointer,:string,:pointer,:ulong,:pointer], @vtable[51], :convention => :stdcall  ),
-                :GetModuleVersionInformation=>FFI::Function.new( :ulong, [:pointer,:ulong,:uint64,:string,:pointer,:ulong,:pointer], @vtable[52], :convention => :stdcall  ),
-                :GetModuleNameString=>FFI::Function.new( :ulong, [:pointer,:ulong,:ulong,:uint64,:pointer,:ulong,:pointer], @vtable[53], :convention => :stdcall  ),
-                :GetConstantName=>FFI::Function.new( :ulong, [:pointer,:uint64,:ulong,:uint64,:pointer,:ulong,:pointer], @vtable[54], :convention => :stdcall  ),
-                :GetFieldName=>FFI::Function.new( :ulong, [:pointer,:uint64,:ulong,:ulong,:pointer,:ulong,:pointer], @vtable[55], :convention => :stdcall  ),
-                :GetTypeOptions=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[56], :convention => :stdcall  ),
-                :AddTypeOptions=>FFI::Function.new( :ulong, [:pointer,:ulong], @vtable[57], :convention => :stdcall  ),
-                :RemoveTypeOptions=>FFI::Function.new( :ulong, [:pointer,:ulong], @vtable[58], :convention => :stdcall  ),
-                :SetTypeOptions=>FFI::Function.new( :ulong, [:pointer,:ulong], @vtable[59], :convention => :stdcall  )
-            }
-        end
-
-        def ptr
-            @interface_ptr
-        end
-
-        def method_missing( meth, *args )
-            raise ArgumentError, "#{self.class}: Invalid API #{meth}" unless @api_dispatch_table[meth]
-            @api_dispatch_table[meth].call( @interface_ptr, *args )
-        end
+    def ptr
+      @interface_ptr
     end
 
-    class DebugSystemObjects
-        NUM_APIS=32
+    def method_missing( meth, *args )
+      raise ArgumentError, "#{self.class}: Invalid API #{meth}" unless @api_dispatch_table[meth]
+      @api_dispatch_table[meth].call( @interface_ptr, *args )
+    end
+  end
 
-        # Local Constants
-        def initialize( parent )
-            # Get a pointer to the interface
-            p=FFI::MemoryPointer.new(:pointer)
-            parent.QueryInterface(IIDS[self.class.to_s], p)
-            @interface_ptr = p.get_pointer(0)
-            @vtable=@interface_ptr.get_pointer(0).read_array_of_pointer( NUM_APIS ).map {|addr|
-                FFI::Pointer.new( addr )
-            }
-            # These are autogenerated from dbgeng.h and may contain errors!
-            @api_dispatch_table={
-                :QueryInterface=>FFI::Function.new( :ulong, [:pointer,:string,:pointer], @vtable[0], :convention => :stdcall  ),
-                :AddRef=>FFI::Function.new( :ulong, [:pointer], @vtable[1], :convention => :stdcall  ),
-                :Release=>FFI::Function.new( :ulong, [:pointer], @vtable[2], :convention => :stdcall  ),
-                :GetEventThread=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[3], :convention => :stdcall  ),
-                :GetEventProcess=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[4], :convention => :stdcall  ),
-                :GetCurrentThreadId=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[5], :convention => :stdcall  ),
-                :SetCurrentThreadId=>FFI::Function.new( :ulong, [:pointer,:ulong], @vtable[6], :convention => :stdcall  ),
-                :GetCurrentProcessId=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[7], :convention => :stdcall  ),
-                :SetCurrentProcessId=>FFI::Function.new( :ulong, [:pointer,:ulong], @vtable[8], :convention => :stdcall  ),
-                :GetNumberThreads=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[9], :convention => :stdcall  ),
-                :GetTotalNumberThreads=>FFI::Function.new( :ulong, [:pointer,:pointer,:pointer], @vtable[10], :convention => :stdcall  ),
-                :GetThreadIdsByIndex=>FFI::Function.new( :ulong, [:pointer,:ulong,:ulong,:pointer,:pointer], @vtable[11], :convention => :stdcall  ),
-                :GetThreadIdByProcessor=>FFI::Function.new( :ulong, [:pointer,:ulong,:pointer], @vtable[12], :convention => :stdcall  ),
-                :GetCurrentThreadDataOffset=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[13], :convention => :stdcall  ),
-                :GetThreadIdByDataOffset=>FFI::Function.new( :ulong, [:pointer,:uint64,:pointer], @vtable[14], :convention => :stdcall  ),
-                :GetCurrentThreadTeb=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[15], :convention => :stdcall  ),
-                :GetThreadIdByTeb=>FFI::Function.new( :ulong, [:pointer,:uint64,:pointer], @vtable[16], :convention => :stdcall  ),
-                :GetCurrentThreadSystemId=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[17], :convention => :stdcall  ),
-                :GetThreadIdBySystemId=>FFI::Function.new( :ulong, [:pointer,:ulong,:pointer], @vtable[18], :convention => :stdcall  ),
-                :GetCurrentThreadHandle=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[19], :convention => :stdcall  ),
-                :GetThreadIdByHandle=>FFI::Function.new( :ulong, [:pointer,:uint64,:pointer], @vtable[20], :convention => :stdcall  ),
-                :GetNumberProcesses=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[21], :convention => :stdcall  ),
-                :GetProcessIdsByIndex=>FFI::Function.new( :ulong, [:pointer,:ulong,:ulong,:pointer,:pointer], @vtable[22], :convention => :stdcall  ),
-                :GetCurrentProcessDataOffset=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[23], :convention => :stdcall  ),
-                :GetProcessIdByDataOffset=>FFI::Function.new( :ulong, [:pointer,:uint64,:pointer], @vtable[24], :convention => :stdcall  ),
-                :GetCurrentProcessPeb=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[25], :convention => :stdcall  ),
-                :GetProcessIdByPeb=>FFI::Function.new( :ulong, [:pointer,:uint64,:pointer], @vtable[26], :convention => :stdcall  ),
-                :GetCurrentProcessSystemId=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[27], :convention => :stdcall  ),
-                :GetProcessIdBySystemId=>FFI::Function.new( :ulong, [:pointer,:ulong,:pointer], @vtable[28], :convention => :stdcall  ),
-                :GetCurrentProcessHandle=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[29], :convention => :stdcall  ),
-                :GetProcessIdByHandle=>FFI::Function.new( :ulong, [:pointer,:uint64,:pointer], @vtable[30], :convention => :stdcall  ),
-                :GetCurrentProcessExecutableName=>FFI::Function.new( :ulong, [:pointer,:pointer,:ulong,:pointer], @vtable[31], :convention => :stdcall  )
-            }
-        end
-
-        def ptr
-            @interface_ptr
-        end
-
-        def method_missing( meth, *args )
-            raise ArgumentError, "#{self.class}: Invalid API #{meth}" unless @api_dispatch_table[meth]
-            begin
-                @api_dispatch_table[meth].call( @interface_ptr, *args )
-            rescue
-                puts "Error calling #{meth}: #{$!} with #{args.inspect}"
-            end
-        end
+  class DebugAdvanced
+    NUM_APIS=5
+    # Local Constants
+    def initialize( parent )
+      # Get a pointer to the interface
+      p=FFI::MemoryPointer.new(:pointer)
+      parent.QueryInterface(IIDS[self.class.to_s], p)
+      @interface_ptr = p.get_pointer(0)
+      @vtable=@interface_ptr.get_pointer(0).read_array_of_pointer( NUM_APIS ).map {|addr|
+        FFI::Pointer.new( addr )
+      }
+      # These are autogenerated from dbgeng.h and may contain errors!
+      @api_dispatch_table={
+        :QueryInterface=>FFI::Function.new( :ulong, [:pointer,:string,:pointer], @vtable[0], :convention => :stdcall  ),
+        :AddRef=>FFI::Function.new( :ulong, [:pointer], @vtable[1], :convention => :stdcall  ),
+        :Release=>FFI::Function.new( :ulong, [:pointer], @vtable[2], :convention => :stdcall  ),
+        :GetThreadContext=>FFI::Function.new( :ulong, [:pointer,:pointer,:ulong], @vtable[3], :convention => :stdcall  ),
+        :SetThreadContext=>FFI::Function.new( :ulong, [:pointer,:pointer,:ulong], @vtable[4], :convention => :stdcall  )
+      }
     end
 
-    class DebugAdvanced3
-        NUM_APIS=13
-        # Local Constants
-        DEBUG_GET_TEXT_COMPLETIONS_NO_DOT_COMMANDS=0x00000001
-        DEBUG_GET_TEXT_COMPLETIONS_NO_EXTENSION_COMMANDS=0x00000002
-        DEBUG_GET_TEXT_COMPLETIONS_NO_SYMBOLS=0x00000004
-        DEBUG_GET_TEXT_COMPLETIONS_IS_DOT_COMMAND=0x00000001
-        DEBUG_GET_TEXT_COMPLETIONS_IS_EXTENSION_COMMAND=0x00000002
-        DEBUG_GET_TEXT_COMPLETIONS_IS_SYMBOL=0x00000004
-        DEBUG_REQUEST_SOURCE_PATH_HAS_SOURCE_SERVER=0
-        DEBUG_REQUEST_TARGET_EXCEPTION_CONTEXT=1
-        DEBUG_REQUEST_TARGET_EXCEPTION_THREAD=2
-        DEBUG_REQUEST_TARGET_EXCEPTION_RECORD=3
-        DEBUG_REQUEST_GET_ADDITIONAL_CREATE_OPTIONS=4
-        DEBUG_REQUEST_SET_ADDITIONAL_CREATE_OPTIONS=5
-        DEBUG_REQUEST_GET_WIN32_MAJOR_MINOR_VERSIONS=6
-        DEBUG_REQUEST_READ_USER_MINIDUMP_STREAM=7
-        DEBUG_REQUEST_TARGET_CAN_DETACH=8
-        DEBUG_REQUEST_SET_LOCAL_IMPLICIT_COMMAND_LINE=9
-        DEBUG_REQUEST_GET_CAPTURED_EVENT_CODE_OFFSET=10
-        DEBUG_REQUEST_READ_CAPTURED_EVENT_CODE_STREAM=11
-        DEBUG_REQUEST_EXT_TYPED_DATA_ANSI=12
-        DEBUG_REQUEST_GET_EXTENSION_SEARCH_PATH_WIDE=13
-        DEBUG_REQUEST_GET_TEXT_COMPLETIONS_WIDE=14
-        DEBUG_REQUEST_GET_CACHED_SYMBOL_INFO=15
-        DEBUG_REQUEST_ADD_CACHED_SYMBOL_INFO=16
-        DEBUG_REQUEST_REMOVE_CACHED_SYMBOL_INFO=17
-        DEBUG_REQUEST_GET_TEXT_COMPLETIONS_ANSI=18
-        DEBUG_REQUEST_CURRENT_OUTPUT_CALLBACKS_ARE_DML_AWARE=19
-        DEBUG_REQUEST_GET_OFFSET_UNWIND_INFORMATION=20
-        DEBUG_REQUEST_GET_DUMP_HEADER=21
-        DEBUG_REQUEST_SET_DUMP_HEADER=22
-        DEBUG_REQUEST_MIDORI=23
-        DEBUG_REQUEST_PROCESS_DESCRIPTORS=24
-        DEBUG_REQUEST_MISC_INFORMATION=25
-        DEBUG_REQUEST_OPEN_PROCESS_TOKEN=26
-        DEBUG_REQUEST_OPEN_THREAD_TOKEN=27
-        DEBUG_REQUEST_DUPLICATE_TOKEN=28
-        DEBUG_REQUEST_QUERY_INFO_TOKEN=29
-        DEBUG_REQUEST_CLOSE_TOKEN=30
-        DEBUG_SRCFILE_SYMBOL_TOKEN=0
-        DEBUG_SRCFILE_SYMBOL_TOKEN_SOURCE_COMMAND_WIDE=1
-        DEBUG_SYMINFO_BREAKPOINT_SOURCE_LINE=0
-        DEBUG_SYMINFO_IMAGEHLP_MODULEW64=1
-        DEBUG_SYMINFO_GET_SYMBOL_NAME_BY_OFFSET_AND_TAG_WIDE=2
-        DEBUG_SYMINFO_GET_MODULE_SYMBOL_NAMES_AND_OFFSETS=3
-        DEBUG_SYSOBJINFO_THREAD_BASIC_INFORMATION=0
-        DEBUG_SYSOBJINFO_THREAD_NAME_WIDE=1
-        DEBUG_SYSOBJINFO_CURRENT_PROCESS_COOKIE=2
-        DEBUG_TBINFO_EXIT_STATUS=0x00000001
-        DEBUG_TBINFO_PRIORITY_CLASS=0x00000002
-        DEBUG_TBINFO_PRIORITY=0x00000004
-        DEBUG_TBINFO_TIMES=0x00000008
-        DEBUG_TBINFO_START_OFFSET=0x00000010
-        DEBUG_TBINFO_AFFINITY=0x00000020
-        DEBUG_TBINFO_ALL=0x0000003f
-
-        def initialize( parent )
-            # Get a pointer to the interface
-            p=FFI::MemoryPointer.new(:pointer)
-            parent.QueryInterface(IIDS[self.class.to_s], p)
-            @interface_ptr = p.get_pointer(0)
-            @vtable=@interface_ptr.get_pointer(0).read_array_of_pointer( NUM_APIS ).map {|addr|
-                FFI::Pointer.new( addr )
-            }
-            # These are autogenerated from dbgeng.h and may contain errors!
-            @api_dispatch_table={
-                :QueryInterface=>FFI::Function.new( :ulong, [:pointer,:string,:pointer], @vtable[0], :convention => :stdcall  ),
-                :AddRef=>FFI::Function.new( :ulong, [:pointer], @vtable[1], :convention => :stdcall  ),
-                :Release=>FFI::Function.new( :ulong, [:pointer], @vtable[2], :convention => :stdcall  ),
-                :GetThreadContext=>FFI::Function.new( :ulong, [:pointer,:pointer,:ulong], @vtable[3], :convention => :stdcall  ),
-                :SetThreadContext=>FFI::Function.new( :ulong, [:pointer,:pointer,:ulong], @vtable[4], :convention => :stdcall  ),
-                :Request=>FFI::Function.new( :ulong, [:pointer,:ulong,:pointer,:ulong,:pointer,:ulong,:pointer], @vtable[5], :convention => :stdcall  ),
-                :GetSourceFileInformation=>FFI::Function.new( :ulong, [:pointer,:ulong,:string,:uint64,:ulong,:pointer,:ulong,:pointer], @vtable[6], :convention => :stdcall  ),
-                :FindSourceFileAndToken=>FFI::Function.new( :ulong, [:pointer,:ulong,:uint64,:string,:ulong,:pointer,:ulong,:pointer,:pointer,:ulong,:pointer], @vtable[7], :convention => :stdcall  ),
-                :GetSymbolInformation=>FFI::Function.new( :ulong, [:pointer,:ulong,:uint64,:ulong,:pointer,:ulong,:pointer,:pointer,:ulong,:pointer], @vtable[8], :convention => :stdcall  ),
-                :GetSystemObjectInformation=>FFI::Function.new( :ulong, [:pointer,:ulong,:uint64,:ulong,:pointer,:ulong,:pointer], @vtable[9], :convention => :stdcall  ),
-                :GetSourceFileInformationWide=>FFI::Function.new( :ulong, [:pointer,:ulong,:string,:uint64,:ulong,:pointer,:ulong,:pointer], @vtable[10], :convention => :stdcall  ),
-                :FindSourceFileAndTokenWide=>FFI::Function.new( :ulong, [:pointer,:ulong,:uint64,:string,:ulong,:pointer,:ulong,:pointer,:pointer,:ulong,:pointer], @vtable[11], :convention => :stdcall  ),
-                :GetSymbolInformationWide=>FFI::Function.new( :ulong, [:pointer,:ulong,:uint64,:ulong,:pointer,:ulong,:pointer,:pointer,:ulong,:pointer], @vtable[12], :convention => :stdcall  )
-            }
-        end
-
-        def ptr
-            @interface_ptr
-        end
-
-        def method_missing( meth, *args )
-            raise ArgumentError, "#{self.class}: Invalid API #{meth}" unless @api_dispatch_table[meth]
-            @api_dispatch_table[meth].call( @interface_ptr, *args )
-        end
+    def ptr
+      @interface_ptr
     end
+
+    def method_missing( meth, *args )
+      raise ArgumentError, "#{self.class}: Invalid API #{meth}" unless @api_dispatch_table[meth]
+      @api_dispatch_table[meth].call( @interface_ptr, *args )
+    end
+  end
+
+  class DebugDataSpaces
+    NUM_APIS= 23
+    # Local Constants
+    def initialize( parent )
+      # Get a pointer to the interface
+      p=FFI::MemoryPointer.new(:pointer)
+      parent.QueryInterface(IIDS[self.class.to_s], p)
+      @interface_ptr = p.get_pointer(0)
+      @vtable=@interface_ptr.get_pointer(0).read_array_of_pointer( NUM_APIS ).map {|addr|
+        FFI::Pointer.new( addr )
+      }
+      # These are autogenerated from dbgeng.h and may contain errors!
+      @api_dispatch_table={
+        :QueryInterface=>FFI::Function.new( :ulong, [:pointer,:string,:pointer], @vtable[0], :convention => :stdcall  ),
+        :AddRef=>FFI::Function.new( :ulong, [:pointer], @vtable[1], :convention => :stdcall  ),
+        :Release=>FFI::Function.new( :ulong, [:pointer], @vtable[2], :convention => :stdcall  ),
+        :ReadVirtual=>FFI::Function.new( :ulong, [:pointer,:uint64,:pointer,:ulong,:pointer], @vtable[3], :convention => :stdcall  ),
+        :WriteVirtual=>FFI::Function.new( :ulong, [:pointer,:uint64,:pointer,:ulong,:pointer], @vtable[4], :convention => :stdcall  ),
+        :SearchVirtual=>FFI::Function.new( :ulong, [:pointer,:uint64,:uint64,:pointer,:ulong,:ulong,:pointer], @vtable[5], :convention => :stdcall  ),
+        :ReadVirtualUncached=>FFI::Function.new( :ulong, [:pointer,:uint64,:pointer,:ulong,:pointer], @vtable[6], :convention => :stdcall  ),
+        :WriteVirtualUncached=>FFI::Function.new( :ulong, [:pointer,:uint64,:pointer,:ulong,:pointer], @vtable[7], :convention => :stdcall  ),
+        :ReadPointersVirtual=>FFI::Function.new( :ulong, [:pointer,:ulong,:uint64,:pointer], @vtable[8], :convention => :stdcall  ),
+        :WritePointersVirtual=>FFI::Function.new( :ulong, [:pointer,:ulong,:uint64,:pointer], @vtable[9], :convention => :stdcall  ),
+        :ReadPhysical=>FFI::Function.new( :ulong, [:pointer,:uint64,:pointer,:ulong,:pointer], @vtable[10], :convention => :stdcall  ),
+        :WritePhysical=>FFI::Function.new( :ulong, [:pointer,:uint64,:pointer,:ulong,:pointer], @vtable[11], :convention => :stdcall  ),
+        :ReadControl=>FFI::Function.new( :ulong, [:pointer,:ulong,:uint64,:pointer,:ulong,:pointer], @vtable[12], :convention => :stdcall  ),
+        :WriteControl=>FFI::Function.new( :ulong, [:pointer,:ulong,:uint64,:pointer,:ulong,:pointer], @vtable[13], :convention => :stdcall  ),
+        :ReadIo=>FFI::Function.new( :ulong, [:pointer,:ulong,:ulong,:ulong,:uint64,:pointer,:ulong,:pointer], @vtable[14], :convention => :stdcall  ),
+        :WriteIo=>FFI::Function.new( :ulong, [:pointer,:ulong,:ulong,:ulong,:uint64,:pointer,:ulong,:pointer], @vtable[15], :convention => :stdcall  ),
+        :ReadMsr=>FFI::Function.new( :ulong, [:pointer,:ulong,:pointer], @vtable[16], :convention => :stdcall  ),
+        :WriteMsr=>FFI::Function.new( :ulong, [:pointer,:ulong,:uint64], @vtable[17], :convention => :stdcall  ),
+        :ReadBusData=>FFI::Function.new( :ulong, [:pointer,:ulong,:ulong,:ulong,:ulong,:pointer,:ulong,:pointer], @vtable[18], :convention => :stdcall  ),
+        :WriteBusData=>FFI::Function.new( :ulong, [:pointer,:ulong,:ulong,:ulong,:ulong,:pointer,:ulong,:pointer], @vtable[19], :convention => :stdcall  ),
+        :CheckLowMemory=>FFI::Function.new( :ulong, [:pointer], @vtable[20], :convention => :stdcall  ),
+        :ReadDebuggerData=>FFI::Function.new( :ulong, [:pointer,:ulong,:pointer,:ulong,:pointer], @vtable[21], :convention => :stdcall  ),
+        :ReadProcessorSystemData=>FFI::Function.new( :ulong, [:pointer,:ulong,:ulong,:pointer,:ulong,:pointer], @vtable[22], :convention => :stdcall  )
+      }
+    end
+
+    def ptr
+      @interface_ptr
+    end
+
+    def method_missing( meth, *args )
+      raise ArgumentError, "#{self.class}: Invalid API #{meth}" unless @api_dispatch_table[meth]
+      @api_dispatch_table[meth].call( @interface_ptr, *args )
+    end
+  end
+
+  class DebugSymbols
+    NUM_APIS=52
+    # Local Constants
+    DEBUG_MODULE_LOADED=0x00000000
+    DEBUG_MODULE_UNLOADED=0x00000001
+    DEBUG_MODULE_USER_MODE=0x00000002
+    DEBUG_MODULE_EXE_MODULE=0x00000004
+    DEBUG_MODULE_EXPLICIT=0x00000008
+    DEBUG_MODULE_SECONDARY=0x00000010
+    DEBUG_MODULE_SYNTHETIC=0x00000020
+    DEBUG_MODULE_SYM_BAD_CHECKSUM=0x00010000
+    DEBUG_SYMTYPE_NONE=0
+    DEBUG_SYMTYPE_COFF=1
+    DEBUG_SYMTYPE_CODEVIEW=2
+    DEBUG_SYMTYPE_PDB=3
+    DEBUG_SYMTYPE_EXPORT=4
+    DEBUG_SYMTYPE_DEFERRED=5
+    DEBUG_SYMTYPE_SYM=6
+    DEBUG_SYMTYPE_DIA=7
+    DEBUG_SCOPE_GROUP_ARGUMENTS=0x00000001
+    DEBUG_SCOPE_GROUP_LOCALS=0x00000002
+    DEBUG_SCOPE_GROUP_ALL=0x00000003
+    DEBUG_OUTTYPE_DEFAULT=0x00000000
+    DEBUG_OUTTYPE_NO_INDENT=0x00000001
+    DEBUG_OUTTYPE_NO_OFFSET=0x00000002
+    DEBUG_OUTTYPE_VERBOSE=0x00000004
+    DEBUG_OUTTYPE_COMPACT_OUTPUT=0x00000008
+    DEBUG_OUTTYPE_ADDRESS_OF_FIELD=0x00010000
+    DEBUG_OUTTYPE_ADDRESS_AT_END=0x00020000
+    DEBUG_OUTTYPE_BLOCK_RECURSE=0x00200000
+    DEBUG_FIND_SOURCE_DEFAULT=0x00000000
+    DEBUG_FIND_SOURCE_FULL_PATH=0x00000001
+    DEBUG_FIND_SOURCE_BEST_MATCH=0x00000002
+    DEBUG_FIND_SOURCE_NO_SRCSRV=0x00000004
+    DEBUG_FIND_SOURCE_TOKEN_LOOKUP=0x00000008
+    DEBUG_INVALID_OFFSET=0xffffffffffffffff
+    MODULE_ORDERS_MASK=0xF0000000
+    MODULE_ORDERS_LOADTIME=0x10000000
+    MODULE_ORDERS_MODULENAME=0x20000000
+
+    def initialize( parent )
+      # Get a pointer to the interface
+      p=FFI::MemoryPointer.new(:pointer)
+      parent.QueryInterface(IIDS[self.class.to_s], p)
+      @interface_ptr = p.get_pointer(0)
+      @vtable=@interface_ptr.get_pointer(0).read_array_of_pointer( NUM_APIS ).map {|addr|
+        FFI::Pointer.new( addr )
+      }
+      # These are autogenerated from dbgeng.h and may contain errors!
+      @api_dispatch_table={
+        :QueryInterface=>FFI::Function.new( :ulong, [:pointer,:string,:pointer], @vtable[0], :convention => :stdcall  ),
+        :AddRef=>FFI::Function.new( :ulong, [:pointer], @vtable[1], :convention => :stdcall  ),
+        :Release=>FFI::Function.new( :ulong, [:pointer], @vtable[2], :convention => :stdcall  ),
+        :GetSymbolOptions=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[3], :convention => :stdcall  ),
+        :AddSymbolOptions=>FFI::Function.new( :ulong, [:pointer,:ulong], @vtable[4], :convention => :stdcall  ),
+        :RemoveSymbolOptions=>FFI::Function.new( :ulong, [:pointer,:ulong], @vtable[5], :convention => :stdcall  ),
+        :SetSymbolOptions=>FFI::Function.new( :ulong, [:pointer,:ulong], @vtable[6], :convention => :stdcall  ),
+        :GetNameByOffset=>FFI::Function.new( :ulong, [:pointer,:uint64,:pointer,:ulong,:pointer,:pointer], @vtable[7], :convention => :stdcall  ),
+        :GetOffsetByName=>FFI::Function.new( :ulong, [:pointer,:string,:pointer], @vtable[8], :convention => :stdcall  ),
+        :GetNearNameByOffset=>FFI::Function.new( :ulong, [:pointer,:uint64,:ulong,:pointer,:ulong,:pointer,:pointer], @vtable[9], :convention => :stdcall  ),
+        :GetLineByOffset=>FFI::Function.new( :ulong, [:pointer,:uint64,:pointer,:pointer,:ulong,:pointer,:pointer], @vtable[10], :convention => :stdcall  ),
+        :GetOffsetByLine=>FFI::Function.new( :ulong, [:pointer,:ulong,:string,:pointer], @vtable[11], :convention => :stdcall  ),
+        :GetNumberModules=>FFI::Function.new( :ulong, [:pointer,:pointer,:pointer], @vtable[12], :convention => :stdcall  ),
+        :GetModuleByIndex=>FFI::Function.new( :ulong, [:pointer,:ulong,:pointer], @vtable[13], :convention => :stdcall  ),
+        :GetModuleByModuleName=>FFI::Function.new( :ulong, [:pointer,:string,:ulong,:pointer,:pointer], @vtable[14], :convention => :stdcall  ),
+        :GetModuleByOffset=>FFI::Function.new( :ulong, [:pointer,:uint64,:ulong,:pointer,:pointer], @vtable[15], :convention => :stdcall  ),
+        :GetModuleNames=>FFI::Function.new( :ulong, [:pointer,:ulong,:uint64,:pointer,:ulong,:pointer,:pointer,:ulong,:pointer,:pointer,:ulong,:pointer], @vtable[16], :convention => :stdcall  ),
+        :GetModuleParameters=>FFI::Function.new( :ulong, [:pointer,:ulong,:pointer,:ulong,:pointer], @vtable[17], :convention => :stdcall  ),
+        :GetSymbolModule=>FFI::Function.new( :ulong, [:pointer,:string,:pointer], @vtable[18], :convention => :stdcall  ),
+        :GetTypeName=>FFI::Function.new( :ulong, [:pointer,:uint64,:ulong,:pointer,:ulong,:pointer], @vtable[19], :convention => :stdcall  ),
+        :GetTypeId=>FFI::Function.new( :ulong, [:pointer,:uint64,:string,:pointer], @vtable[20], :convention => :stdcall  ),
+        :GetTypeSize=>FFI::Function.new( :ulong, [:pointer,:uint64,:ulong,:pointer], @vtable[21], :convention => :stdcall  ),
+        :GetFieldOffset=>FFI::Function.new( :ulong, [:pointer,:uint64,:ulong,:string,:pointer], @vtable[22], :convention => :stdcall  ),
+        :GetSymbolTypeId=>FFI::Function.new( :ulong, [:pointer,:string,:pointer,:pointer], @vtable[23], :convention => :stdcall  ),
+        :GetOffsetTypeId=>FFI::Function.new( :ulong, [:pointer,:uint64,:pointer,:pointer], @vtable[24], :convention => :stdcall  ),
+        :ReadTypedDataVirtual=>FFI::Function.new( :ulong, [:pointer,:uint64,:uint64,:ulong,:pointer,:ulong,:pointer], @vtable[25], :convention => :stdcall  ),
+        :WriteTypedDataVirtual=>FFI::Function.new( :ulong, [:pointer,:uint64,:uint64,:ulong,:pointer,:ulong,:pointer], @vtable[26], :convention => :stdcall  ),
+        :OutputTypedDataVirtual=>FFI::Function.new( :ulong, [:pointer,:ulong,:uint64,:uint64,:ulong,:ulong], @vtable[27], :convention => :stdcall  ),
+        :ReadTypedDataPhysical=>FFI::Function.new( :ulong, [:pointer,:uint64,:uint64,:ulong,:pointer,:ulong,:pointer], @vtable[28], :convention => :stdcall  ),
+        :WriteTypedDataPhysical=>FFI::Function.new( :ulong, [:pointer,:uint64,:uint64,:ulong,:pointer,:ulong,:pointer], @vtable[29], :convention => :stdcall  ),
+        :OutputTypedDataPhysical=>FFI::Function.new( :ulong, [:pointer,:ulong,:uint64,:uint64,:ulong,:ulong], @vtable[30], :convention => :stdcall  ),
+        :GetScope=>FFI::Function.new( :ulong, [:pointer,:pointer,:pointer,:pointer,:ulong], @vtable[31], :convention => :stdcall  ),
+        :SetScope=>FFI::Function.new( :ulong, [:pointer,:uint64,:pointer,:pointer,:ulong], @vtable[32], :convention => :stdcall  ),
+        :ResetScope=>FFI::Function.new( :ulong, [:pointer], @vtable[33], :convention => :stdcall  ),
+        :GetScopeSymbolGroup=>FFI::Function.new( :ulong, [:pointer,:ulong,:pointer,:pointer], @vtable[34], :convention => :stdcall  ),
+        :CreateSymbolGroup=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[35], :convention => :stdcall  ),
+        :StartSymbolMatch=>FFI::Function.new( :ulong, [:pointer,:string,:pointer], @vtable[36], :convention => :stdcall  ),
+        :GetNextSymbolMatch=>FFI::Function.new( :ulong, [:pointer,:uint64,:pointer,:ulong,:pointer,:pointer], @vtable[37], :convention => :stdcall  ),
+        :EndSymbolMatch=>FFI::Function.new( :ulong, [:pointer,:uint64], @vtable[38], :convention => :stdcall  ),
+        :Reload=>FFI::Function.new( :ulong, [:pointer,:string], @vtable[39], :convention => :stdcall  ),
+        :GetSymbolPath=>FFI::Function.new( :ulong, [:pointer,:pointer,:ulong,:pointer], @vtable[40], :convention => :stdcall  ),
+        :SetSymbolPath=>FFI::Function.new( :ulong, [:pointer,:string], @vtable[41], :convention => :stdcall  ),
+        :AppendSymbolPath=>FFI::Function.new( :ulong, [:pointer,:string], @vtable[42], :convention => :stdcall  ),
+        :GetImagePath=>FFI::Function.new( :ulong, [:pointer,:pointer,:ulong,:pointer], @vtable[43], :convention => :stdcall  ),
+        :SetImagePath=>FFI::Function.new( :ulong, [:pointer,:string], @vtable[44], :convention => :stdcall  ),
+        :AppendImagePath=>FFI::Function.new( :ulong, [:pointer,:string], @vtable[45], :convention => :stdcall  ),
+        :GetSourcePath=>FFI::Function.new( :ulong, [:pointer,:pointer,:ulong,:pointer], @vtable[46], :convention => :stdcall  ),
+        :GetSourcePathElement=>FFI::Function.new( :ulong, [:pointer,:ulong,:pointer,:ulong,:pointer], @vtable[47], :convention => :stdcall  ),
+        :SetSourcePath=>FFI::Function.new( :ulong, [:pointer,:string], @vtable[48], :convention => :stdcall  ),
+        :AppendSourcePath=>FFI::Function.new( :ulong, [:pointer,:string], @vtable[49], :convention => :stdcall  ),
+        :FindSourceFile=>FFI::Function.new( :ulong, [:pointer,:ulong,:string,:ulong,:pointer,:pointer,:ulong,:pointer], @vtable[50], :convention => :stdcall  ),
+        :GetSourceFileLineOffsets=>FFI::Function.new( :ulong, [:pointer,:string,:pointer,:ulong,:pointer], @vtable[51], :convention => :stdcall  )
+      }
+    end
+
+    def ptr
+      @interface_ptr
+    end
+
+    def method_missing( meth, *args )
+      raise ArgumentError, "#{self.class}: Invalid API #{meth}" unless @api_dispatch_table[meth]
+      @api_dispatch_table[meth].call( @interface_ptr, *args )
+    end
+  end
+
+  class DebugSymbols2
+    NUM_APIS=60
+    # Local Constants
+    DEBUG_MODNAME_IMAGE=0x00000000
+    DEBUG_MODNAME_MODULE=0x00000001
+    DEBUG_MODNAME_LOADED_IMAGE=0x00000002
+    DEBUG_MODNAME_SYMBOL_FILE=0x00000003
+    DEBUG_MODNAME_MAPPED_IMAGE=0x00000004
+    DEBUG_TYPEOPTS_UNICODE_DISPLAY=0x00000001
+    DEBUG_TYPEOPTS_LONGSTATUS_DISPLAY=0x00000002
+    DEBUG_TYPEOPTS_FORCERADIX_OUTPUT=0x00000004
+    DEBUG_TYPEOPTS_MATCH_MAXSIZE=0x00000008
+
+    def initialize( parent )
+      # Get a pointer to the interface
+      p=FFI::MemoryPointer.new(:pointer)
+      parent.QueryInterface(IIDS[self.class.to_s], p)
+      @interface_ptr = p.get_pointer(0)
+      @vtable=@interface_ptr.get_pointer(0).read_array_of_pointer( NUM_APIS ).map {|addr|
+        FFI::Pointer.new( addr )
+      }
+      # These are autogenerated from dbgeng.h and may contain errors!
+      @api_dispatch_table={
+        :QueryInterface=>FFI::Function.new( :ulong, [:pointer,:string,:pointer], @vtable[0], :convention => :stdcall  ),
+        :AddRef=>FFI::Function.new( :ulong, [:pointer], @vtable[1], :convention => :stdcall  ),
+        :Release=>FFI::Function.new( :ulong, [:pointer], @vtable[2], :convention => :stdcall  ),
+        :GetSymbolOptions=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[3], :convention => :stdcall  ),
+        :AddSymbolOptions=>FFI::Function.new( :ulong, [:pointer,:ulong], @vtable[4], :convention => :stdcall  ),
+        :RemoveSymbolOptions=>FFI::Function.new( :ulong, [:pointer,:ulong], @vtable[5], :convention => :stdcall  ),
+        :SetSymbolOptions=>FFI::Function.new( :ulong, [:pointer,:ulong], @vtable[6], :convention => :stdcall  ),
+        :GetNameByOffset=>FFI::Function.new( :ulong, [:pointer,:uint64,:pointer,:ulong,:pointer,:pointer], @vtable[7], :convention => :stdcall  ),
+        :GetOffsetByName=>FFI::Function.new( :ulong, [:pointer,:string,:pointer], @vtable[8], :convention => :stdcall  ),
+        :GetNearNameByOffset=>FFI::Function.new( :ulong, [:pointer,:uint64,:ulong,:pointer,:ulong,:pointer,:pointer], @vtable[9], :convention => :stdcall  ),
+        :GetLineByOffset=>FFI::Function.new( :ulong, [:pointer,:uint64,:pointer,:pointer,:ulong,:pointer,:pointer], @vtable[10], :convention => :stdcall  ),
+        :GetOffsetByLine=>FFI::Function.new( :ulong, [:pointer,:ulong,:string,:pointer], @vtable[11], :convention => :stdcall  ),
+        :GetNumberModules=>FFI::Function.new( :ulong, [:pointer,:pointer,:pointer], @vtable[12], :convention => :stdcall  ),
+        :GetModuleByIndex=>FFI::Function.new( :ulong, [:pointer,:ulong,:pointer], @vtable[13], :convention => :stdcall  ),
+        :GetModuleByModuleName=>FFI::Function.new( :ulong, [:pointer,:string,:ulong,:pointer,:pointer], @vtable[14], :convention => :stdcall  ),
+        :GetModuleByOffset=>FFI::Function.new( :ulong, [:pointer,:uint64,:ulong,:pointer,:pointer], @vtable[15], :convention => :stdcall  ),
+        :GetModuleNames=>FFI::Function.new( :ulong, [:pointer,:ulong,:uint64,:pointer,:ulong,:pointer,:pointer,:ulong,:pointer,:pointer,:ulong,:pointer], @vtable[16], :convention => :stdcall  ),
+        :GetModuleParameters=>FFI::Function.new( :ulong, [:pointer,:ulong,:pointer,:ulong,:pointer], @vtable[17], :convention => :stdcall  ),
+        :GetSymbolModule=>FFI::Function.new( :ulong, [:pointer,:string,:pointer], @vtable[18], :convention => :stdcall  ),
+        :GetTypeName=>FFI::Function.new( :ulong, [:pointer,:uint64,:ulong,:pointer,:ulong,:pointer], @vtable[19], :convention => :stdcall  ),
+        :GetTypeId=>FFI::Function.new( :ulong, [:pointer,:uint64,:string,:pointer], @vtable[20], :convention => :stdcall  ),
+        :GetTypeSize=>FFI::Function.new( :ulong, [:pointer,:uint64,:ulong,:pointer], @vtable[21], :convention => :stdcall  ),
+        :GetFieldOffset=>FFI::Function.new( :ulong, [:pointer,:uint64,:ulong,:string,:pointer], @vtable[22], :convention => :stdcall  ),
+        :GetSymbolTypeId=>FFI::Function.new( :ulong, [:pointer,:string,:pointer,:pointer], @vtable[23], :convention => :stdcall  ),
+        :GetOffsetTypeId=>FFI::Function.new( :ulong, [:pointer,:uint64,:pointer,:pointer], @vtable[24], :convention => :stdcall  ),
+        :ReadTypedDataVirtual=>FFI::Function.new( :ulong, [:pointer,:uint64,:uint64,:ulong,:pointer,:ulong,:pointer], @vtable[25], :convention => :stdcall  ),
+        :WriteTypedDataVirtual=>FFI::Function.new( :ulong, [:pointer,:uint64,:uint64,:ulong,:pointer,:ulong,:pointer], @vtable[26], :convention => :stdcall  ),
+        :OutputTypedDataVirtual=>FFI::Function.new( :ulong, [:pointer,:ulong,:uint64,:uint64,:ulong,:ulong], @vtable[27], :convention => :stdcall  ),
+        :ReadTypedDataPhysical=>FFI::Function.new( :ulong, [:pointer,:uint64,:uint64,:ulong,:pointer,:ulong,:pointer], @vtable[28], :convention => :stdcall  ),
+        :WriteTypedDataPhysical=>FFI::Function.new( :ulong, [:pointer,:uint64,:uint64,:ulong,:pointer,:ulong,:pointer], @vtable[29], :convention => :stdcall  ),
+        :OutputTypedDataPhysical=>FFI::Function.new( :ulong, [:pointer,:ulong,:uint64,:uint64,:ulong,:ulong], @vtable[30], :convention => :stdcall  ),
+        :GetScope=>FFI::Function.new( :ulong, [:pointer,:pointer,:pointer,:pointer,:ulong], @vtable[31], :convention => :stdcall  ),
+        :SetScope=>FFI::Function.new( :ulong, [:pointer,:uint64,:pointer,:pointer,:ulong], @vtable[32], :convention => :stdcall  ),
+        :ResetScope=>FFI::Function.new( :ulong, [:pointer], @vtable[33], :convention => :stdcall  ),
+        :GetScopeSymbolGroup=>FFI::Function.new( :ulong, [:pointer,:ulong,:pointer,:pointer], @vtable[34], :convention => :stdcall  ),
+        :CreateSymbolGroup=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[35], :convention => :stdcall  ),
+        :StartSymbolMatch=>FFI::Function.new( :ulong, [:pointer,:string,:pointer], @vtable[36], :convention => :stdcall  ),
+        :GetNextSymbolMatch=>FFI::Function.new( :ulong, [:pointer,:uint64,:pointer,:ulong,:pointer,:pointer], @vtable[37], :convention => :stdcall  ),
+        :EndSymbolMatch=>FFI::Function.new( :ulong, [:pointer,:uint64], @vtable[38], :convention => :stdcall  ),
+        :Reload=>FFI::Function.new( :ulong, [:pointer,:string], @vtable[39], :convention => :stdcall  ),
+        :GetSymbolPath=>FFI::Function.new( :ulong, [:pointer,:pointer,:ulong,:pointer], @vtable[40], :convention => :stdcall  ),
+        :SetSymbolPath=>FFI::Function.new( :ulong, [:pointer,:string], @vtable[41], :convention => :stdcall  ),
+        :AppendSymbolPath=>FFI::Function.new( :ulong, [:pointer,:string], @vtable[42], :convention => :stdcall  ),
+        :GetImagePath=>FFI::Function.new( :ulong, [:pointer,:pointer,:ulong,:pointer], @vtable[43], :convention => :stdcall  ),
+        :SetImagePath=>FFI::Function.new( :ulong, [:pointer,:string], @vtable[44], :convention => :stdcall  ),
+        :AppendImagePath=>FFI::Function.new( :ulong, [:pointer,:string], @vtable[45], :convention => :stdcall  ),
+        :GetSourcePath=>FFI::Function.new( :ulong, [:pointer,:pointer,:ulong,:pointer], @vtable[46], :convention => :stdcall  ),
+        :GetSourcePathElement=>FFI::Function.new( :ulong, [:pointer,:ulong,:pointer,:ulong,:pointer], @vtable[47], :convention => :stdcall  ),
+        :SetSourcePath=>FFI::Function.new( :ulong, [:pointer,:string], @vtable[48], :convention => :stdcall  ),
+        :AppendSourcePath=>FFI::Function.new( :ulong, [:pointer,:string], @vtable[49], :convention => :stdcall  ),
+        :FindSourceFile=>FFI::Function.new( :ulong, [:pointer,:ulong,:string,:ulong,:pointer,:pointer,:ulong,:pointer], @vtable[50], :convention => :stdcall  ),
+        :GetSourceFileLineOffsets=>FFI::Function.new( :ulong, [:pointer,:string,:pointer,:ulong,:pointer], @vtable[51], :convention => :stdcall  ),
+        :GetModuleVersionInformation=>FFI::Function.new( :ulong, [:pointer,:ulong,:uint64,:string,:pointer,:ulong,:pointer], @vtable[52], :convention => :stdcall  ),
+        :GetModuleNameString=>FFI::Function.new( :ulong, [:pointer,:ulong,:ulong,:uint64,:pointer,:ulong,:pointer], @vtable[53], :convention => :stdcall  ),
+        :GetConstantName=>FFI::Function.new( :ulong, [:pointer,:uint64,:ulong,:uint64,:pointer,:ulong,:pointer], @vtable[54], :convention => :stdcall  ),
+        :GetFieldName=>FFI::Function.new( :ulong, [:pointer,:uint64,:ulong,:ulong,:pointer,:ulong,:pointer], @vtable[55], :convention => :stdcall  ),
+        :GetTypeOptions=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[56], :convention => :stdcall  ),
+        :AddTypeOptions=>FFI::Function.new( :ulong, [:pointer,:ulong], @vtable[57], :convention => :stdcall  ),
+        :RemoveTypeOptions=>FFI::Function.new( :ulong, [:pointer,:ulong], @vtable[58], :convention => :stdcall  ),
+        :SetTypeOptions=>FFI::Function.new( :ulong, [:pointer,:ulong], @vtable[59], :convention => :stdcall  )
+      }
+    end
+
+    def ptr
+      @interface_ptr
+    end
+
+    def method_missing( meth, *args )
+      raise ArgumentError, "#{self.class}: Invalid API #{meth}" unless @api_dispatch_table[meth]
+      @api_dispatch_table[meth].call( @interface_ptr, *args )
+    end
+  end
+
+  class DebugSystemObjects
+    NUM_APIS=32
+
+    # Local Constants
+    def initialize( parent )
+      # Get a pointer to the interface
+      p=FFI::MemoryPointer.new(:pointer)
+      parent.QueryInterface(IIDS[self.class.to_s], p)
+      @interface_ptr = p.get_pointer(0)
+      @vtable=@interface_ptr.get_pointer(0).read_array_of_pointer( NUM_APIS ).map {|addr|
+        FFI::Pointer.new( addr )
+      }
+      # These are autogenerated from dbgeng.h and may contain errors!
+      @api_dispatch_table={
+        :QueryInterface=>FFI::Function.new( :ulong, [:pointer,:string,:pointer], @vtable[0], :convention => :stdcall  ),
+        :AddRef=>FFI::Function.new( :ulong, [:pointer], @vtable[1], :convention => :stdcall  ),
+        :Release=>FFI::Function.new( :ulong, [:pointer], @vtable[2], :convention => :stdcall  ),
+        :GetEventThread=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[3], :convention => :stdcall  ),
+        :GetEventProcess=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[4], :convention => :stdcall  ),
+        :GetCurrentThreadId=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[5], :convention => :stdcall  ),
+        :SetCurrentThreadId=>FFI::Function.new( :ulong, [:pointer,:ulong], @vtable[6], :convention => :stdcall  ),
+        :GetCurrentProcessId=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[7], :convention => :stdcall  ),
+        :SetCurrentProcessId=>FFI::Function.new( :ulong, [:pointer,:ulong], @vtable[8], :convention => :stdcall  ),
+        :GetNumberThreads=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[9], :convention => :stdcall  ),
+        :GetTotalNumberThreads=>FFI::Function.new( :ulong, [:pointer,:pointer,:pointer], @vtable[10], :convention => :stdcall  ),
+        :GetThreadIdsByIndex=>FFI::Function.new( :ulong, [:pointer,:ulong,:ulong,:pointer,:pointer], @vtable[11], :convention => :stdcall  ),
+        :GetThreadIdByProcessor=>FFI::Function.new( :ulong, [:pointer,:ulong,:pointer], @vtable[12], :convention => :stdcall  ),
+        :GetCurrentThreadDataOffset=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[13], :convention => :stdcall  ),
+        :GetThreadIdByDataOffset=>FFI::Function.new( :ulong, [:pointer,:uint64,:pointer], @vtable[14], :convention => :stdcall  ),
+        :GetCurrentThreadTeb=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[15], :convention => :stdcall  ),
+        :GetThreadIdByTeb=>FFI::Function.new( :ulong, [:pointer,:uint64,:pointer], @vtable[16], :convention => :stdcall  ),
+        :GetCurrentThreadSystemId=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[17], :convention => :stdcall  ),
+        :GetThreadIdBySystemId=>FFI::Function.new( :ulong, [:pointer,:ulong,:pointer], @vtable[18], :convention => :stdcall  ),
+        :GetCurrentThreadHandle=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[19], :convention => :stdcall  ),
+        :GetThreadIdByHandle=>FFI::Function.new( :ulong, [:pointer,:uint64,:pointer], @vtable[20], :convention => :stdcall  ),
+        :GetNumberProcesses=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[21], :convention => :stdcall  ),
+        :GetProcessIdsByIndex=>FFI::Function.new( :ulong, [:pointer,:ulong,:ulong,:pointer,:pointer], @vtable[22], :convention => :stdcall  ),
+        :GetCurrentProcessDataOffset=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[23], :convention => :stdcall  ),
+        :GetProcessIdByDataOffset=>FFI::Function.new( :ulong, [:pointer,:uint64,:pointer], @vtable[24], :convention => :stdcall  ),
+        :GetCurrentProcessPeb=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[25], :convention => :stdcall  ),
+        :GetProcessIdByPeb=>FFI::Function.new( :ulong, [:pointer,:uint64,:pointer], @vtable[26], :convention => :stdcall  ),
+        :GetCurrentProcessSystemId=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[27], :convention => :stdcall  ),
+        :GetProcessIdBySystemId=>FFI::Function.new( :ulong, [:pointer,:ulong,:pointer], @vtable[28], :convention => :stdcall  ),
+        :GetCurrentProcessHandle=>FFI::Function.new( :ulong, [:pointer,:pointer], @vtable[29], :convention => :stdcall  ),
+        :GetProcessIdByHandle=>FFI::Function.new( :ulong, [:pointer,:uint64,:pointer], @vtable[30], :convention => :stdcall  ),
+        :GetCurrentProcessExecutableName=>FFI::Function.new( :ulong, [:pointer,:pointer,:ulong,:pointer], @vtable[31], :convention => :stdcall  )
+      }
+    end
+
+    def ptr
+      @interface_ptr
+    end
+
+    def method_missing( meth, *args )
+      raise ArgumentError, "#{self.class}: Invalid API #{meth}" unless @api_dispatch_table[meth]
+      begin
+        @api_dispatch_table[meth].call( @interface_ptr, *args )
+      rescue
+        puts "Error calling #{meth}: #{$!} with #{args.inspect}"
+      end
+    end
+  end
+
+  class DebugAdvanced3
+    NUM_APIS=13
+    # Local Constants
+    DEBUG_GET_TEXT_COMPLETIONS_NO_DOT_COMMANDS=0x00000001
+    DEBUG_GET_TEXT_COMPLETIONS_NO_EXTENSION_COMMANDS=0x00000002
+    DEBUG_GET_TEXT_COMPLETIONS_NO_SYMBOLS=0x00000004
+    DEBUG_GET_TEXT_COMPLETIONS_IS_DOT_COMMAND=0x00000001
+    DEBUG_GET_TEXT_COMPLETIONS_IS_EXTENSION_COMMAND=0x00000002
+    DEBUG_GET_TEXT_COMPLETIONS_IS_SYMBOL=0x00000004
+    DEBUG_REQUEST_SOURCE_PATH_HAS_SOURCE_SERVER=0
+    DEBUG_REQUEST_TARGET_EXCEPTION_CONTEXT=1
+    DEBUG_REQUEST_TARGET_EXCEPTION_THREAD=2
+    DEBUG_REQUEST_TARGET_EXCEPTION_RECORD=3
+    DEBUG_REQUEST_GET_ADDITIONAL_CREATE_OPTIONS=4
+    DEBUG_REQUEST_SET_ADDITIONAL_CREATE_OPTIONS=5
+    DEBUG_REQUEST_GET_WIN32_MAJOR_MINOR_VERSIONS=6
+    DEBUG_REQUEST_READ_USER_MINIDUMP_STREAM=7
+    DEBUG_REQUEST_TARGET_CAN_DETACH=8
+    DEBUG_REQUEST_SET_LOCAL_IMPLICIT_COMMAND_LINE=9
+    DEBUG_REQUEST_GET_CAPTURED_EVENT_CODE_OFFSET=10
+    DEBUG_REQUEST_READ_CAPTURED_EVENT_CODE_STREAM=11
+    DEBUG_REQUEST_EXT_TYPED_DATA_ANSI=12
+    DEBUG_REQUEST_GET_EXTENSION_SEARCH_PATH_WIDE=13
+    DEBUG_REQUEST_GET_TEXT_COMPLETIONS_WIDE=14
+    DEBUG_REQUEST_GET_CACHED_SYMBOL_INFO=15
+    DEBUG_REQUEST_ADD_CACHED_SYMBOL_INFO=16
+    DEBUG_REQUEST_REMOVE_CACHED_SYMBOL_INFO=17
+    DEBUG_REQUEST_GET_TEXT_COMPLETIONS_ANSI=18
+    DEBUG_REQUEST_CURRENT_OUTPUT_CALLBACKS_ARE_DML_AWARE=19
+    DEBUG_REQUEST_GET_OFFSET_UNWIND_INFORMATION=20
+    DEBUG_REQUEST_GET_DUMP_HEADER=21
+    DEBUG_REQUEST_SET_DUMP_HEADER=22
+    DEBUG_REQUEST_MIDORI=23
+    DEBUG_REQUEST_PROCESS_DESCRIPTORS=24
+    DEBUG_REQUEST_MISC_INFORMATION=25
+    DEBUG_REQUEST_OPEN_PROCESS_TOKEN=26
+    DEBUG_REQUEST_OPEN_THREAD_TOKEN=27
+    DEBUG_REQUEST_DUPLICATE_TOKEN=28
+    DEBUG_REQUEST_QUERY_INFO_TOKEN=29
+    DEBUG_REQUEST_CLOSE_TOKEN=30
+    DEBUG_SRCFILE_SYMBOL_TOKEN=0
+    DEBUG_SRCFILE_SYMBOL_TOKEN_SOURCE_COMMAND_WIDE=1
+    DEBUG_SYMINFO_BREAKPOINT_SOURCE_LINE=0
+    DEBUG_SYMINFO_IMAGEHLP_MODULEW64=1
+    DEBUG_SYMINFO_GET_SYMBOL_NAME_BY_OFFSET_AND_TAG_WIDE=2
+    DEBUG_SYMINFO_GET_MODULE_SYMBOL_NAMES_AND_OFFSETS=3
+    DEBUG_SYSOBJINFO_THREAD_BASIC_INFORMATION=0
+    DEBUG_SYSOBJINFO_THREAD_NAME_WIDE=1
+    DEBUG_SYSOBJINFO_CURRENT_PROCESS_COOKIE=2
+    DEBUG_TBINFO_EXIT_STATUS=0x00000001
+    DEBUG_TBINFO_PRIORITY_CLASS=0x00000002
+    DEBUG_TBINFO_PRIORITY=0x00000004
+    DEBUG_TBINFO_TIMES=0x00000008
+    DEBUG_TBINFO_START_OFFSET=0x00000010
+    DEBUG_TBINFO_AFFINITY=0x00000020
+    DEBUG_TBINFO_ALL=0x0000003f
+
+    def initialize( parent )
+      # Get a pointer to the interface
+      p=FFI::MemoryPointer.new(:pointer)
+      parent.QueryInterface(IIDS[self.class.to_s], p)
+      @interface_ptr = p.get_pointer(0)
+      @vtable=@interface_ptr.get_pointer(0).read_array_of_pointer( NUM_APIS ).map {|addr|
+        FFI::Pointer.new( addr )
+      }
+      # These are autogenerated from dbgeng.h and may contain errors!
+      @api_dispatch_table={
+        :QueryInterface=>FFI::Function.new( :ulong, [:pointer,:string,:pointer], @vtable[0], :convention => :stdcall  ),
+        :AddRef=>FFI::Function.new( :ulong, [:pointer], @vtable[1], :convention => :stdcall  ),
+        :Release=>FFI::Function.new( :ulong, [:pointer], @vtable[2], :convention => :stdcall  ),
+        :GetThreadContext=>FFI::Function.new( :ulong, [:pointer,:pointer,:ulong], @vtable[3], :convention => :stdcall  ),
+        :SetThreadContext=>FFI::Function.new( :ulong, [:pointer,:pointer,:ulong], @vtable[4], :convention => :stdcall  ),
+        :Request=>FFI::Function.new( :ulong, [:pointer,:ulong,:pointer,:ulong,:pointer,:ulong,:pointer], @vtable[5], :convention => :stdcall  ),
+        :GetSourceFileInformation=>FFI::Function.new( :ulong, [:pointer,:ulong,:string,:uint64,:ulong,:pointer,:ulong,:pointer], @vtable[6], :convention => :stdcall  ),
+        :FindSourceFileAndToken=>FFI::Function.new( :ulong, [:pointer,:ulong,:uint64,:string,:ulong,:pointer,:ulong,:pointer,:pointer,:ulong,:pointer], @vtable[7], :convention => :stdcall  ),
+        :GetSymbolInformation=>FFI::Function.new( :ulong, [:pointer,:ulong,:uint64,:ulong,:pointer,:ulong,:pointer,:pointer,:ulong,:pointer], @vtable[8], :convention => :stdcall  ),
+        :GetSystemObjectInformation=>FFI::Function.new( :ulong, [:pointer,:ulong,:uint64,:ulong,:pointer,:ulong,:pointer], @vtable[9], :convention => :stdcall  ),
+        :GetSourceFileInformationWide=>FFI::Function.new( :ulong, [:pointer,:ulong,:string,:uint64,:ulong,:pointer,:ulong,:pointer], @vtable[10], :convention => :stdcall  ),
+        :FindSourceFileAndTokenWide=>FFI::Function.new( :ulong, [:pointer,:ulong,:uint64,:string,:ulong,:pointer,:ulong,:pointer,:pointer,:ulong,:pointer], @vtable[11], :convention => :stdcall  ),
+        :GetSymbolInformationWide=>FFI::Function.new( :ulong, [:pointer,:ulong,:uint64,:ulong,:pointer,:ulong,:pointer,:pointer,:ulong,:pointer], @vtable[12], :convention => :stdcall  )
+      }
+    end
+
+    def ptr
+      @interface_ptr
+    end
+
+    def method_missing( meth, *args )
+      raise ArgumentError, "#{self.class}: Invalid API #{meth}" unless @api_dispatch_table[meth]
+      @api_dispatch_table[meth].call( @interface_ptr, *args )
+    end
+  end
 end
