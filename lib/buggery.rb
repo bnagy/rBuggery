@@ -37,31 +37,31 @@ end
 class Buggery
   # Two way lookup, errors defined in WinError.h
   ERRORS={
-    'S_OK'=>0x0,
-    'S_FALSE'=>0x01,
-    'E_PENDING'=>0x8000000a,
-    'E_FAIL'=>0x80000008,
-    'E_UNEXPECTED'=>0x8000FFFF
+    'S_OK'         => 0x0,
+    'S_FALSE'      => 0x01,
+    'E_PENDING'    => 0x8000000a,
+    'E_FAIL'       => 0x80000008,
+    'E_UNEXPECTED' => 0x8000FFFF
   }
   ERRORS.update ERRORS.invert
   EVENTS={
-    'DEBUG_EVENT_BREAKPOINT'=>0x00000001,
-    'DEBUG_EVENT_EXCEPTION'=>0x00000002,
-    'DEBUG_EVENT_CREATE_THREAD'=>0x00000004,
-    'DEBUG_EVENT_EXIT_THREAD'=>0x00000008,
-    'DEBUG_EVENT_CREATE_PROCESS'=>0x00000010,
-    'DEBUG_EVENT_EXIT_PROCESS'=>0x00000020,
-    'DEBUG_EVENT_LOAD_MODULE'=>0x00000040,
-    'DEBUG_EVENT_UNLOAD_MODULE'=>0x00000080,
-    'DEBUG_EVENT_SYSTEM_ERROR'=>0x00000100,
-    'DEBUG_EVENT_SESSION_STATUS'=>0x00000200,
-    'DEBUG_EVENT_CHANGE_DEBUGGEE_STATE'=>0x00000400,
-    'DEBUG_EVENT_CHANGE_ENGINE_STATE'=>0x00000800,
-    'DEBUG_EVENT_CHANGE_SYMBOL_STATE'=>0x00001000
+    'DEBUG_EVENT_BREAKPOINT'            => 0x00000001,
+    'DEBUG_EVENT_EXCEPTION'             => 0x00000002,
+    'DEBUG_EVENT_CREATE_THREAD'         => 0x00000004,
+    'DEBUG_EVENT_EXIT_THREAD'           => 0x00000008,
+    'DEBUG_EVENT_CREATE_PROCESS'        => 0x00000010,
+    'DEBUG_EVENT_EXIT_PROCESS'          => 0x00000020,
+    'DEBUG_EVENT_LOAD_MODULE'           => 0x00000040,
+    'DEBUG_EVENT_UNLOAD_MODULE'         => 0x00000080,
+    'DEBUG_EVENT_SYSTEM_ERROR'          => 0x00000100,
+    'DEBUG_EVENT_SESSION_STATUS'        => 0x00000200,
+    'DEBUG_EVENT_CHANGE_DEBUGGEE_STATE' => 0x00000400,
+    'DEBUG_EVENT_CHANGE_ENGINE_STATE'   => 0x00000800,
+    'DEBUG_EVENT_CHANGE_SYMBOL_STATE'   => 0x00001000
   }
   EVENTS.update EVENTS.invert
   COMPONENT="Buggery"
-  VERSION="0.4.0"
+  VERSION="0.5.0"
 
   def initialize( debug=false )
     @debug=debug
@@ -76,7 +76,7 @@ class Buggery
       @output_buffer << text
       0
     }
-    retval=@debug_client.SetOutputCallbacks( ptr=@output_callback.interface_ptr )
+    retval=@debug_client.SetOutputCallbacks( @output_callback.interface_ptr )
     raise_errorcode( retval, __method__ ) unless retval.zero? # S_OK
     if @debug
       mask=DebugClient::DEBUG_OUTPUT_NORMAL |

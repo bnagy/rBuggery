@@ -17,31 +17,31 @@ require 'buggery/fake_com'
 
 class EventCallbacks < FakeCOM
   MASKS={
-    :breakpoint => 0x00000001,
+    :breakpoint            => 0x00000001,
     :change_debuggee_state => 0x00000400,
-    :change_engine_state => 0x00000800,
-    :exception => 0x00000002,
-    :load_module => 0x00000040,
-    :unload_module => 0x00000080,
-    :create_process => 0x00000010,
-    :exit_process => 0x00000020,
-    :session_status => 0x00000200,
-    :change_symbol_state => 0x00001000,
-    :system_error => 0x00000100,
-    :create_thread => 0x00000004,
-    :exit_thread => 0x00000008
+    :change_engine_state   => 0x00000800,
+    :exception             => 0x00000002,
+    :load_module           => 0x00000040,
+    :unload_module         => 0x00000080,
+    :create_process        => 0x00000010,
+    :exit_process          => 0x00000020,
+    :session_status        => 0x00000200,
+    :change_symbol_state   => 0x00001000,
+    :system_error          => 0x00000100,
+    :create_thread         => 0x00000004,
+    :exit_thread           => 0x00000008
   }
-  DEBUG_STATUS_NO_CHANGE=0
-  DEBUG_STATUS_GO=1
-  DEBUG_STATUS_GO_HANDLED=2
-  DEBUG_STATUS_GO_NOT_HANDLED=3
-  DEBUG_STATUS_STEP_OVER=4
-  DEBUG_STATUS_STEP_INTO=5
-  DEBUG_STATUS_BREAK=6
-  DEBUG_STATUS_NO_DEBUGGEE=7
-  DEBUG_STATUS_STEP_BRANCH=8
-  DEBUG_STATUS_IGNORE_EVENT=9
-  DEBUG_STATUS_RESTART_REQUESTED=10
+  DEBUG_STATUS_NO_CHANGE         = 0
+  DEBUG_STATUS_GO                = 1
+  DEBUG_STATUS_GO_HANDLED        = 2
+  DEBUG_STATUS_GO_NOT_HANDLED    = 3
+  DEBUG_STATUS_STEP_OVER         = 4
+  DEBUG_STATUS_STEP_INTO         = 5
+  DEBUG_STATUS_BREAK             = 6
+  DEBUG_STATUS_NO_DEBUGGEE       = 7
+  DEBUG_STATUS_STEP_BRANCH       = 8
+  DEBUG_STATUS_IGNORE_EVENT      = 9
+  DEBUG_STATUS_RESTART_REQUESTED = 10
 
   def initialize( debugger )
     super() # Build IUnknown methods
