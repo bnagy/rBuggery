@@ -158,7 +158,7 @@ class EventCallbacks < FakeCOM
     )
   end
 
-  def add( cb_hsh, &user_blk )
+  def add( cb_hsh )
     # This actually only changes the corresponding callbacks (Ruby level
     # Proc) in the callback table, and updates the interest mask. The real
     # callback (FFI Function) was already added in initialize.
@@ -168,7 +168,7 @@ class EventCallbacks < FakeCOM
         raise ArgumentError, "#{self.class}:#{__method__}: Invalid callback: #{cb_name}"
       end
       @interest_mask |= MASKS[cb_name]
-      @callback_table[cb_name]=user_blk
+      @callback_table[cb_name]=current_blk
     }
     @debugger.SetEventCallbacks interface_ptr
   end
