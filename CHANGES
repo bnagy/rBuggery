@@ -6,3 +6,5 @@
 * Update various FFI stuff to work with JRuby FFI, first step towards x64 support.
 = 0.5.0
 * Minor bugfixes and cleanup, test with 64-bit Windows 7 / x64 debugging tools
+= 0.5.1
+* Despite being sure I tested, the EventCallbacks fix was broken.
