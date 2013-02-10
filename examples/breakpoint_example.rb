@@ -9,22 +9,24 @@ require 'buggery'
 
 target_filename=ARGV[0]
 unless target_filename and File.file? target_filename
-  fail "Usage: ruby #{$0} target_filename" 
+  fail "Usage: ruby #{$0} target_filename"
 end
 
 debug_client=Buggery.new
 
 bp_callback=lambda {|args|
+  warn "Breakpoint callback hit..."
   # Ruby level COM Object from FFI::Pointer
   bp=Breakpoint.new args[:breakpoint]
   # FFI::Struct
   params=DEBUG_BREAKPOINT_PARAMETERS.new
   bp.GetParameters params
   # Use windbg trickiness instead of API
+  # FIXME: Doesn't work on x64 ( no esp )
   s=debug_client.execute '.printf "%mu", poi(@esp+4)'
   # Only match our custom ID ( example pattern to manage multiple bps )
   if params[:id]==12 && s.upcase==target_filename.upcase
-    puts "BP ID #{params[:id]} hit at addr #{"%8.8x" % params[:offset]}. Stack trace:" 
+    puts "BP ID #{params[:id]} hit at addr #{"%8.8x" % params[:offset]}. Stack trace:"
     puts debug_client.execute 'kb 8'
   end
   1 # DEBUG_STATUS_GO
@@ -39,4 +41,3 @@ loop do
   debug_client.wait_for_event(10)
   break unless debug_client.has_target?
 end
-
