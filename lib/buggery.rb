@@ -80,9 +80,9 @@ class Buggery
     raise_errorcode( retval, __method__ ) unless retval.zero? # S_OK
     if @debug
       mask=DebugClient::DEBUG_OUTPUT_NORMAL |
-        DebugClient::DEBUG_OUTPUT_WARNING |
-        DebugClient::DEBUG_OUTPUT_ERROR |
-        DebugClient::DEBUG_OUTPUT_VERBOSE
+      DebugClient::DEBUG_OUTPUT_WARNING |
+      DebugClient::DEBUG_OUTPUT_ERROR |
+      DebugClient::DEBUG_OUTPUT_VERBOSE
       retval=@debug_client.SetOutputMask mask
     else
       # Only 'normal' output - no prompts, register dump after every command,
@@ -107,9 +107,9 @@ class Buggery
   def clear_output
     @debug_client.FlushCallbacks
     if RUBY_VERSION.to_f < 1.9
-     @output_buffer.replace("")
+      @output_buffer.replace("")
     else
-     @output_buffer.clear
+      @output_buffer.clear
     end
   end
 
@@ -153,11 +153,11 @@ class Buggery
     debug_info "Creating process with commandline #{command_str}"
     # Set the filter for the initial breakpoint event to break in
     @specific_filter_params||=MemoryPointer.from_string([
-      DebugControl::DEBUG_FILTER_BREAK, # ExecutionOption
-      0, # ContinueOption
-      0, # TextSize (unused)
-      0, # CommandSize (unused)
-      0 # ArgumentSize (unused)
+                                                          DebugControl::DEBUG_FILTER_BREAK, # ExecutionOption
+                                                          0, # ContinueOption
+                                                          0, # TextSize (unused)
+                                                          0, # CommandSize (unused)
+                                                          0 # ArgumentSize (unused)
     ].pack('LLLLL'))
     @debug_client.DebugControl.SetSpecificFilterParameters(
       DebugControl::DEBUG_FILTER_INITIAL_BREAKPOINT, # Start
@@ -213,17 +213,27 @@ class Buggery
   # executing commands until you handle that event somehow (wait_for_event,
   # or event callbacks)
   def break
-    hProcess=Kernel32.OpenProcess Kernel32::PROCESS_ALL_ACCESS, 0, @pid
-    raise_win32_error( __method__ ) if hProcess.zero? # NULL handle
-    retval=Kernel32.DebugBreakProcess hProcess
-    raise_win32_error( __method__ ) if retval.zero? # 0 is bad, in this case
+    # This is pretty hacky, but the SetInterrupt method is unreliable for
+    # user-mode targets.
+    if @pid
+      begin
+        hProcess=Kernel32.OpenProcess Kernel32::PROCESS_ALL_ACCESS, 0, @pid
+        raise_win32_error( __method__ ) if hProcess.zero? # NULL handle
+        retval=Kernel32.DebugBreakProcess hProcess
+        raise_win32_error( __method__ ) if retval.zero? # 0 is bad, in this case
+      ensure
+        Kernel32.CloseHandle( hProcess ) unless hProcess.zero?
+      end
+    else # kernel target
+      retval=@debug_client.DebugControl.SetInterrupt DebugControl::DEBUG_INTERRUPT_ACTIVE
+      raise_errorcode( retval, __method__ ) unless retval.zero? # S_OK
+    end
     true
-  ensure
-    Kernel32.CloseHandle( hProcess ) unless hProcess.zero?
   end
 
   # In: Timeout, -1 for infinite
   # Out: true (there's an event), false (timeout expired), or raise.
+  # NB:  If the current session has a live kernel target, Timeout must be set to INFINITE.
   def wait_for_event( timeout=-1 )
     retval=@debug_client.DebugControl.WaitForEvent(0, timeout)
     return true if retval.zero?
@@ -264,6 +274,20 @@ class Buggery
     retval=@debug_client.AttachProcess( 0, Integer( pid ), Integer( option_mask ) )
     raise_errorcode( retval, __method__ ) unless retval.zero? # S_OK
     @pid=pid
+    true
+  end
+
+  # In: String( connect_string )
+  # Out: Nothing
+  # Left mainly sugar free, to allow the user to pass any connection string.
+  # This string is the same as the -k parameter to kd, which is described in the
+  # WinDbg CHM etc, and supports many different connection methods and their
+  # parameters.
+  # Also - NB as above, this will not full attach until you wait for an event.
+  def attach_kernel connect_string="com:port=COM1,baud=115200"
+    retval = @debug_client.AttachKernel DebugClient::DEBUG_ATTACH_KERNEL_CONNECTION, connect_string
+    raise_errorcode( retval, __method__ ) unless retval.zero? # S_OK
+    @pid=nil
     true
   end
 
