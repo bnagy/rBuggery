@@ -7,18 +7,20 @@
 # result.
 #
 # Author: Ben Nagy
-# Copyright: Copyright (c) Ben Nagy, 2012.
+# Copyright: Copyright (c) Ben Nagy, 2012 - 2013.
 # License: The MIT License
 # (See http://www.opensource.org/licenses/mit-license.php for details.)
 
-require 'buggery/raw_buggery'
-require 'buggery/fake_com'
-require 'buggery/event_callbacks'
-require 'buggery/breakpoint'
-require 'buggery/exception'
-require 'buggery/debug_value'
-require 'buggery/winerror'
+require_relative 'buggery/raw_buggery'
+require_relative 'buggery/fake_com'
+require_relative 'buggery/event_callbacks'
+require_relative 'buggery/breakpoint'
+require_relative 'buggery/exception'
+require_relative 'buggery/debug_value'
+require_relative 'buggery/winerror'
+require_relative 'buggery/buggery_sugar'
 require 'ffi'
+
 include RawBuggery
 include FFI
 
@@ -62,6 +64,10 @@ class Buggery
   EVENTS.update EVENTS.invert
   COMPONENT="Buggery"
   VERSION="0.5.0"
+
+  attr_reader :debug_client
+  include BuggerySugar
+  extend BuggerySugar
 
   def initialize( debug=false )
     @debug=debug
@@ -138,13 +144,7 @@ class Buggery
     res
   end
 
-  # In: Nothing
-  # Out: Integer( target_pid )
-  def current_process
-    retval=@debug_client.DebugSystemObjects.GetCurrentProcessSystemId( pid=p_int )
-    raise_errorcode( retval, __method__ ) unless retval.zero? # S_OK
-    pid.read_int
-  end
+
 
   # In: String, Command line to execute
   # Out: true, or raise
@@ -152,13 +152,15 @@ class Buggery
     @debug_client.TerminateProcesses # one at a time...
     debug_info "Creating process with commandline #{command_str}"
     # Set the filter for the initial breakpoint event to break in
-    @specific_filter_params||=MemoryPointer.from_string([
-                                                          DebugControl::DEBUG_FILTER_BREAK, # ExecutionOption
-                                                          0, # ContinueOption
-                                                          0, # TextSize (unused)
-                                                          0, # CommandSize (unused)
-                                                          0 # ArgumentSize (unused)
-    ].pack('LLLLL'))
+    @specific_filter_params||=MemoryPointer.from_string(
+      [
+        DebugControl::DEBUG_FILTER_BREAK, # ExecutionOption
+        0, # ContinueOption
+        0, # TextSize (unused)
+        0, # CommandSize (unused)
+        0 # ArgumentSize (unused)
+      ].pack('LLLLL')
+    )
     @debug_client.DebugControl.SetSpecificFilterParameters(
       DebugControl::DEBUG_FILTER_INITIAL_BREAKPOINT, # Start
       1, # Count
@@ -292,8 +294,8 @@ class Buggery
   end
 
   # In: Integer( address ), Integer( num_instructions )
-  # Out: Array [ of [ Integer( address ), String( opcodes ), String( assembly ) ]
-  def disassemble( addr, num_insns )
+  # Out: Array [ of [ String( address ), String( opcodes ), String( assembly ) ]
+  def disassemble( addr, num_insns=1 )
     buf=p_char(256)
     out_sz=p_ulong
     end_offset=p_ulong_long
@@ -406,6 +408,10 @@ class Buggery
       # Error codes are in WinError.h, look em up yourself.
       raise "#{meth} returned unknown error code: #{"0x%.8x" % retval}"
     end
+  end
+
+  def lookup_error error_string
+    ERRORS[error_string]
   end
 
   def raise_win32_error( meth )
