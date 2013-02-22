@@ -16,6 +16,7 @@ type, desc, extra=debug_client.get_last_event_information
 puts desc
 puts debug_client.exception_record
 puts debug_client.execute 'r'
+puts debug_client.pseudo_register "$ra"
 puts debug_client.disassemble( debug_client.registers['eip'], 10 ).map {|ary| ary.join(' ')}
 debug_client.go
 debug_client.wait_for_event 2000    # 2 second timeout, returns false if no event
