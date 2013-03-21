@@ -2,7 +2,7 @@ require 'rubygems'
 
 Gem::Specification.new do |spec|
   spec.name       = 'rbuggery'
-  spec.version    = '0.5.1'
+  spec.version    = '0.5.3'
   spec.author     = 'Ben Nagy'
   spec.license    = 'MIT'
   spec.email      = 'ben@iagu.net'

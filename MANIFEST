@@ -8,8 +8,10 @@
 * examples/drb_example.rb
 * examples/exception_example.rb
 * examples/nocallback_example.rb
+* examples/kerntrace.rb
 * lib/buggery.rb
 * lib/buggery/breakpoint.rb
+* lib/buggery/buggery_sugar.rb
 * lib/buggery/debug_value.rb
 * lib/buggery/event_callbacks.rb
 * lib/buggery/exception.rb
