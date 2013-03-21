@@ -71,89 +71,89 @@ class EventCallbacks < FakeCOM
     # Add the real callbacks, in order.
     add_com_callback(
       :breakpoint,
-      :this => :pointer,
+      :this       => :pointer,
       :breakpoint => :pointer
     )
     add_com_callback(
       :exception,
-      :this => :pointer,
+      :this             => :pointer,
       :exception_record => :pointer,
-      :first_chance => :ulong
+      :first_chance     => :ulong
     )
     add_com_callback(
       :create_thread,
-      :handle => :uint64,
-      :data_offset => :uint64,
+      :handle       => :uint64,
+      :data_offset  => :uint64,
       :start_offset => :uint64
     )
     add_com_callback(
       :exit_thread,
-      :this => :pointer,
+      :this      => :pointer,
       :exit_code => :ulong
     )
     add_com_callback(
       :create_process,
-      :this => :pointer,
-      :image_file_handle => :uint64,
-      :handle => :uint64,
-      :base_offset => :uint64,
-      :module_size => :ulong,
-      :module_name => :string,
-      :image_name => :string,
-      :checksum => :ulong,
-      :timestamp => :ulong,
+      :this                  => :pointer,
+      :image_file_handle     => :uint64,
+      :handle                => :uint64,
+      :base_offset           => :uint64,
+      :module_size           => :ulong,
+      :module_name           => :string,
+      :image_name            => :string,
+      :checksum              => :ulong,
+      :timestamp             => :ulong,
       :initial_thread_handle => :uint64,
-      :thread_data_offset => :uint64,
-      :start_offset => :uint64
+      :thread_data_offset    => :uint64,
+      :start_offset          => :uint64
     )
     add_com_callback(
       :exit_process,
-      :this => :pointer,
+      :this      => :pointer,
       :exit_code => :ulong
     )
     add_com_callback(
       :load_module,
-      :this => :pointer,
+      :this        => :pointer,
       :file_handle => :uint64,
       :base_offset => :uint64,
       :module_size => :ulong,
       :module_name => :string,
-      :image_name => :string,
-      :checksum => :ulong,
-      :timestamp => :ulong
+      :image_name  => :string,
+      :checksum    => :ulong,
+      :timestamp   => :ulong
     )
     add_com_callback(
       :unload_module,
-      :this => :pointer,
+      :this        => :pointer,
       :base_offset => :uint64
     )
     add_com_callback(
       :system_error,
-      :this => :pointer,
+      :this  => :pointer,
       :error => :ulong,
       :level => :ulong
     )
     add_com_callback(
       :session_status,
-      :this => :pointer,
+      :this   => :pointer,
       :status => :ulong
     )
     add_com_callback(
       :change_debuggee_state,
-      :this => :pointer,
-      :flags => :ulong,
+      :this     => :pointer,
+      :flags    => :ulong,
       :argument => :uint64
     )
     add_com_callback(
       :change_engine_state,
-      :this => :pointer,
-      :flags => :ulong,
+      :this     => :pointer,
+      :flags    => :ulong,
       :argument => :uint64
     )
     add_com_callback(
       :change_symbol_state,
-      :this => :pointer,
-      :flags => :ulong,
+      :this     => :pointer,
+      :flags    => :ulong,
       :argument => :uint64
     )
   end

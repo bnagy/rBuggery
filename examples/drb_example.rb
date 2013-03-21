@@ -32,7 +32,7 @@ mark=Time.now
   puts desc
   pp debug_client.exception_record
   puts debug_client.execute ".lastevent"
-  ip=debug_client.registers[ 'eip' ]
+  ip = debug_client.pseudo_register '$ip'
   puts debug_client.disassemble( ip, 10 ).map {|ary| ary.join(' ')}
   debug_client.go
   debug_client.terminate_process

@@ -144,8 +144,6 @@ class Buggery
     res
   end
 
-
-
   # In: String, Command line to execute
   # Out: true, or raise
   def create_process( command_str, debug_children=false, create_broken=false )

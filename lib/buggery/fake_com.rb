@@ -50,11 +50,11 @@ class FakeCOM
     # populated, but you never know.
     @iface_ptr.free if @iface_ptr
     # Alloc a chunk of memory, platform specific pointer size
-    @p=FFI::MemoryPointer.new :pointer, @vtable.size
-    @p.write_array_of_pointer @vtable
-    # Interface pointer is **vtable
+    @p_vtable=FFI::MemoryPointer.new :pointer, @vtable.size
+    @p_vtable.write_array_of_pointer @vtable
     @iface_ptr=FFI::MemoryPointer.new :pointer
-    @iface_ptr.write_pointer @p
+    # Interface pointer is **vtable
+    @iface_ptr.write_pointer @p_vtable
     @iface_ptr
   end
 end

@@ -10,12 +10,19 @@
 
 module BuggerySugar
 
+  # In: Nothing
+  # Out: Numeric( current_offset )
   def current_offset
     retval = self.debug_client.DebugRegisters.GetInstructionOffset( offset=p_ulong_long )
     self.raise_errorcode( retval, __method__ ) unless retval.zero? # S_OK
     offset.read_ulong_long
   end
 
+  # In: Numeric( offset )
+  # Out: Array of [ String( current_symbol ), Integer( displacement ) ]
+  #
+  # The displacement returned is from the symbol base. If there is no matching
+  # symbol, the address is returned as a hexstring.
   def offset_to_symbol offset
     p_sym = p_char 256
     p_displacement = p_ulong_long
@@ -33,8 +40,12 @@ module BuggerySugar
     end
   end
 
+  # In: String( regname ) 
+  # Out: Either a Numeric or an Array of Numerics, depending on the register 
+  #
+  # The pseudo register needs to be specified as in the debugging tools
+  # documentation, including the $, eg "$ra"
   def pseudo_register reg
-    # TODO THIS IS INCOMPLETE
     p_idx = p_ulong
     retval = self.debug_client.DebugRegisters2.GetPseudoIndexByName reg, p_idx
     raise_errorcode( retval, __method__ ) unless retval.zero? # S_OK
@@ -50,6 +61,11 @@ module BuggerySugar
     DEBUG_VALUE.new( p_debug_value ).get_value
   end
 
+  # In: Nothing
+  # Out: Array of [ String( current_symbol ), Integer( displacement ) ]
+  #
+  # The displacement returned is from the symbol base. If there is no matching
+  # symbol, the address is returned as a hexstring.
   def current_symbol
     offset_to_symbol current_offset
   end

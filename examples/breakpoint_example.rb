@@ -4,7 +4,7 @@ require 'buggery'
 # as a parameter by CreateFileW.
 #
 # The file you pass as the argument will not be opened automatically! You will
-# need to manually open it in Word before you see anything interesting (or just
+# need to manually open it in notepad before you see anything interesting (or just
 # hover your mouse over it).
 
 target_filename=ARGV[0]
@@ -22,7 +22,7 @@ bp_callback=lambda {|args|
   params=DEBUG_BREAKPOINT_PARAMETERS.new
   bp.GetParameters params
   # Use windbg trickiness instead of API
-  # FIXME: Doesn't work on x64 ( no esp )
+  # FIXME: Doesn't work on x64 ( no esp and different address size )
   s=debug_client.execute '.printf "%mu", poi(@esp+4)'
   # Only match our custom ID ( example pattern to manage multiple bps )
   if params[:id]==12 && s.upcase==target_filename.upcase

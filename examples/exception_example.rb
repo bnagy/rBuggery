@@ -12,8 +12,8 @@ exception_callback=lambda {|args|
     @fatal_exception=true
     # Or any native windbg commands or extensions
     puts "\n#{debug_client.execute '!exploitable'}\n" 
-    puts debug_client.execute "ub @eip"
-    puts debug_client.execute "u @eip"
+    puts debug_client.execute "ub @$ip"
+    puts debug_client.execute "u @$ip"
     puts debug_client.execute "r"
   else
     puts "#{exr.code} - First chance"
@@ -27,9 +27,9 @@ exception_callback=lambda {|args|
 debug_client.event_callbacks.add( :exception=>exception_callback )
 
 debug_client.create_process(
-  "C:\\Program Files\\Microsoft Office\\Office12\\WINWORD.EXE #{ARGV[0]}"
+  "C:\\Program Files\\Microsoft Office\\Office14\\WINWORD.EXE #{ARGV[0]}"
 )
-debug_client.execute "!load winext\\msec.dll" |
+debug_client.execute "!load winext\\msec.dll"
 loop do
   debug_client.wait_for_event 10
   break if @fatal_exception

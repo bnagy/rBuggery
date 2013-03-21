@@ -17,7 +17,7 @@ bp_callback=lambda {|args|
   params = DEBUG_BREAKPOINT_PARAMETERS.new
   bp.GetParameters params
   # Use windbg trickiness instead of API
-  s = debug_client.execute '.printf "%mu", poi(@esp+4)'
+  s = debug_client.execute '.printf "%mu", poi(@$csp+4)'
 
   1 # DEBUG_STATUS_GO
 }
@@ -33,8 +33,9 @@ exception_callback=lambda { |args|
     @fatal_exception=true
     # Or any native windbg commands or extensions
     puts "\n#{debug_client.execute '!exploitable'}\n"
-    puts debug_client.execute "ub @eip"
-    puts debug_client.execute "u @eip"
+    # Use pseudo registers for x86 / x64 compatability
+    puts debug_client.execute "ub @$ip"
+    puts debug_client.execute "u @$ip"
     puts debug_client.execute "r"
   else
     puts "#{exr.code} - First chance"
