@@ -13,9 +13,10 @@ module BuggerySugar
   # In: Nothing
   # Out: Numeric( current_offset )
   def current_offset
-    retval = self.debug_client.DebugRegisters.GetInstructionOffset( offset=p_ulong_long )
+    @p_offset ||= p_ulong_long
+    retval = self.debug_client.DebugRegisters.GetInstructionOffset( @p_offset )
     self.raise_errorcode( retval, __method__ ) unless retval.zero? # S_OK
-    offset.read_ulong_long
+    @p_offset.read_ulong_long
   end
 
   # In: Numeric( offset )
@@ -24,17 +25,17 @@ module BuggerySugar
   # The displacement returned is from the symbol base. If there is no matching
   # symbol, the address is returned as a hexstring.
   def offset_to_symbol offset
-    p_sym = p_char 256
-    p_displacement = p_ulong_long
+    @p_sym ||= p_char 256
+    @p_displacement ||= p_ulong_long
     retval = self.debug_client.DebugSymbols.GetNameByOffset(
       offset,
-      p_sym,
-      p_sym.size,
+      @p_sym,
+      @p_sym.size,
       nil, # size of returned name, we don't care because we read as a CSTR
-      p_displacement
+      @p_displacement
     )
     if retval.zero? #S_OK
-      [ p_sym.read_string, p_displacement.read_ulong_long ]
+      [ @p_sym.read_string, @p_displacement.read_ulong_long ]
     else
       [ offset.to_s(16), '00']
     end
@@ -46,19 +47,19 @@ module BuggerySugar
   # The pseudo register needs to be specified as in the debugging tools
   # documentation, including the $, eg "$ra"
   def pseudo_register reg
-    p_idx = p_ulong
-    retval = self.debug_client.DebugRegisters2.GetPseudoIndexByName reg, p_idx
+    @p_idx ||= p_ulong
+    retval = self.debug_client.DebugRegisters2.GetPseudoIndexByName reg, @p_idx
     raise_errorcode( retval, __method__ ) unless retval.zero? # S_OK
-    p_debug_value=FFI::MemoryPointer.new DEBUG_VALUE
+    @p_debug_value ||= FFI::MemoryPointer.new DEBUG_VALUE
     retval = self.debug_client.DebugRegisters2.GetPseudoValues(
       DebugRegisters2::DEBUG_REGSRC_DEBUGGEE,
       1,
       nil,
-      p_idx.read_ulong,
-      p_debug_value
+      @p_idx.read_ulong,
+      @p_debug_value
     )
     raise_errorcode( retval, __method__ ) unless retval.zero? # S_OK
-    DEBUG_VALUE.new( p_debug_value ).get_value
+    DEBUG_VALUE.new( @p_debug_value ).get_value
   end
 
   # In: Nothing
@@ -73,9 +74,11 @@ module BuggerySugar
   # In: Nothing
   # Out: Integer( target_pid )
   def current_process
-    retval=self.debug_client.DebugSystemObjects.GetCurrentProcessSystemId( pid=p_int )
+    @p_pid ||= p_int
+    retval = self.debug_client.DebugSystemObjects.GetCurrentProcessSystemId( @p_pid )
     self.raise_errorcode( retval, __method__ ) unless retval.zero? # S_OK
-    pid.read_int
+    current_process = @p_pid.read_int
+    current_process
   end
 
 end

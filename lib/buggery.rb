@@ -29,7 +29,7 @@ module Kernel32
   ffi_lib "kernel32"
   ffi_convention :stdcall
 
-  PROCESS_ALL_ACCESS=0x1F0FFF
+  PROCESS_ALL_ACCESS = 0x1F0FFF
 
   attach_function :OpenProcess, [:ulong, :int, :ulong], :ulong
   attach_function :DebugBreakProcess, [:ulong], :ulong
@@ -62,19 +62,19 @@ class Buggery
     'DEBUG_EVENT_CHANGE_SYMBOL_STATE'   => 0x00001000
   }
   EVENTS.update EVENTS.invert
-  COMPONENT="Buggery"
-  VERSION="0.5.0"
+  COMPONENT = "Buggery"
+  VERSION   = "0.5.4"
 
   attr_reader :debug_client
   include BuggerySugar
   extend BuggerySugar
 
-  def initialize( debug=false )
-    @debug=debug
+  def initialize debug=false
+    @debug           = debug
     debug_info "Starting up..."
-    @debug_client=DebugClient.new
-    @output_callback=FakeCOM.new
-    @output_buffer=""
+    @debug_client    = DebugClient.new
+    @output_callback = FakeCOM.new
+    @output_buffer   = ""
     # This is the Output method, which is the only method the
     # IDebugOutputCallbacks object needs to implement, apart from the
     # IUnknown stuff which is built for us by FakeCOM
@@ -82,21 +82,21 @@ class Buggery
       @output_buffer << text
       0
     }
-    retval=@debug_client.SetOutputCallbacks( @output_callback.interface_ptr )
+    retval = @debug_client.SetOutputCallbacks( @output_callback.interface_ptr )
     raise_errorcode( retval, __method__ ) unless retval.zero? # S_OK
     if @debug
       mask=DebugClient::DEBUG_OUTPUT_NORMAL |
       DebugClient::DEBUG_OUTPUT_WARNING |
       DebugClient::DEBUG_OUTPUT_ERROR |
       DebugClient::DEBUG_OUTPUT_VERBOSE
-      retval=@debug_client.SetOutputMask mask
+      retval = @debug_client.SetOutputMask mask
     else
       # Only 'normal' output - no prompts, register dump after every command,
       # warnings etc.
-      retval=@debug_client.SetOutputMask DebugClient::DEBUG_OUTPUT_NORMAL
+      retval = @debug_client.SetOutputMask DebugClient::DEBUG_OUTPUT_NORMAL
     end
     raise_errorcode( retval, __method__ ) unless retval.zero? # S_OK
-    @callback_handler=EventCallbacks.new( @debug_client )
+    @callback_handler = EventCallbacks.new( @debug_client )
   end
 
   # DOES NOT WORK DISTRIBUTED because when you want to add a callback,
@@ -112,11 +112,7 @@ class Buggery
 
   def clear_output
     @debug_client.FlushCallbacks
-    if RUBY_VERSION.to_f < 1.9
-      @output_buffer.replace("")
-    else
-      @output_buffer.clear
-    end
+    @output_buffer.clear
   end
 
   # For raw access to the underlying RawBuggery object so you can call
@@ -131,34 +127,33 @@ class Buggery
   # This command will also clear the output buffer BEFORE the command
   # executes, so if you care what was in it, get_output first. This
   # is done to make sure you get only the output of your command.
-  def execute( command_str, echo=false )
+  def execute command_str, echo=false
     clear_output
-    retval=@debug_client.DebugControl.Execute(
+    retval = @debug_client.DebugControl.Execute(
       DebugControl::DEBUG_OUTCTL_THIS_CLIENT,
       command_str,
       echo ? DebugControl::DEBUG_EXECUTE_ECHO : DebugControl::DEBUG_EXECUTE_NOT_LOGGED
     )
     raise_errorcode( retval, __method__ ) unless retval.zero? # S_OK
-    res=get_output
+    res = get_output
     clear_output
     res
   end
 
   # In: String, Command line to execute
   # Out: true, or raise
-  def create_process( command_str, debug_children=false, create_broken=false )
+  def create_process command_str, debug_children=false, create_broken=false
     @debug_client.TerminateProcesses # one at a time...
     debug_info "Creating process with commandline #{command_str}"
     # Set the filter for the initial breakpoint event to break in
-    @specific_filter_params||=MemoryPointer.from_string(
-      [
-        DebugControl::DEBUG_FILTER_BREAK, # ExecutionOption
-        0, # ContinueOption
-        0, # TextSize (unused)
-        0, # CommandSize (unused)
-        0 # ArgumentSize (unused)
-      ].pack('LLLLL')
-    )
+    @specific_filter_params ||=
+    [
+      DebugControl::DEBUG_FILTER_BREAK, # ExecutionOption
+      0, # ContinueOption
+      0, # TextSize (unused)
+      0, # CommandSize (unused)
+      0 # ArgumentSize (unused)
+    ].pack('LLLLL')
     @debug_client.DebugControl.SetSpecificFilterParameters(
       DebugControl::DEBUG_FILTER_INITIAL_BREAKPOINT, # Start
       1, # Count
@@ -167,18 +162,18 @@ class Buggery
     # Create the process, catch the initial break, get the pid of the
     # new process.
     if debug_children
-      create_flags=DebugClient::DEBUG_PROCESS
+      create_flags = DebugClient::DEBUG_PROCESS
     else
-      create_flags=DebugClient::DEBUG_PROCESS_ONLY_THIS_PROCESS
+      create_flags = DebugClient::DEBUG_PROCESS_ONLY_THIS_PROCESS
     end
-    retval=@debug_client.CreateProcess(
+    retval = @debug_client.CreateProcess(
       0,
       command_str,
       create_flags
     )
     raise_errorcode( retval, __method__ ) unless retval.zero? # S_OK
-    wait_for_event( -1 ) # Which will be the initial breakpoint
-    @pid=current_process
+    wait_for_event( -1 )  # Which will be the initial breakpoint
+    @pid = current_process
     debug_info "Created, pid is #{@pid}"
     go unless create_broken
     true
@@ -189,11 +184,11 @@ class Buggery
   # This just wraps '.exr'
   # There is a Description key which doesn't come from the engine, the value
   # is the last line of the record which is, amazingly, a short description.
-  def exception_record( address=-1 )
-    raw=execute ".exr #{address}"
-    raw=raw.split("\n").map {|e| e.lstrip.split(': ')}
-    raw.each {|ary| ary.unshift( "Description" ) if ary.size!=2}
-    Hash[raw]
+  def exception_record address=-1
+    raw = execute ".exr #{address}"
+    raw = raw.split("\n").map {|e| e.lstrip.split(': ')}
+    raw.each {|ary| ary.unshift( "Description" ) unless ary.size == 2 }
+    Hash[ raw ]
   end
 
   # In: Nothing
@@ -201,8 +196,8 @@ class Buggery
   # From the docs: "The SetExecutionStatus method requests that the debug
   # engine enter an executable state. Actual execution will not occur until
   # the next time WaitForEvent is called."
-  def go( status=DebugControl::DEBUG_STATUS_GO )
-    retval=@debug_client.DebugControl.SetExecutionStatus status
+  def go status=DebugControl::DEBUG_STATUS_GO
+    retval = @debug_client.DebugControl.SetExecutionStatus status
     raise_errorcode( retval, __method__ ) unless retval.zero? # S_OK
     true
   end
@@ -217,15 +212,15 @@ class Buggery
     # user-mode targets.
     if @pid
       begin
-        hProcess=Kernel32.OpenProcess Kernel32::PROCESS_ALL_ACCESS, 0, @pid
+        hProcess = Kernel32.OpenProcess Kernel32::PROCESS_ALL_ACCESS, 0, @pid
         raise_win32_error( __method__ ) if hProcess.zero? # NULL handle
-        retval=Kernel32.DebugBreakProcess hProcess
+        retval = Kernel32.DebugBreakProcess hProcess
         raise_win32_error( __method__ ) if retval.zero? # 0 is bad, in this case
       ensure
         Kernel32.CloseHandle( hProcess ) unless hProcess.zero?
       end
     else # kernel target
-      retval=@debug_client.DebugControl.SetInterrupt DebugControl::DEBUG_INTERRUPT_ACTIVE
+      retval = @debug_client.DebugControl.SetInterrupt DebugControl::DEBUG_INTERRUPT_ACTIVE
       raise_errorcode( retval, __method__ ) unless retval.zero? # S_OK
     end
     true
@@ -234,14 +229,14 @@ class Buggery
   # In: Timeout, -1 for infinite
   # Out: true (there's an event), false (timeout expired), or raise.
   # NB:  If the current session has a live kernel target, Timeout must be set to INFINITE.
-  def wait_for_event( timeout=-1 )
-    retval=@debug_client.DebugControl.WaitForEvent(0, timeout)
+  def wait_for_event timeout=-1
+    retval = @debug_client.DebugControl.WaitForEvent 0, timeout
     return true if retval.zero?
-    return false if retval=ERRORS['S_FALSE']
+    return false if retval == ERRORS['S_FALSE']
     raise_errorcode( retval, __method__ )
   end
 
-  def lookup_event( event )
+  def lookup_event event
     EVENTS[event]
   end
 
@@ -253,16 +248,14 @@ class Buggery
   # uint8 arrays, vectors are returned as arrays of uint32 (go down to the raw
   # API if you really need to change that).
   def registers
-    @indices||=(0...register_count).to_a.pack('L*')
-    # Keep hold of this memory buffer - makes this method MUCH faster, but
-    # it's an ugly pattern so it's not used everywhere.
-    @register_buffer||=MemoryPointer.new DEBUG_VALUE, register_count
-    retval=@debug_client.DebugRegisters.GetValues( register_count, @indices, 42, @register_buffer )
+    @indices           ||= (0...register_count).to_a.pack('L*')
+    @register_buffer   ||= MemoryPointer.new DEBUG_VALUE, register_count
+    retval = @debug_client.DebugRegisters.GetValues( register_count, @indices, 42, @register_buffer )
     raise_errorcode( retval, __method__ ) unless retval.zero? # S_OK
-    values=register_count.times.map {|idx|
+    values = register_count.times.map {|idx|
       DEBUG_VALUE.new( @register_buffer + idx * DEBUG_VALUE.size ).get_value
     }
-    Hash[register_descriptions.zip( values)]
+    Hash[ register_descriptions.zip(values) ]
   end
 
   # In: Integer( pid ), Integer( option_mask )
@@ -270,8 +263,8 @@ class Buggery
   # option_mask uses the DEBUG_ATTACH_XXX constants.
   # After attaching, you still need to wait for an event! You probably want
   # to #break first but it depends on the option_mask you're using.
-  def attach( pid, option_mask=DebugClient::DEBUG_ATTACH_DEFAULT)
-    retval=@debug_client.AttachProcess( 0, Integer( pid ), Integer( option_mask ) )
+  def attach pid, option_mask=DebugClient::DEBUG_ATTACH_DEFAULT
+    retval = @debug_client.AttachProcess( 0, Integer( pid ), Integer( option_mask ) )
     raise_errorcode( retval, __method__ ) unless retval.zero? # S_OK
     @pid=pid
     true
@@ -283,7 +276,7 @@ class Buggery
   # This string is the same as the -k parameter to kd, which is described in the
   # WinDbg CHM etc, and supports many different connection methods and their
   # parameters.
-  # Also - NB as above, this will not full attach until you wait for an event.
+  # Also - NB as above, this will not fully attach until you wait for an event.
   def attach_kernel connect_string="com:port=COM1,baud=115200"
     retval = @debug_client.AttachKernel DebugClient::DEBUG_ATTACH_KERNEL_CONNECTION, connect_string
     raise_errorcode( retval, __method__ ) unless retval.zero? # S_OK
@@ -293,30 +286,24 @@ class Buggery
 
   # In: Integer( address ), Integer( num_instructions )
   # Out: Array [ of [ String( address ), String( opcodes ), String( assembly ) ]
-  def disassemble( addr, num_insns=1 )
-    buf=p_char(256)
-    out_sz=p_ulong
-    end_offset=p_ulong_long
-    retval=@debug_client.DebugControl.Disassemble(addr,0,buf,buf.size,out_sz,end_offset)
-    raise_errorcode( retval, __method__ ) unless retval.zero?
-    old_end_offset=end_offset.read_ulong_long
-    results=[]
-    results << ( buf.read_string[0,out_sz.read_ulong].squeeze(' ').chomp.split(' ',3) )
-    (num_insns - 1).times do
-      end_offset=p_ulong_long
-      buf=p_char(256)
-      out_sz=p_ulong
-      @debug_client.DebugControl.Disassemble(
-        old_end_offset,
+  def disassemble addr, num_insns=1
+    @buf           ||= p_char(256)
+    @out_sz        ||= p_ulong
+    @end_offset    ||= p_ulong_long
+    results        = []
+    current_offset = addr
+    num_insns.times do
+      retval = @debug_client.DebugControl.Disassemble(
+        current_offset,
         0,
-        buf,
-        buf.size,
-        out_sz,
-        end_offset
+        @buf,
+        @buf.size,
+        @out_sz,
+        @end_offset
       )
       raise_errorcode( retval, __method__ ) unless retval.zero?
-      old_end_offset=end_offset.read_ulong_long
-      results << ( buf.read_string[0,out_sz.read_ulong].squeeze(' ').chomp.split(' ',3) )
+      current_offset = @end_offset.read_ulong_long
+      results << ( @buf.read_string[0,@out_sz.read_ulong].squeeze(' ').chomp.split(' ',3) )
     end
     results
   end
@@ -328,7 +315,18 @@ class Buggery
   # this method. For other targets, the target is detached from the debugger
   # without terminating. "
   def terminate_process
-    retval=@debug_client.TerminateProcesses
+    retval = @debug_client.TerminateProcesses
+    raise_errorcode( retval, __method__ ) unless retval.zero?
+    true
+  end
+
+  # In: Nothing
+  # Out: true or raise
+  #
+  # From the docs: "The DetachProcesses method detaches the debugger engine from
+  # all processes in all targets, resuming all their threads."
+  def detach_process
+    retval = @debug_client.DetachProcesses
     raise_errorcode( retval, __method__ ) unless retval.zero?
     true
   end
@@ -338,37 +336,40 @@ class Buggery
   # ( the MemoryPointer points to a chunk of bytes of the correct size for
   # the extra_info_struct )
   def get_last_event_information
-    type=p_ulong
-    pid=p_ulong
-    tid=p_ulong
-    extra_inf=p_char(256)
-    extra_inf_sz=p_ulong
-    desc=p_char(256)
-    desc_sz=p_ulong
+    @p_type         = p_ulong
+    @p_pid          = p_ulong
+    @p_tid          = p_ulong
+    @p_extra_inf    = p_char(256)
+    @p_extra_inf_sz = p_ulong
+    @p_desc         = p_char(256)
+    @p_desc_sz      = p_ulong
     retval=@debug_client.DebugControl.GetLastEventInformation(
-      type,
-      pid,
-      tid,
-      extra_inf,
-      extra_inf.size, # size of our buffer
-      extra_inf_sz, # filled in with size used
-      desc,
-      desc.size, # size of our buffer
-      desc_sz # filled in with size used
+      @p_type,
+      @p_pid,
+      @p_tid,
+      @p_extra_inf,
+      @p_extra_inf.size, # size of our buffer
+      @p_extra_inf_sz, # filled in with size used
+      @p_desc,
+      @p_desc.size, # size of our buffer
+      @p_desc_sz # filled in with size used
     )
     raise_errorcode( retval, __method__ ) unless retval.zero? # S_OK
     # extra_inf is some kind of event dependent struct, but I can't find
     # any docs on what struct is used for which events. Give the user a
     # pointer, let them sort it out.
-    extra_inf_ptr=p_char extra_inf_sz.read_ulong
-    extra_inf_ptr.write_array_of_char extra_inf.read_array_of_char(extra_inf_sz.read_ulong)
-    [type.read_ulong, desc.read_string, extra_inf_ptr]
+    extra_inf_ptr=p_char @p_extra_inf_sz.read_ulong
+    extra_inf_ptr.write_array_of_char @p_extra_inf.read_array_of_char(@p_extra_inf_sz.read_ulong)
+    [@p_type.read_ulong, @p_desc.read_string, extra_inf_ptr]
   end
 
+  # In: Nothing
+  # Out: unsigned_long( ExitCode )
   def get_exit_code
-    retval=@debug_client.GetExitCode( exit_code=p_ulong )
+    @exit_code ||= p_ulong
+    retval = @debug_client.GetExitCode @exit_code
     raise_errorcode( retval, __method__ ) unless retval.zero? # S_OK
-    exit_code.read_ulong
+    @exit_code.read_ulong
   end
 
   # In: Nothing
@@ -376,19 +377,20 @@ class Buggery
   def target_running?
     # 1==GO, 2==GO_HANDLED, 3==GO_NOT_HANDLED
     # Don't know if the steps and such should be called running...
-    retval=@debug_client.DebugControl.GetExecutionStatus( status=p_ulong )
+    @p_status ||= p_ulong
+    retval = @debug_client.DebugControl.GetExecutionStatus( @p_status )
     raise_errorcode( retval, __method__ ) unless retval.zero? # S_OK
-    (1..3).include? status.read_ulong
+    (1..3).include? @p_status.read_ulong
   end
 
   # In: Nothing
   # Out: true or false
   def has_target?
-    target_class=p_ulong
-    target_qualifier=p_ulong
-    retval=@debug_client.DebugControl.GetDebuggeeType( target_class, target_qualifier )
+    @p_target_class      ||= p_ulong
+    @p_target_qualifier  ||= p_ulong
+    retval = @debug_client.DebugControl.GetDebuggeeType( @p_target_class, @p_target_qualifier )
     raise_errorcode( retval, __method__ ) unless retval.zero? # S_OK
-    target_class.read_int != DebugControl::DEBUG_CLASS_UNINITIALIZED
+    @p_target_class.read_int != DebugControl::DEBUG_CLASS_UNINITIALIZED
   end
 
   def destroy
@@ -399,7 +401,7 @@ class Buggery
 
   private
 
-  def raise_errorcode( retval, meth )
+  def raise_errorcode retval, meth
     if ERRORS[retval]
       raise "#{meth} returned #{ERRORS[retval]}"
     else
@@ -412,15 +414,15 @@ class Buggery
     ERRORS[error_string]
   end
 
-  def raise_win32_error( meth )
+  def raise_win32_error meth
     raise "#{COMPONENT}-#{VERSION}:#{meth}: Win32 Error: #{WinError.get_last_error}"
   end
 
-  def debug_info( str )
+  def debug_info str
     warn "#{COMPONENT}-#{VERSION}: #{str}" if @debug
   end
 
-  def p_char( n )
+  def p_char n
     MemoryPointer.new :char, n
   end
 
@@ -444,21 +446,21 @@ class Buggery
 
   def register_count
     unless @reg_count
-      retval=@debug_client.DebugRegisters.GetNumberRegisters( reg_count=p_ulong )
+      retval = @debug_client.DebugRegisters.GetNumberRegisters( reg_count=p_ulong )
       raise_errorcode( retval, __method__ ) unless retval.zero? # S_OK
-      @reg_count=reg_count.read_ulong
+      @reg_count = reg_count.read_ulong
     end
     @reg_count
   end
 
   def register_descriptions
     unless @reg_descs
-      @reg_descs=[]
+      @reg_descs = []
       (0..register_count-1).each {|i|
-        regname=p_char(16)
-        reg_desc=p_char(28) # some special struct; don't care.
-        name_sz=p_ulong
-        retval=@debug_client.DebugRegisters.GetDescription(i,regname,regname.size,name_sz,reg_desc)
+        regname  = p_char(16)
+        reg_desc = p_char(28) # some special struct; don't care.
+        name_sz  = p_ulong
+        retval = @debug_client.DebugRegisters.GetDescription(i,regname,regname.size,name_sz,reg_desc)
         raise_errorcode( retval, __method__ ) unless retval.zero? # S_OK
         @reg_descs << regname.read_string
       }
