@@ -12,6 +12,6 @@
 * Implement pseudoregisters, important for x86 / x64 code
 * Start to modularize utility methods
 * Assorted improvements to examples
-= 0.5.4
+= 0.5.5
 * Keep hold of internal pointers, faster and better memory profile
 * Improve code readability slightly

@@ -63,7 +63,7 @@ class Buggery
   }
   EVENTS.update EVENTS.invert
   COMPONENT = "Buggery"
-  VERSION   = "0.5.4"
+  VERSION   = "0.5.5"
 
   attr_reader :debug_client
   include BuggerySugar
@@ -336,13 +336,13 @@ class Buggery
   # ( the MemoryPointer points to a chunk of bytes of the correct size for
   # the extra_info_struct )
   def get_last_event_information
-    @p_type         = p_ulong
-    @p_pid          = p_ulong
-    @p_tid          = p_ulong
-    @p_extra_inf    = p_char(256)
-    @p_extra_inf_sz = p_ulong
-    @p_desc         = p_char(256)
-    @p_desc_sz      = p_ulong
+    @p_type         ||= p_ulong
+    @p_pid          ||= p_ulong
+    @p_tid          ||= p_ulong
+    @p_extra_inf    ||= p_char(256)
+    @p_extra_inf_sz ||= p_ulong
+    @p_desc         ||= p_char(256)
+    @p_desc_sz      ||= p_ulong
     retval=@debug_client.DebugControl.GetLastEventInformation(
       @p_type,
       @p_pid,
