@@ -1,0 +1,100 @@
+There are two steps required to enable local kernel debugging.
+
+First of all, thanks to Alex Ionescu for the tip, and this blog by Flier Lu was
+also very helpful:
+
+http://blog.flier.lu/2007/05/access-the-kernel-space-with-pydbgeng/
+
+===
+Step 1 - Add kldbgdrv.sys to your Ruby interpreter as a resource.
+===
+
+WARNING ( kind of ) - This 'permanently' modifies that file on disk.
+
+I used a program called Resource Hacker from:
+
+http://www.angusj.com/resourcehacker/
+
+This could also all be done with the API, documentation here:
+
+http://msdn.microsoft.com/en-us/library/windows/desktop/ff468902(v=vs.85).aspx
+
+Open kd.exe or windbg.exe. You will see a resource of type 17476, name 30583.
+This is the driver that will be used to communicate with the kernel. Save that
+file out to disk. With Resource Hacker it will save as a .exe which is fine.
+
+Reading the code for dbgeng!LocalLiveKernelTargetInfo::InitDriver you will see
+that FindResourceW is called with a handle of NULL, type 0x4444, name 0x7777
+
+dbgeng!LocalLiveKernelTargetInfo::InitDriver+0x87:
+00000000`6dc8bcb7 41b844440000    mov     r8d,4444h
+00000000`6dc8bcbd ba77770000      mov     edx,7777h
+00000000`6dc8bcc2 33c9            xor     ecx,ecx
+00000000`6dc8bcc4 ff157656ceff    call    qword ptr [dbgeng!_imp_FindResourceW (00000000`6d971340)]
+
+Flier Lu talks about hooking FindResourceW, but it's easier ( if hackier ) to
+just add the resource to the .exe that will be running. In my case ( JRuby ) it
+will be jruby.exe or java.exe, depending on platform. For MRI it would be
+ruby.exe.
+
+So, with Resource Hacker, again, add a new resource, fill in the type and name (
+in decimal, so 17476 and 30583 ) and add the resource you saved earlier. Save
+the file ( might need to run Resource Hacker as Admininstrator ).
+
+===
+Step 2 - Avoid the name check
+===
+
+In dbgeng, in the code that initializes the driver for local kernel targets,
+there is a quick check to establish that it's being called from kd.exe or
+windbg.exe and not from some random .exe. I have no idea why. Flier Lu hooked
+GetModuleFileNameW, but IMHO it's easier just to apply a one byte patch to your
+dbgeng.dll. Open dbgeng.dll with your favourite disassembler, and locate the
+code for InitDriver. Patch out the conditional jump with your preferred tool. I
+patched at the first check, which is easy to locate - PathTail() followed by
+wcsicmp(). 
+
+Here's the code on my system AFTER patching:
+
+dbgeng!LocalLiveKernelTargetInfo::InitDriver+0x33:
+00000000`6dc8bc63 488b842490000000 mov     rax,qword ptr [rsp+90h]
+00000000`6dc8bc6b 4805200f0000    add     rax,0F20h
+00000000`6dc8bc71 488bc8          mov     rcx,rax
+00000000`6dc8bc74 e8670b0500      call    dbgeng!PathTail (00000000`6dcdc7e0)
+00000000`6dc8bc79 488d153824dbff  lea     rdx,[dbgeng!`string' (00000000`6da3e0b8)]
+00000000`6dc8bc80 488bc8          mov     rcx,rax
+00000000`6dc8bc83 ff156f5bceff    call    qword ptr [dbgeng!_imp__wcsicmp (00000000`6d9717f8)]
+00000000`6dc8bc89 85c0            test    eax,eax
+00000000`6dc8bc8b eb2a            jmp     dbgeng!LocalLiveKernelTargetInfo::InitDriver+0x87 (00000000`6dc8bcb7)
+
+^^ patch 742a ( jz ) to eb2a ( jmp )
+
+If you don't have a nice tool like IDA Pro that will let you apply a patch to
+the input file with a few easy clicks, you'll need to get the module base, and
+subtract it from the address you see in your debugger, and then patch with a hex
+editor. The Internet will tell you how to do that.
+
+Step 3 - Local Kernel Debugging!
+
+C:\zmq>irb
+irb(main):001:0> require 'buggery'
+=> true
+irb(main):002:0> b=Buggery.new;nil
+=> nil
+irb(main):003:0> b.attach_local_kernel
+=> true
+irb(main):004:0> b.wait_for_event; b.execute ".reload"; nil
+=> nil
+irb(main):005:0> puts b.execute "!object \\Sessions\\1"
+Object: fffff8a00108c450  Type: (fffffa8018d60f30) Directory
+    ObjectHeader: fffff8a00108c420 (new version)
+    HandleCount: 1  PointerCount: 5
+    Directory Object: fffff8a000319560  Name: 1
+
+    Hash Address          Type          Name
+    ---- -------          ----          ----
+     10  fffff8a001093080 Directory     Windows
+     16  fffff8a00108c250 Directory     DosDevices
+     19  fffff8a001093c00 Directory     BaseNamedObjects
+=> nil
+irb(main):006:0>

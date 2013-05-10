@@ -1,5 +1,6 @@
 * CHANGES
 * README
+* README_LOCAL_KERNEL
 * Rakefile
 * bin/drb_debug_server
 * examples/breakpoint_example.rb
@@ -22,3 +23,4 @@
 * utils/dbgeng_parse_ffi.rb
 * utils/guids_check.rb
 * utils/guid_parse.rb
+* utils/dbgeng.h

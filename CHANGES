@@ -15,3 +15,5 @@
 = 0.5.5
 * Keep hold of internal pointers, faster and better memory profile
 * Improve code readability slightly
+= 0.5.6
+* Local Kernel debugging support

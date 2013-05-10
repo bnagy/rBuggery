@@ -8,6 +8,8 @@ Currently working:
 * IDebugBreakpoint wrapped via Breakpoint class
 * x86 in MRI and JRuby
 * x64 in JRuby with the 64 bit debugging tools
+* Pseudo registers
+* Remote and Local kernel debugging
 
 To do
 * Get callbacks working via DRb

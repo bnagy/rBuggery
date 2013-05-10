@@ -284,6 +284,20 @@ class Buggery
     true
   end
 
+  # In: Nothing Out: Nothing Attach to a local kernel, as with kd -kl or windbg
+  # local kernel debugging. Currently does not work, until I figure out how to
+  # get the special driver embedded in the resurces section of whatever is
+  # running ruby.
+  def attach_local_kernel
+    unless @debug_client.DebugClient5.IsKernelDebuggerEnabled.zero? # S_OK
+      raise "Local kernel debugging unavailable. Try: bcdedit /debug on"
+    end
+    retval = @debug_client.AttachKernel DebugClient::DEBUG_ATTACH_LOCAL_KERNEL, nil
+    raise_errorcode( retval, __method__ ) unless retval.zero? # S_OK
+    @pid=nil
+    true
+  end
+
   # In: Integer( address ), Integer( num_instructions )
   # Out: Array [ of [ String( address ), String( opcodes ), String( assembly ) ]
   def disassemble addr, num_insns=1
