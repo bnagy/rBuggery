@@ -74,7 +74,9 @@ the input file with a few easy clicks, you'll need to get the module base, and
 subtract it from the address you see in your debugger, and then patch with a hex
 editor. The Internet will tell you how to do that.
 
+===
 Step 3 - Local Kernel Debugging!
+===
 
 C:\zmq>irb
 irb(main):001:0> require 'buggery'

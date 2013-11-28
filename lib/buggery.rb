@@ -63,7 +63,7 @@ class Buggery
   }
   EVENTS.update EVENTS.invert
   COMPONENT = "Buggery"
-  VERSION   = "0.5.5"
+  VERSION   = "0.5.6"
 
   attr_reader :debug_client
   include BuggerySugar
@@ -284,10 +284,9 @@ class Buggery
     true
   end
 
-  # In: Nothing Out: Nothing Attach to a local kernel, as with kd -kl or windbg
-  # local kernel debugging. Currently does not work, until I figure out how to
-  # get the special driver embedded in the resurces section of whatever is
-  # running ruby.
+  # In: Nothing 
+  # Out: Nothing 
+  # Attach to a local kernel, as with kd -kl or windbg local kernel debugging.
   def attach_local_kernel
     unless @debug_client.DebugClient5.IsKernelDebuggerEnabled.zero? # S_OK
       raise "Local kernel debugging unavailable. Try: bcdedit /debug on"
