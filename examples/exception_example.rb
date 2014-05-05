@@ -27,7 +27,7 @@ exception_callback=lambda {|args|
 debug_client.event_callbacks.add( :exception=>exception_callback )
 
 debug_client.create_process(
-  "C:\\Program Files\\Microsoft Office\\Office14\\WINWORD.EXE #{ARGV[0]}"
+  "C:\\Program Files\\Microsoft Office\\Office15\\WINWORD.EXE #{ARGV[0]}"
 )
 debug_client.execute "!load winext\\msec.dll"
 loop do

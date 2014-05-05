@@ -17,8 +17,11 @@ require_relative 'buggery/event_callbacks'
 require_relative 'buggery/breakpoint'
 require_relative 'buggery/exception'
 require_relative 'buggery/debug_value'
-require_relative 'buggery/winerror'
 require_relative 'buggery/buggery_sugar'
+
+require_relative 'win32/wintypes'
+require_relative 'win32/winerror'
+
 require 'ffi'
 
 include RawBuggery
@@ -26,14 +29,17 @@ include FFI
 
 module Kernel32
   extend FFI::Library
+  include Win32::WinTypes
+
   ffi_lib "kernel32"
   ffi_convention :stdcall
 
+  # FIXME: Shouldn't use all access, should just | the required flags.
   PROCESS_ALL_ACCESS = 0x1F0FFF
 
-  attach_function :OpenProcess, [:ulong, :int, :ulong], :ulong
-  attach_function :DebugBreakProcess, [:ulong], :ulong
-  attach_function :CloseHandle, [:ulong], :bool
+  attach_function :OpenProcess, [DWORD, BOOL, DWORD], HANDLE
+  attach_function :DebugBreakProcess, [HANDLE], BOOL
+  attach_function :CloseHandle, [HANDLE], BOOL
 end
 
 class Buggery
@@ -63,11 +69,12 @@ class Buggery
   }
   EVENTS.update EVENTS.invert
   COMPONENT = "Buggery"
-  VERSION   = "0.5.5"
+  VERSION   = "0.5.6"
 
   attr_reader :debug_client
   include BuggerySugar
   extend BuggerySugar
+  include Win32::WinError
 
   def initialize debug=false
     @debug           = debug
@@ -152,7 +159,7 @@ class Buggery
       0, # ContinueOption
       0, # TextSize (unused)
       0, # CommandSize (unused)
-      0 # ArgumentSize (unused)
+      0  # ArgumentSize (unused)
     ].pack('LLLLL')
     @debug_client.DebugControl.SetSpecificFilterParameters(
       DebugControl::DEBUG_FILTER_INITIAL_BREAKPOINT, # Start
@@ -285,9 +292,7 @@ class Buggery
   end
 
   # In: Nothing Out: Nothing Attach to a local kernel, as with kd -kl or windbg
-  # local kernel debugging. Currently does not work, until I figure out how to
-  # get the special driver embedded in the resurces section of whatever is
-  # running ruby.
+  # local kernel debugging.
   def attach_local_kernel
     unless @debug_client.DebugClient5.IsKernelDebuggerEnabled.zero? # S_OK
       raise "Local kernel debugging unavailable. Try: bcdedit /debug on"

@@ -1,4 +1,3 @@
-require 'rubygems'
 require 'ffi'
 
 class DEBUG_BREAKPOINT_PARAMETERS < FFI::Struct

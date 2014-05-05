@@ -1,5 +1,3 @@
-require 'rubygems'
-
 Gem::Specification.new do |spec|
   spec.name       = 'rbuggery'
   spec.version    = '0.5.6'
@@ -12,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.files      = Dir['**/*'].delete_if{ |item| item.include?('git') }
 
   spec.executables      = 'drb_debug_server'
-  spec.extra_rdoc_files = ['CHANGES', 'README', 'MANIFEST']
+  spec.extra_rdoc_files = ['CHANGES', 'README', 'README_LOCAL_KERNEL', 'MANIFEST']
 
   spec.add_dependency('ffi')
   spec.add_dependency('trollop')

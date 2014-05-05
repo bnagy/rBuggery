@@ -16,6 +16,7 @@ type, desc, extra=debug_client.get_last_event_information
 puts desc
 puts debug_client.exception_record
 puts debug_client.execute 'r'
+puts debug_client.execute '!address -summary'
 puts debug_client.disassemble( debug_client.pseudo_register( '$ip' ), 10 ).map {|ary| ary.join(' ')}
 # should be the same
 puts debug_client.disassemble( debug_client.current_offset, 10 ).map {|ary| ary.join(' ')}
