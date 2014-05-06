@@ -291,8 +291,9 @@ class Buggery
     true
   end
 
-  # In: Nothing Out: Nothing Attach to a local kernel, as with kd -kl or windbg
-  # local kernel debugging.
+  # In: Nothing 
+  # Out: Nothing Attach to a local kernel, as with kd -kl or windbg local
+  # kernel debugging. See README_LOCAL_KERNEL for required setup steps.
   def attach_local_kernel
     unless @debug_client.DebugClient5.IsKernelDebuggerEnabled.zero? # S_OK
       raise "Local kernel debugging unavailable. Try: bcdedit /debug on"

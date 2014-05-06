@@ -1,4 +1,3 @@
-require 'rubygems'
 require 'ffi'
 
 class EXCEPTION_RECORD64 < FFI::Struct
