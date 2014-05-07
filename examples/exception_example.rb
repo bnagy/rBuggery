@@ -15,13 +15,14 @@ exception_callback=lambda {|args|
     puts debug_client.execute "ub @$ip"
     puts debug_client.execute "u @$ip"
     puts debug_client.execute "r"
+    return 1
   else
     puts "#{exr.code} - First chance"
     # Or sugar for the windbg '.exr' command
     pp debug_client.exception_record
   end
   puts "--------------"
-  1 # DEBUG_STATUS_GO
+  0 # DEBUG_STATUS_NO_CHANGE
 }
 
 debug_client.event_callbacks.add( :exception=>exception_callback )

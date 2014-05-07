@@ -52,7 +52,8 @@ exception_callback=lambda { |args|
   1 # DEBUG_STATUS_GO
 }
 
-
+puts "STARTING EXAMPLE"
+puts debug_client.execute 'version'
 debug_client.event_callbacks.add( :breakpoint=>bp_callback, :exception=>exception_callback )
 # POSSIBLE BUG? Must load msec before create process, here
 debug_client.execute "!load winext\\msec.dll"

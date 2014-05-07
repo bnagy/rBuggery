@@ -1,6 +1,6 @@
 # Let's never speak of this script again.
 
-s=File.read "dbgeng.h"
+s=File.read ARGV[0]
 
 klass_header = <<END
 
@@ -39,9 +39,12 @@ END
 apis=[]
 defines = []
 current_apis = []
-this_api_args=''
+this_api_args= []
+this_api_comment = []
 in_api=false
 ruby_api_name=''
+apiname=''
+defstart =''
 in_interface=false
 counter=0
 
@@ -68,10 +71,10 @@ s.each_line {|l|
     next
   end
   if in_interface
-    if l=~ /^};/
+    if l=~ /^\};/
       # End of DECLARE_INTERFACE.
       in_interface=false
-      apis << "#{' '*4}NUM_APIS = #{current_apis.size}"
+      apis << "#{' '*4}NUM_APIS = #{current_apis.size / 2}"
       current_apis.last.chop! # remove trailing comma
       apis << klass_header
       apis.concat current_apis
@@ -82,10 +85,11 @@ s.each_line {|l|
     if l=~/STDMETHOD/
       apiname=l.match( /\((.*)\)/ )[1].tr(' ','').split(',').last
       # emit definition start
-      current_apis << "#{' '*8}:#{apiname} => FFI::Function.new( HRESULT, ["
+      defstart = "#{' '*8}:#{apiname} => FFI::Function.new( HRESULT, ["
       counter+=1
       in_api=true
       this_api_args=[]
+      this_api_comment=[]
       next
     end
     if in_api
@@ -101,34 +105,36 @@ s.each_line {|l|
       if l=~ /\) PURE;/
         # finish definition
         in_api=false
+        current_apis << "#{' '*8}# #{apiname}(#{this_api_comment.join(" ")})"
+        current_apis << defstart
         current_apis.last << this_api_args.join(', ') << "], @vtable[#{counter-1}], :convention=>:stdcall  ),"
         this_api_args=[]
+        this_api_comment=[]
         next
       end
 
       args = l.split
       # Generally we'll have __in, __out, __out_opt etc etc too many options
-      # SPACE <typename> which we want SPACE param name, don't care.
+      # SPACE <typename> (which we want) SPACE param name which is irrelevant
       if args[0]=~/THIS/
+              this_api_comment << args.first
+
         # THIS_ doesn't have an in/out desc
         this_api_args << 'THIS_'
       else
+      this_api_comment << "#{args.first[1..-1]}(#{args.last.tr(',','')})"
 
         # Used to translate here - not doing it anymore, we will use constants
         # to map ALL the required types to FFI typedefs, thus making the
         # autogen interfaces easier to read
 
-        # if args[1]=~/P.*STR/ and args[0]=~/__in/
-        #   this_api_args << ':string'
-        # elsif args[1]=~/^P/
-        #   this_api_args << ':pointer'
-        # else
-        #   this_api_args << Translate[args[1]] rescue puts args[1]
-        # end
-
         # Problem example: __out_bcount(ContextSize) /* align_is(16) */ PVOID Context,
         # Solution - take args[-2] not args[1]
         if args[-2] =~ /P.*STR/ && args[0]=~/out/
+          # This creates a bullshit special type for any pointer to a string
+          # that will be used for engine output. By doing this I can make the
+          # FFI signatures take a :pointer for output strings, but use
+          # :string for input strings, which is less fiddly for the user
           this_api_args << "#{args[-2]}_OUT"
         else  
           this_api_args << args[-2]
