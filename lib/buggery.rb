@@ -69,7 +69,7 @@ class Buggery
   }
   EVENTS.update EVENTS.invert
   COMPONENT = "Buggery"
-  VERSION   = "0.5.6"
+  VERSION   = "1.0"
 
   attr_reader :debug_client
   include BuggerySugar

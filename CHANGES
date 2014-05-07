@@ -17,3 +17,8 @@
 * Improve code readability slightly
 = 0.5.6
 * Local Kernel debugging support
+= 1.0 ( in unstable )
+* SHIP IT!
+* Completely overhaul raw_buggery to use native Windows looking types
+* Tests pass against newest SDK
+* Slight tweaking of examples, possibly unstable there

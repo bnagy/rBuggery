@@ -1,6 +1,7 @@
 * CHANGES
 * README
 * README_LOCAL_KERNEL
+* LICENSE
 * Rakefile
 * bin/drb_debug_server
 * examples/breakpoint_example.rb
@@ -18,9 +19,11 @@
 * lib/buggery/exception.rb
 * lib/buggery/fake_com.rb
 * lib/buggery/raw_buggery.rb
+* lib/buggery/raw_buggery_6.12.2.233.rb
 * lib/buggery/winerror.rb
 * test/test_buggery.rb
 * utils/dbgeng_parse_ffi.rb
 * utils/guids_check.rb
 * utils/guid_parse.rb
-* utils/dbgeng.h
+* utils/dbgeng_6.12.2.233.h
+* utils/dbgeng_6.3.9600.17029.h

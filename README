@@ -7,19 +7,28 @@ Currently working:
 * Callback support, in local process only
 * IDebugBreakpoint wrapped via Breakpoint class
 * x86 in MRI and JRuby
-* x64 in JRuby with the 64 bit debugging tools
+* x64 seems to work with RubyInstaller 2.0p451 x64 and JRuby 1.7.12
 * Pseudo registers
 * Remote and Local kernel debugging
 
 To do
 * Get callbacks working via DRb
+* Migrate many structs to a nicer namespace and format
 
-Alpha release, "it works for me" quality.
+NOTE: Set the DEBUGGER_PATH environment variable to the root directory of your
+debugging tools.
 
-NOTE: Tested with / uses headers from version 6.12.2.633. Using different
-versions of the debugging tools can cause random access violations. Set the
-DEBUGGER_PATH environment variable to the root directory of your debugging
-tools, if you've installed it somewhere other than the default for the MSIs
-from here:
+NOTE: For local kernel debugging you MUST follow the instructions in
+README_LOCAL_KERNEL
 
+You can get the debugging tools here:
 http://archive.msdn.microsoft.com/debugtoolswindows/Release/ProjectReleases.aspx?ReleaseId=4912
+
+Otherwise, you need to install the SDK for your platform and install the tools
+as part of that ( you CAN unselect everything except the debugging tools )
+
+License
+----
+
+BSD Style, see LICENSE file for details
+(c) Ben Nagy 2014
