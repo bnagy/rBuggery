@@ -63,7 +63,7 @@ s.each_line {|l|
   if l=~/DECLARE_INTERFACE/
     # DECLARE_INTERFACE_(IDebugBreakpoint2, IUnknown)
     iface_name=l[/\((.*),/,1]
-    apis << "  class #{iface_name}" # marker for the human doing the cut and paste
+    apis << "  class #{iface_name}"
     apis.concat(defines)
     defines.clear
     in_interface=true
