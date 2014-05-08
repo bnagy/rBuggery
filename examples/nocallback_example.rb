@@ -1,10 +1,12 @@
 require 'buggery'
 
+include Buggery
+
 # This is a trivial example of manually managing events using #wait_for_event,
 # instead of callbacks. This pattern is the only one you can use for DRb style
 # programs, because the callback Procs don't Marshal yet.
 
-debug_client=Buggery.new
+debug_client=Debugger.new
 
 puts "Buggery version #{Buggery::VERSION}> Creating..."
 debug_client.create_process("notepad.exe")

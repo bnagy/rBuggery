@@ -30,6 +30,7 @@ module Win32
     WORD      = FFI::TypeDefs[:uint16]
     BYTE      = FFI::TypeDefs[:uchar]
     DWORD     = FFI::TypeDefs[:ulong]
+    DWORD64   = FFI::TypeDefs[:uint64]
     BOOL      = FFI::TypeDefs[:int]     # srsly??
     BOOLEAN   = BYTE                    # not making this up.
     UINT      = FFI::TypeDefs[:uint]
