@@ -111,75 +111,75 @@ module RawBuggery
   # interfaces, like DebugAdvanced, DebugRegisters etc
 
   class DebugClient
-    
-    DEBUG_ATTACH_KERNEL_CONNECTION                  = 0x00000000
-    DEBUG_ATTACH_LOCAL_KERNEL                       = 0x00000001
-    DEBUG_ATTACH_EXDI_DRIVER                        = 0x00000002
-    DEBUG_ATTACH_INSTALL_DRIVER                     = 0x00000004
-    DEBUG_GET_PROC_DEFAULT                          = 0x00000000
-    DEBUG_GET_PROC_FULL_MATCH                       = 0x00000001
-    DEBUG_GET_PROC_ONLY_MATCH                       = 0x00000002
-    DEBUG_GET_PROC_SERVICE_NAME                     = 0x00000004
-    DEBUG_PROC_DESC_DEFAULT                         = 0x00000000
-    DEBUG_PROC_DESC_NO_PATHS                        = 0x00000001
-    DEBUG_PROC_DESC_NO_SERVICES                     = 0x00000002
-    DEBUG_PROC_DESC_NO_MTS_PACKAGES                 = 0x00000004
-    DEBUG_PROC_DESC_NO_COMMAND_LINE                 = 0x00000008
-    DEBUG_PROC_DESC_NO_SESSION_ID                   = 0x00000010
-    DEBUG_PROC_DESC_NO_USER_NAME                    = 0x00000020
-    DEBUG_ATTACH_DEFAULT                            = 0x00000000
-    DEBUG_ATTACH_NONINVASIVE                        = 0x00000001
-    DEBUG_ATTACH_EXISTING                           = 0x00000002
-    DEBUG_ATTACH_NONINVASIVE_NO_SUSPEND             = 0x00000004
-    DEBUG_ATTACH_INVASIVE_NO_INITIAL_BREAK          = 0x00000008
-    DEBUG_ATTACH_INVASIVE_RESUME_PROCESS            = 0x00000010
-    DEBUG_ATTACH_NONINVASIVE_ALLOW_PARTIAL          = 0x00000020
+
+    DEBUG_ATTACH_KERNEL_CONNECTION = 0x00000000
+    DEBUG_ATTACH_LOCAL_KERNEL = 0x00000001
+    DEBUG_ATTACH_EXDI_DRIVER = 0x00000002
+    DEBUG_ATTACH_INSTALL_DRIVER = 0x00000004
+    DEBUG_GET_PROC_DEFAULT = 0x00000000
+    DEBUG_GET_PROC_FULL_MATCH = 0x00000001
+    DEBUG_GET_PROC_ONLY_MATCH = 0x00000002
+    DEBUG_GET_PROC_SERVICE_NAME = 0x00000004
+    DEBUG_PROC_DESC_DEFAULT = 0x00000000
+    DEBUG_PROC_DESC_NO_PATHS = 0x00000001
+    DEBUG_PROC_DESC_NO_SERVICES = 0x00000002
+    DEBUG_PROC_DESC_NO_MTS_PACKAGES = 0x00000004
+    DEBUG_PROC_DESC_NO_COMMAND_LINE = 0x00000008
+    DEBUG_PROC_DESC_NO_SESSION_ID = 0x00000010
+    DEBUG_PROC_DESC_NO_USER_NAME = 0x00000020
+    DEBUG_ATTACH_DEFAULT = 0x00000000
+    DEBUG_ATTACH_NONINVASIVE = 0x00000001
+    DEBUG_ATTACH_EXISTING = 0x00000002
+    DEBUG_ATTACH_NONINVASIVE_NO_SUSPEND = 0x00000004
+    DEBUG_ATTACH_INVASIVE_NO_INITIAL_BREAK = 0x00000008
+    DEBUG_ATTACH_INVASIVE_RESUME_PROCESS = 0x00000010
+    DEBUG_ATTACH_NONINVASIVE_ALLOW_PARTIAL = 0x00000020
     CREATE_UNICODE_ENVIRONMENT                      = 0x00000400
     STACK_SIZE_PARAM_IS_A_RESERVATION               = 0x00010000
-    DEBUG_CREATE_PROCESS_NO_DEBUG_HEAP              = CREATE_UNICODE_ENVIRONMENT
-    DEBUG_CREATE_PROCESS_THROUGH_RTL                = STACK_SIZE_PARAM_IS_A_RESERVATION
-    DEBUG_ECREATE_PROCESS_DEFAULT                   = 0x00000000
-    DEBUG_ECREATE_PROCESS_INHERIT_HANDLES           = 0x00000001
-    DEBUG_ECREATE_PROCESS_USE_VERIFIER_FLAGS        = 0x00000002
+    DEBUG_CREATE_PROCESS_NO_DEBUG_HEAP = CREATE_UNICODE_ENVIRONMENT
+    DEBUG_CREATE_PROCESS_THROUGH_RTL = STACK_SIZE_PARAM_IS_A_RESERVATION
+    DEBUG_ECREATE_PROCESS_DEFAULT = 0x00000000
+    DEBUG_ECREATE_PROCESS_INHERIT_HANDLES = 0x00000001
+    DEBUG_ECREATE_PROCESS_USE_VERIFIER_FLAGS = 0x00000002
     DEBUG_ECREATE_PROCESS_USE_IMPLICIT_COMMAND_LINE = 0x00000004
-    DEBUG_PROCESS_DETACH_ON_EXIT                    = 0x00000001
-    DEBUG_PROCESS_ONLY_THIS_PROCESS                 = 0x00000002
-    DEBUG_CONNECT_SESSION_DEFAULT                   = 0x00000000
-    DEBUG_CONNECT_SESSION_NO_VERSION                = 0x00000001
-    DEBUG_CONNECT_SESSION_NO_ANNOUNCE               = 0x00000002
-    DEBUG_SERVERS_DEBUGGER                          = 0x00000001
-    DEBUG_SERVERS_PROCESS                           = 0x00000002
-    DEBUG_SERVERS_ALL                               = 0x00000003
-    DEBUG_END_PASSIVE                               = 0x00000000
-    DEBUG_END_ACTIVE_TERMINATE                      = 0x00000001
-    DEBUG_END_ACTIVE_DETACH                         = 0x00000002
-    DEBUG_END_REENTRANT                             = 0x00000003
-    DEBUG_END_DISCONNECT                            = 0x00000004
-    DEBUG_OUTPUT_NORMAL                             = 0x00000001
-    DEBUG_OUTPUT_ERROR                              = 0x00000002
-    DEBUG_OUTPUT_WARNING                            = 0x00000004
-    DEBUG_OUTPUT_VERBOSE                            = 0x00000008
-    DEBUG_OUTPUT_PROMPT                             = 0x00000010
-    DEBUG_OUTPUT_PROMPT_REGISTERS                   = 0x00000020
-    DEBUG_OUTPUT_EXTENSION_WARNING                  = 0x00000040
-    DEBUG_OUTPUT_DEBUGGEE                           = 0x00000080
-    DEBUG_OUTPUT_DEBUGGEE_PROMPT                    = 0x00000100
-    DEBUG_OUTPUT_SYMBOLS                            = 0x00000200
-    DEBUG_OUTPUT_STATUS                             = 0x00000400
-    DEBUG_IOUTPUT_KD_PROTOCOL                       = 0x80000000
-    DEBUG_IOUTPUT_REMOTING                          = 0x40000000
-    DEBUG_IOUTPUT_BREAKPOINT                        = 0x20000000
-    DEBUG_IOUTPUT_EVENT                             = 0x10000000
-    DEBUG_IOUTPUT_ADDR_TRANSLATE                    = 0x08000000
-    DEBUG_OUTPUT_IDENTITY_DEFAULT                   = 0x00000000
-    DEBUG_CLIENT_UNKNOWN                            = 0x0
-    DEBUG_CLIENT_VSINT                              = 0x1
-    DEBUG_CLIENT_NTSD                               = 0x2
-    DEBUG_CLIENT_NTKD                               = 0x3
-    DEBUG_CLIENT_CDB                                = 0x4
-    DEBUG_CLIENT_KD                                 = 0x5
-    DEBUG_CLIENT_WINDBG                             = 0x6
-    DEBUG_CLIENT_WINIDE                             = 0x7
+    DEBUG_PROCESS_DETACH_ON_EXIT = 0x00000001
+    DEBUG_PROCESS_ONLY_THIS_PROCESS = 0x00000002
+    DEBUG_CONNECT_SESSION_DEFAULT = 0x00000000
+    DEBUG_CONNECT_SESSION_NO_VERSION = 0x00000001
+    DEBUG_CONNECT_SESSION_NO_ANNOUNCE = 0x00000002
+    DEBUG_SERVERS_DEBUGGER = 0x00000001
+    DEBUG_SERVERS_PROCESS = 0x00000002
+    DEBUG_SERVERS_ALL = 0x00000003
+    DEBUG_END_PASSIVE = 0x00000000
+    DEBUG_END_ACTIVE_TERMINATE = 0x00000001
+    DEBUG_END_ACTIVE_DETACH = 0x00000002
+    DEBUG_END_REENTRANT = 0x00000003
+    DEBUG_END_DISCONNECT = 0x00000004
+    DEBUG_OUTPUT_NORMAL = 0x00000001
+    DEBUG_OUTPUT_ERROR = 0x00000002
+    DEBUG_OUTPUT_WARNING = 0x00000004
+    DEBUG_OUTPUT_VERBOSE = 0x00000008
+    DEBUG_OUTPUT_PROMPT = 0x00000010
+    DEBUG_OUTPUT_PROMPT_REGISTERS = 0x00000020
+    DEBUG_OUTPUT_EXTENSION_WARNING = 0x00000040
+    DEBUG_OUTPUT_DEBUGGEE = 0x00000080
+    DEBUG_OUTPUT_DEBUGGEE_PROMPT = 0x00000100
+    DEBUG_OUTPUT_SYMBOLS = 0x00000200
+    DEBUG_OUTPUT_STATUS = 0x00000400
+    DEBUG_IOUTPUT_KD_PROTOCOL = 0x80000000
+    DEBUG_IOUTPUT_REMOTING = 0x40000000
+    DEBUG_IOUTPUT_BREAKPOINT = 0x20000000
+    DEBUG_IOUTPUT_EVENT = 0x10000000
+    DEBUG_IOUTPUT_ADDR_TRANSLATE = 0x08000000
+    DEBUG_OUTPUT_IDENTITY_DEFAULT = 0x00000000
+    DEBUG_CLIENT_UNKNOWN = 0x0
+    DEBUG_CLIENT_VSINT = 0x1
+    DEBUG_CLIENT_NTSD = 0x2
+    DEBUG_CLIENT_NTKD = 0x3
+    DEBUG_CLIENT_CDB = 0x4
+    DEBUG_CLIENT_KD = 0x5
+    DEBUG_CLIENT_WINDBG = 0x6
+    DEBUG_CLIENT_WINIDE = 0x7
 
     NUM_APIS = 48
 
@@ -199,7 +199,7 @@ module RawBuggery
 
       @interface_table={} # empty for now, built as needed
 
-     # These are autogenerated from dbgeng.h and may contain errors!
+      # These are autogenerated from dbgeng.h and may contain errors!
       @api_dispatch_table={
         # QueryInterface(THIS_ In_(InterfaceId) Out_(Interface))
         :QueryInterface => FFI::Function.new( HRESULT, [THIS_, REFIID, PVOID], @vtable[0], :convention=>:stdcall  ),
@@ -210,7 +210,7 @@ module RawBuggery
         # AttachKernel(THIS_ In_(Flags) In_opt_(ConnectOptions))
         :AttachKernel => FFI::Function.new( HRESULT, [THIS_, ULONG, PCSTR], @vtable[3], :convention=>:stdcall  ),
         # GetKernelConnectionOptions(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(OptionsSize))
-        :GetKernelConnectionOptions => FFI::Function.new( HRESULT, [THIS_, PSTR, ULONG, PULONG], @vtable[4], :convention=>:stdcall  ),
+        :GetKernelConnectionOptions => FFI::Function.new( HRESULT, [THIS_, PSTR_OUT, ULONG, PULONG], @vtable[4], :convention=>:stdcall  ),
         # SetKernelConnectionOptions(THIS_ In_(Options))
         :SetKernelConnectionOptions => FFI::Function.new( HRESULT, [THIS_, PCSTR], @vtable[5], :convention=>:stdcall  ),
         # StartProcessServer(THIS_ In_(Flags) In_(Options) In_opt_(Reserved))
@@ -224,7 +224,7 @@ module RawBuggery
         # GetRunningProcessSystemIdByExecutableName(THIS_ In_(Server) In_(ExeName) In_(Flags) Out_(Id))
         :GetRunningProcessSystemIdByExecutableName => FFI::Function.new( HRESULT, [THIS_, ULONG64, PCSTR, ULONG, PULONG], @vtable[10], :convention=>:stdcall  ),
         # GetRunningProcessDescription(THIS_ In_(Server) In_(SystemId) In_(Flags) Out_writes_opt_(ExeNameSize)(ExeName) In_(ExeNameSize) Out_opt_(ActualExeNameSize) Out_writes_opt_(DescriptionSize)(Description) In_(DescriptionSize) Out_opt_(ActualDescriptionSize))
-        :GetRunningProcessDescription => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, ULONG, PSTR, ULONG, PULONG, PSTR, ULONG, PULONG], @vtable[11], :convention=>:stdcall  ),
+        :GetRunningProcessDescription => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, ULONG, PSTR_OUT, ULONG, PULONG, PSTR_OUT, ULONG, PULONG], @vtable[11], :convention=>:stdcall  ),
         # AttachProcess(THIS_ In_(Server) In_(ProcessId) In_(AttachFlags))
         :AttachProcess => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, ULONG], @vtable[12], :convention=>:stdcall  ),
         # CreateProcess(THIS_ In_(Server) In_(CommandLine) In_(CreateFlags))
@@ -284,11 +284,11 @@ module RawBuggery
         # SetOutputWidth(THIS_ In_(Columns))
         :SetOutputWidth => FFI::Function.new( HRESULT, [THIS_, ULONG], @vtable[40], :convention=>:stdcall  ),
         # GetOutputLinePrefix(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(PrefixSize))
-        :GetOutputLinePrefix => FFI::Function.new( HRESULT, [THIS_, PSTR, ULONG, PULONG], @vtable[41], :convention=>:stdcall  ),
+        :GetOutputLinePrefix => FFI::Function.new( HRESULT, [THIS_, PSTR_OUT, ULONG, PULONG], @vtable[41], :convention=>:stdcall  ),
         # SetOutputLinePrefix(THIS_ In_opt_(Prefix))
         :SetOutputLinePrefix => FFI::Function.new( HRESULT, [THIS_, PCSTR], @vtable[42], :convention=>:stdcall  ),
         # GetIdentity(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(IdentitySize))
-        :GetIdentity => FFI::Function.new( HRESULT, [THIS_, PSTR, ULONG, PULONG], @vtable[43], :convention=>:stdcall  ),
+        :GetIdentity => FFI::Function.new( HRESULT, [THIS_, PSTR_OUT, ULONG, PULONG], @vtable[43], :convention=>:stdcall  ),
         # OutputIdentity(THIS_ In_(OutputControl) In_(Flags) In_(Format))
         :OutputIdentity => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG, PCSTR], @vtable[44], :convention=>:stdcall  ),
         # GetEventCallbacks(THIS_ Out_(Callbacks))
@@ -363,66 +363,64 @@ module RawBuggery
   end
 
   class DebugAdvanced2
-
-    DEBUG_GET_TEXT_COMPLETIONS_NO_DOT_COMMANDS           = 0x00000001
-    DEBUG_GET_TEXT_COMPLETIONS_NO_EXTENSION_COMMANDS     = 0x00000002
-    DEBUG_GET_TEXT_COMPLETIONS_NO_SYMBOLS                = 0x00000004
-    DEBUG_GET_TEXT_COMPLETIONS_IS_DOT_COMMAND            = 0x00000001
-    DEBUG_GET_TEXT_COMPLETIONS_IS_EXTENSION_COMMAND      = 0x00000002
-    DEBUG_GET_TEXT_COMPLETIONS_IS_SYMBOL                 = 0x00000004
-    DEBUG_REQUEST_SOURCE_PATH_HAS_SOURCE_SERVER          = 0
-    DEBUG_REQUEST_TARGET_EXCEPTION_CONTEXT               = 1
-    DEBUG_REQUEST_TARGET_EXCEPTION_THREAD                = 2
-    DEBUG_REQUEST_TARGET_EXCEPTION_RECORD                = 3
-    DEBUG_REQUEST_GET_ADDITIONAL_CREATE_OPTIONS          = 4
-    DEBUG_REQUEST_SET_ADDITIONAL_CREATE_OPTIONS          = 5
-    DEBUG_REQUEST_GET_WIN32_MAJOR_MINOR_VERSIONS         = 6
-    DEBUG_REQUEST_READ_USER_MINIDUMP_STREAM              = 7
-    DEBUG_REQUEST_TARGET_CAN_DETACH                      = 8
-    DEBUG_REQUEST_SET_LOCAL_IMPLICIT_COMMAND_LINE        = 9
-    DEBUG_REQUEST_GET_CAPTURED_EVENT_CODE_OFFSET         = 10
-    DEBUG_REQUEST_READ_CAPTURED_EVENT_CODE_STREAM        = 11
-    DEBUG_REQUEST_EXT_TYPED_DATA_ANSI                    = 12
-    DEBUG_REQUEST_GET_EXTENSION_SEARCH_PATH_WIDE         = 13
-    DEBUG_REQUEST_GET_TEXT_COMPLETIONS_WIDE              = 14
-    DEBUG_REQUEST_GET_CACHED_SYMBOL_INFO                 = 15
-    DEBUG_REQUEST_ADD_CACHED_SYMBOL_INFO                 = 16
-    DEBUG_REQUEST_REMOVE_CACHED_SYMBOL_INFO              = 17
-    DEBUG_REQUEST_GET_TEXT_COMPLETIONS_ANSI              = 18
+    DEBUG_GET_TEXT_COMPLETIONS_NO_DOT_COMMANDS = 0x00000001
+    DEBUG_GET_TEXT_COMPLETIONS_NO_EXTENSION_COMMANDS = 0x00000002
+    DEBUG_GET_TEXT_COMPLETIONS_NO_SYMBOLS = 0x00000004
+    DEBUG_GET_TEXT_COMPLETIONS_IS_DOT_COMMAND = 0x00000001
+    DEBUG_GET_TEXT_COMPLETIONS_IS_EXTENSION_COMMAND = 0x00000002
+    DEBUG_GET_TEXT_COMPLETIONS_IS_SYMBOL = 0x00000004
+    DEBUG_REQUEST_SOURCE_PATH_HAS_SOURCE_SERVER = 0
+    DEBUG_REQUEST_TARGET_EXCEPTION_CONTEXT = 1
+    DEBUG_REQUEST_TARGET_EXCEPTION_THREAD = 2
+    DEBUG_REQUEST_TARGET_EXCEPTION_RECORD = 3
+    DEBUG_REQUEST_GET_ADDITIONAL_CREATE_OPTIONS = 4
+    DEBUG_REQUEST_SET_ADDITIONAL_CREATE_OPTIONS = 5
+    DEBUG_REQUEST_GET_WIN32_MAJOR_MINOR_VERSIONS = 6
+    DEBUG_REQUEST_READ_USER_MINIDUMP_STREAM = 7
+    DEBUG_REQUEST_TARGET_CAN_DETACH = 8
+    DEBUG_REQUEST_SET_LOCAL_IMPLICIT_COMMAND_LINE = 9
+    DEBUG_REQUEST_GET_CAPTURED_EVENT_CODE_OFFSET = 10
+    DEBUG_REQUEST_READ_CAPTURED_EVENT_CODE_STREAM = 11
+    DEBUG_REQUEST_EXT_TYPED_DATA_ANSI = 12
+    DEBUG_REQUEST_GET_EXTENSION_SEARCH_PATH_WIDE = 13
+    DEBUG_REQUEST_GET_TEXT_COMPLETIONS_WIDE = 14
+    DEBUG_REQUEST_GET_CACHED_SYMBOL_INFO = 15
+    DEBUG_REQUEST_ADD_CACHED_SYMBOL_INFO = 16
+    DEBUG_REQUEST_REMOVE_CACHED_SYMBOL_INFO = 17
+    DEBUG_REQUEST_GET_TEXT_COMPLETIONS_ANSI = 18
     DEBUG_REQUEST_CURRENT_OUTPUT_CALLBACKS_ARE_DML_AWARE = 19
-    DEBUG_REQUEST_GET_OFFSET_UNWIND_INFORMATION          = 20
-    DEBUG_REQUEST_GET_DUMP_HEADER                        = 21
-    DEBUG_REQUEST_SET_DUMP_HEADER                        = 22
-    DEBUG_REQUEST_MIDORI                                 = 23
-    DEBUG_REQUEST_PROCESS_DESCRIPTORS                    = 24
-    DEBUG_REQUEST_MISC_INFORMATION                       = 25
-    DEBUG_REQUEST_OPEN_PROCESS_TOKEN                     = 26
-    DEBUG_REQUEST_OPEN_THREAD_TOKEN                      = 27
-    DEBUG_REQUEST_DUPLICATE_TOKEN                        = 28
-    DEBUG_REQUEST_QUERY_INFO_TOKEN                       = 29
-    DEBUG_REQUEST_CLOSE_TOKEN                            = 30
-    DEBUG_REQUEST_WOW_PROCESS                            = 31
-    DEBUG_REQUEST_WOW_MODULE                             = 32
-    DEBUG_LIVE_USER_NON_INVASIVE                         = 33
-    DEBUG_REQUEST_RESUME_THREAD                          = 34
-    DEBUG_REQUEST_INLINE_QUERY                           = 35
-    DEBUG_SRCFILE_SYMBOL_TOKEN                           = 0
-    DEBUG_SRCFILE_SYMBOL_TOKEN_SOURCE_COMMAND_WIDE       = 1
-    DEBUG_SYMINFO_BREAKPOINT_SOURCE_LINE                 = 0
-    DEBUG_SYMINFO_IMAGEHLP_MODULEW64                     = 1
+    DEBUG_REQUEST_GET_OFFSET_UNWIND_INFORMATION = 20
+    DEBUG_REQUEST_GET_DUMP_HEADER = 21
+    DEBUG_REQUEST_SET_DUMP_HEADER = 22
+    DEBUG_REQUEST_MIDORI = 23
+    DEBUG_REQUEST_PROCESS_DESCRIPTORS = 24
+    DEBUG_REQUEST_MISC_INFORMATION = 25
+    DEBUG_REQUEST_OPEN_PROCESS_TOKEN = 26
+    DEBUG_REQUEST_OPEN_THREAD_TOKEN = 27
+    DEBUG_REQUEST_DUPLICATE_TOKEN = 28
+    DEBUG_REQUEST_QUERY_INFO_TOKEN = 29
+    DEBUG_REQUEST_CLOSE_TOKEN = 30
+    DEBUG_REQUEST_WOW_PROCESS = 31
+    DEBUG_REQUEST_WOW_MODULE = 32
+    DEBUG_LIVE_USER_NON_INVASIVE = 33
+    DEBUG_REQUEST_RESUME_THREAD = 34
+    DEBUG_REQUEST_INLINE_QUERY = 35
+    DEBUG_SRCFILE_SYMBOL_TOKEN = 0
+    DEBUG_SRCFILE_SYMBOL_TOKEN_SOURCE_COMMAND_WIDE = 1
+    DEBUG_SYMINFO_BREAKPOINT_SOURCE_LINE = 0
+    DEBUG_SYMINFO_IMAGEHLP_MODULEW64 = 1
     DEBUG_SYMINFO_GET_SYMBOL_NAME_BY_OFFSET_AND_TAG_WIDE = 2
-    DEBUG_SYMINFO_GET_MODULE_SYMBOL_NAMES_AND_OFFSETS    = 3
-    DEBUG_SYSOBJINFO_THREAD_BASIC_INFORMATION            = 0
-    DEBUG_SYSOBJINFO_THREAD_NAME_WIDE                    = 1
-    DEBUG_SYSOBJINFO_CURRENT_PROCESS_COOKIE              = 2
-    DEBUG_TBINFO_EXIT_STATUS                             = 0x00000001
-    DEBUG_TBINFO_PRIORITY_CLASS                          = 0x00000002
-    DEBUG_TBINFO_PRIORITY                                = 0x00000004
-    DEBUG_TBINFO_TIMES                                   = 0x00000008
-    DEBUG_TBINFO_START_OFFSET                            = 0x00000010
-    DEBUG_TBINFO_AFFINITY                                = 0x00000020
-    DEBUG_TBINFO_ALL                                     = 0x0000003f
-
+    DEBUG_SYMINFO_GET_MODULE_SYMBOL_NAMES_AND_OFFSETS = 3
+    DEBUG_SYSOBJINFO_THREAD_BASIC_INFORMATION = 0
+    DEBUG_SYSOBJINFO_THREAD_NAME_WIDE = 1
+    DEBUG_SYSOBJINFO_CURRENT_PROCESS_COOKIE = 2
+    DEBUG_TBINFO_EXIT_STATUS = 0x00000001
+    DEBUG_TBINFO_PRIORITY_CLASS = 0x00000002
+    DEBUG_TBINFO_PRIORITY = 0x00000004
+    DEBUG_TBINFO_TIMES = 0x00000008
+    DEBUG_TBINFO_START_OFFSET = 0x00000010
+    DEBUG_TBINFO_AFFINITY = 0x00000020
+    DEBUG_TBINFO_ALL = 0x0000003f
     NUM_APIS = 10
 
     include Win32::WinTypes
@@ -454,9 +452,9 @@ module RawBuggery
         # GetSourceFileInformation(THIS_ In_(Which) In_(SourceFile) In_(Arg64) In_(Arg32) Out_writes_bytes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(InfoSize))
         :GetSourceFileInformation => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR, ULONG64, ULONG, PVOID, ULONG, PULONG], @vtable[6], :convention=>:stdcall  ),
         # FindSourceFileAndToken(THIS_ In_(StartElement) In_(ModAddr) In_(File) In_(Flags) In_reads_bytes_opt_(FileTokenSize)(FileToken) In_(FileTokenSize) Out_opt_(FoundElement) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(FoundSize))
-        :FindSourceFileAndToken => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG64, PCSTR, ULONG, PVOID, ULONG, PULONG, PSTR, ULONG, PULONG], @vtable[7], :convention=>:stdcall  ),
+        :FindSourceFileAndToken => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG64, PCSTR, ULONG, PVOID, ULONG, PULONG, PSTR_OUT, ULONG, PULONG], @vtable[7], :convention=>:stdcall  ),
         # GetSymbolInformation(THIS_ In_(Which) In_(Arg64) In_(Arg32) Out_writes_bytes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(InfoSize) Out_writes_opt_(StringBufferSize)(StringBuffer) In_(StringBufferSize) Out_opt_(StringSize))
-        :GetSymbolInformation => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG64, ULONG, PVOID, ULONG, PULONG, PSTR, ULONG, PULONG], @vtable[8], :convention=>:stdcall  ),
+        :GetSymbolInformation => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG64, ULONG, PVOID, ULONG, PULONG, PSTR_OUT, ULONG, PULONG], @vtable[8], :convention=>:stdcall  ),
         # GetSystemObjectInformation(THIS_ In_(Which) In_(Arg64) In_(Arg32) Out_writes_bytes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(InfoSize))
         :GetSystemObjectInformation => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG64, ULONG, PVOID, ULONG, PULONG], @vtable[9], :convention=>:stdcall  )
       }
@@ -473,7 +471,6 @@ module RawBuggery
   end
 
   class DebugAdvanced3
-
     NUM_APIS = 13
 
     include Win32::WinTypes
@@ -505,17 +502,17 @@ module RawBuggery
         # GetSourceFileInformation(THIS_ In_(Which) In_(SourceFile) In_(Arg64) In_(Arg32) Out_writes_bytes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(InfoSize))
         :GetSourceFileInformation => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR, ULONG64, ULONG, PVOID, ULONG, PULONG], @vtable[6], :convention=>:stdcall  ),
         # FindSourceFileAndToken(THIS_ In_(StartElement) In_(ModAddr) In_(File) In_(Flags) In_reads_bytes_opt_(FileTokenSize)(FileToken) In_(FileTokenSize) Out_opt_(FoundElement) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(FoundSize))
-        :FindSourceFileAndToken => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG64, PCSTR, ULONG, PVOID, ULONG, PULONG, PSTR, ULONG, PULONG], @vtable[7], :convention=>:stdcall  ),
+        :FindSourceFileAndToken => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG64, PCSTR, ULONG, PVOID, ULONG, PULONG, PSTR_OUT, ULONG, PULONG], @vtable[7], :convention=>:stdcall  ),
         # GetSymbolInformation(THIS_ In_(Which) In_(Arg64) In_(Arg32) Out_writes_bytes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(InfoSize) Out_writes_opt_(StringBufferSize)(StringBuffer) In_(StringBufferSize) Out_opt_(StringSize))
-        :GetSymbolInformation => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG64, ULONG, PVOID, ULONG, PULONG, PSTR, ULONG, PULONG], @vtable[8], :convention=>:stdcall  ),
+        :GetSymbolInformation => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG64, ULONG, PVOID, ULONG, PULONG, PSTR_OUT, ULONG, PULONG], @vtable[8], :convention=>:stdcall  ),
         # GetSystemObjectInformation(THIS_ In_(Which) In_(Arg64) In_(Arg32) Out_writes_bytes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(InfoSize))
         :GetSystemObjectInformation => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG64, ULONG, PVOID, ULONG, PULONG], @vtable[9], :convention=>:stdcall  ),
         # GetSourceFileInformationWide(THIS_ In_(Which) In_(SourceFile) In_(Arg64) In_(Arg32) Out_writes_bytes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(InfoSize))
         :GetSourceFileInformationWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PWSTR, ULONG64, ULONG, PVOID, ULONG, PULONG], @vtable[10], :convention=>:stdcall  ),
         # FindSourceFileAndTokenWide(THIS_ In_(StartElement) In_(ModAddr) In_(File) In_(Flags) In_reads_bytes_opt_(FileTokenSize)(FileToken) In_(FileTokenSize) Out_opt_(FoundElement) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(FoundSize))
-        :FindSourceFileAndTokenWide => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG64, PCWSTR, ULONG, PVOID, ULONG, PULONG, PWSTR, ULONG, PULONG], @vtable[11], :convention=>:stdcall  ),
+        :FindSourceFileAndTokenWide => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG64, PCWSTR, ULONG, PVOID, ULONG, PULONG, PWSTR_OUT, ULONG, PULONG], @vtable[11], :convention=>:stdcall  ),
         # GetSymbolInformationWide(THIS_ In_(Which) In_(Arg64) In_(Arg32) Out_writes_bytes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(InfoSize) Out_writes_opt_(StringBufferSize)(StringBuffer) In_(StringBufferSize) Out_opt_(StringSize))
-        :GetSymbolInformationWide => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG64, ULONG, PVOID, ULONG, PULONG, PWSTR, ULONG, PULONG], @vtable[12], :convention=>:stdcall  )
+        :GetSymbolInformationWide => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG64, ULONG, PVOID, ULONG, PULONG, PWSTR_OUT, ULONG, PULONG], @vtable[12], :convention=>:stdcall  )
       }
     end
 
@@ -530,21 +527,19 @@ module RawBuggery
   end
 
   class DebugBreakpoint
-
-    DEBUG_BREAKPOINT_CODE       = 0
-    DEBUG_BREAKPOINT_DATA       = 1
-    DEBUG_BREAKPOINT_TIME       = 2
-    DEBUG_BREAKPOINT_INLINE     = 3
-    DEBUG_BREAKPOINT_GO_ONLY    = 0x00000001
-    DEBUG_BREAKPOINT_DEFERRED   = 0x00000002
-    DEBUG_BREAKPOINT_ENABLED    = 0x00000004
+    DEBUG_BREAKPOINT_CODE = 0
+    DEBUG_BREAKPOINT_DATA = 1
+    DEBUG_BREAKPOINT_TIME = 2
+    DEBUG_BREAKPOINT_INLINE = 3
+    DEBUG_BREAKPOINT_GO_ONLY = 0x00000001
+    DEBUG_BREAKPOINT_DEFERRED = 0x00000002
+    DEBUG_BREAKPOINT_ENABLED = 0x00000004
     DEBUG_BREAKPOINT_ADDER_ONLY = 0x00000008
-    DEBUG_BREAKPOINT_ONE_SHOT   = 0x00000010
-    DEBUG_BREAK_READ            = 0x00000001
-    DEBUG_BREAK_WRITE           = 0x00000002
-    DEBUG_BREAK_EXECUTE         = 0x00000004
-    DEBUG_BREAK_IO              = 0x00000008
-
+    DEBUG_BREAKPOINT_ONE_SHOT = 0x00000010
+    DEBUG_BREAK_READ = 0x00000001
+    DEBUG_BREAK_WRITE = 0x00000002
+    DEBUG_BREAK_EXECUTE = 0x00000004
+    DEBUG_BREAK_IO = 0x00000008
     NUM_APIS = 24
 
     include Win32::WinTypes
@@ -600,11 +595,11 @@ module RawBuggery
         # SetMatchThreadId(THIS_ In_(Thread))
         :SetMatchThreadId => FFI::Function.new( HRESULT, [THIS_, ULONG], @vtable[18], :convention=>:stdcall  ),
         # GetCommand(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(CommandSize))
-        :GetCommand => FFI::Function.new( HRESULT, [THIS_, PSTR, ULONG, PULONG], @vtable[19], :convention=>:stdcall  ),
+        :GetCommand => FFI::Function.new( HRESULT, [THIS_, PSTR_OUT, ULONG, PULONG], @vtable[19], :convention=>:stdcall  ),
         # SetCommand(THIS_ In_(Command))
         :SetCommand => FFI::Function.new( HRESULT, [THIS_, PCSTR], @vtable[20], :convention=>:stdcall  ),
         # GetOffsetExpression(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(ExpressionSize))
-        :GetOffsetExpression => FFI::Function.new( HRESULT, [THIS_, PSTR, ULONG, PULONG], @vtable[21], :convention=>:stdcall  ),
+        :GetOffsetExpression => FFI::Function.new( HRESULT, [THIS_, PSTR_OUT, ULONG, PULONG], @vtable[21], :convention=>:stdcall  ),
         # SetOffsetExpression(THIS_ In_(Expression))
         :SetOffsetExpression => FFI::Function.new( HRESULT, [THIS_, PCSTR], @vtable[22], :convention=>:stdcall  ),
         # GetParameters(THIS_ Out_(Params))
@@ -623,7 +618,6 @@ module RawBuggery
   end
 
   class DebugBreakpoint2
-
     NUM_APIS = 28
 
     include Win32::WinTypes
@@ -679,21 +673,21 @@ module RawBuggery
         # SetMatchThreadId(THIS_ In_(Thread))
         :SetMatchThreadId => FFI::Function.new( HRESULT, [THIS_, ULONG], @vtable[18], :convention=>:stdcall  ),
         # GetCommand(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(CommandSize))
-        :GetCommand => FFI::Function.new( HRESULT, [THIS_, PSTR, ULONG, PULONG], @vtable[19], :convention=>:stdcall  ),
+        :GetCommand => FFI::Function.new( HRESULT, [THIS_, PSTR_OUT, ULONG, PULONG], @vtable[19], :convention=>:stdcall  ),
         # SetCommand(THIS_ In_(Command))
         :SetCommand => FFI::Function.new( HRESULT, [THIS_, PCSTR], @vtable[20], :convention=>:stdcall  ),
         # GetOffsetExpression(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(ExpressionSize))
-        :GetOffsetExpression => FFI::Function.new( HRESULT, [THIS_, PSTR, ULONG, PULONG], @vtable[21], :convention=>:stdcall  ),
+        :GetOffsetExpression => FFI::Function.new( HRESULT, [THIS_, PSTR_OUT, ULONG, PULONG], @vtable[21], :convention=>:stdcall  ),
         # SetOffsetExpression(THIS_ In_(Expression))
         :SetOffsetExpression => FFI::Function.new( HRESULT, [THIS_, PCSTR], @vtable[22], :convention=>:stdcall  ),
         # GetParameters(THIS_ Out_(Params))
         :GetParameters => FFI::Function.new( HRESULT, [THIS_, PDEBUG_BREAKPOINT_PARAMETERS], @vtable[23], :convention=>:stdcall  ),
         # GetCommandWide(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(CommandSize))
-        :GetCommandWide => FFI::Function.new( HRESULT, [THIS_, PWSTR, ULONG, PULONG], @vtable[24], :convention=>:stdcall  ),
+        :GetCommandWide => FFI::Function.new( HRESULT, [THIS_, PWSTR_OUT, ULONG, PULONG], @vtable[24], :convention=>:stdcall  ),
         # SetCommandWide(THIS_ In_(Command))
         :SetCommandWide => FFI::Function.new( HRESULT, [THIS_, PCWSTR], @vtable[25], :convention=>:stdcall  ),
         # GetOffsetExpressionWide(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(ExpressionSize))
-        :GetOffsetExpressionWide => FFI::Function.new( HRESULT, [THIS_, PWSTR, ULONG, PULONG], @vtable[26], :convention=>:stdcall  ),
+        :GetOffsetExpressionWide => FFI::Function.new( HRESULT, [THIS_, PWSTR_OUT, ULONG, PULONG], @vtable[26], :convention=>:stdcall  ),
         # SetOffsetExpressionWide(THIS_ In_(Expression))
         :SetOffsetExpressionWide => FFI::Function.new( HRESULT, [THIS_, PCWSTR], @vtable[27], :convention=>:stdcall  )
       }
@@ -710,7 +704,6 @@ module RawBuggery
   end
 
   class DebugBreakpoint3
-
     NUM_APIS = 29
 
     include Win32::WinTypes
@@ -766,21 +759,21 @@ module RawBuggery
         # SetMatchThreadId(THIS_ In_(Thread))
         :SetMatchThreadId => FFI::Function.new( HRESULT, [THIS_, ULONG], @vtable[18], :convention=>:stdcall  ),
         # GetCommand(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(CommandSize))
-        :GetCommand => FFI::Function.new( HRESULT, [THIS_, PSTR, ULONG, PULONG], @vtable[19], :convention=>:stdcall  ),
+        :GetCommand => FFI::Function.new( HRESULT, [THIS_, PSTR_OUT, ULONG, PULONG], @vtable[19], :convention=>:stdcall  ),
         # SetCommand(THIS_ In_(Command))
         :SetCommand => FFI::Function.new( HRESULT, [THIS_, PCSTR], @vtable[20], :convention=>:stdcall  ),
         # GetOffsetExpression(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(ExpressionSize))
-        :GetOffsetExpression => FFI::Function.new( HRESULT, [THIS_, PSTR, ULONG, PULONG], @vtable[21], :convention=>:stdcall  ),
+        :GetOffsetExpression => FFI::Function.new( HRESULT, [THIS_, PSTR_OUT, ULONG, PULONG], @vtable[21], :convention=>:stdcall  ),
         # SetOffsetExpression(THIS_ In_(Expression))
         :SetOffsetExpression => FFI::Function.new( HRESULT, [THIS_, PCSTR], @vtable[22], :convention=>:stdcall  ),
         # GetParameters(THIS_ Out_(Params))
         :GetParameters => FFI::Function.new( HRESULT, [THIS_, PDEBUG_BREAKPOINT_PARAMETERS], @vtable[23], :convention=>:stdcall  ),
         # GetCommandWide(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(CommandSize))
-        :GetCommandWide => FFI::Function.new( HRESULT, [THIS_, PWSTR, ULONG, PULONG], @vtable[24], :convention=>:stdcall  ),
+        :GetCommandWide => FFI::Function.new( HRESULT, [THIS_, PWSTR_OUT, ULONG, PULONG], @vtable[24], :convention=>:stdcall  ),
         # SetCommandWide(THIS_ In_(Command))
         :SetCommandWide => FFI::Function.new( HRESULT, [THIS_, PCWSTR], @vtable[25], :convention=>:stdcall  ),
         # GetOffsetExpressionWide(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(ExpressionSize))
-        :GetOffsetExpressionWide => FFI::Function.new( HRESULT, [THIS_, PWSTR, ULONG, PULONG], @vtable[26], :convention=>:stdcall  ),
+        :GetOffsetExpressionWide => FFI::Function.new( HRESULT, [THIS_, PWSTR_OUT, ULONG, PULONG], @vtable[26], :convention=>:stdcall  ),
         # SetOffsetExpressionWide(THIS_ In_(Expression))
         :SetOffsetExpressionWide => FFI::Function.new( HRESULT, [THIS_, PCWSTR], @vtable[27], :convention=>:stdcall  ),
         # GetGuid(THIS_ Out_(Guid))
@@ -799,33 +792,31 @@ module RawBuggery
   end
 
   class DebugClient2
-
-    DEBUG_FORMAT_DEFAULT                              = 0x00000000
-    DEBUG_FORMAT_CAB_SECONDARY_ALL_IMAGES             = 0x10000000
-    DEBUG_FORMAT_WRITE_CAB                            = 0x20000000
-    DEBUG_FORMAT_CAB_SECONDARY_FILES                  = 0x40000000
-    DEBUG_FORMAT_NO_OVERWRITE                         = 0x80000000
-    DEBUG_FORMAT_USER_SMALL_FULL_MEMORY               = 0x00000001
-    DEBUG_FORMAT_USER_SMALL_HANDLE_DATA               = 0x00000002
-    DEBUG_FORMAT_USER_SMALL_UNLOADED_MODULES          = 0x00000004
-    DEBUG_FORMAT_USER_SMALL_INDIRECT_MEMORY           = 0x00000008
-    DEBUG_FORMAT_USER_SMALL_DATA_SEGMENTS             = 0x00000010
-    DEBUG_FORMAT_USER_SMALL_FILTER_MEMORY             = 0x00000020
-    DEBUG_FORMAT_USER_SMALL_FILTER_PATHS              = 0x00000040
-    DEBUG_FORMAT_USER_SMALL_PROCESS_THREAD_DATA       = 0x00000080
+    DEBUG_FORMAT_DEFAULT = 0x00000000
+    DEBUG_FORMAT_CAB_SECONDARY_ALL_IMAGES = 0x10000000
+    DEBUG_FORMAT_WRITE_CAB = 0x20000000
+    DEBUG_FORMAT_CAB_SECONDARY_FILES = 0x40000000
+    DEBUG_FORMAT_NO_OVERWRITE = 0x80000000
+    DEBUG_FORMAT_USER_SMALL_FULL_MEMORY = 0x00000001
+    DEBUG_FORMAT_USER_SMALL_HANDLE_DATA = 0x00000002
+    DEBUG_FORMAT_USER_SMALL_UNLOADED_MODULES = 0x00000004
+    DEBUG_FORMAT_USER_SMALL_INDIRECT_MEMORY = 0x00000008
+    DEBUG_FORMAT_USER_SMALL_DATA_SEGMENTS = 0x00000010
+    DEBUG_FORMAT_USER_SMALL_FILTER_MEMORY = 0x00000020
+    DEBUG_FORMAT_USER_SMALL_FILTER_PATHS = 0x00000040
+    DEBUG_FORMAT_USER_SMALL_PROCESS_THREAD_DATA = 0x00000080
     DEBUG_FORMAT_USER_SMALL_PRIVATE_READ_WRITE_MEMORY = 0x00000100
-    DEBUG_FORMAT_USER_SMALL_NO_OPTIONAL_DATA          = 0x00000200
-    DEBUG_FORMAT_USER_SMALL_FULL_MEMORY_INFO          = 0x00000400
-    DEBUG_FORMAT_USER_SMALL_THREAD_INFO               = 0x00000800
-    DEBUG_FORMAT_USER_SMALL_CODE_SEGMENTS             = 0x00001000
-    DEBUG_FORMAT_USER_SMALL_NO_AUXILIARY_STATE        = 0x00002000
-    DEBUG_FORMAT_USER_SMALL_FULL_AUXILIARY_STATE      = 0x00004000
-    DEBUG_FORMAT_USER_SMALL_MODULE_HEADERS            = 0x00008000
-    DEBUG_FORMAT_USER_SMALL_FILTER_TRIAGE             = 0x00010000
-    DEBUG_FORMAT_USER_SMALL_IGNORE_INACCESSIBLE_MEM   = 0x08000000
-    DEBUG_DUMP_FILE_BASE                              = 0xffffffff
-    DEBUG_DUMP_FILE_PAGE_FILE_DUMP                    = 0x00000000
-
+    DEBUG_FORMAT_USER_SMALL_NO_OPTIONAL_DATA = 0x00000200
+    DEBUG_FORMAT_USER_SMALL_FULL_MEMORY_INFO = 0x00000400
+    DEBUG_FORMAT_USER_SMALL_THREAD_INFO = 0x00000800
+    DEBUG_FORMAT_USER_SMALL_CODE_SEGMENTS = 0x00001000
+    DEBUG_FORMAT_USER_SMALL_NO_AUXILIARY_STATE = 0x00002000
+    DEBUG_FORMAT_USER_SMALL_FULL_AUXILIARY_STATE = 0x00004000
+    DEBUG_FORMAT_USER_SMALL_MODULE_HEADERS = 0x00008000
+    DEBUG_FORMAT_USER_SMALL_FILTER_TRIAGE = 0x00010000
+    DEBUG_FORMAT_USER_SMALL_IGNORE_INACCESSIBLE_MEM = 0x08000000
+    DEBUG_DUMP_FILE_BASE = 0xffffffff
+    DEBUG_DUMP_FILE_PAGE_FILE_DUMP = 0x00000000
     NUM_APIS = 56
 
     include Win32::WinTypes
@@ -851,7 +842,7 @@ module RawBuggery
         # AttachKernel(THIS_ In_(Flags) In_opt_(ConnectOptions))
         :AttachKernel => FFI::Function.new( HRESULT, [THIS_, ULONG, PCSTR], @vtable[3], :convention=>:stdcall  ),
         # GetKernelConnectionOptions(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(OptionsSize))
-        :GetKernelConnectionOptions => FFI::Function.new( HRESULT, [THIS_, PSTR, ULONG, PULONG], @vtable[4], :convention=>:stdcall  ),
+        :GetKernelConnectionOptions => FFI::Function.new( HRESULT, [THIS_, PSTR_OUT, ULONG, PULONG], @vtable[4], :convention=>:stdcall  ),
         # SetKernelConnectionOptions(THIS_ In_(Options))
         :SetKernelConnectionOptions => FFI::Function.new( HRESULT, [THIS_, PCSTR], @vtable[5], :convention=>:stdcall  ),
         # StartProcessServer(THIS_ In_(Flags) In_(Options) In_opt_(Reserved))
@@ -865,7 +856,7 @@ module RawBuggery
         # GetRunningProcessSystemIdByExecutableName(THIS_ In_(Server) In_(ExeName) In_(Flags) Out_(Id))
         :GetRunningProcessSystemIdByExecutableName => FFI::Function.new( HRESULT, [THIS_, ULONG64, PCSTR, ULONG, PULONG], @vtable[10], :convention=>:stdcall  ),
         # GetRunningProcessDescription(THIS_ In_(Server) In_(SystemId) In_(Flags) Out_writes_opt_(ExeNameSize)(ExeName) In_(ExeNameSize) Out_opt_(ActualExeNameSize) Out_writes_opt_(DescriptionSize)(Description) In_(DescriptionSize) Out_opt_(ActualDescriptionSize))
-        :GetRunningProcessDescription => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, ULONG, PSTR, ULONG, PULONG, PSTR, ULONG, PULONG], @vtable[11], :convention=>:stdcall  ),
+        :GetRunningProcessDescription => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, ULONG, PSTR_OUT, ULONG, PULONG, PSTR_OUT, ULONG, PULONG], @vtable[11], :convention=>:stdcall  ),
         # AttachProcess(THIS_ In_(Server) In_(ProcessId) In_(AttachFlags))
         :AttachProcess => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, ULONG], @vtable[12], :convention=>:stdcall  ),
         # CreateProcess(THIS_ In_(Server) In_(CommandLine) In_(CreateFlags))
@@ -925,11 +916,11 @@ module RawBuggery
         # SetOutputWidth(THIS_ In_(Columns))
         :SetOutputWidth => FFI::Function.new( HRESULT, [THIS_, ULONG], @vtable[40], :convention=>:stdcall  ),
         # GetOutputLinePrefix(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(PrefixSize))
-        :GetOutputLinePrefix => FFI::Function.new( HRESULT, [THIS_, PSTR, ULONG, PULONG], @vtable[41], :convention=>:stdcall  ),
+        :GetOutputLinePrefix => FFI::Function.new( HRESULT, [THIS_, PSTR_OUT, ULONG, PULONG], @vtable[41], :convention=>:stdcall  ),
         # SetOutputLinePrefix(THIS_ In_opt_(Prefix))
         :SetOutputLinePrefix => FFI::Function.new( HRESULT, [THIS_, PCSTR], @vtable[42], :convention=>:stdcall  ),
         # GetIdentity(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(IdentitySize))
-        :GetIdentity => FFI::Function.new( HRESULT, [THIS_, PSTR, ULONG, PULONG], @vtable[43], :convention=>:stdcall  ),
+        :GetIdentity => FFI::Function.new( HRESULT, [THIS_, PSTR_OUT, ULONG, PULONG], @vtable[43], :convention=>:stdcall  ),
         # OutputIdentity(THIS_ In_(OutputControl) In_(Flags) In_(Format))
         :OutputIdentity => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG, PCSTR], @vtable[44], :convention=>:stdcall  ),
         # GetEventCallbacks(THIS_ Out_(Callbacks))
@@ -968,7 +959,6 @@ module RawBuggery
   end
 
   class DebugClient3
-
     NUM_APIS = 60
 
     include Win32::WinTypes
@@ -994,7 +984,7 @@ module RawBuggery
         # AttachKernel(THIS_ In_(Flags) In_opt_(ConnectOptions))
         :AttachKernel => FFI::Function.new( HRESULT, [THIS_, ULONG, PCSTR], @vtable[3], :convention=>:stdcall  ),
         # GetKernelConnectionOptions(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(OptionsSize))
-        :GetKernelConnectionOptions => FFI::Function.new( HRESULT, [THIS_, PSTR, ULONG, PULONG], @vtable[4], :convention=>:stdcall  ),
+        :GetKernelConnectionOptions => FFI::Function.new( HRESULT, [THIS_, PSTR_OUT, ULONG, PULONG], @vtable[4], :convention=>:stdcall  ),
         # SetKernelConnectionOptions(THIS_ In_(Options))
         :SetKernelConnectionOptions => FFI::Function.new( HRESULT, [THIS_, PCSTR], @vtable[5], :convention=>:stdcall  ),
         # StartProcessServer(THIS_ In_(Flags) In_(Options) In_opt_(Reserved))
@@ -1008,7 +998,7 @@ module RawBuggery
         # GetRunningProcessSystemIdByExecutableName(THIS_ In_(Server) In_(ExeName) In_(Flags) Out_(Id))
         :GetRunningProcessSystemIdByExecutableName => FFI::Function.new( HRESULT, [THIS_, ULONG64, PCSTR, ULONG, PULONG], @vtable[10], :convention=>:stdcall  ),
         # GetRunningProcessDescription(THIS_ In_(Server) In_(SystemId) In_(Flags) Out_writes_opt_(ExeNameSize)(ExeName) In_(ExeNameSize) Out_opt_(ActualExeNameSize) Out_writes_opt_(DescriptionSize)(Description) In_(DescriptionSize) Out_opt_(ActualDescriptionSize))
-        :GetRunningProcessDescription => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, ULONG, PSTR, ULONG, PULONG, PSTR, ULONG, PULONG], @vtable[11], :convention=>:stdcall  ),
+        :GetRunningProcessDescription => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, ULONG, PSTR_OUT, ULONG, PULONG, PSTR_OUT, ULONG, PULONG], @vtable[11], :convention=>:stdcall  ),
         # AttachProcess(THIS_ In_(Server) In_(ProcessId) In_(AttachFlags))
         :AttachProcess => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, ULONG], @vtable[12], :convention=>:stdcall  ),
         # CreateProcess(THIS_ In_(Server) In_(CommandLine) In_(CreateFlags))
@@ -1068,11 +1058,11 @@ module RawBuggery
         # SetOutputWidth(THIS_ In_(Columns))
         :SetOutputWidth => FFI::Function.new( HRESULT, [THIS_, ULONG], @vtable[40], :convention=>:stdcall  ),
         # GetOutputLinePrefix(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(PrefixSize))
-        :GetOutputLinePrefix => FFI::Function.new( HRESULT, [THIS_, PSTR, ULONG, PULONG], @vtable[41], :convention=>:stdcall  ),
+        :GetOutputLinePrefix => FFI::Function.new( HRESULT, [THIS_, PSTR_OUT, ULONG, PULONG], @vtable[41], :convention=>:stdcall  ),
         # SetOutputLinePrefix(THIS_ In_opt_(Prefix))
         :SetOutputLinePrefix => FFI::Function.new( HRESULT, [THIS_, PCSTR], @vtable[42], :convention=>:stdcall  ),
         # GetIdentity(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(IdentitySize))
-        :GetIdentity => FFI::Function.new( HRESULT, [THIS_, PSTR, ULONG, PULONG], @vtable[43], :convention=>:stdcall  ),
+        :GetIdentity => FFI::Function.new( HRESULT, [THIS_, PSTR_OUT, ULONG, PULONG], @vtable[43], :convention=>:stdcall  ),
         # OutputIdentity(THIS_ In_(OutputControl) In_(Flags) In_(Format))
         :OutputIdentity => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG, PCSTR], @vtable[44], :convention=>:stdcall  ),
         # GetEventCallbacks(THIS_ Out_(Callbacks))
@@ -1100,7 +1090,7 @@ module RawBuggery
         # GetRunningProcessSystemIdByExecutableNameWide(THIS_ In_(Server) In_(ExeName) In_(Flags) Out_(Id))
         :GetRunningProcessSystemIdByExecutableNameWide => FFI::Function.new( HRESULT, [THIS_, ULONG64, PCWSTR, ULONG, PULONG], @vtable[56], :convention=>:stdcall  ),
         # GetRunningProcessDescriptionWide(THIS_ In_(Server) In_(SystemId) In_(Flags) Out_writes_opt_(ExeNameSize)(ExeName) In_(ExeNameSize) Out_opt_(ActualExeNameSize) Out_writes_opt_(DescriptionSize)(Description) In_(DescriptionSize) Out_opt_(ActualDescriptionSize))
-        :GetRunningProcessDescriptionWide => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, ULONG, PWSTR, ULONG, PULONG, PWSTR, ULONG, PULONG], @vtable[57], :convention=>:stdcall  ),
+        :GetRunningProcessDescriptionWide => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, ULONG, PWSTR_OUT, ULONG, PULONG, PWSTR_OUT, ULONG, PULONG], @vtable[57], :convention=>:stdcall  ),
         # CreateProcessWide(THIS_ In_(Server) In_(CommandLine) In_(CreateFlags))
         :CreateProcessWide => FFI::Function.new( HRESULT, [THIS_, ULONG64, PWSTR, ULONG], @vtable[58], :convention=>:stdcall  ),
         # CreateProcessAndAttachWide(THIS_ In_(Server) In_opt_(CommandLine) In_(CreateFlags) In_(ProcessId) In_(AttachFlags))
@@ -1119,10 +1109,8 @@ module RawBuggery
   end
 
   class DebugClient4
-
-    DEBUG_DUMP_FILE_LOAD_FAILED_INDEX  = 0xffffffff
+    DEBUG_DUMP_FILE_LOAD_FAILED_INDEX = 0xffffffff
     DEBUG_DUMP_FILE_ORIGINAL_CAB_INDEX = 0xfffffffe
-
     NUM_APIS = 66
 
     include Win32::WinTypes
@@ -1148,7 +1136,7 @@ module RawBuggery
         # AttachKernel(THIS_ In_(Flags) In_opt_(ConnectOptions))
         :AttachKernel => FFI::Function.new( HRESULT, [THIS_, ULONG, PCSTR], @vtable[3], :convention=>:stdcall  ),
         # GetKernelConnectionOptions(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(OptionsSize))
-        :GetKernelConnectionOptions => FFI::Function.new( HRESULT, [THIS_, PSTR, ULONG, PULONG], @vtable[4], :convention=>:stdcall  ),
+        :GetKernelConnectionOptions => FFI::Function.new( HRESULT, [THIS_, PSTR_OUT, ULONG, PULONG], @vtable[4], :convention=>:stdcall  ),
         # SetKernelConnectionOptions(THIS_ In_(Options))
         :SetKernelConnectionOptions => FFI::Function.new( HRESULT, [THIS_, PCSTR], @vtable[5], :convention=>:stdcall  ),
         # StartProcessServer(THIS_ In_(Flags) In_(Options) In_opt_(Reserved))
@@ -1162,7 +1150,7 @@ module RawBuggery
         # GetRunningProcessSystemIdByExecutableName(THIS_ In_(Server) In_(ExeName) In_(Flags) Out_(Id))
         :GetRunningProcessSystemIdByExecutableName => FFI::Function.new( HRESULT, [THIS_, ULONG64, PCSTR, ULONG, PULONG], @vtable[10], :convention=>:stdcall  ),
         # GetRunningProcessDescription(THIS_ In_(Server) In_(SystemId) In_(Flags) Out_writes_opt_(ExeNameSize)(ExeName) In_(ExeNameSize) Out_opt_(ActualExeNameSize) Out_writes_opt_(DescriptionSize)(Description) In_(DescriptionSize) Out_opt_(ActualDescriptionSize))
-        :GetRunningProcessDescription => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, ULONG, PSTR, ULONG, PULONG, PSTR, ULONG, PULONG], @vtable[11], :convention=>:stdcall  ),
+        :GetRunningProcessDescription => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, ULONG, PSTR_OUT, ULONG, PULONG, PSTR_OUT, ULONG, PULONG], @vtable[11], :convention=>:stdcall  ),
         # AttachProcess(THIS_ In_(Server) In_(ProcessId) In_(AttachFlags))
         :AttachProcess => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, ULONG], @vtable[12], :convention=>:stdcall  ),
         # CreateProcess(THIS_ In_(Server) In_(CommandLine) In_(CreateFlags))
@@ -1222,11 +1210,11 @@ module RawBuggery
         # SetOutputWidth(THIS_ In_(Columns))
         :SetOutputWidth => FFI::Function.new( HRESULT, [THIS_, ULONG], @vtable[40], :convention=>:stdcall  ),
         # GetOutputLinePrefix(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(PrefixSize))
-        :GetOutputLinePrefix => FFI::Function.new( HRESULT, [THIS_, PSTR, ULONG, PULONG], @vtable[41], :convention=>:stdcall  ),
+        :GetOutputLinePrefix => FFI::Function.new( HRESULT, [THIS_, PSTR_OUT, ULONG, PULONG], @vtable[41], :convention=>:stdcall  ),
         # SetOutputLinePrefix(THIS_ In_opt_(Prefix))
         :SetOutputLinePrefix => FFI::Function.new( HRESULT, [THIS_, PCSTR], @vtable[42], :convention=>:stdcall  ),
         # GetIdentity(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(IdentitySize))
-        :GetIdentity => FFI::Function.new( HRESULT, [THIS_, PSTR, ULONG, PULONG], @vtable[43], :convention=>:stdcall  ),
+        :GetIdentity => FFI::Function.new( HRESULT, [THIS_, PSTR_OUT, ULONG, PULONG], @vtable[43], :convention=>:stdcall  ),
         # OutputIdentity(THIS_ In_(OutputControl) In_(Flags) In_(Format))
         :OutputIdentity => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG, PCSTR], @vtable[44], :convention=>:stdcall  ),
         # GetEventCallbacks(THIS_ Out_(Callbacks))
@@ -1254,7 +1242,7 @@ module RawBuggery
         # GetRunningProcessSystemIdByExecutableNameWide(THIS_ In_(Server) In_(ExeName) In_(Flags) Out_(Id))
         :GetRunningProcessSystemIdByExecutableNameWide => FFI::Function.new( HRESULT, [THIS_, ULONG64, PCWSTR, ULONG, PULONG], @vtable[56], :convention=>:stdcall  ),
         # GetRunningProcessDescriptionWide(THIS_ In_(Server) In_(SystemId) In_(Flags) Out_writes_opt_(ExeNameSize)(ExeName) In_(ExeNameSize) Out_opt_(ActualExeNameSize) Out_writes_opt_(DescriptionSize)(Description) In_(DescriptionSize) Out_opt_(ActualDescriptionSize))
-        :GetRunningProcessDescriptionWide => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, ULONG, PWSTR, ULONG, PULONG, PWSTR, ULONG, PULONG], @vtable[57], :convention=>:stdcall  ),
+        :GetRunningProcessDescriptionWide => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, ULONG, PWSTR_OUT, ULONG, PULONG, PWSTR_OUT, ULONG, PULONG], @vtable[57], :convention=>:stdcall  ),
         # CreateProcessWide(THIS_ In_(Server) In_(CommandLine) In_(CreateFlags))
         :CreateProcessWide => FFI::Function.new( HRESULT, [THIS_, ULONG64, PWSTR, ULONG], @vtable[58], :convention=>:stdcall  ),
         # CreateProcessAndAttachWide(THIS_ In_(Server) In_opt_(CommandLine) In_(CreateFlags) In_(ProcessId) In_(AttachFlags))
@@ -1268,9 +1256,9 @@ module RawBuggery
         # GetNumberDumpFiles(THIS_ Out_(Number))
         :GetNumberDumpFiles => FFI::Function.new( HRESULT, [THIS_, PULONG], @vtable[63], :convention=>:stdcall  ),
         # GetDumpFile(THIS_ In_(Index) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(NameSize) Out_opt_(Handle) Out_(Type))
-        :GetDumpFile => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR, ULONG, PULONG, PULONG64, PULONG], @vtable[64], :convention=>:stdcall  ),
+        :GetDumpFile => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR_OUT, ULONG, PULONG, PULONG64, PULONG], @vtable[64], :convention=>:stdcall  ),
         # GetDumpFileWide(THIS_ In_(Index) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(NameSize) Out_opt_(Handle) Out_(Type))
-        :GetDumpFileWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PWSTR, ULONG, PULONG, PULONG64, PULONG], @vtable[65], :convention=>:stdcall  )
+        :GetDumpFileWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PWSTR_OUT, ULONG, PULONG, PULONG64, PULONG], @vtable[65], :convention=>:stdcall  )
       }
     end
 
@@ -1285,7 +1273,6 @@ module RawBuggery
   end
 
   class DebugClient5
-
     NUM_APIS = 95
 
     include Win32::WinTypes
@@ -1311,7 +1298,7 @@ module RawBuggery
         # AttachKernel(THIS_ In_(Flags) In_opt_(ConnectOptions))
         :AttachKernel => FFI::Function.new( HRESULT, [THIS_, ULONG, PCSTR], @vtable[3], :convention=>:stdcall  ),
         # GetKernelConnectionOptions(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(OptionsSize))
-        :GetKernelConnectionOptions => FFI::Function.new( HRESULT, [THIS_, PSTR, ULONG, PULONG], @vtable[4], :convention=>:stdcall  ),
+        :GetKernelConnectionOptions => FFI::Function.new( HRESULT, [THIS_, PSTR_OUT, ULONG, PULONG], @vtable[4], :convention=>:stdcall  ),
         # SetKernelConnectionOptions(THIS_ In_(Options))
         :SetKernelConnectionOptions => FFI::Function.new( HRESULT, [THIS_, PCSTR], @vtable[5], :convention=>:stdcall  ),
         # StartProcessServer(THIS_ In_(Flags) In_(Options) In_opt_(Reserved))
@@ -1325,7 +1312,7 @@ module RawBuggery
         # GetRunningProcessSystemIdByExecutableName(THIS_ In_(Server) In_(ExeName) In_(Flags) Out_(Id))
         :GetRunningProcessSystemIdByExecutableName => FFI::Function.new( HRESULT, [THIS_, ULONG64, PCSTR, ULONG, PULONG], @vtable[10], :convention=>:stdcall  ),
         # GetRunningProcessDescription(THIS_ In_(Server) In_(SystemId) In_(Flags) Out_writes_opt_(ExeNameSize)(ExeName) In_(ExeNameSize) Out_opt_(ActualExeNameSize) Out_writes_opt_(DescriptionSize)(Description) In_(DescriptionSize) Out_opt_(ActualDescriptionSize))
-        :GetRunningProcessDescription => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, ULONG, PSTR, ULONG, PULONG, PSTR, ULONG, PULONG], @vtable[11], :convention=>:stdcall  ),
+        :GetRunningProcessDescription => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, ULONG, PSTR_OUT, ULONG, PULONG, PSTR_OUT, ULONG, PULONG], @vtable[11], :convention=>:stdcall  ),
         # AttachProcess(THIS_ In_(Server) In_(ProcessId) In_(AttachFlags))
         :AttachProcess => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, ULONG], @vtable[12], :convention=>:stdcall  ),
         # CreateProcess(THIS_ In_(Server) In_(CommandLine) In_(CreateFlags))
@@ -1385,11 +1372,11 @@ module RawBuggery
         # SetOutputWidth(THIS_ In_(Columns))
         :SetOutputWidth => FFI::Function.new( HRESULT, [THIS_, ULONG], @vtable[40], :convention=>:stdcall  ),
         # GetOutputLinePrefix(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(PrefixSize))
-        :GetOutputLinePrefix => FFI::Function.new( HRESULT, [THIS_, PSTR, ULONG, PULONG], @vtable[41], :convention=>:stdcall  ),
+        :GetOutputLinePrefix => FFI::Function.new( HRESULT, [THIS_, PSTR_OUT, ULONG, PULONG], @vtable[41], :convention=>:stdcall  ),
         # SetOutputLinePrefix(THIS_ In_opt_(Prefix))
         :SetOutputLinePrefix => FFI::Function.new( HRESULT, [THIS_, PCSTR], @vtable[42], :convention=>:stdcall  ),
         # GetIdentity(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(IdentitySize))
-        :GetIdentity => FFI::Function.new( HRESULT, [THIS_, PSTR, ULONG, PULONG], @vtable[43], :convention=>:stdcall  ),
+        :GetIdentity => FFI::Function.new( HRESULT, [THIS_, PSTR_OUT, ULONG, PULONG], @vtable[43], :convention=>:stdcall  ),
         # OutputIdentity(THIS_ In_(OutputControl) In_(Flags) In_(Format))
         :OutputIdentity => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG, PCSTR], @vtable[44], :convention=>:stdcall  ),
         # GetEventCallbacks(THIS_ Out_(Callbacks))
@@ -1417,7 +1404,7 @@ module RawBuggery
         # GetRunningProcessSystemIdByExecutableNameWide(THIS_ In_(Server) In_(ExeName) In_(Flags) Out_(Id))
         :GetRunningProcessSystemIdByExecutableNameWide => FFI::Function.new( HRESULT, [THIS_, ULONG64, PCWSTR, ULONG, PULONG], @vtable[56], :convention=>:stdcall  ),
         # GetRunningProcessDescriptionWide(THIS_ In_(Server) In_(SystemId) In_(Flags) Out_writes_opt_(ExeNameSize)(ExeName) In_(ExeNameSize) Out_opt_(ActualExeNameSize) Out_writes_opt_(DescriptionSize)(Description) In_(DescriptionSize) Out_opt_(ActualDescriptionSize))
-        :GetRunningProcessDescriptionWide => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, ULONG, PWSTR, ULONG, PULONG, PWSTR, ULONG, PULONG], @vtable[57], :convention=>:stdcall  ),
+        :GetRunningProcessDescriptionWide => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, ULONG, PWSTR_OUT, ULONG, PULONG, PWSTR_OUT, ULONG, PULONG], @vtable[57], :convention=>:stdcall  ),
         # CreateProcessWide(THIS_ In_(Server) In_(CommandLine) In_(CreateFlags))
         :CreateProcessWide => FFI::Function.new( HRESULT, [THIS_, ULONG64, PWSTR, ULONG], @vtable[58], :convention=>:stdcall  ),
         # CreateProcessAndAttachWide(THIS_ In_(Server) In_opt_(CommandLine) In_(CreateFlags) In_(ProcessId) In_(AttachFlags))
@@ -1431,13 +1418,13 @@ module RawBuggery
         # GetNumberDumpFiles(THIS_ Out_(Number))
         :GetNumberDumpFiles => FFI::Function.new( HRESULT, [THIS_, PULONG], @vtable[63], :convention=>:stdcall  ),
         # GetDumpFile(THIS_ In_(Index) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(NameSize) Out_opt_(Handle) Out_(Type))
-        :GetDumpFile => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR, ULONG, PULONG, PULONG64, PULONG], @vtable[64], :convention=>:stdcall  ),
+        :GetDumpFile => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR_OUT, ULONG, PULONG, PULONG64, PULONG], @vtable[64], :convention=>:stdcall  ),
         # GetDumpFileWide(THIS_ In_(Index) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(NameSize) Out_opt_(Handle) Out_(Type))
-        :GetDumpFileWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PWSTR, ULONG, PULONG, PULONG64, PULONG], @vtable[65], :convention=>:stdcall  ),
+        :GetDumpFileWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PWSTR_OUT, ULONG, PULONG, PULONG64, PULONG], @vtable[65], :convention=>:stdcall  ),
         # AttachKernelWide(THIS_ In_(Flags) In_opt_(ConnectOptions))
         :AttachKernelWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PCWSTR], @vtable[66], :convention=>:stdcall  ),
         # GetKernelConnectionOptionsWide(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(OptionsSize))
-        :GetKernelConnectionOptionsWide => FFI::Function.new( HRESULT, [THIS_, PWSTR, ULONG, PULONG], @vtable[67], :convention=>:stdcall  ),
+        :GetKernelConnectionOptionsWide => FFI::Function.new( HRESULT, [THIS_, PWSTR_OUT, ULONG, PULONG], @vtable[67], :convention=>:stdcall  ),
         # SetKernelConnectionOptionsWide(THIS_ In_(Options))
         :SetKernelConnectionOptionsWide => FFI::Function.new( HRESULT, [THIS_, PCWSTR], @vtable[68], :convention=>:stdcall  ),
         # StartProcessServerWide(THIS_ In_(Flags) In_(Options) In_opt_(Reserved))
@@ -1453,11 +1440,11 @@ module RawBuggery
         # SetOutputCallbacksWide(THIS_ In_(Callbacks))
         :SetOutputCallbacksWide => FFI::Function.new( HRESULT, [THIS_, PDEBUG_OUTPUT_CALLBACKS_WIDE], @vtable[74], :convention=>:stdcall  ),
         # GetOutputLinePrefixWide(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(PrefixSize))
-        :GetOutputLinePrefixWide => FFI::Function.new( HRESULT, [THIS_, PWSTR, ULONG, PULONG], @vtable[75], :convention=>:stdcall  ),
+        :GetOutputLinePrefixWide => FFI::Function.new( HRESULT, [THIS_, PWSTR_OUT, ULONG, PULONG], @vtable[75], :convention=>:stdcall  ),
         # SetOutputLinePrefixWide(THIS_ In_opt_(Prefix))
         :SetOutputLinePrefixWide => FFI::Function.new( HRESULT, [THIS_, PCWSTR], @vtable[76], :convention=>:stdcall  ),
         # GetIdentityWide(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(IdentitySize))
-        :GetIdentityWide => FFI::Function.new( HRESULT, [THIS_, PWSTR, ULONG, PULONG], @vtable[77], :convention=>:stdcall  ),
+        :GetIdentityWide => FFI::Function.new( HRESULT, [THIS_, PWSTR_OUT, ULONG, PULONG], @vtable[77], :convention=>:stdcall  ),
         # OutputIdentityWide(THIS_ In_(OutputControl) In_(Flags) In_(Format))
         :OutputIdentityWide => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG, PCWSTR], @vtable[78], :convention=>:stdcall  ),
         # GetEventCallbacksWide(THIS_ Out_(Callbacks))
@@ -1485,11 +1472,11 @@ module RawBuggery
         # GetNumberEventCallbacks(THIS_ In_(EventFlags) Out_(Count))
         :GetNumberEventCallbacks => FFI::Function.new( HRESULT, [THIS_, ULONG, PULONG], @vtable[90], :convention=>:stdcall  ),
         # GetQuitLockString(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(StringSize))
-        :GetQuitLockString => FFI::Function.new( HRESULT, [THIS_, PSTR, ULONG, PULONG], @vtable[91], :convention=>:stdcall  ),
+        :GetQuitLockString => FFI::Function.new( HRESULT, [THIS_, PSTR_OUT, ULONG, PULONG], @vtable[91], :convention=>:stdcall  ),
         # SetQuitLockString(THIS_ In_(String))
         :SetQuitLockString => FFI::Function.new( HRESULT, [THIS_, PCSTR], @vtable[92], :convention=>:stdcall  ),
         # GetQuitLockStringWide(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(StringSize))
-        :GetQuitLockStringWide => FFI::Function.new( HRESULT, [THIS_, PWSTR, ULONG, PULONG], @vtable[93], :convention=>:stdcall  ),
+        :GetQuitLockStringWide => FFI::Function.new( HRESULT, [THIS_, PWSTR_OUT, ULONG, PULONG], @vtable[93], :convention=>:stdcall  ),
         # SetQuitLockStringWide(THIS_ In_(String))
         :SetQuitLockStringWide => FFI::Function.new( HRESULT, [THIS_, PCWSTR], @vtable[94], :convention=>:stdcall  )
       }
@@ -1506,7 +1493,6 @@ module RawBuggery
   end
 
   class DebugClient6
-
     NUM_APIS = 96
 
     include Win32::WinTypes
@@ -1532,7 +1518,7 @@ module RawBuggery
         # AttachKernel(THIS_ In_(Flags) In_opt_(ConnectOptions))
         :AttachKernel => FFI::Function.new( HRESULT, [THIS_, ULONG, PCSTR], @vtable[3], :convention=>:stdcall  ),
         # GetKernelConnectionOptions(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(OptionsSize))
-        :GetKernelConnectionOptions => FFI::Function.new( HRESULT, [THIS_, PSTR, ULONG, PULONG], @vtable[4], :convention=>:stdcall  ),
+        :GetKernelConnectionOptions => FFI::Function.new( HRESULT, [THIS_, PSTR_OUT, ULONG, PULONG], @vtable[4], :convention=>:stdcall  ),
         # SetKernelConnectionOptions(THIS_ In_(Options))
         :SetKernelConnectionOptions => FFI::Function.new( HRESULT, [THIS_, PCSTR], @vtable[5], :convention=>:stdcall  ),
         # StartProcessServer(THIS_ In_(Flags) In_(Options) In_opt_(Reserved))
@@ -1546,7 +1532,7 @@ module RawBuggery
         # GetRunningProcessSystemIdByExecutableName(THIS_ In_(Server) In_(ExeName) In_(Flags) Out_(Id))
         :GetRunningProcessSystemIdByExecutableName => FFI::Function.new( HRESULT, [THIS_, ULONG64, PCSTR, ULONG, PULONG], @vtable[10], :convention=>:stdcall  ),
         # GetRunningProcessDescription(THIS_ In_(Server) In_(SystemId) In_(Flags) Out_writes_opt_(ExeNameSize)(ExeName) In_(ExeNameSize) Out_opt_(ActualExeNameSize) Out_writes_opt_(DescriptionSize)(Description) In_(DescriptionSize) Out_opt_(ActualDescriptionSize))
-        :GetRunningProcessDescription => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, ULONG, PSTR, ULONG, PULONG, PSTR, ULONG, PULONG], @vtable[11], :convention=>:stdcall  ),
+        :GetRunningProcessDescription => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, ULONG, PSTR_OUT, ULONG, PULONG, PSTR_OUT, ULONG, PULONG], @vtable[11], :convention=>:stdcall  ),
         # AttachProcess(THIS_ In_(Server) In_(ProcessId) In_(AttachFlags))
         :AttachProcess => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, ULONG], @vtable[12], :convention=>:stdcall  ),
         # CreateProcess(THIS_ In_(Server) In_(CommandLine) In_(CreateFlags))
@@ -1606,11 +1592,11 @@ module RawBuggery
         # SetOutputWidth(THIS_ In_(Columns))
         :SetOutputWidth => FFI::Function.new( HRESULT, [THIS_, ULONG], @vtable[40], :convention=>:stdcall  ),
         # GetOutputLinePrefix(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(PrefixSize))
-        :GetOutputLinePrefix => FFI::Function.new( HRESULT, [THIS_, PSTR, ULONG, PULONG], @vtable[41], :convention=>:stdcall  ),
+        :GetOutputLinePrefix => FFI::Function.new( HRESULT, [THIS_, PSTR_OUT, ULONG, PULONG], @vtable[41], :convention=>:stdcall  ),
         # SetOutputLinePrefix(THIS_ In_opt_(Prefix))
         :SetOutputLinePrefix => FFI::Function.new( HRESULT, [THIS_, PCSTR], @vtable[42], :convention=>:stdcall  ),
         # GetIdentity(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(IdentitySize))
-        :GetIdentity => FFI::Function.new( HRESULT, [THIS_, PSTR, ULONG, PULONG], @vtable[43], :convention=>:stdcall  ),
+        :GetIdentity => FFI::Function.new( HRESULT, [THIS_, PSTR_OUT, ULONG, PULONG], @vtable[43], :convention=>:stdcall  ),
         # OutputIdentity(THIS_ In_(OutputControl) In_(Flags) In_(Format))
         :OutputIdentity => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG, PCSTR], @vtable[44], :convention=>:stdcall  ),
         # GetEventCallbacks(THIS_ Out_(Callbacks))
@@ -1638,7 +1624,7 @@ module RawBuggery
         # GetRunningProcessSystemIdByExecutableNameWide(THIS_ In_(Server) In_(ExeName) In_(Flags) Out_(Id))
         :GetRunningProcessSystemIdByExecutableNameWide => FFI::Function.new( HRESULT, [THIS_, ULONG64, PCWSTR, ULONG, PULONG], @vtable[56], :convention=>:stdcall  ),
         # GetRunningProcessDescriptionWide(THIS_ In_(Server) In_(SystemId) In_(Flags) Out_writes_opt_(ExeNameSize)(ExeName) In_(ExeNameSize) Out_opt_(ActualExeNameSize) Out_writes_opt_(DescriptionSize)(Description) In_(DescriptionSize) Out_opt_(ActualDescriptionSize))
-        :GetRunningProcessDescriptionWide => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, ULONG, PWSTR, ULONG, PULONG, PWSTR, ULONG, PULONG], @vtable[57], :convention=>:stdcall  ),
+        :GetRunningProcessDescriptionWide => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, ULONG, PWSTR_OUT, ULONG, PULONG, PWSTR_OUT, ULONG, PULONG], @vtable[57], :convention=>:stdcall  ),
         # CreateProcessWide(THIS_ In_(Server) In_(CommandLine) In_(CreateFlags))
         :CreateProcessWide => FFI::Function.new( HRESULT, [THIS_, ULONG64, PWSTR, ULONG], @vtable[58], :convention=>:stdcall  ),
         # CreateProcessAndAttachWide(THIS_ In_(Server) In_opt_(CommandLine) In_(CreateFlags) In_(ProcessId) In_(AttachFlags))
@@ -1652,13 +1638,13 @@ module RawBuggery
         # GetNumberDumpFiles(THIS_ Out_(Number))
         :GetNumberDumpFiles => FFI::Function.new( HRESULT, [THIS_, PULONG], @vtable[63], :convention=>:stdcall  ),
         # GetDumpFile(THIS_ In_(Index) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(NameSize) Out_opt_(Handle) Out_(Type))
-        :GetDumpFile => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR, ULONG, PULONG, PULONG64, PULONG], @vtable[64], :convention=>:stdcall  ),
+        :GetDumpFile => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR_OUT, ULONG, PULONG, PULONG64, PULONG], @vtable[64], :convention=>:stdcall  ),
         # GetDumpFileWide(THIS_ In_(Index) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(NameSize) Out_opt_(Handle) Out_(Type))
-        :GetDumpFileWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PWSTR, ULONG, PULONG, PULONG64, PULONG], @vtable[65], :convention=>:stdcall  ),
+        :GetDumpFileWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PWSTR_OUT, ULONG, PULONG, PULONG64, PULONG], @vtable[65], :convention=>:stdcall  ),
         # AttachKernelWide(THIS_ In_(Flags) In_opt_(ConnectOptions))
         :AttachKernelWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PCWSTR], @vtable[66], :convention=>:stdcall  ),
         # GetKernelConnectionOptionsWide(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(OptionsSize))
-        :GetKernelConnectionOptionsWide => FFI::Function.new( HRESULT, [THIS_, PWSTR, ULONG, PULONG], @vtable[67], :convention=>:stdcall  ),
+        :GetKernelConnectionOptionsWide => FFI::Function.new( HRESULT, [THIS_, PWSTR_OUT, ULONG, PULONG], @vtable[67], :convention=>:stdcall  ),
         # SetKernelConnectionOptionsWide(THIS_ In_(Options))
         :SetKernelConnectionOptionsWide => FFI::Function.new( HRESULT, [THIS_, PCWSTR], @vtable[68], :convention=>:stdcall  ),
         # StartProcessServerWide(THIS_ In_(Flags) In_(Options) In_opt_(Reserved))
@@ -1674,11 +1660,11 @@ module RawBuggery
         # SetOutputCallbacksWide(THIS_ In_(Callbacks))
         :SetOutputCallbacksWide => FFI::Function.new( HRESULT, [THIS_, PDEBUG_OUTPUT_CALLBACKS_WIDE], @vtable[74], :convention=>:stdcall  ),
         # GetOutputLinePrefixWide(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(PrefixSize))
-        :GetOutputLinePrefixWide => FFI::Function.new( HRESULT, [THIS_, PWSTR, ULONG, PULONG], @vtable[75], :convention=>:stdcall  ),
+        :GetOutputLinePrefixWide => FFI::Function.new( HRESULT, [THIS_, PWSTR_OUT, ULONG, PULONG], @vtable[75], :convention=>:stdcall  ),
         # SetOutputLinePrefixWide(THIS_ In_opt_(Prefix))
         :SetOutputLinePrefixWide => FFI::Function.new( HRESULT, [THIS_, PCWSTR], @vtable[76], :convention=>:stdcall  ),
         # GetIdentityWide(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(IdentitySize))
-        :GetIdentityWide => FFI::Function.new( HRESULT, [THIS_, PWSTR, ULONG, PULONG], @vtable[77], :convention=>:stdcall  ),
+        :GetIdentityWide => FFI::Function.new( HRESULT, [THIS_, PWSTR_OUT, ULONG, PULONG], @vtable[77], :convention=>:stdcall  ),
         # OutputIdentityWide(THIS_ In_(OutputControl) In_(Flags) In_(Format))
         :OutputIdentityWide => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG, PCWSTR], @vtable[78], :convention=>:stdcall  ),
         # GetEventCallbacksWide(THIS_ Out_(Callbacks))
@@ -1706,11 +1692,11 @@ module RawBuggery
         # GetNumberEventCallbacks(THIS_ In_(EventFlags) Out_(Count))
         :GetNumberEventCallbacks => FFI::Function.new( HRESULT, [THIS_, ULONG, PULONG], @vtable[90], :convention=>:stdcall  ),
         # GetQuitLockString(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(StringSize))
-        :GetQuitLockString => FFI::Function.new( HRESULT, [THIS_, PSTR, ULONG, PULONG], @vtable[91], :convention=>:stdcall  ),
+        :GetQuitLockString => FFI::Function.new( HRESULT, [THIS_, PSTR_OUT, ULONG, PULONG], @vtable[91], :convention=>:stdcall  ),
         # SetQuitLockString(THIS_ In_(String))
         :SetQuitLockString => FFI::Function.new( HRESULT, [THIS_, PCSTR], @vtable[92], :convention=>:stdcall  ),
         # GetQuitLockStringWide(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(StringSize))
-        :GetQuitLockStringWide => FFI::Function.new( HRESULT, [THIS_, PWSTR, ULONG, PULONG], @vtable[93], :convention=>:stdcall  ),
+        :GetQuitLockStringWide => FFI::Function.new( HRESULT, [THIS_, PWSTR_OUT, ULONG, PULONG], @vtable[93], :convention=>:stdcall  ),
         # SetQuitLockStringWide(THIS_ In_(String))
         :SetQuitLockStringWide => FFI::Function.new( HRESULT, [THIS_, PCWSTR], @vtable[94], :convention=>:stdcall  ),
         # SetEventContextCallbacks(THIS_ In_opt_(Callbacks))
@@ -1729,7 +1715,6 @@ module RawBuggery
   end
 
   class DebugClient7
-
     NUM_APIS = 97
 
     include Win32::WinTypes
@@ -1755,7 +1740,7 @@ module RawBuggery
         # AttachKernel(THIS_ In_(Flags) In_opt_(ConnectOptions))
         :AttachKernel => FFI::Function.new( HRESULT, [THIS_, ULONG, PCSTR], @vtable[3], :convention=>:stdcall  ),
         # GetKernelConnectionOptions(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(OptionsSize))
-        :GetKernelConnectionOptions => FFI::Function.new( HRESULT, [THIS_, PSTR, ULONG, PULONG], @vtable[4], :convention=>:stdcall  ),
+        :GetKernelConnectionOptions => FFI::Function.new( HRESULT, [THIS_, PSTR_OUT, ULONG, PULONG], @vtable[4], :convention=>:stdcall  ),
         # SetKernelConnectionOptions(THIS_ In_(Options))
         :SetKernelConnectionOptions => FFI::Function.new( HRESULT, [THIS_, PCSTR], @vtable[5], :convention=>:stdcall  ),
         # StartProcessServer(THIS_ In_(Flags) In_(Options) In_opt_(Reserved))
@@ -1769,7 +1754,7 @@ module RawBuggery
         # GetRunningProcessSystemIdByExecutableName(THIS_ In_(Server) In_(ExeName) In_(Flags) Out_(Id))
         :GetRunningProcessSystemIdByExecutableName => FFI::Function.new( HRESULT, [THIS_, ULONG64, PCSTR, ULONG, PULONG], @vtable[10], :convention=>:stdcall  ),
         # GetRunningProcessDescription(THIS_ In_(Server) In_(SystemId) In_(Flags) Out_writes_opt_(ExeNameSize)(ExeName) In_(ExeNameSize) Out_opt_(ActualExeNameSize) Out_writes_opt_(DescriptionSize)(Description) In_(DescriptionSize) Out_opt_(ActualDescriptionSize))
-        :GetRunningProcessDescription => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, ULONG, PSTR, ULONG, PULONG, PSTR, ULONG, PULONG], @vtable[11], :convention=>:stdcall  ),
+        :GetRunningProcessDescription => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, ULONG, PSTR_OUT, ULONG, PULONG, PSTR_OUT, ULONG, PULONG], @vtable[11], :convention=>:stdcall  ),
         # AttachProcess(THIS_ In_(Server) In_(ProcessId) In_(AttachFlags))
         :AttachProcess => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, ULONG], @vtable[12], :convention=>:stdcall  ),
         # CreateProcess(THIS_ In_(Server) In_(CommandLine) In_(CreateFlags))
@@ -1829,11 +1814,11 @@ module RawBuggery
         # SetOutputWidth(THIS_ In_(Columns))
         :SetOutputWidth => FFI::Function.new( HRESULT, [THIS_, ULONG], @vtable[40], :convention=>:stdcall  ),
         # GetOutputLinePrefix(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(PrefixSize))
-        :GetOutputLinePrefix => FFI::Function.new( HRESULT, [THIS_, PSTR, ULONG, PULONG], @vtable[41], :convention=>:stdcall  ),
+        :GetOutputLinePrefix => FFI::Function.new( HRESULT, [THIS_, PSTR_OUT, ULONG, PULONG], @vtable[41], :convention=>:stdcall  ),
         # SetOutputLinePrefix(THIS_ In_opt_(Prefix))
         :SetOutputLinePrefix => FFI::Function.new( HRESULT, [THIS_, PCSTR], @vtable[42], :convention=>:stdcall  ),
         # GetIdentity(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(IdentitySize))
-        :GetIdentity => FFI::Function.new( HRESULT, [THIS_, PSTR, ULONG, PULONG], @vtable[43], :convention=>:stdcall  ),
+        :GetIdentity => FFI::Function.new( HRESULT, [THIS_, PSTR_OUT, ULONG, PULONG], @vtable[43], :convention=>:stdcall  ),
         # OutputIdentity(THIS_ In_(OutputControl) In_(Flags) In_(Format))
         :OutputIdentity => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG, PCSTR], @vtable[44], :convention=>:stdcall  ),
         # GetEventCallbacks(THIS_ Out_(Callbacks))
@@ -1861,7 +1846,7 @@ module RawBuggery
         # GetRunningProcessSystemIdByExecutableNameWide(THIS_ In_(Server) In_(ExeName) In_(Flags) Out_(Id))
         :GetRunningProcessSystemIdByExecutableNameWide => FFI::Function.new( HRESULT, [THIS_, ULONG64, PCWSTR, ULONG, PULONG], @vtable[56], :convention=>:stdcall  ),
         # GetRunningProcessDescriptionWide(THIS_ In_(Server) In_(SystemId) In_(Flags) Out_writes_opt_(ExeNameSize)(ExeName) In_(ExeNameSize) Out_opt_(ActualExeNameSize) Out_writes_opt_(DescriptionSize)(Description) In_(DescriptionSize) Out_opt_(ActualDescriptionSize))
-        :GetRunningProcessDescriptionWide => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, ULONG, PWSTR, ULONG, PULONG, PWSTR, ULONG, PULONG], @vtable[57], :convention=>:stdcall  ),
+        :GetRunningProcessDescriptionWide => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, ULONG, PWSTR_OUT, ULONG, PULONG, PWSTR_OUT, ULONG, PULONG], @vtable[57], :convention=>:stdcall  ),
         # CreateProcessWide(THIS_ In_(Server) In_(CommandLine) In_(CreateFlags))
         :CreateProcessWide => FFI::Function.new( HRESULT, [THIS_, ULONG64, PWSTR, ULONG], @vtable[58], :convention=>:stdcall  ),
         # CreateProcessAndAttachWide(THIS_ In_(Server) In_opt_(CommandLine) In_(CreateFlags) In_(ProcessId) In_(AttachFlags))
@@ -1875,13 +1860,13 @@ module RawBuggery
         # GetNumberDumpFiles(THIS_ Out_(Number))
         :GetNumberDumpFiles => FFI::Function.new( HRESULT, [THIS_, PULONG], @vtable[63], :convention=>:stdcall  ),
         # GetDumpFile(THIS_ In_(Index) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(NameSize) Out_opt_(Handle) Out_(Type))
-        :GetDumpFile => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR, ULONG, PULONG, PULONG64, PULONG], @vtable[64], :convention=>:stdcall  ),
+        :GetDumpFile => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR_OUT, ULONG, PULONG, PULONG64, PULONG], @vtable[64], :convention=>:stdcall  ),
         # GetDumpFileWide(THIS_ In_(Index) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(NameSize) Out_opt_(Handle) Out_(Type))
-        :GetDumpFileWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PWSTR, ULONG, PULONG, PULONG64, PULONG], @vtable[65], :convention=>:stdcall  ),
+        :GetDumpFileWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PWSTR_OUT, ULONG, PULONG, PULONG64, PULONG], @vtable[65], :convention=>:stdcall  ),
         # AttachKernelWide(THIS_ In_(Flags) In_opt_(ConnectOptions))
         :AttachKernelWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PCWSTR], @vtable[66], :convention=>:stdcall  ),
         # GetKernelConnectionOptionsWide(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(OptionsSize))
-        :GetKernelConnectionOptionsWide => FFI::Function.new( HRESULT, [THIS_, PWSTR, ULONG, PULONG], @vtable[67], :convention=>:stdcall  ),
+        :GetKernelConnectionOptionsWide => FFI::Function.new( HRESULT, [THIS_, PWSTR_OUT, ULONG, PULONG], @vtable[67], :convention=>:stdcall  ),
         # SetKernelConnectionOptionsWide(THIS_ In_(Options))
         :SetKernelConnectionOptionsWide => FFI::Function.new( HRESULT, [THIS_, PCWSTR], @vtable[68], :convention=>:stdcall  ),
         # StartProcessServerWide(THIS_ In_(Flags) In_(Options) In_opt_(Reserved))
@@ -1897,11 +1882,11 @@ module RawBuggery
         # SetOutputCallbacksWide(THIS_ In_(Callbacks))
         :SetOutputCallbacksWide => FFI::Function.new( HRESULT, [THIS_, PDEBUG_OUTPUT_CALLBACKS_WIDE], @vtable[74], :convention=>:stdcall  ),
         # GetOutputLinePrefixWide(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(PrefixSize))
-        :GetOutputLinePrefixWide => FFI::Function.new( HRESULT, [THIS_, PWSTR, ULONG, PULONG], @vtable[75], :convention=>:stdcall  ),
+        :GetOutputLinePrefixWide => FFI::Function.new( HRESULT, [THIS_, PWSTR_OUT, ULONG, PULONG], @vtable[75], :convention=>:stdcall  ),
         # SetOutputLinePrefixWide(THIS_ In_opt_(Prefix))
         :SetOutputLinePrefixWide => FFI::Function.new( HRESULT, [THIS_, PCWSTR], @vtable[76], :convention=>:stdcall  ),
         # GetIdentityWide(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(IdentitySize))
-        :GetIdentityWide => FFI::Function.new( HRESULT, [THIS_, PWSTR, ULONG, PULONG], @vtable[77], :convention=>:stdcall  ),
+        :GetIdentityWide => FFI::Function.new( HRESULT, [THIS_, PWSTR_OUT, ULONG, PULONG], @vtable[77], :convention=>:stdcall  ),
         # OutputIdentityWide(THIS_ In_(OutputControl) In_(Flags) In_(Format))
         :OutputIdentityWide => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG, PCWSTR], @vtable[78], :convention=>:stdcall  ),
         # GetEventCallbacksWide(THIS_ Out_(Callbacks))
@@ -1929,11 +1914,11 @@ module RawBuggery
         # GetNumberEventCallbacks(THIS_ In_(EventFlags) Out_(Count))
         :GetNumberEventCallbacks => FFI::Function.new( HRESULT, [THIS_, ULONG, PULONG], @vtable[90], :convention=>:stdcall  ),
         # GetQuitLockString(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(StringSize))
-        :GetQuitLockString => FFI::Function.new( HRESULT, [THIS_, PSTR, ULONG, PULONG], @vtable[91], :convention=>:stdcall  ),
+        :GetQuitLockString => FFI::Function.new( HRESULT, [THIS_, PSTR_OUT, ULONG, PULONG], @vtable[91], :convention=>:stdcall  ),
         # SetQuitLockString(THIS_ In_(String))
         :SetQuitLockString => FFI::Function.new( HRESULT, [THIS_, PCSTR], @vtable[92], :convention=>:stdcall  ),
         # GetQuitLockStringWide(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(StringSize))
-        :GetQuitLockStringWide => FFI::Function.new( HRESULT, [THIS_, PWSTR, ULONG, PULONG], @vtable[93], :convention=>:stdcall  ),
+        :GetQuitLockStringWide => FFI::Function.new( HRESULT, [THIS_, PWSTR_OUT, ULONG, PULONG], @vtable[93], :convention=>:stdcall  ),
         # SetQuitLockStringWide(THIS_ In_(String))
         :SetQuitLockStringWide => FFI::Function.new( HRESULT, [THIS_, PCWSTR], @vtable[94], :convention=>:stdcall  ),
         # SetEventContextCallbacks(THIS_ In_opt_(Callbacks))
@@ -1954,157 +1939,156 @@ module RawBuggery
   end
 
   class DebugControl
-
-    DEBUG_STATUS_NO_CHANGE                   = 0
-    DEBUG_STATUS_GO                          = 1
-    DEBUG_STATUS_GO_HANDLED                  = 2
-    DEBUG_STATUS_GO_NOT_HANDLED              = 3
-    DEBUG_STATUS_STEP_OVER                   = 4
-    DEBUG_STATUS_STEP_INTO                   = 5
-    DEBUG_STATUS_BREAK                       = 6
-    DEBUG_STATUS_NO_DEBUGGEE                 = 7
-    DEBUG_STATUS_STEP_BRANCH                 = 8
-    DEBUG_STATUS_IGNORE_EVENT                = 9
-    DEBUG_STATUS_RESTART_REQUESTED           = 10
-    DEBUG_STATUS_REVERSE_GO                  = 11
-    DEBUG_STATUS_REVERSE_STEP_BRANCH         = 12
-    DEBUG_STATUS_REVERSE_STEP_OVER           = 13
-    DEBUG_STATUS_REVERSE_STEP_INTO           = 14
-    DEBUG_STATUS_OUT_OF_SYNC                 = 15
-    DEBUG_STATUS_WAIT_INPUT                  = 16
-    DEBUG_STATUS_TIMEOUT                     = 17
-    DEBUG_STATUS_MASK                        = 0x1f
-    DEBUG_STATUS_INSIDE_WAIT                 = 0x100000000
-    DEBUG_STATUS_WAIT_TIMEOUT                = 0x200000000
-    DEBUG_OUTCTL_THIS_CLIENT                 = 0x00000000
-    DEBUG_OUTCTL_ALL_CLIENTS                 = 0x00000001
-    DEBUG_OUTCTL_ALL_OTHER_CLIENTS           = 0x00000002
-    DEBUG_OUTCTL_IGNORE                      = 0x00000003
-    DEBUG_OUTCTL_LOG_ONLY                    = 0x00000004
-    DEBUG_OUTCTL_SEND_MASK                   = 0x00000007
-    DEBUG_OUTCTL_NOT_LOGGED                  = 0x00000008
-    DEBUG_OUTCTL_OVERRIDE_MASK               = 0x00000010
-    DEBUG_OUTCTL_DML                         = 0x00000020
-    DEBUG_OUTCTL_AMBIENT_DML                 = 0xfffffffe
-    DEBUG_OUTCTL_AMBIENT_TEXT                = 0xffffffff
-    DEBUG_OUTCTL_AMBIENT                     = DEBUG_OUTCTL_AMBIENT_TEXT
-    DEBUG_INTERRUPT_ACTIVE                   = 0
-    DEBUG_INTERRUPT_PASSIVE                  = 1
-    DEBUG_INTERRUPT_EXIT                     = 2
-    DEBUG_CURRENT_DEFAULT                    = 0x0000000f
-    DEBUG_CURRENT_SYMBOL                     = 0x00000001
-    DEBUG_CURRENT_DISASM                     = 0x00000002
-    DEBUG_CURRENT_REGISTERS                  = 0x00000004
-    DEBUG_CURRENT_SOURCE_LINE                = 0x00000008
-    DEBUG_DISASM_EFFECTIVE_ADDRESS           = 0x00000001
-    DEBUG_DISASM_MATCHING_SYMBOLS            = 0x00000002
-    DEBUG_DISASM_SOURCE_LINE_NUMBER          = 0x00000004
-    DEBUG_DISASM_SOURCE_FILE_NAME            = 0x00000008
-    DEBUG_LEVEL_SOURCE                       = 0
-    DEBUG_LEVEL_ASSEMBLY                     = 1
-    DEBUG_ENGOPT_IGNORE_DBGHELP_VERSION      = 0x00000001
-    DEBUG_ENGOPT_IGNORE_EXTENSION_VERSIONS   = 0x00000002
-    DEBUG_ENGOPT_ALLOW_NETWORK_PATHS         = 0x00000004
-    DEBUG_ENGOPT_DISALLOW_NETWORK_PATHS      = 0x00000008
+    DEBUG_STATUS_NO_CHANGE = 0
+    DEBUG_STATUS_GO = 1
+    DEBUG_STATUS_GO_HANDLED = 2
+    DEBUG_STATUS_GO_NOT_HANDLED = 3
+    DEBUG_STATUS_STEP_OVER = 4
+    DEBUG_STATUS_STEP_INTO = 5
+    DEBUG_STATUS_BREAK = 6
+    DEBUG_STATUS_NO_DEBUGGEE = 7
+    DEBUG_STATUS_STEP_BRANCH = 8
+    DEBUG_STATUS_IGNORE_EVENT = 9
+    DEBUG_STATUS_RESTART_REQUESTED = 10
+    DEBUG_STATUS_REVERSE_GO = 11
+    DEBUG_STATUS_REVERSE_STEP_BRANCH = 12
+    DEBUG_STATUS_REVERSE_STEP_OVER = 13
+    DEBUG_STATUS_REVERSE_STEP_INTO = 14
+    DEBUG_STATUS_OUT_OF_SYNC = 15
+    DEBUG_STATUS_WAIT_INPUT = 16
+    DEBUG_STATUS_TIMEOUT = 17
+    DEBUG_STATUS_MASK = 0x1f
+    DEBUG_STATUS_INSIDE_WAIT = 0x100000000
+    DEBUG_STATUS_WAIT_TIMEOUT = 0x200000000
+    DEBUG_OUTCTL_THIS_CLIENT = 0x00000000
+    DEBUG_OUTCTL_ALL_CLIENTS = 0x00000001
+    DEBUG_OUTCTL_ALL_OTHER_CLIENTS = 0x00000002
+    DEBUG_OUTCTL_IGNORE = 0x00000003
+    DEBUG_OUTCTL_LOG_ONLY = 0x00000004
+    DEBUG_OUTCTL_SEND_MASK = 0x00000007
+    DEBUG_OUTCTL_NOT_LOGGED = 0x00000008
+    DEBUG_OUTCTL_OVERRIDE_MASK = 0x00000010
+    DEBUG_OUTCTL_DML = 0x00000020
+    DEBUG_OUTCTL_AMBIENT_DML = 0xfffffffe
+    DEBUG_OUTCTL_AMBIENT_TEXT = 0xffffffff
+    DEBUG_OUTCTL_AMBIENT = DEBUG_OUTCTL_AMBIENT_TEXT
+    DEBUG_INTERRUPT_ACTIVE = 0
+    DEBUG_INTERRUPT_PASSIVE = 1
+    DEBUG_INTERRUPT_EXIT = 2
+    DEBUG_CURRENT_DEFAULT = 0x0000000f
+    DEBUG_CURRENT_SYMBOL = 0x00000001
+    DEBUG_CURRENT_DISASM = 0x00000002
+    DEBUG_CURRENT_REGISTERS = 0x00000004
+    DEBUG_CURRENT_SOURCE_LINE = 0x00000008
+    DEBUG_DISASM_EFFECTIVE_ADDRESS = 0x00000001
+    DEBUG_DISASM_MATCHING_SYMBOLS = 0x00000002
+    DEBUG_DISASM_SOURCE_LINE_NUMBER = 0x00000004
+    DEBUG_DISASM_SOURCE_FILE_NAME = 0x00000008
+    DEBUG_LEVEL_SOURCE = 0
+    DEBUG_LEVEL_ASSEMBLY = 1
+    DEBUG_ENGOPT_IGNORE_DBGHELP_VERSION = 0x00000001
+    DEBUG_ENGOPT_IGNORE_EXTENSION_VERSIONS = 0x00000002
+    DEBUG_ENGOPT_ALLOW_NETWORK_PATHS = 0x00000004
+    DEBUG_ENGOPT_DISALLOW_NETWORK_PATHS = 0x00000008
     DEBUG_ENGOPT_NETWORK_PATHS               = (0x00000004 | 0x00000008)
-    DEBUG_ENGOPT_IGNORE_LOADER_EXCEPTIONS    = 0x00000010
-    DEBUG_ENGOPT_INITIAL_BREAK               = 0x00000020
-    DEBUG_ENGOPT_INITIAL_MODULE_BREAK        = 0x00000040
-    DEBUG_ENGOPT_FINAL_BREAK                 = 0x00000080
-    DEBUG_ENGOPT_NO_EXECUTE_REPEAT           = 0x00000100
+    DEBUG_ENGOPT_IGNORE_LOADER_EXCEPTIONS = 0x00000010
+    DEBUG_ENGOPT_INITIAL_BREAK = 0x00000020
+    DEBUG_ENGOPT_INITIAL_MODULE_BREAK = 0x00000040
+    DEBUG_ENGOPT_FINAL_BREAK = 0x00000080
+    DEBUG_ENGOPT_NO_EXECUTE_REPEAT = 0x00000100
     DEBUG_ENGOPT_FAIL_INCOMPLETE_INFORMATION = 0x00000200
     DEBUG_ENGOPT_ALLOW_READ_ONLY_BREAKPOINTS = 0x00000400
-    DEBUG_ENGOPT_SYNCHRONIZE_BREAKPOINTS     = 0x00000800
-    DEBUG_ENGOPT_DISALLOW_SHELL_COMMANDS     = 0x00001000
-    DEBUG_ENGOPT_KD_QUIET_MODE               = 0x00002000
-    DEBUG_ENGOPT_DISABLE_MANAGED_SUPPORT     = 0x00004000
-    DEBUG_ENGOPT_DISABLE_MODULE_SYMBOL_LOAD  = 0x00008000
-    DEBUG_ENGOPT_DISABLE_EXECUTION_COMMANDS  = 0x00010000
+    DEBUG_ENGOPT_SYNCHRONIZE_BREAKPOINTS = 0x00000800
+    DEBUG_ENGOPT_DISALLOW_SHELL_COMMANDS = 0x00001000
+    DEBUG_ENGOPT_KD_QUIET_MODE = 0x00002000
+    DEBUG_ENGOPT_DISABLE_MANAGED_SUPPORT = 0x00004000
+    DEBUG_ENGOPT_DISABLE_MODULE_SYMBOL_LOAD = 0x00008000
+    DEBUG_ENGOPT_DISABLE_EXECUTION_COMMANDS = 0x00010000
     DEBUG_ENGOPT_DISALLOW_IMAGE_FILE_MAPPING = 0x00020000
-    DEBUG_ENGOPT_PREFER_DML                  = 0x00040000
-    DEBUG_ENGOPT_DISABLESQM                  = 0x00080000
-    DEBUG_ENGOPT_DISABLE_STEPLINES_OPTIONS   = 0x00200000
-    DEBUG_ENGOPT_ALL                         = 0x002FFFFF
-    DEBUG_ANY_ID                             = 0xffffffff
-    STACK_FRAME_TYPE_INIT                    = 0x00
-    STACK_FRAME_TYPE_STACK                   = 0x01
-    STACK_FRAME_TYPE_INLINE                  = 0x02
-    STACK_FRAME_TYPE_IGNORE                  = 0xFF
-    DEBUG_STACK_ARGUMENTS                    = 0x00000001
-    DEBUG_STACK_FUNCTION_INFO                = 0x00000002
-    DEBUG_STACK_SOURCE_LINE                  = 0x00000004
-    DEBUG_STACK_FRAME_ADDRESSES              = 0x00000008
-    DEBUG_STACK_COLUMN_NAMES                 = 0x00000010
-    DEBUG_STACK_NONVOLATILE_REGISTERS        = 0x00000020
-    DEBUG_STACK_FRAME_NUMBERS                = 0x00000040
-    DEBUG_STACK_PARAMETERS                   = 0x00000080
-    DEBUG_STACK_FRAME_ADDRESSES_RA_ONLY      = 0x00000100
-    DEBUG_STACK_FRAME_MEMORY_USAGE           = 0x00000200
-    DEBUG_STACK_PARAMETERS_NEWLINE           = 0x00000400
-    DEBUG_STACK_DML                          = 0x00000800
-    DEBUG_STACK_FRAME_OFFSETS                = 0x00001000
-    DEBUG_STACK_PROVIDER                     = 0x00002000
-    DEBUG_CLASS_UNINITIALIZED                = 0
-    DEBUG_CLASS_KERNEL                       = 1
-    DEBUG_CLASS_USER_WINDOWS                 = 2
-    DEBUG_CLASS_IMAGE_FILE                   = 3
-    DEBUG_DUMP_SMALL                         = 1024
-    DEBUG_DUMP_DEFAULT                       = 1025
-    DEBUG_DUMP_FULL                          = 1026
-    DEBUG_DUMP_IMAGE_FILE                    = 1027
-    DEBUG_DUMP_TRACE_LOG                     = 1028
-    DEBUG_DUMP_WINDOWS_CE                    = 1029
-    DEBUG_KERNEL_CONNECTION                  = 0
-    DEBUG_KERNEL_LOCAL                       = 1
-    DEBUG_KERNEL_EXDI_DRIVER                 = 2
-    DEBUG_KERNEL_IDNA                        = 3
-    DEBUG_KERNEL_INSTALL_DRIVER              = 4
-    DEBUG_KERNEL_SMALL_DUMP                  = DEBUG_DUMP_SMALL
-    DEBUG_KERNEL_DUMP                        = DEBUG_DUMP_DEFAULT
-    DEBUG_KERNEL_FULL_DUMP                   = DEBUG_DUMP_FULL
-    DEBUG_KERNEL_TRACE_LOG                   = DEBUG_DUMP_TRACE_LOG
-    DEBUG_USER_WINDOWS_PROCESS               = 0
-    DEBUG_USER_WINDOWS_PROCESS_SERVER        = 1
-    DEBUG_USER_WINDOWS_IDNA                  = 2
-    DEBUG_USER_WINDOWS_SMALL_DUMP            = DEBUG_DUMP_SMALL
-    DEBUG_USER_WINDOWS_DUMP                  = DEBUG_DUMP_DEFAULT
-    DEBUG_USER_WINDOWS_DUMP_WINDOWS_CE       = DEBUG_DUMP_WINDOWS_CE
-    DEBUG_EXTENSION_AT_ENGINE                = 0x00000000
-    DEBUG_EXECUTE_DEFAULT                    = 0x00000000
-    DEBUG_EXECUTE_ECHO                       = 0x00000001
-    DEBUG_EXECUTE_NOT_LOGGED                 = 0x00000002
-    DEBUG_EXECUTE_NO_REPEAT                  = 0x00000004
-    DEBUG_FILTER_CREATE_THREAD               = 0x00000000
-    DEBUG_FILTER_EXIT_THREAD                 = 0x00000001
-    DEBUG_FILTER_CREATE_PROCESS              = 0x00000002
-    DEBUG_FILTER_EXIT_PROCESS                = 0x00000003
-    DEBUG_FILTER_LOAD_MODULE                 = 0x00000004
-    DEBUG_FILTER_UNLOAD_MODULE               = 0x00000005
-    DEBUG_FILTER_SYSTEM_ERROR                = 0x00000006
-    DEBUG_FILTER_INITIAL_BREAKPOINT          = 0x00000007
-    DEBUG_FILTER_INITIAL_MODULE_LOAD         = 0x00000008
-    DEBUG_FILTER_DEBUGGEE_OUTPUT             = 0x00000009
-    DEBUG_FILTER_BREAK                       = 0x00000000
-    DEBUG_FILTER_SECOND_CHANCE_BREAK         = 0x00000001
-    DEBUG_FILTER_OUTPUT                      = 0x00000002
-    DEBUG_FILTER_IGNORE                      = 0x00000003
-    DEBUG_FILTER_REMOVE                      = 0x00000004
-    DEBUG_FILTER_GO_HANDLED                  = 0x00000000
-    DEBUG_FILTER_GO_NOT_HANDLED              = 0x00000001
-    DEBUG_WAIT_DEFAULT                       = 0x00000000
-    DEBUG_VALUE_INVALID                      = 0
-    DEBUG_VALUE_INT8                         = 1
-    DEBUG_VALUE_INT16                        = 2
-    DEBUG_VALUE_INT32                        = 3
-    DEBUG_VALUE_INT64                        = 4
-    DEBUG_VALUE_FLOAT32                      = 5
-    DEBUG_VALUE_FLOAT64                      = 6
-    DEBUG_VALUE_FLOAT80                      = 7
-    DEBUG_VALUE_FLOAT82                      = 8
-    DEBUG_VALUE_FLOAT128                     = 9
-    DEBUG_VALUE_VECTOR64                     = 10
-    DEBUG_VALUE_VECTOR128                    = 11
-    DEBUG_VALUE_TYPES                        = 12
+    DEBUG_ENGOPT_PREFER_DML = 0x00040000
+    DEBUG_ENGOPT_DISABLESQM = 0x00080000
+    DEBUG_ENGOPT_DISABLE_STEPLINES_OPTIONS = 0x00200000
+    DEBUG_ENGOPT_ALL = 0x002FFFFF
+    DEBUG_ANY_ID = 0xffffffff
+    STACK_FRAME_TYPE_INIT = 0x00
+    STACK_FRAME_TYPE_STACK = 0x01
+    STACK_FRAME_TYPE_INLINE = 0x02
+    STACK_FRAME_TYPE_IGNORE = 0xFF
+    DEBUG_STACK_ARGUMENTS = 0x00000001
+    DEBUG_STACK_FUNCTION_INFO = 0x00000002
+    DEBUG_STACK_SOURCE_LINE = 0x00000004
+    DEBUG_STACK_FRAME_ADDRESSES = 0x00000008
+    DEBUG_STACK_COLUMN_NAMES = 0x00000010
+    DEBUG_STACK_NONVOLATILE_REGISTERS = 0x00000020
+    DEBUG_STACK_FRAME_NUMBERS = 0x00000040
+    DEBUG_STACK_PARAMETERS = 0x00000080
+    DEBUG_STACK_FRAME_ADDRESSES_RA_ONLY = 0x00000100
+    DEBUG_STACK_FRAME_MEMORY_USAGE = 0x00000200
+    DEBUG_STACK_PARAMETERS_NEWLINE = 0x00000400
+    DEBUG_STACK_DML = 0x00000800
+    DEBUG_STACK_FRAME_OFFSETS = 0x00001000
+    DEBUG_STACK_PROVIDER = 0x00002000
+    DEBUG_CLASS_UNINITIALIZED = 0
+    DEBUG_CLASS_KERNEL = 1
+    DEBUG_CLASS_USER_WINDOWS = 2
+    DEBUG_CLASS_IMAGE_FILE = 3
+    DEBUG_DUMP_SMALL = 1024
+    DEBUG_DUMP_DEFAULT = 1025
+    DEBUG_DUMP_FULL = 1026
+    DEBUG_DUMP_IMAGE_FILE = 1027
+    DEBUG_DUMP_TRACE_LOG = 1028
+    DEBUG_DUMP_WINDOWS_CE = 1029
+    DEBUG_KERNEL_CONNECTION = 0
+    DEBUG_KERNEL_LOCAL = 1
+    DEBUG_KERNEL_EXDI_DRIVER = 2
+    DEBUG_KERNEL_IDNA = 3
+    DEBUG_KERNEL_INSTALL_DRIVER = 4
+    DEBUG_KERNEL_SMALL_DUMP = DEBUG_DUMP_SMALL
+    DEBUG_KERNEL_DUMP = DEBUG_DUMP_DEFAULT
+    DEBUG_KERNEL_FULL_DUMP = DEBUG_DUMP_FULL
+    DEBUG_KERNEL_TRACE_LOG = DEBUG_DUMP_TRACE_LOG
+    DEBUG_USER_WINDOWS_PROCESS = 0
+    DEBUG_USER_WINDOWS_PROCESS_SERVER = 1
+    DEBUG_USER_WINDOWS_IDNA = 2
+    DEBUG_USER_WINDOWS_SMALL_DUMP = DEBUG_DUMP_SMALL
+    DEBUG_USER_WINDOWS_DUMP = DEBUG_DUMP_DEFAULT
+    DEBUG_USER_WINDOWS_DUMP_WINDOWS_CE = DEBUG_DUMP_WINDOWS_CE
+    DEBUG_EXTENSION_AT_ENGINE = 0x00000000
+    DEBUG_EXECUTE_DEFAULT = 0x00000000
+    DEBUG_EXECUTE_ECHO = 0x00000001
+    DEBUG_EXECUTE_NOT_LOGGED = 0x00000002
+    DEBUG_EXECUTE_NO_REPEAT = 0x00000004
+    DEBUG_FILTER_CREATE_THREAD = 0x00000000
+    DEBUG_FILTER_EXIT_THREAD = 0x00000001
+    DEBUG_FILTER_CREATE_PROCESS = 0x00000002
+    DEBUG_FILTER_EXIT_PROCESS = 0x00000003
+    DEBUG_FILTER_LOAD_MODULE = 0x00000004
+    DEBUG_FILTER_UNLOAD_MODULE = 0x00000005
+    DEBUG_FILTER_SYSTEM_ERROR = 0x00000006
+    DEBUG_FILTER_INITIAL_BREAKPOINT = 0x00000007
+    DEBUG_FILTER_INITIAL_MODULE_LOAD = 0x00000008
+    DEBUG_FILTER_DEBUGGEE_OUTPUT = 0x00000009
+    DEBUG_FILTER_BREAK = 0x00000000
+    DEBUG_FILTER_SECOND_CHANCE_BREAK = 0x00000001
+    DEBUG_FILTER_OUTPUT = 0x00000002
+    DEBUG_FILTER_IGNORE = 0x00000003
+    DEBUG_FILTER_REMOVE = 0x00000004
+    DEBUG_FILTER_GO_HANDLED = 0x00000000
+    DEBUG_FILTER_GO_NOT_HANDLED = 0x00000001
+    DEBUG_WAIT_DEFAULT = 0x00000000
+    DEBUG_VALUE_INVALID = 0
+    DEBUG_VALUE_INT8 = 1
+    DEBUG_VALUE_INT16 = 2
+    DEBUG_VALUE_INT32 = 3
+    DEBUG_VALUE_INT64 = 4
+    DEBUG_VALUE_FLOAT32 = 5
+    DEBUG_VALUE_FLOAT64 = 6
+    DEBUG_VALUE_FLOAT80 = 7
+    DEBUG_VALUE_FLOAT82 = 8
+    DEBUG_VALUE_FLOAT128 = 9
+    DEBUG_VALUE_VECTOR64 = 10
+    DEBUG_VALUE_VECTOR128 = 11
+    DEBUG_VALUE_TYPES = 12
 
     NUM_APIS = 95
 
@@ -2137,7 +2121,7 @@ module RawBuggery
         # SetInterruptTimeout(THIS_ In_(Seconds))
         :SetInterruptTimeout => FFI::Function.new( HRESULT, [THIS_, ULONG], @vtable[6], :convention=>:stdcall  ),
         # GetLogFile(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(FileSize) Out_(Append))
-        :GetLogFile => FFI::Function.new( HRESULT, [THIS_, PSTR, ULONG, PULONG, PBOOL], @vtable[7], :convention=>:stdcall  ),
+        :GetLogFile => FFI::Function.new( HRESULT, [THIS_, PSTR_OUT, ULONG, PULONG, PBOOL], @vtable[7], :convention=>:stdcall  ),
         # OpenLogFile(THIS_ In_(File) In_(Append))
         :OpenLogFile => FFI::Function.new( HRESULT, [THIS_, PCSTR, BOOL], @vtable[8], :convention=>:stdcall  ),
         # CloseLogFile(THIS)
@@ -2147,23 +2131,23 @@ module RawBuggery
         # SetLogMask(THIS_ In_(Mask))
         :SetLogMask => FFI::Function.new( HRESULT, [THIS_, ULONG], @vtable[11], :convention=>:stdcall  ),
         # Input(THIS_ Out_writes_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(InputSize))
-        :Input => FFI::Function.new( HRESULT, [THIS_, PSTR, ULONG, PULONG], @vtable[12], :convention=>:stdcall  ),
+        :Input => FFI::Function.new( HRESULT, [THIS_, PSTR_OUT, ULONG, PULONG], @vtable[12], :convention=>:stdcall  ),
         # ReturnInput(THIS_ In_(Buffer))
         :ReturnInput => FFI::Function.new( HRESULT, [THIS_, PCSTR], @vtable[13], :convention=>:stdcall  ),
         # Output(THIS_ In_(Mask) In_(Format) ..(...))
         :Output => FFI::Function.new( HRESULT, [THIS_, ULONG, PCSTR, ], @vtable[14], :convention=>:stdcall  ),
         # OutputVaList(THIS_ In_(Mask) In_(Format) In_(Args))
-        :OutputVaList => FFI::Function.new( HRESULT, [THIS_, ULONG, PCSTR, va_list], @vtable[15], :convention=>:stdcall  ),
+        :OutputVaList => FFI::Function.new( HRESULT, [THIS_, ULONG, PCSTR, PVA_LIST], @vtable[15], :convention=>:stdcall  ),
         # ControlledOutput(THIS_ In_(OutputControl) In_(Mask) In_(Format) ..(...))
         :ControlledOutput => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG, PCSTR, ], @vtable[16], :convention=>:stdcall  ),
         # ControlledOutputVaList(THIS_ In_(OutputControl) In_(Mask) In_(Format) In_(Args))
-        :ControlledOutputVaList => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG, PCSTR, va_list], @vtable[17], :convention=>:stdcall  ),
+        :ControlledOutputVaList => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG, PCSTR, PVA_LIST], @vtable[17], :convention=>:stdcall  ),
         # OutputPrompt(THIS_ In_(OutputControl) In_opt_(Format) ..(...))
         :OutputPrompt => FFI::Function.new( HRESULT, [THIS_, ULONG, PCSTR, ], @vtable[18], :convention=>:stdcall  ),
         # OutputPromptVaList(THIS_ In_(OutputControl) In_opt_(Format) In_(Args))
-        :OutputPromptVaList => FFI::Function.new( HRESULT, [THIS_, ULONG, PCSTR, va_list], @vtable[19], :convention=>:stdcall  ),
+        :OutputPromptVaList => FFI::Function.new( HRESULT, [THIS_, ULONG, PCSTR, PVA_LIST], @vtable[19], :convention=>:stdcall  ),
         # GetPromptText(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(TextSize))
-        :GetPromptText => FFI::Function.new( HRESULT, [THIS_, PSTR, ULONG, PULONG], @vtable[20], :convention=>:stdcall  ),
+        :GetPromptText => FFI::Function.new( HRESULT, [THIS_, PSTR_OUT, ULONG, PULONG], @vtable[20], :convention=>:stdcall  ),
         # OutputCurrentState(THIS_ In_(OutputControl) In_(Flags))
         :OutputCurrentState => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG], @vtable[21], :convention=>:stdcall  ),
         # OutputVersionInformation(THIS_ In_(OutputControl))
@@ -2175,7 +2159,7 @@ module RawBuggery
         # Assemble(THIS_ In_(Offset) In_(Instr) Out_(EndOffset))
         :Assemble => FFI::Function.new( HRESULT, [THIS_, ULONG64, PCSTR, PULONG64], @vtable[25], :convention=>:stdcall  ),
         # Disassemble(THIS_ In_(Offset) In_(Flags) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(DisassemblySize) Out_(EndOffset))
-        :Disassemble => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, PSTR, ULONG, PULONG, PULONG64], @vtable[26], :convention=>:stdcall  ),
+        :Disassemble => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, PSTR_OUT, ULONG, PULONG, PULONG64], @vtable[26], :convention=>:stdcall  ),
         # GetDisassembleEffectiveOffset(THIS_ Out_(Offset))
         :GetDisassembleEffectiveOffset => FFI::Function.new( HRESULT, [THIS_, PULONG64], @vtable[27], :convention=>:stdcall  ),
         # OutputDisassembly(THIS_ In_(OutputControl) In_(Offset) In_(Flags) Out_(EndOffset))
@@ -2203,7 +2187,7 @@ module RawBuggery
         # GetNumberProcessors(THIS_ Out_(Number))
         :GetNumberProcessors => FFI::Function.new( HRESULT, [THIS_, PULONG], @vtable[39], :convention=>:stdcall  ),
         # GetSystemVersion(THIS_ Out_(PlatformId) Out_(Major) Out_(Minor) Out_writes_opt_(ServicePackStringSize)(ServicePackString) In_(ServicePackStringSize) Out_opt_(ServicePackStringUsed) Out_(ServicePackNumber) Out_writes_opt_(BuildStringSize)(BuildString) In_(BuildStringSize) Out_opt_(BuildStringUsed))
-        :GetSystemVersion => FFI::Function.new( HRESULT, [THIS_, PULONG, PULONG, PULONG, PSTR, ULONG, PULONG, PULONG, PSTR, ULONG, PULONG], @vtable[40], :convention=>:stdcall  ),
+        :GetSystemVersion => FFI::Function.new( HRESULT, [THIS_, PULONG, PULONG, PULONG, PSTR_OUT, ULONG, PULONG, PULONG, PSTR_OUT, ULONG, PULONG], @vtable[40], :convention=>:stdcall  ),
         # GetPageSize(THIS_ Out_(Size))
         :GetPageSize => FFI::Function.new( HRESULT, [THIS_, PULONG], @vtable[41], :convention=>:stdcall  ),
         # IsPointer64Bit(THIS)
@@ -2215,7 +2199,7 @@ module RawBuggery
         # GetSupportedProcessorTypes(THIS_ In_(Start) In_(Count) Out_writes_(Count)(Types))
         :GetSupportedProcessorTypes => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG, PULONG], @vtable[45], :convention=>:stdcall  ),
         # GetProcessorTypeNames(THIS_ In_(Type) Out_writes_opt_(FullNameBufferSize)(FullNameBuffer) In_(FullNameBufferSize) Out_opt_(FullNameSize) Out_writes_opt_(AbbrevNameBufferSize)(AbbrevNameBuffer) In_(AbbrevNameBufferSize) Out_opt_(AbbrevNameSize))
-        :GetProcessorTypeNames => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR, ULONG, PULONG, PSTR, ULONG, PULONG], @vtable[46], :convention=>:stdcall  ),
+        :GetProcessorTypeNames => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR_OUT, ULONG, PULONG, PSTR_OUT, ULONG, PULONG], @vtable[46], :convention=>:stdcall  ),
         # GetEffectiveProcessorType(THIS_ Out_(Type))
         :GetEffectiveProcessorType => FFI::Function.new( HRESULT, [THIS_, PULONG], @vtable[47], :convention=>:stdcall  ),
         # SetEffectiveProcessorType(THIS_ In_(Type))
@@ -2241,7 +2225,7 @@ module RawBuggery
         # SetSystemErrorControl(THIS_ In_(OutputLevel) In_(BreakLevel))
         :SetSystemErrorControl => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG], @vtable[58], :convention=>:stdcall  ),
         # GetTextMacro(THIS_ In_(Slot) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(MacroSize))
-        :GetTextMacro => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR, ULONG, PULONG], @vtable[59], :convention=>:stdcall  ),
+        :GetTextMacro => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR_OUT, ULONG, PULONG], @vtable[59], :convention=>:stdcall  ),
         # SetTextMacro(THIS_ In_(Slot) In_(Macro))
         :SetTextMacro => FFI::Function.new( HRESULT, [THIS_, ULONG, PCSTR], @vtable[60], :convention=>:stdcall  ),
         # GetRadix(THIS_ Out_(Radix))
@@ -2287,9 +2271,9 @@ module RawBuggery
         # GetNumberEventFilters(THIS_ Out_(SpecificEvents) Out_(SpecificExceptions) Out_(ArbitraryExceptions))
         :GetNumberEventFilters => FFI::Function.new( HRESULT, [THIS_, PULONG, PULONG, PULONG], @vtable[81], :convention=>:stdcall  ),
         # GetEventFilterText(THIS_ In_(Index) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(TextSize))
-        :GetEventFilterText => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR, ULONG, PULONG], @vtable[82], :convention=>:stdcall  ),
+        :GetEventFilterText => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR_OUT, ULONG, PULONG], @vtable[82], :convention=>:stdcall  ),
         # GetEventFilterCommand(THIS_ In_(Index) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(CommandSize))
-        :GetEventFilterCommand => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR, ULONG, PULONG], @vtable[83], :convention=>:stdcall  ),
+        :GetEventFilterCommand => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR_OUT, ULONG, PULONG], @vtable[83], :convention=>:stdcall  ),
         # SetEventFilterCommand(THIS_ In_(Index) In_(Command))
         :SetEventFilterCommand => FFI::Function.new( HRESULT, [THIS_, ULONG, PCSTR], @vtable[84], :convention=>:stdcall  ),
         # GetSpecificFilterParameters(THIS_ In_(Start) In_(Count) Out_writes_(Count)(Params))
@@ -2297,7 +2281,7 @@ module RawBuggery
         # SetSpecificFilterParameters(THIS_ In_(Start) In_(Count) In_reads_(Count)(Params))
         :SetSpecificFilterParameters => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG, PDEBUG_SPECIFIC_FILTER_PARAMETERS], @vtable[86], :convention=>:stdcall  ),
         # GetSpecificFilterArgument(THIS_ In_(Index) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(ArgumentSize))
-        :GetSpecificFilterArgument => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR, ULONG, PULONG], @vtable[87], :convention=>:stdcall  ),
+        :GetSpecificFilterArgument => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR_OUT, ULONG, PULONG], @vtable[87], :convention=>:stdcall  ),
         # SetSpecificFilterArgument(THIS_ In_(Index) In_(Argument))
         :SetSpecificFilterArgument => FFI::Function.new( HRESULT, [THIS_, ULONG, PCSTR], @vtable[88], :convention=>:stdcall  ),
         # GetExceptionFilterParameters(THIS_ In_(Count) In_reads_opt_(Count)(Codes) In_(Start) Out_writes_(Count)(Params))
@@ -2305,13 +2289,13 @@ module RawBuggery
         # SetExceptionFilterParameters(THIS_ In_(Count) In_reads_(Count)(Params))
         :SetExceptionFilterParameters => FFI::Function.new( HRESULT, [THIS_, ULONG, PDEBUG_EXCEPTION_FILTER_PARAMETERS], @vtable[90], :convention=>:stdcall  ),
         # GetExceptionFilterSecondCommand(THIS_ In_(Index) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(CommandSize))
-        :GetExceptionFilterSecondCommand => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR, ULONG, PULONG], @vtable[91], :convention=>:stdcall  ),
+        :GetExceptionFilterSecondCommand => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR_OUT, ULONG, PULONG], @vtable[91], :convention=>:stdcall  ),
         # SetExceptionFilterSecondCommand(THIS_ In_(Index) In_(Command))
         :SetExceptionFilterSecondCommand => FFI::Function.new( HRESULT, [THIS_, ULONG, PCSTR], @vtable[92], :convention=>:stdcall  ),
         # WaitForEvent(THIS_ In_(Flags) In_(Timeout))
         :WaitForEvent => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG], @vtable[93], :convention=>:stdcall  ),
         # GetLastEventInformation(THIS_ Out_(Type) Out_(ProcessId) Out_(ThreadId) Out_writes_bytes_opt_(ExtraInformationSize)(ExtraInformation) In_(ExtraInformationSize) Out_opt_(ExtraInformationUsed) Out_writes_opt_(DescriptionSize)(Description) In_(DescriptionSize) Out_opt_(DescriptionUsed))
-        :GetLastEventInformation => FFI::Function.new( HRESULT, [THIS_, PULONG, PULONG, PULONG, PVOID, ULONG, PULONG, PSTR, ULONG, PULONG], @vtable[94], :convention=>:stdcall  )
+        :GetLastEventInformation => FFI::Function.new( HRESULT, [THIS_, PULONG, PULONG, PULONG, PVOID, ULONG, PULONG, PSTR_OUT, ULONG, PULONG], @vtable[94], :convention=>:stdcall  )
       }
     end
 
@@ -2326,9 +2310,7 @@ module RawBuggery
   end
 
   class DebugControl2
-
     DEBUG_OUT_TEXT_REPL_DEFAULT = 0x00000000
-
     NUM_APIS = 103
 
     include Win32::WinTypes
@@ -2360,7 +2342,7 @@ module RawBuggery
         # SetInterruptTimeout(THIS_ In_(Seconds))
         :SetInterruptTimeout => FFI::Function.new( HRESULT, [THIS_, ULONG], @vtable[6], :convention=>:stdcall  ),
         # GetLogFile(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(FileSize) Out_(Append))
-        :GetLogFile => FFI::Function.new( HRESULT, [THIS_, PSTR, ULONG, PULONG, PBOOL], @vtable[7], :convention=>:stdcall  ),
+        :GetLogFile => FFI::Function.new( HRESULT, [THIS_, PSTR_OUT, ULONG, PULONG, PBOOL], @vtable[7], :convention=>:stdcall  ),
         # OpenLogFile(THIS_ In_(File) In_(Append))
         :OpenLogFile => FFI::Function.new( HRESULT, [THIS_, PCSTR, BOOL], @vtable[8], :convention=>:stdcall  ),
         # CloseLogFile(THIS)
@@ -2370,23 +2352,23 @@ module RawBuggery
         # SetLogMask(THIS_ In_(Mask))
         :SetLogMask => FFI::Function.new( HRESULT, [THIS_, ULONG], @vtable[11], :convention=>:stdcall  ),
         # Input(THIS_ Out_writes_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(InputSize))
-        :Input => FFI::Function.new( HRESULT, [THIS_, PSTR, ULONG, PULONG], @vtable[12], :convention=>:stdcall  ),
+        :Input => FFI::Function.new( HRESULT, [THIS_, PSTR_OUT, ULONG, PULONG], @vtable[12], :convention=>:stdcall  ),
         # ReturnInput(THIS_ In_(Buffer))
         :ReturnInput => FFI::Function.new( HRESULT, [THIS_, PCSTR], @vtable[13], :convention=>:stdcall  ),
         # Output(THIS_ In_(Mask) In_(Format) ..(...))
         :Output => FFI::Function.new( HRESULT, [THIS_, ULONG, PCSTR, ], @vtable[14], :convention=>:stdcall  ),
         # OutputVaList(THIS_ In_(Mask) In_(Format) In_(Args))
-        :OutputVaList => FFI::Function.new( HRESULT, [THIS_, ULONG, PCSTR, va_list], @vtable[15], :convention=>:stdcall  ),
+        :OutputVaList => FFI::Function.new( HRESULT, [THIS_, ULONG, PCSTR, PVA_LIST], @vtable[15], :convention=>:stdcall  ),
         # ControlledOutput(THIS_ In_(OutputControl) In_(Mask) In_(Format) ..(...))
         :ControlledOutput => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG, PCSTR, ], @vtable[16], :convention=>:stdcall  ),
         # ControlledOutputVaList(THIS_ In_(OutputControl) In_(Mask) In_(Format) In_(Args))
-        :ControlledOutputVaList => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG, PCSTR, va_list], @vtable[17], :convention=>:stdcall  ),
+        :ControlledOutputVaList => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG, PCSTR, PVA_LIST], @vtable[17], :convention=>:stdcall  ),
         # OutputPrompt(THIS_ In_(OutputControl) In_opt_(Format) ..(...))
         :OutputPrompt => FFI::Function.new( HRESULT, [THIS_, ULONG, PCSTR, ], @vtable[18], :convention=>:stdcall  ),
         # OutputPromptVaList(THIS_ In_(OutputControl) In_opt_(Format) In_(Args))
-        :OutputPromptVaList => FFI::Function.new( HRESULT, [THIS_, ULONG, PCSTR, va_list], @vtable[19], :convention=>:stdcall  ),
+        :OutputPromptVaList => FFI::Function.new( HRESULT, [THIS_, ULONG, PCSTR, PVA_LIST], @vtable[19], :convention=>:stdcall  ),
         # GetPromptText(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(TextSize))
-        :GetPromptText => FFI::Function.new( HRESULT, [THIS_, PSTR, ULONG, PULONG], @vtable[20], :convention=>:stdcall  ),
+        :GetPromptText => FFI::Function.new( HRESULT, [THIS_, PSTR_OUT, ULONG, PULONG], @vtable[20], :convention=>:stdcall  ),
         # OutputCurrentState(THIS_ In_(OutputControl) In_(Flags))
         :OutputCurrentState => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG], @vtable[21], :convention=>:stdcall  ),
         # OutputVersionInformation(THIS_ In_(OutputControl))
@@ -2398,7 +2380,7 @@ module RawBuggery
         # Assemble(THIS_ In_(Offset) In_(Instr) Out_(EndOffset))
         :Assemble => FFI::Function.new( HRESULT, [THIS_, ULONG64, PCSTR, PULONG64], @vtable[25], :convention=>:stdcall  ),
         # Disassemble(THIS_ In_(Offset) In_(Flags) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(DisassemblySize) Out_(EndOffset))
-        :Disassemble => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, PSTR, ULONG, PULONG, PULONG64], @vtable[26], :convention=>:stdcall  ),
+        :Disassemble => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, PSTR_OUT, ULONG, PULONG, PULONG64], @vtable[26], :convention=>:stdcall  ),
         # GetDisassembleEffectiveOffset(THIS_ Out_(Offset))
         :GetDisassembleEffectiveOffset => FFI::Function.new( HRESULT, [THIS_, PULONG64], @vtable[27], :convention=>:stdcall  ),
         # OutputDisassembly(THIS_ In_(OutputControl) In_(Offset) In_(Flags) Out_(EndOffset))
@@ -2426,7 +2408,7 @@ module RawBuggery
         # GetNumberProcessors(THIS_ Out_(Number))
         :GetNumberProcessors => FFI::Function.new( HRESULT, [THIS_, PULONG], @vtable[39], :convention=>:stdcall  ),
         # GetSystemVersion(THIS_ Out_(PlatformId) Out_(Major) Out_(Minor) Out_writes_opt_(ServicePackStringSize)(ServicePackString) In_(ServicePackStringSize) Out_opt_(ServicePackStringUsed) Out_(ServicePackNumber) Out_writes_opt_(BuildStringSize)(BuildString) In_(BuildStringSize) Out_opt_(BuildStringUsed))
-        :GetSystemVersion => FFI::Function.new( HRESULT, [THIS_, PULONG, PULONG, PULONG, PSTR, ULONG, PULONG, PULONG, PSTR, ULONG, PULONG], @vtable[40], :convention=>:stdcall  ),
+        :GetSystemVersion => FFI::Function.new( HRESULT, [THIS_, PULONG, PULONG, PULONG, PSTR_OUT, ULONG, PULONG, PULONG, PSTR_OUT, ULONG, PULONG], @vtable[40], :convention=>:stdcall  ),
         # GetPageSize(THIS_ Out_(Size))
         :GetPageSize => FFI::Function.new( HRESULT, [THIS_, PULONG], @vtable[41], :convention=>:stdcall  ),
         # IsPointer64Bit(THIS)
@@ -2438,7 +2420,7 @@ module RawBuggery
         # GetSupportedProcessorTypes(THIS_ In_(Start) In_(Count) Out_writes_(Count)(Types))
         :GetSupportedProcessorTypes => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG, PULONG], @vtable[45], :convention=>:stdcall  ),
         # GetProcessorTypeNames(THIS_ In_(Type) Out_writes_opt_(FullNameBufferSize)(FullNameBuffer) In_(FullNameBufferSize) Out_opt_(FullNameSize) Out_writes_opt_(AbbrevNameBufferSize)(AbbrevNameBuffer) In_(AbbrevNameBufferSize) Out_opt_(AbbrevNameSize))
-        :GetProcessorTypeNames => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR, ULONG, PULONG, PSTR, ULONG, PULONG], @vtable[46], :convention=>:stdcall  ),
+        :GetProcessorTypeNames => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR_OUT, ULONG, PULONG, PSTR_OUT, ULONG, PULONG], @vtable[46], :convention=>:stdcall  ),
         # GetEffectiveProcessorType(THIS_ Out_(Type))
         :GetEffectiveProcessorType => FFI::Function.new( HRESULT, [THIS_, PULONG], @vtable[47], :convention=>:stdcall  ),
         # SetEffectiveProcessorType(THIS_ In_(Type))
@@ -2464,7 +2446,7 @@ module RawBuggery
         # SetSystemErrorControl(THIS_ In_(OutputLevel) In_(BreakLevel))
         :SetSystemErrorControl => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG], @vtable[58], :convention=>:stdcall  ),
         # GetTextMacro(THIS_ In_(Slot) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(MacroSize))
-        :GetTextMacro => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR, ULONG, PULONG], @vtable[59], :convention=>:stdcall  ),
+        :GetTextMacro => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR_OUT, ULONG, PULONG], @vtable[59], :convention=>:stdcall  ),
         # SetTextMacro(THIS_ In_(Slot) In_(Macro))
         :SetTextMacro => FFI::Function.new( HRESULT, [THIS_, ULONG, PCSTR], @vtable[60], :convention=>:stdcall  ),
         # GetRadix(THIS_ Out_(Radix))
@@ -2510,9 +2492,9 @@ module RawBuggery
         # GetNumberEventFilters(THIS_ Out_(SpecificEvents) Out_(SpecificExceptions) Out_(ArbitraryExceptions))
         :GetNumberEventFilters => FFI::Function.new( HRESULT, [THIS_, PULONG, PULONG, PULONG], @vtable[81], :convention=>:stdcall  ),
         # GetEventFilterText(THIS_ In_(Index) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(TextSize))
-        :GetEventFilterText => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR, ULONG, PULONG], @vtable[82], :convention=>:stdcall  ),
+        :GetEventFilterText => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR_OUT, ULONG, PULONG], @vtable[82], :convention=>:stdcall  ),
         # GetEventFilterCommand(THIS_ In_(Index) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(CommandSize))
-        :GetEventFilterCommand => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR, ULONG, PULONG], @vtable[83], :convention=>:stdcall  ),
+        :GetEventFilterCommand => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR_OUT, ULONG, PULONG], @vtable[83], :convention=>:stdcall  ),
         # SetEventFilterCommand(THIS_ In_(Index) In_(Command))
         :SetEventFilterCommand => FFI::Function.new( HRESULT, [THIS_, ULONG, PCSTR], @vtable[84], :convention=>:stdcall  ),
         # GetSpecificFilterParameters(THIS_ In_(Start) In_(Count) Out_writes_(Count)(Params))
@@ -2520,7 +2502,7 @@ module RawBuggery
         # SetSpecificFilterParameters(THIS_ In_(Start) In_(Count) In_reads_(Count)(Params))
         :SetSpecificFilterParameters => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG, PDEBUG_SPECIFIC_FILTER_PARAMETERS], @vtable[86], :convention=>:stdcall  ),
         # GetSpecificFilterArgument(THIS_ In_(Index) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(ArgumentSize))
-        :GetSpecificFilterArgument => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR, ULONG, PULONG], @vtable[87], :convention=>:stdcall  ),
+        :GetSpecificFilterArgument => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR_OUT, ULONG, PULONG], @vtable[87], :convention=>:stdcall  ),
         # SetSpecificFilterArgument(THIS_ In_(Index) In_(Argument))
         :SetSpecificFilterArgument => FFI::Function.new( HRESULT, [THIS_, ULONG, PCSTR], @vtable[88], :convention=>:stdcall  ),
         # GetExceptionFilterParameters(THIS_ In_(Count) In_reads_opt_(Count)(Codes) In_(Start) Out_writes_(Count)(Params))
@@ -2528,13 +2510,13 @@ module RawBuggery
         # SetExceptionFilterParameters(THIS_ In_(Count) In_reads_(Count)(Params))
         :SetExceptionFilterParameters => FFI::Function.new( HRESULT, [THIS_, ULONG, PDEBUG_EXCEPTION_FILTER_PARAMETERS], @vtable[90], :convention=>:stdcall  ),
         # GetExceptionFilterSecondCommand(THIS_ In_(Index) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(CommandSize))
-        :GetExceptionFilterSecondCommand => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR, ULONG, PULONG], @vtable[91], :convention=>:stdcall  ),
+        :GetExceptionFilterSecondCommand => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR_OUT, ULONG, PULONG], @vtable[91], :convention=>:stdcall  ),
         # SetExceptionFilterSecondCommand(THIS_ In_(Index) In_(Command))
         :SetExceptionFilterSecondCommand => FFI::Function.new( HRESULT, [THIS_, ULONG, PCSTR], @vtable[92], :convention=>:stdcall  ),
         # WaitForEvent(THIS_ In_(Flags) In_(Timeout))
         :WaitForEvent => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG], @vtable[93], :convention=>:stdcall  ),
         # GetLastEventInformation(THIS_ Out_(Type) Out_(ProcessId) Out_(ThreadId) Out_writes_bytes_opt_(ExtraInformationSize)(ExtraInformation) In_(ExtraInformationSize) Out_opt_(ExtraInformationUsed) Out_writes_opt_(DescriptionSize)(Description) In_(DescriptionSize) Out_opt_(DescriptionUsed))
-        :GetLastEventInformation => FFI::Function.new( HRESULT, [THIS_, PULONG, PULONG, PULONG, PVOID, ULONG, PULONG, PSTR, ULONG, PULONG], @vtable[94], :convention=>:stdcall  ),
+        :GetLastEventInformation => FFI::Function.new( HRESULT, [THIS_, PULONG, PULONG, PULONG, PVOID, ULONG, PULONG, PSTR_OUT, ULONG, PULONG], @vtable[94], :convention=>:stdcall  ),
         # GetCurrentTimeDate(THIS_ Out_(TimeDate))
         :GetCurrentTimeDate => FFI::Function.new( HRESULT, [THIS_, PULONG], @vtable[95], :convention=>:stdcall  ),
         # GetCurrentSystemUpTime(THIS_ Out_(UpTime))
@@ -2544,7 +2526,7 @@ module RawBuggery
         # GetNumberTextReplacements(THIS_ Out_(NumRepl))
         :GetNumberTextReplacements => FFI::Function.new( HRESULT, [THIS_, PULONG], @vtable[98], :convention=>:stdcall  ),
         # GetTextReplacement(THIS_ In_opt_(SrcText) In_(Index) Out_writes_opt_(SrcBufferSize)(SrcBuffer) In_(SrcBufferSize) Out_opt_(SrcSize) Out_writes_opt_(DstBufferSize)(DstBuffer) In_(DstBufferSize) Out_opt_(DstSize))
-        :GetTextReplacement => FFI::Function.new( HRESULT, [THIS_, PCSTR, ULONG, PSTR, ULONG, PULONG, PSTR, ULONG, PULONG], @vtable[99], :convention=>:stdcall  ),
+        :GetTextReplacement => FFI::Function.new( HRESULT, [THIS_, PCSTR, ULONG, PSTR_OUT, ULONG, PULONG, PSTR_OUT, ULONG, PULONG], @vtable[99], :convention=>:stdcall  ),
         # SetTextReplacement(THIS_ In_(SrcText) In_opt_(DstText))
         :SetTextReplacement => FFI::Function.new( HRESULT, [THIS_, PCSTR, PCSTR], @vtable[100], :convention=>:stdcall  ),
         # RemoveTextReplacements(THIS)
@@ -2565,19 +2547,17 @@ module RawBuggery
   end
 
   class DebugControl3
-
-    DEBUG_ASMOPT_DEFAULT             = 0x00000000
-    DEBUG_ASMOPT_VERBOSE             = 0x00000001
-    DEBUG_ASMOPT_NO_CODE_BYTES       = 0x00000002
+    DEBUG_ASMOPT_DEFAULT = 0x00000000
+    DEBUG_ASMOPT_VERBOSE = 0x00000001
+    DEBUG_ASMOPT_NO_CODE_BYTES = 0x00000002
     DEBUG_ASMOPT_IGNORE_OUTPUT_WIDTH = 0x00000004
-    DEBUG_ASMOPT_SOURCE_LINE_NUMBER  = 0x00000008
-    DEBUG_EXPR_MASM                  = 0x00000000
-    DEBUG_EXPR_CPLUSPLUS             = 0x00000001
-    DEBUG_EINDEX_NAME                = 0x00000000
-    DEBUG_EINDEX_FROM_START          = 0x00000000
-    DEBUG_EINDEX_FROM_END            = 0x00000001
-    DEBUG_EINDEX_FROM_CURRENT        = 0x00000002
-
+    DEBUG_ASMOPT_SOURCE_LINE_NUMBER = 0x00000008
+    DEBUG_EXPR_MASM = 0x00000000
+    DEBUG_EXPR_CPLUSPLUS = 0x00000001
+    DEBUG_EINDEX_NAME = 0x00000000
+    DEBUG_EINDEX_FROM_START = 0x00000000
+    DEBUG_EINDEX_FROM_END = 0x00000001
+    DEBUG_EINDEX_FROM_CURRENT = 0x00000002
     NUM_APIS = 116
 
     include Win32::WinTypes
@@ -2609,7 +2589,7 @@ module RawBuggery
         # SetInterruptTimeout(THIS_ In_(Seconds))
         :SetInterruptTimeout => FFI::Function.new( HRESULT, [THIS_, ULONG], @vtable[6], :convention=>:stdcall  ),
         # GetLogFile(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(FileSize) Out_(Append))
-        :GetLogFile => FFI::Function.new( HRESULT, [THIS_, PSTR, ULONG, PULONG, PBOOL], @vtable[7], :convention=>:stdcall  ),
+        :GetLogFile => FFI::Function.new( HRESULT, [THIS_, PSTR_OUT, ULONG, PULONG, PBOOL], @vtable[7], :convention=>:stdcall  ),
         # OpenLogFile(THIS_ In_(File) In_(Append))
         :OpenLogFile => FFI::Function.new( HRESULT, [THIS_, PCSTR, BOOL], @vtable[8], :convention=>:stdcall  ),
         # CloseLogFile(THIS)
@@ -2619,23 +2599,23 @@ module RawBuggery
         # SetLogMask(THIS_ In_(Mask))
         :SetLogMask => FFI::Function.new( HRESULT, [THIS_, ULONG], @vtable[11], :convention=>:stdcall  ),
         # Input(THIS_ Out_writes_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(InputSize))
-        :Input => FFI::Function.new( HRESULT, [THIS_, PSTR, ULONG, PULONG], @vtable[12], :convention=>:stdcall  ),
+        :Input => FFI::Function.new( HRESULT, [THIS_, PSTR_OUT, ULONG, PULONG], @vtable[12], :convention=>:stdcall  ),
         # ReturnInput(THIS_ In_(Buffer))
         :ReturnInput => FFI::Function.new( HRESULT, [THIS_, PCSTR], @vtable[13], :convention=>:stdcall  ),
         # Output(THIS_ In_(Mask) In_(Format) ..(...))
         :Output => FFI::Function.new( HRESULT, [THIS_, ULONG, PCSTR, ], @vtable[14], :convention=>:stdcall  ),
         # OutputVaList(THIS_ In_(Mask) In_(Format) In_(Args))
-        :OutputVaList => FFI::Function.new( HRESULT, [THIS_, ULONG, PCSTR, va_list], @vtable[15], :convention=>:stdcall  ),
+        :OutputVaList => FFI::Function.new( HRESULT, [THIS_, ULONG, PCSTR, PVA_LIST], @vtable[15], :convention=>:stdcall  ),
         # ControlledOutput(THIS_ In_(OutputControl) In_(Mask) In_(Format) ..(...))
         :ControlledOutput => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG, PCSTR, ], @vtable[16], :convention=>:stdcall  ),
         # ControlledOutputVaList(THIS_ In_(OutputControl) In_(Mask) In_(Format) In_(Args))
-        :ControlledOutputVaList => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG, PCSTR, va_list], @vtable[17], :convention=>:stdcall  ),
+        :ControlledOutputVaList => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG, PCSTR, PVA_LIST], @vtable[17], :convention=>:stdcall  ),
         # OutputPrompt(THIS_ In_(OutputControl) In_opt_(Format) ..(...))
         :OutputPrompt => FFI::Function.new( HRESULT, [THIS_, ULONG, PCSTR, ], @vtable[18], :convention=>:stdcall  ),
         # OutputPromptVaList(THIS_ In_(OutputControl) In_opt_(Format) In_(Args))
-        :OutputPromptVaList => FFI::Function.new( HRESULT, [THIS_, ULONG, PCSTR, va_list], @vtable[19], :convention=>:stdcall  ),
+        :OutputPromptVaList => FFI::Function.new( HRESULT, [THIS_, ULONG, PCSTR, PVA_LIST], @vtable[19], :convention=>:stdcall  ),
         # GetPromptText(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(TextSize))
-        :GetPromptText => FFI::Function.new( HRESULT, [THIS_, PSTR, ULONG, PULONG], @vtable[20], :convention=>:stdcall  ),
+        :GetPromptText => FFI::Function.new( HRESULT, [THIS_, PSTR_OUT, ULONG, PULONG], @vtable[20], :convention=>:stdcall  ),
         # OutputCurrentState(THIS_ In_(OutputControl) In_(Flags))
         :OutputCurrentState => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG], @vtable[21], :convention=>:stdcall  ),
         # OutputVersionInformation(THIS_ In_(OutputControl))
@@ -2647,7 +2627,7 @@ module RawBuggery
         # Assemble(THIS_ In_(Offset) In_(Instr) Out_(EndOffset))
         :Assemble => FFI::Function.new( HRESULT, [THIS_, ULONG64, PCSTR, PULONG64], @vtable[25], :convention=>:stdcall  ),
         # Disassemble(THIS_ In_(Offset) In_(Flags) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(DisassemblySize) Out_(EndOffset))
-        :Disassemble => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, PSTR, ULONG, PULONG, PULONG64], @vtable[26], :convention=>:stdcall  ),
+        :Disassemble => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, PSTR_OUT, ULONG, PULONG, PULONG64], @vtable[26], :convention=>:stdcall  ),
         # GetDisassembleEffectiveOffset(THIS_ Out_(Offset))
         :GetDisassembleEffectiveOffset => FFI::Function.new( HRESULT, [THIS_, PULONG64], @vtable[27], :convention=>:stdcall  ),
         # OutputDisassembly(THIS_ In_(OutputControl) In_(Offset) In_(Flags) Out_(EndOffset))
@@ -2675,7 +2655,7 @@ module RawBuggery
         # GetNumberProcessors(THIS_ Out_(Number))
         :GetNumberProcessors => FFI::Function.new( HRESULT, [THIS_, PULONG], @vtable[39], :convention=>:stdcall  ),
         # GetSystemVersion(THIS_ Out_(PlatformId) Out_(Major) Out_(Minor) Out_writes_opt_(ServicePackStringSize)(ServicePackString) In_(ServicePackStringSize) Out_opt_(ServicePackStringUsed) Out_(ServicePackNumber) Out_writes_opt_(BuildStringSize)(BuildString) In_(BuildStringSize) Out_opt_(BuildStringUsed))
-        :GetSystemVersion => FFI::Function.new( HRESULT, [THIS_, PULONG, PULONG, PULONG, PSTR, ULONG, PULONG, PULONG, PSTR, ULONG, PULONG], @vtable[40], :convention=>:stdcall  ),
+        :GetSystemVersion => FFI::Function.new( HRESULT, [THIS_, PULONG, PULONG, PULONG, PSTR_OUT, ULONG, PULONG, PULONG, PSTR_OUT, ULONG, PULONG], @vtable[40], :convention=>:stdcall  ),
         # GetPageSize(THIS_ Out_(Size))
         :GetPageSize => FFI::Function.new( HRESULT, [THIS_, PULONG], @vtable[41], :convention=>:stdcall  ),
         # IsPointer64Bit(THIS)
@@ -2687,7 +2667,7 @@ module RawBuggery
         # GetSupportedProcessorTypes(THIS_ In_(Start) In_(Count) Out_writes_(Count)(Types))
         :GetSupportedProcessorTypes => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG, PULONG], @vtable[45], :convention=>:stdcall  ),
         # GetProcessorTypeNames(THIS_ In_(Type) Out_writes_opt_(FullNameBufferSize)(FullNameBuffer) In_(FullNameBufferSize) Out_opt_(FullNameSize) Out_writes_opt_(AbbrevNameBufferSize)(AbbrevNameBuffer) In_(AbbrevNameBufferSize) Out_opt_(AbbrevNameSize))
-        :GetProcessorTypeNames => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR, ULONG, PULONG, PSTR, ULONG, PULONG], @vtable[46], :convention=>:stdcall  ),
+        :GetProcessorTypeNames => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR_OUT, ULONG, PULONG, PSTR_OUT, ULONG, PULONG], @vtable[46], :convention=>:stdcall  ),
         # GetEffectiveProcessorType(THIS_ Out_(Type))
         :GetEffectiveProcessorType => FFI::Function.new( HRESULT, [THIS_, PULONG], @vtable[47], :convention=>:stdcall  ),
         # SetEffectiveProcessorType(THIS_ In_(Type))
@@ -2713,7 +2693,7 @@ module RawBuggery
         # SetSystemErrorControl(THIS_ In_(OutputLevel) In_(BreakLevel))
         :SetSystemErrorControl => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG], @vtable[58], :convention=>:stdcall  ),
         # GetTextMacro(THIS_ In_(Slot) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(MacroSize))
-        :GetTextMacro => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR, ULONG, PULONG], @vtable[59], :convention=>:stdcall  ),
+        :GetTextMacro => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR_OUT, ULONG, PULONG], @vtable[59], :convention=>:stdcall  ),
         # SetTextMacro(THIS_ In_(Slot) In_(Macro))
         :SetTextMacro => FFI::Function.new( HRESULT, [THIS_, ULONG, PCSTR], @vtable[60], :convention=>:stdcall  ),
         # GetRadix(THIS_ Out_(Radix))
@@ -2759,9 +2739,9 @@ module RawBuggery
         # GetNumberEventFilters(THIS_ Out_(SpecificEvents) Out_(SpecificExceptions) Out_(ArbitraryExceptions))
         :GetNumberEventFilters => FFI::Function.new( HRESULT, [THIS_, PULONG, PULONG, PULONG], @vtable[81], :convention=>:stdcall  ),
         # GetEventFilterText(THIS_ In_(Index) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(TextSize))
-        :GetEventFilterText => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR, ULONG, PULONG], @vtable[82], :convention=>:stdcall  ),
+        :GetEventFilterText => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR_OUT, ULONG, PULONG], @vtable[82], :convention=>:stdcall  ),
         # GetEventFilterCommand(THIS_ In_(Index) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(CommandSize))
-        :GetEventFilterCommand => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR, ULONG, PULONG], @vtable[83], :convention=>:stdcall  ),
+        :GetEventFilterCommand => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR_OUT, ULONG, PULONG], @vtable[83], :convention=>:stdcall  ),
         # SetEventFilterCommand(THIS_ In_(Index) In_(Command))
         :SetEventFilterCommand => FFI::Function.new( HRESULT, [THIS_, ULONG, PCSTR], @vtable[84], :convention=>:stdcall  ),
         # GetSpecificFilterParameters(THIS_ In_(Start) In_(Count) Out_writes_(Count)(Params))
@@ -2769,7 +2749,7 @@ module RawBuggery
         # SetSpecificFilterParameters(THIS_ In_(Start) In_(Count) In_reads_(Count)(Params))
         :SetSpecificFilterParameters => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG, PDEBUG_SPECIFIC_FILTER_PARAMETERS], @vtable[86], :convention=>:stdcall  ),
         # GetSpecificFilterArgument(THIS_ In_(Index) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(ArgumentSize))
-        :GetSpecificFilterArgument => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR, ULONG, PULONG], @vtable[87], :convention=>:stdcall  ),
+        :GetSpecificFilterArgument => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR_OUT, ULONG, PULONG], @vtable[87], :convention=>:stdcall  ),
         # SetSpecificFilterArgument(THIS_ In_(Index) In_(Argument))
         :SetSpecificFilterArgument => FFI::Function.new( HRESULT, [THIS_, ULONG, PCSTR], @vtable[88], :convention=>:stdcall  ),
         # GetExceptionFilterParameters(THIS_ In_(Count) In_reads_opt_(Count)(Codes) In_(Start) Out_writes_(Count)(Params))
@@ -2777,13 +2757,13 @@ module RawBuggery
         # SetExceptionFilterParameters(THIS_ In_(Count) In_reads_(Count)(Params))
         :SetExceptionFilterParameters => FFI::Function.new( HRESULT, [THIS_, ULONG, PDEBUG_EXCEPTION_FILTER_PARAMETERS], @vtable[90], :convention=>:stdcall  ),
         # GetExceptionFilterSecondCommand(THIS_ In_(Index) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(CommandSize))
-        :GetExceptionFilterSecondCommand => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR, ULONG, PULONG], @vtable[91], :convention=>:stdcall  ),
+        :GetExceptionFilterSecondCommand => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR_OUT, ULONG, PULONG], @vtable[91], :convention=>:stdcall  ),
         # SetExceptionFilterSecondCommand(THIS_ In_(Index) In_(Command))
         :SetExceptionFilterSecondCommand => FFI::Function.new( HRESULT, [THIS_, ULONG, PCSTR], @vtable[92], :convention=>:stdcall  ),
         # WaitForEvent(THIS_ In_(Flags) In_(Timeout))
         :WaitForEvent => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG], @vtable[93], :convention=>:stdcall  ),
         # GetLastEventInformation(THIS_ Out_(Type) Out_(ProcessId) Out_(ThreadId) Out_writes_bytes_opt_(ExtraInformationSize)(ExtraInformation) In_(ExtraInformationSize) Out_opt_(ExtraInformationUsed) Out_writes_opt_(DescriptionSize)(Description) In_(DescriptionSize) Out_opt_(DescriptionUsed))
-        :GetLastEventInformation => FFI::Function.new( HRESULT, [THIS_, PULONG, PULONG, PULONG, PVOID, ULONG, PULONG, PSTR, ULONG, PULONG], @vtable[94], :convention=>:stdcall  ),
+        :GetLastEventInformation => FFI::Function.new( HRESULT, [THIS_, PULONG, PULONG, PULONG, PVOID, ULONG, PULONG, PSTR_OUT, ULONG, PULONG], @vtable[94], :convention=>:stdcall  ),
         # GetCurrentTimeDate(THIS_ Out_(TimeDate))
         :GetCurrentTimeDate => FFI::Function.new( HRESULT, [THIS_, PULONG], @vtable[95], :convention=>:stdcall  ),
         # GetCurrentSystemUpTime(THIS_ Out_(UpTime))
@@ -2793,7 +2773,7 @@ module RawBuggery
         # GetNumberTextReplacements(THIS_ Out_(NumRepl))
         :GetNumberTextReplacements => FFI::Function.new( HRESULT, [THIS_, PULONG], @vtable[98], :convention=>:stdcall  ),
         # GetTextReplacement(THIS_ In_opt_(SrcText) In_(Index) Out_writes_opt_(SrcBufferSize)(SrcBuffer) In_(SrcBufferSize) Out_opt_(SrcSize) Out_writes_opt_(DstBufferSize)(DstBuffer) In_(DstBufferSize) Out_opt_(DstSize))
-        :GetTextReplacement => FFI::Function.new( HRESULT, [THIS_, PCSTR, ULONG, PSTR, ULONG, PULONG, PSTR, ULONG, PULONG], @vtable[99], :convention=>:stdcall  ),
+        :GetTextReplacement => FFI::Function.new( HRESULT, [THIS_, PCSTR, ULONG, PSTR_OUT, ULONG, PULONG, PSTR_OUT, ULONG, PULONG], @vtable[99], :convention=>:stdcall  ),
         # SetTextReplacement(THIS_ In_(SrcText) In_opt_(DstText))
         :SetTextReplacement => FFI::Function.new( HRESULT, [THIS_, PCSTR, PCSTR], @vtable[100], :convention=>:stdcall  ),
         # RemoveTextReplacements(THIS)
@@ -2817,7 +2797,7 @@ module RawBuggery
         # GetNumberExpressionSyntaxes(THIS_ Out_(Number))
         :GetNumberExpressionSyntaxes => FFI::Function.new( HRESULT, [THIS_, PULONG], @vtable[110], :convention=>:stdcall  ),
         # GetExpressionSyntaxNames(THIS_ In_(Index) Out_writes_opt_(FullNameBufferSize)(FullNameBuffer) In_(FullNameBufferSize) Out_opt_(FullNameSize) Out_writes_opt_(AbbrevNameBufferSize)(AbbrevNameBuffer) In_(AbbrevNameBufferSize) Out_opt_(AbbrevNameSize))
-        :GetExpressionSyntaxNames => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR, ULONG, PULONG, PSTR, ULONG, PULONG], @vtable[111], :convention=>:stdcall  ),
+        :GetExpressionSyntaxNames => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR_OUT, ULONG, PULONG, PSTR_OUT, ULONG, PULONG], @vtable[111], :convention=>:stdcall  ),
         # GetNumberEvents(THIS_ Out_(Events))
         :GetNumberEvents => FFI::Function.new( HRESULT, [THIS_, PULONG], @vtable[112], :convention=>:stdcall  ),
         # GetEventIndexDescription(THIS_ In_(Index) In_(Which) In_opt_(Buffer) In_(BufferSize) Out_opt_(DescSize))
@@ -2840,22 +2820,20 @@ module RawBuggery
   end
 
   class DebugControl4
-
-    DEBUG_LOG_DEFAULT               = 0x00000000
-    DEBUG_LOG_APPEND                = 0x00000001
-    DEBUG_LOG_UNICODE               = 0x00000002
-    DEBUG_LOG_DML                   = 0x00000004
-    DEBUG_SYSVERSTR_SERVICE_PACK    = 0x00000000
-    DEBUG_SYSVERSTR_BUILD           = 0x00000001
-    DEBUG_MANAGED_DISABLED          = 0x00000000
-    DEBUG_MANAGED_ALLOWED           = 0x00000001
-    DEBUG_MANAGED_DLL_LOADED        = 0x00000002
-    DEBUG_MANSTR_NONE               = 0x00000000
+    DEBUG_LOG_DEFAULT = 0x00000000
+    DEBUG_LOG_APPEND = 0x00000001
+    DEBUG_LOG_UNICODE = 0x00000002
+    DEBUG_LOG_DML = 0x00000004
+    DEBUG_SYSVERSTR_SERVICE_PACK = 0x00000000
+    DEBUG_SYSVERSTR_BUILD = 0x00000001
+    DEBUG_MANAGED_DISABLED = 0x00000000
+    DEBUG_MANAGED_ALLOWED = 0x00000001
+    DEBUG_MANAGED_DLL_LOADED = 0x00000002
+    DEBUG_MANSTR_NONE = 0x00000000
     DEBUG_MANSTR_LOADED_SUPPORT_DLL = 0x00000001
-    DEBUG_MANSTR_LOAD_STATUS        = 0x00000002
-    DEBUG_MANRESET_DEFAULT          = 0x00000000
-    DEBUG_MANRESET_LOAD_DLL         = 0x00000001
-
+    DEBUG_MANSTR_LOAD_STATUS = 0x00000002
+    DEBUG_MANRESET_DEFAULT = 0x00000000
+    DEBUG_MANRESET_LOAD_DLL = 0x00000001
     NUM_APIS = 169
 
     include Win32::WinTypes
@@ -2887,7 +2865,7 @@ module RawBuggery
         # SetInterruptTimeout(THIS_ In_(Seconds))
         :SetInterruptTimeout => FFI::Function.new( HRESULT, [THIS_, ULONG], @vtable[6], :convention=>:stdcall  ),
         # GetLogFile(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(FileSize) Out_(Append))
-        :GetLogFile => FFI::Function.new( HRESULT, [THIS_, PSTR, ULONG, PULONG, PBOOL], @vtable[7], :convention=>:stdcall  ),
+        :GetLogFile => FFI::Function.new( HRESULT, [THIS_, PSTR_OUT, ULONG, PULONG, PBOOL], @vtable[7], :convention=>:stdcall  ),
         # OpenLogFile(THIS_ In_(File) In_(Append))
         :OpenLogFile => FFI::Function.new( HRESULT, [THIS_, PCSTR, BOOL], @vtable[8], :convention=>:stdcall  ),
         # CloseLogFile(THIS)
@@ -2897,23 +2875,23 @@ module RawBuggery
         # SetLogMask(THIS_ In_(Mask))
         :SetLogMask => FFI::Function.new( HRESULT, [THIS_, ULONG], @vtable[11], :convention=>:stdcall  ),
         # Input(THIS_ Out_writes_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(InputSize))
-        :Input => FFI::Function.new( HRESULT, [THIS_, PSTR, ULONG, PULONG], @vtable[12], :convention=>:stdcall  ),
+        :Input => FFI::Function.new( HRESULT, [THIS_, PSTR_OUT, ULONG, PULONG], @vtable[12], :convention=>:stdcall  ),
         # ReturnInput(THIS_ In_(Buffer))
         :ReturnInput => FFI::Function.new( HRESULT, [THIS_, PCSTR], @vtable[13], :convention=>:stdcall  ),
         # Output(THIS_ In_(Mask) In_(Format) ..(...))
         :Output => FFI::Function.new( HRESULT, [THIS_, ULONG, PCSTR, ], @vtable[14], :convention=>:stdcall  ),
         # OutputVaList(THIS_ In_(Mask) In_(Format) In_(Args))
-        :OutputVaList => FFI::Function.new( HRESULT, [THIS_, ULONG, PCSTR, va_list], @vtable[15], :convention=>:stdcall  ),
+        :OutputVaList => FFI::Function.new( HRESULT, [THIS_, ULONG, PCSTR, PVA_LIST], @vtable[15], :convention=>:stdcall  ),
         # ControlledOutput(THIS_ In_(OutputControl) In_(Mask) In_(Format) ..(...))
         :ControlledOutput => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG, PCSTR, ], @vtable[16], :convention=>:stdcall  ),
         # ControlledOutputVaList(THIS_ In_(OutputControl) In_(Mask) In_(Format) In_(Args))
-        :ControlledOutputVaList => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG, PCSTR, va_list], @vtable[17], :convention=>:stdcall  ),
+        :ControlledOutputVaList => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG, PCSTR, PVA_LIST], @vtable[17], :convention=>:stdcall  ),
         # OutputPrompt(THIS_ In_(OutputControl) In_opt_(Format) ..(...))
         :OutputPrompt => FFI::Function.new( HRESULT, [THIS_, ULONG, PCSTR, ], @vtable[18], :convention=>:stdcall  ),
         # OutputPromptVaList(THIS_ In_(OutputControl) In_opt_(Format) In_(Args))
-        :OutputPromptVaList => FFI::Function.new( HRESULT, [THIS_, ULONG, PCSTR, va_list], @vtable[19], :convention=>:stdcall  ),
+        :OutputPromptVaList => FFI::Function.new( HRESULT, [THIS_, ULONG, PCSTR, PVA_LIST], @vtable[19], :convention=>:stdcall  ),
         # GetPromptText(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(TextSize))
-        :GetPromptText => FFI::Function.new( HRESULT, [THIS_, PSTR, ULONG, PULONG], @vtable[20], :convention=>:stdcall  ),
+        :GetPromptText => FFI::Function.new( HRESULT, [THIS_, PSTR_OUT, ULONG, PULONG], @vtable[20], :convention=>:stdcall  ),
         # OutputCurrentState(THIS_ In_(OutputControl) In_(Flags))
         :OutputCurrentState => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG], @vtable[21], :convention=>:stdcall  ),
         # OutputVersionInformation(THIS_ In_(OutputControl))
@@ -2925,7 +2903,7 @@ module RawBuggery
         # Assemble(THIS_ In_(Offset) In_(Instr) Out_(EndOffset))
         :Assemble => FFI::Function.new( HRESULT, [THIS_, ULONG64, PCSTR, PULONG64], @vtable[25], :convention=>:stdcall  ),
         # Disassemble(THIS_ In_(Offset) In_(Flags) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(DisassemblySize) Out_(EndOffset))
-        :Disassemble => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, PSTR, ULONG, PULONG, PULONG64], @vtable[26], :convention=>:stdcall  ),
+        :Disassemble => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, PSTR_OUT, ULONG, PULONG, PULONG64], @vtable[26], :convention=>:stdcall  ),
         # GetDisassembleEffectiveOffset(THIS_ Out_(Offset))
         :GetDisassembleEffectiveOffset => FFI::Function.new( HRESULT, [THIS_, PULONG64], @vtable[27], :convention=>:stdcall  ),
         # OutputDisassembly(THIS_ In_(OutputControl) In_(Offset) In_(Flags) Out_(EndOffset))
@@ -2953,7 +2931,7 @@ module RawBuggery
         # GetNumberProcessors(THIS_ Out_(Number))
         :GetNumberProcessors => FFI::Function.new( HRESULT, [THIS_, PULONG], @vtable[39], :convention=>:stdcall  ),
         # GetSystemVersion(THIS_ Out_(PlatformId) Out_(Major) Out_(Minor) Out_writes_opt_(ServicePackStringSize)(ServicePackString) In_(ServicePackStringSize) Out_opt_(ServicePackStringUsed) Out_(ServicePackNumber) Out_writes_opt_(BuildStringSize)(BuildString) In_(BuildStringSize) Out_opt_(BuildStringUsed))
-        :GetSystemVersion => FFI::Function.new( HRESULT, [THIS_, PULONG, PULONG, PULONG, PSTR, ULONG, PULONG, PULONG, PSTR, ULONG, PULONG], @vtable[40], :convention=>:stdcall  ),
+        :GetSystemVersion => FFI::Function.new( HRESULT, [THIS_, PULONG, PULONG, PULONG, PSTR_OUT, ULONG, PULONG, PULONG, PSTR_OUT, ULONG, PULONG], @vtable[40], :convention=>:stdcall  ),
         # GetPageSize(THIS_ Out_(Size))
         :GetPageSize => FFI::Function.new( HRESULT, [THIS_, PULONG], @vtable[41], :convention=>:stdcall  ),
         # IsPointer64Bit(THIS)
@@ -2965,7 +2943,7 @@ module RawBuggery
         # GetSupportedProcessorTypes(THIS_ In_(Start) In_(Count) Out_writes_(Count)(Types))
         :GetSupportedProcessorTypes => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG, PULONG], @vtable[45], :convention=>:stdcall  ),
         # GetProcessorTypeNames(THIS_ In_(Type) Out_writes_opt_(FullNameBufferSize)(FullNameBuffer) In_(FullNameBufferSize) Out_opt_(FullNameSize) Out_writes_opt_(AbbrevNameBufferSize)(AbbrevNameBuffer) In_(AbbrevNameBufferSize) Out_opt_(AbbrevNameSize))
-        :GetProcessorTypeNames => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR, ULONG, PULONG, PSTR, ULONG, PULONG], @vtable[46], :convention=>:stdcall  ),
+        :GetProcessorTypeNames => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR_OUT, ULONG, PULONG, PSTR_OUT, ULONG, PULONG], @vtable[46], :convention=>:stdcall  ),
         # GetEffectiveProcessorType(THIS_ Out_(Type))
         :GetEffectiveProcessorType => FFI::Function.new( HRESULT, [THIS_, PULONG], @vtable[47], :convention=>:stdcall  ),
         # SetEffectiveProcessorType(THIS_ In_(Type))
@@ -2991,7 +2969,7 @@ module RawBuggery
         # SetSystemErrorControl(THIS_ In_(OutputLevel) In_(BreakLevel))
         :SetSystemErrorControl => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG], @vtable[58], :convention=>:stdcall  ),
         # GetTextMacro(THIS_ In_(Slot) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(MacroSize))
-        :GetTextMacro => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR, ULONG, PULONG], @vtable[59], :convention=>:stdcall  ),
+        :GetTextMacro => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR_OUT, ULONG, PULONG], @vtable[59], :convention=>:stdcall  ),
         # SetTextMacro(THIS_ In_(Slot) In_(Macro))
         :SetTextMacro => FFI::Function.new( HRESULT, [THIS_, ULONG, PCSTR], @vtable[60], :convention=>:stdcall  ),
         # GetRadix(THIS_ Out_(Radix))
@@ -3037,9 +3015,9 @@ module RawBuggery
         # GetNumberEventFilters(THIS_ Out_(SpecificEvents) Out_(SpecificExceptions) Out_(ArbitraryExceptions))
         :GetNumberEventFilters => FFI::Function.new( HRESULT, [THIS_, PULONG, PULONG, PULONG], @vtable[81], :convention=>:stdcall  ),
         # GetEventFilterText(THIS_ In_(Index) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(TextSize))
-        :GetEventFilterText => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR, ULONG, PULONG], @vtable[82], :convention=>:stdcall  ),
+        :GetEventFilterText => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR_OUT, ULONG, PULONG], @vtable[82], :convention=>:stdcall  ),
         # GetEventFilterCommand(THIS_ In_(Index) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(CommandSize))
-        :GetEventFilterCommand => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR, ULONG, PULONG], @vtable[83], :convention=>:stdcall  ),
+        :GetEventFilterCommand => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR_OUT, ULONG, PULONG], @vtable[83], :convention=>:stdcall  ),
         # SetEventFilterCommand(THIS_ In_(Index) In_(Command))
         :SetEventFilterCommand => FFI::Function.new( HRESULT, [THIS_, ULONG, PCSTR], @vtable[84], :convention=>:stdcall  ),
         # GetSpecificFilterParameters(THIS_ In_(Start) In_(Count) Out_writes_(Count)(Params))
@@ -3047,7 +3025,7 @@ module RawBuggery
         # SetSpecificFilterParameters(THIS_ In_(Start) In_(Count) In_reads_(Count)(Params))
         :SetSpecificFilterParameters => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG, PDEBUG_SPECIFIC_FILTER_PARAMETERS], @vtable[86], :convention=>:stdcall  ),
         # GetSpecificFilterArgument(THIS_ In_(Index) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(ArgumentSize))
-        :GetSpecificFilterArgument => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR, ULONG, PULONG], @vtable[87], :convention=>:stdcall  ),
+        :GetSpecificFilterArgument => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR_OUT, ULONG, PULONG], @vtable[87], :convention=>:stdcall  ),
         # SetSpecificFilterArgument(THIS_ In_(Index) In_(Argument))
         :SetSpecificFilterArgument => FFI::Function.new( HRESULT, [THIS_, ULONG, PCSTR], @vtable[88], :convention=>:stdcall  ),
         # GetExceptionFilterParameters(THIS_ In_(Count) In_reads_opt_(Count)(Codes) In_(Start) Out_writes_(Count)(Params))
@@ -3055,13 +3033,13 @@ module RawBuggery
         # SetExceptionFilterParameters(THIS_ In_(Count) In_reads_(Count)(Params))
         :SetExceptionFilterParameters => FFI::Function.new( HRESULT, [THIS_, ULONG, PDEBUG_EXCEPTION_FILTER_PARAMETERS], @vtable[90], :convention=>:stdcall  ),
         # GetExceptionFilterSecondCommand(THIS_ In_(Index) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(CommandSize))
-        :GetExceptionFilterSecondCommand => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR, ULONG, PULONG], @vtable[91], :convention=>:stdcall  ),
+        :GetExceptionFilterSecondCommand => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR_OUT, ULONG, PULONG], @vtable[91], :convention=>:stdcall  ),
         # SetExceptionFilterSecondCommand(THIS_ In_(Index) In_(Command))
         :SetExceptionFilterSecondCommand => FFI::Function.new( HRESULT, [THIS_, ULONG, PCSTR], @vtable[92], :convention=>:stdcall  ),
         # WaitForEvent(THIS_ In_(Flags) In_(Timeout))
         :WaitForEvent => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG], @vtable[93], :convention=>:stdcall  ),
         # GetLastEventInformation(THIS_ Out_(Type) Out_(ProcessId) Out_(ThreadId) Out_writes_bytes_opt_(ExtraInformationSize)(ExtraInformation) In_(ExtraInformationSize) Out_opt_(ExtraInformationUsed) Out_writes_opt_(DescriptionSize)(Description) In_(DescriptionSize) Out_opt_(DescriptionUsed))
-        :GetLastEventInformation => FFI::Function.new( HRESULT, [THIS_, PULONG, PULONG, PULONG, PVOID, ULONG, PULONG, PSTR, ULONG, PULONG], @vtable[94], :convention=>:stdcall  ),
+        :GetLastEventInformation => FFI::Function.new( HRESULT, [THIS_, PULONG, PULONG, PULONG, PVOID, ULONG, PULONG, PSTR_OUT, ULONG, PULONG], @vtable[94], :convention=>:stdcall  ),
         # GetCurrentTimeDate(THIS_ Out_(TimeDate))
         :GetCurrentTimeDate => FFI::Function.new( HRESULT, [THIS_, PULONG], @vtable[95], :convention=>:stdcall  ),
         # GetCurrentSystemUpTime(THIS_ Out_(UpTime))
@@ -3071,7 +3049,7 @@ module RawBuggery
         # GetNumberTextReplacements(THIS_ Out_(NumRepl))
         :GetNumberTextReplacements => FFI::Function.new( HRESULT, [THIS_, PULONG], @vtable[98], :convention=>:stdcall  ),
         # GetTextReplacement(THIS_ In_opt_(SrcText) In_(Index) Out_writes_opt_(SrcBufferSize)(SrcBuffer) In_(SrcBufferSize) Out_opt_(SrcSize) Out_writes_opt_(DstBufferSize)(DstBuffer) In_(DstBufferSize) Out_opt_(DstSize))
-        :GetTextReplacement => FFI::Function.new( HRESULT, [THIS_, PCSTR, ULONG, PSTR, ULONG, PULONG, PSTR, ULONG, PULONG], @vtable[99], :convention=>:stdcall  ),
+        :GetTextReplacement => FFI::Function.new( HRESULT, [THIS_, PCSTR, ULONG, PSTR_OUT, ULONG, PULONG, PSTR_OUT, ULONG, PULONG], @vtable[99], :convention=>:stdcall  ),
         # SetTextReplacement(THIS_ In_(SrcText) In_opt_(DstText))
         :SetTextReplacement => FFI::Function.new( HRESULT, [THIS_, PCSTR, PCSTR], @vtable[100], :convention=>:stdcall  ),
         # RemoveTextReplacements(THIS)
@@ -3095,7 +3073,7 @@ module RawBuggery
         # GetNumberExpressionSyntaxes(THIS_ Out_(Number))
         :GetNumberExpressionSyntaxes => FFI::Function.new( HRESULT, [THIS_, PULONG], @vtable[110], :convention=>:stdcall  ),
         # GetExpressionSyntaxNames(THIS_ In_(Index) Out_writes_opt_(FullNameBufferSize)(FullNameBuffer) In_(FullNameBufferSize) Out_opt_(FullNameSize) Out_writes_opt_(AbbrevNameBufferSize)(AbbrevNameBuffer) In_(AbbrevNameBufferSize) Out_opt_(AbbrevNameSize))
-        :GetExpressionSyntaxNames => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR, ULONG, PULONG, PSTR, ULONG, PULONG], @vtable[111], :convention=>:stdcall  ),
+        :GetExpressionSyntaxNames => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR_OUT, ULONG, PULONG, PSTR_OUT, ULONG, PULONG], @vtable[111], :convention=>:stdcall  ),
         # GetNumberEvents(THIS_ Out_(Events))
         :GetNumberEvents => FFI::Function.new( HRESULT, [THIS_, PULONG], @vtable[112], :convention=>:stdcall  ),
         # GetEventIndexDescription(THIS_ In_(Index) In_(Which) In_opt_(Buffer) In_(BufferSize) Out_opt_(DescSize))
@@ -3105,35 +3083,35 @@ module RawBuggery
         # SetNextEventIndex(THIS_ In_(Relation) In_(Value) Out_(NextIndex))
         :SetNextEventIndex => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG, PULONG], @vtable[115], :convention=>:stdcall  ),
         # GetLogFileWide(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(FileSize) Out_(Append))
-        :GetLogFileWide => FFI::Function.new( HRESULT, [THIS_, PWSTR, ULONG, PULONG, PBOOL], @vtable[116], :convention=>:stdcall  ),
+        :GetLogFileWide => FFI::Function.new( HRESULT, [THIS_, PWSTR_OUT, ULONG, PULONG, PBOOL], @vtable[116], :convention=>:stdcall  ),
         # OpenLogFileWide(THIS_ In_(File) In_(Append))
         :OpenLogFileWide => FFI::Function.new( HRESULT, [THIS_, PCWSTR, BOOL], @vtable[117], :convention=>:stdcall  ),
         # InputWide(THIS_ Out_writes_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(InputSize))
-        :InputWide => FFI::Function.new( HRESULT, [THIS_, PWSTR, ULONG, PULONG], @vtable[118], :convention=>:stdcall  ),
+        :InputWide => FFI::Function.new( HRESULT, [THIS_, PWSTR_OUT, ULONG, PULONG], @vtable[118], :convention=>:stdcall  ),
         # ReturnInputWide(THIS_ In_(Buffer))
         :ReturnInputWide => FFI::Function.new( HRESULT, [THIS_, PCWSTR], @vtable[119], :convention=>:stdcall  ),
         # OutputWide(THIS_ In_(Mask) In_(Format) ..(...))
         :OutputWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PCWSTR, ], @vtable[120], :convention=>:stdcall  ),
         # OutputVaListWide(THIS_ In_(Mask) In_(Format) In_(Args))
-        :OutputVaListWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PCWSTR, va_list], @vtable[121], :convention=>:stdcall  ),
+        :OutputVaListWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PCWSTR, PVA_LIST], @vtable[121], :convention=>:stdcall  ),
         # ControlledOutputWide(THIS_ In_(OutputControl) In_(Mask) In_(Format) ..(...))
         :ControlledOutputWide => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG, PCWSTR, ], @vtable[122], :convention=>:stdcall  ),
         # ControlledOutputVaListWide(THIS_ In_(OutputControl) In_(Mask) In_(Format) In_(Args))
-        :ControlledOutputVaListWide => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG, PCWSTR, va_list], @vtable[123], :convention=>:stdcall  ),
+        :ControlledOutputVaListWide => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG, PCWSTR, PVA_LIST], @vtable[123], :convention=>:stdcall  ),
         # OutputPromptWide(THIS_ In_(OutputControl) In_opt_(Format) ..(...))
         :OutputPromptWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PCWSTR, ], @vtable[124], :convention=>:stdcall  ),
         # OutputPromptVaListWide(THIS_ In_(OutputControl) In_opt_(Format) In_(Args))
-        :OutputPromptVaListWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PCWSTR, va_list], @vtable[125], :convention=>:stdcall  ),
+        :OutputPromptVaListWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PCWSTR, PVA_LIST], @vtable[125], :convention=>:stdcall  ),
         # GetPromptTextWide(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(TextSize))
-        :GetPromptTextWide => FFI::Function.new( HRESULT, [THIS_, PWSTR, ULONG, PULONG], @vtable[126], :convention=>:stdcall  ),
+        :GetPromptTextWide => FFI::Function.new( HRESULT, [THIS_, PWSTR_OUT, ULONG, PULONG], @vtable[126], :convention=>:stdcall  ),
         # AssembleWide(THIS_ In_(Offset) In_(Instr) Out_(EndOffset))
         :AssembleWide => FFI::Function.new( HRESULT, [THIS_, ULONG64, PCWSTR, PULONG64], @vtable[127], :convention=>:stdcall  ),
         # DisassembleWide(THIS_ In_(Offset) In_(Flags) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(DisassemblySize) Out_(EndOffset))
-        :DisassembleWide => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, PWSTR, ULONG, PULONG, PULONG64], @vtable[128], :convention=>:stdcall  ),
+        :DisassembleWide => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, PWSTR_OUT, ULONG, PULONG, PULONG64], @vtable[128], :convention=>:stdcall  ),
         # GetProcessorTypeNamesWide(THIS_ In_(Type) Out_writes_opt_(FullNameBufferSize)(FullNameBuffer) In_(FullNameBufferSize) Out_opt_(FullNameSize) Out_writes_opt_(AbbrevNameBufferSize)(AbbrevNameBuffer) In_(AbbrevNameBufferSize) Out_opt_(AbbrevNameSize))
-        :GetProcessorTypeNamesWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PWSTR, ULONG, PULONG, PWSTR, ULONG, PULONG], @vtable[129], :convention=>:stdcall  ),
+        :GetProcessorTypeNamesWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PWSTR_OUT, ULONG, PULONG, PWSTR_OUT, ULONG, PULONG], @vtable[129], :convention=>:stdcall  ),
         # GetTextMacroWide(THIS_ In_(Slot) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(MacroSize))
-        :GetTextMacroWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PWSTR, ULONG, PULONG], @vtable[130], :convention=>:stdcall  ),
+        :GetTextMacroWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PWSTR_OUT, ULONG, PULONG], @vtable[130], :convention=>:stdcall  ),
         # SetTextMacroWide(THIS_ In_(Slot) In_(Macro))
         :SetTextMacroWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PCWSTR], @vtable[131], :convention=>:stdcall  ),
         # EvaluateWide(THIS_ In_(Expression) In_(DesiredType) Out_(Value) Out_opt_(RemainderIndex))
@@ -3159,45 +3137,45 @@ module RawBuggery
         # GetExtensionFunctionWide(THIS_ In_(Handle) In_(FuncName) Out_(Function))
         :GetExtensionFunctionWide => FFI::Function.new( HRESULT, [THIS_, ULONG64, PCWSTR, FARPROC], @vtable[142], :convention=>:stdcall  ),
         # GetEventFilterTextWide(THIS_ In_(Index) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(TextSize))
-        :GetEventFilterTextWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PWSTR, ULONG, PULONG], @vtable[143], :convention=>:stdcall  ),
+        :GetEventFilterTextWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PWSTR_OUT, ULONG, PULONG], @vtable[143], :convention=>:stdcall  ),
         # GetEventFilterCommandWide(THIS_ In_(Index) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(CommandSize))
-        :GetEventFilterCommandWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PWSTR, ULONG, PULONG], @vtable[144], :convention=>:stdcall  ),
+        :GetEventFilterCommandWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PWSTR_OUT, ULONG, PULONG], @vtable[144], :convention=>:stdcall  ),
         # SetEventFilterCommandWide(THIS_ In_(Index) In_(Command))
         :SetEventFilterCommandWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PCWSTR], @vtable[145], :convention=>:stdcall  ),
         # GetSpecificFilterArgumentWide(THIS_ In_(Index) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(ArgumentSize))
-        :GetSpecificFilterArgumentWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PWSTR, ULONG, PULONG], @vtable[146], :convention=>:stdcall  ),
+        :GetSpecificFilterArgumentWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PWSTR_OUT, ULONG, PULONG], @vtable[146], :convention=>:stdcall  ),
         # SetSpecificFilterArgumentWide(THIS_ In_(Index) In_(Argument))
         :SetSpecificFilterArgumentWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PCWSTR], @vtable[147], :convention=>:stdcall  ),
         # GetExceptionFilterSecondCommandWide(THIS_ In_(Index) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(CommandSize))
-        :GetExceptionFilterSecondCommandWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PWSTR, ULONG, PULONG], @vtable[148], :convention=>:stdcall  ),
+        :GetExceptionFilterSecondCommandWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PWSTR_OUT, ULONG, PULONG], @vtable[148], :convention=>:stdcall  ),
         # SetExceptionFilterSecondCommandWide(THIS_ In_(Index) In_(Command))
         :SetExceptionFilterSecondCommandWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PCWSTR], @vtable[149], :convention=>:stdcall  ),
         # GetLastEventInformationWide(THIS_ Out_(Type) Out_(ProcessId) Out_(ThreadId) Out_writes_bytes_opt_(ExtraInformationSize)(ExtraInformation) In_(ExtraInformationSize) Out_opt_(ExtraInformationUsed) Out_writes_opt_(DescriptionSize)(Description) In_(DescriptionSize) Out_opt_(DescriptionUsed))
-        :GetLastEventInformationWide => FFI::Function.new( HRESULT, [THIS_, PULONG, PULONG, PULONG, PVOID, ULONG, PULONG, PWSTR, ULONG, PULONG], @vtable[150], :convention=>:stdcall  ),
+        :GetLastEventInformationWide => FFI::Function.new( HRESULT, [THIS_, PULONG, PULONG, PULONG, PVOID, ULONG, PULONG, PWSTR_OUT, ULONG, PULONG], @vtable[150], :convention=>:stdcall  ),
         # GetTextReplacementWide(THIS_ In_opt_(SrcText) In_(Index) Out_writes_opt_(SrcBufferSize)(SrcBuffer) In_(SrcBufferSize) Out_opt_(SrcSize) Out_writes_opt_(DstBufferSize)(DstBuffer) In_(DstBufferSize) Out_opt_(DstSize))
-        :GetTextReplacementWide => FFI::Function.new( HRESULT, [THIS_, PCWSTR, ULONG, PWSTR, ULONG, PULONG, PWSTR, ULONG, PULONG], @vtable[151], :convention=>:stdcall  ),
+        :GetTextReplacementWide => FFI::Function.new( HRESULT, [THIS_, PCWSTR, ULONG, PWSTR_OUT, ULONG, PULONG, PWSTR_OUT, ULONG, PULONG], @vtable[151], :convention=>:stdcall  ),
         # SetTextReplacementWide(THIS_ In_(SrcText) In_opt_(DstText))
         :SetTextReplacementWide => FFI::Function.new( HRESULT, [THIS_, PCWSTR, PCWSTR], @vtable[152], :convention=>:stdcall  ),
         # SetExpressionSyntaxByNameWide(THIS_ In_(AbbrevName))
         :SetExpressionSyntaxByNameWide => FFI::Function.new( HRESULT, [THIS_, PCWSTR], @vtable[153], :convention=>:stdcall  ),
         # GetExpressionSyntaxNamesWide(THIS_ In_(Index) Out_writes_opt_(FullNameBufferSize)(FullNameBuffer) In_(FullNameBufferSize) Out_opt_(FullNameSize) Out_writes_opt_(AbbrevNameBufferSize)(AbbrevNameBuffer) In_(AbbrevNameBufferSize) Out_opt_(AbbrevNameSize))
-        :GetExpressionSyntaxNamesWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PWSTR, ULONG, PULONG, PWSTR, ULONG, PULONG], @vtable[154], :convention=>:stdcall  ),
+        :GetExpressionSyntaxNamesWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PWSTR_OUT, ULONG, PULONG, PWSTR_OUT, ULONG, PULONG], @vtable[154], :convention=>:stdcall  ),
         # GetEventIndexDescriptionWide(THIS_ In_(Index) In_(Which) In_opt_(Buffer) In_(BufferSize) Out_opt_(DescSize))
         :GetEventIndexDescriptionWide => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG, PWSTR, ULONG, PULONG], @vtable[155], :convention=>:stdcall  ),
         # GetLogFile2(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(FileSize) Out_(Flags))
-        :GetLogFile2 => FFI::Function.new( HRESULT, [THIS_, PSTR, ULONG, PULONG, PULONG], @vtable[156], :convention=>:stdcall  ),
+        :GetLogFile2 => FFI::Function.new( HRESULT, [THIS_, PSTR_OUT, ULONG, PULONG, PULONG], @vtable[156], :convention=>:stdcall  ),
         # OpenLogFile2(THIS_ In_(File) In_(Flags))
         :OpenLogFile2 => FFI::Function.new( HRESULT, [THIS_, PCSTR, ULONG], @vtable[157], :convention=>:stdcall  ),
         # GetLogFile2Wide(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(FileSize) Out_(Flags))
-        :GetLogFile2Wide => FFI::Function.new( HRESULT, [THIS_, PWSTR, ULONG, PULONG, PULONG], @vtable[158], :convention=>:stdcall  ),
+        :GetLogFile2Wide => FFI::Function.new( HRESULT, [THIS_, PWSTR_OUT, ULONG, PULONG, PULONG], @vtable[158], :convention=>:stdcall  ),
         # OpenLogFile2Wide(THIS_ In_(File) In_(Flags))
         :OpenLogFile2Wide => FFI::Function.new( HRESULT, [THIS_, PCWSTR, ULONG], @vtable[159], :convention=>:stdcall  ),
         # GetSystemVersionValues(THIS_ Out_(PlatformId) Out_(Win32Major) Out_(Win32Minor) Out_opt_(KdMajor) Out_opt_(KdMinor))
         :GetSystemVersionValues => FFI::Function.new( HRESULT, [THIS_, PULONG, PULONG, PULONG, PULONG, PULONG], @vtable[160], :convention=>:stdcall  ),
         # GetSystemVersionString(THIS_ In_(Which) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(StringSize))
-        :GetSystemVersionString => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR, ULONG, PULONG], @vtable[161], :convention=>:stdcall  ),
+        :GetSystemVersionString => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR_OUT, ULONG, PULONG], @vtable[161], :convention=>:stdcall  ),
         # GetSystemVersionStringWide(THIS_ In_(Which) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(StringSize))
-        :GetSystemVersionStringWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PWSTR, ULONG, PULONG], @vtable[162], :convention=>:stdcall  ),
+        :GetSystemVersionStringWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PWSTR_OUT, ULONG, PULONG], @vtable[162], :convention=>:stdcall  ),
         # GetContextStackTrace(THIS_ In_reads_bytes_opt_(StartContextSize)(StartContext) In_(StartContextSize) Out_writes_opt_(FramesSize)(Frames) In_(FramesSize) Out_writes_bytes_opt_(FrameContextsSize)(FrameContexts) In_(FrameContextsSize) In_(FrameContextsEntrySize) Out_opt_(FramesFilled))
         :GetContextStackTrace => FFI::Function.new( HRESULT, [THIS_, PVOID, ULONG, PDEBUG_STACK_FRAME, ULONG, PVOID, ULONG, ULONG, PULONG], @vtable[163], :convention=>:stdcall  ),
         # OutputContextStackTrace(THIS_ In_(OutputControl) In_reads_(FramesSize)(Frames) In_(FramesSize) In_reads_bytes_(FrameContextsSize)(FrameContexts) In_(FrameContextsSize) In_(FrameContextsEntrySize) In_(Flags))
@@ -3205,9 +3183,9 @@ module RawBuggery
         # GetStoredEventInformation(THIS_ Out_(Type) Out_(ProcessId) Out_(ThreadId) Out_writes_bytes_opt_(ContextSize)(Context) In_(ContextSize) Out_opt_(ContextUsed) Out_writes_bytes_opt_(ExtraInformationSize)(ExtraInformation) In_(ExtraInformationSize) Out_opt_(ExtraInformationUsed))
         :GetStoredEventInformation => FFI::Function.new( HRESULT, [THIS_, PULONG, PULONG, PULONG, PVOID, ULONG, PULONG, PVOID, ULONG, PULONG], @vtable[165], :convention=>:stdcall  ),
         # GetManagedStatus(THIS_ Out_opt_(Flags) In_(WhichString) Out_writes_opt_(StringSize)(String) In_(StringSize) Out_opt_(StringNeeded))
-        :GetManagedStatus => FFI::Function.new( HRESULT, [THIS_, PULONG, ULONG, PSTR, ULONG, PULONG], @vtable[166], :convention=>:stdcall  ),
+        :GetManagedStatus => FFI::Function.new( HRESULT, [THIS_, PULONG, ULONG, PSTR_OUT, ULONG, PULONG], @vtable[166], :convention=>:stdcall  ),
         # GetManagedStatusWide(THIS_ Out_opt_(Flags) In_(WhichString) Out_writes_opt_(StringSize)(String) In_(StringSize) Out_opt_(StringNeeded))
-        :GetManagedStatusWide => FFI::Function.new( HRESULT, [THIS_, PULONG, ULONG, PWSTR, ULONG, PULONG], @vtable[167], :convention=>:stdcall  ),
+        :GetManagedStatusWide => FFI::Function.new( HRESULT, [THIS_, PULONG, ULONG, PWSTR_OUT, ULONG, PULONG], @vtable[167], :convention=>:stdcall  ),
         # ResetManagedStatus(THIS_ In_(Flags))
         :ResetManagedStatus => FFI::Function.new( HRESULT, [THIS_, ULONG], @vtable[168], :convention=>:stdcall  )
       }
@@ -3224,7 +3202,6 @@ module RawBuggery
   end
 
   class DebugControl5
-
     NUM_APIS = 174
 
     include Win32::WinTypes
@@ -3256,7 +3233,7 @@ module RawBuggery
         # SetInterruptTimeout(THIS_ In_(Seconds))
         :SetInterruptTimeout => FFI::Function.new( HRESULT, [THIS_, ULONG], @vtable[6], :convention=>:stdcall  ),
         # GetLogFile(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(FileSize) Out_(Append))
-        :GetLogFile => FFI::Function.new( HRESULT, [THIS_, PSTR, ULONG, PULONG, PBOOL], @vtable[7], :convention=>:stdcall  ),
+        :GetLogFile => FFI::Function.new( HRESULT, [THIS_, PSTR_OUT, ULONG, PULONG, PBOOL], @vtable[7], :convention=>:stdcall  ),
         # OpenLogFile(THIS_ In_(File) In_(Append))
         :OpenLogFile => FFI::Function.new( HRESULT, [THIS_, PCSTR, BOOL], @vtable[8], :convention=>:stdcall  ),
         # CloseLogFile(THIS)
@@ -3266,23 +3243,23 @@ module RawBuggery
         # SetLogMask(THIS_ In_(Mask))
         :SetLogMask => FFI::Function.new( HRESULT, [THIS_, ULONG], @vtable[11], :convention=>:stdcall  ),
         # Input(THIS_ Out_writes_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(InputSize))
-        :Input => FFI::Function.new( HRESULT, [THIS_, PSTR, ULONG, PULONG], @vtable[12], :convention=>:stdcall  ),
+        :Input => FFI::Function.new( HRESULT, [THIS_, PSTR_OUT, ULONG, PULONG], @vtable[12], :convention=>:stdcall  ),
         # ReturnInput(THIS_ In_(Buffer))
         :ReturnInput => FFI::Function.new( HRESULT, [THIS_, PCSTR], @vtable[13], :convention=>:stdcall  ),
         # Output(THIS_ In_(Mask) In_(Format) ..(...))
         :Output => FFI::Function.new( HRESULT, [THIS_, ULONG, PCSTR, ], @vtable[14], :convention=>:stdcall  ),
         # OutputVaList(THIS_ In_(Mask) In_(Format) In_(Args))
-        :OutputVaList => FFI::Function.new( HRESULT, [THIS_, ULONG, PCSTR, va_list], @vtable[15], :convention=>:stdcall  ),
+        :OutputVaList => FFI::Function.new( HRESULT, [THIS_, ULONG, PCSTR, PVA_LIST], @vtable[15], :convention=>:stdcall  ),
         # ControlledOutput(THIS_ In_(OutputControl) In_(Mask) In_(Format) ..(...))
         :ControlledOutput => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG, PCSTR, ], @vtable[16], :convention=>:stdcall  ),
         # ControlledOutputVaList(THIS_ In_(OutputControl) In_(Mask) In_(Format) In_(Args))
-        :ControlledOutputVaList => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG, PCSTR, va_list], @vtable[17], :convention=>:stdcall  ),
+        :ControlledOutputVaList => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG, PCSTR, PVA_LIST], @vtable[17], :convention=>:stdcall  ),
         # OutputPrompt(THIS_ In_(OutputControl) In_opt_(Format) ..(...))
         :OutputPrompt => FFI::Function.new( HRESULT, [THIS_, ULONG, PCSTR, ], @vtable[18], :convention=>:stdcall  ),
         # OutputPromptVaList(THIS_ In_(OutputControl) In_opt_(Format) In_(Args))
-        :OutputPromptVaList => FFI::Function.new( HRESULT, [THIS_, ULONG, PCSTR, va_list], @vtable[19], :convention=>:stdcall  ),
+        :OutputPromptVaList => FFI::Function.new( HRESULT, [THIS_, ULONG, PCSTR, PVA_LIST], @vtable[19], :convention=>:stdcall  ),
         # GetPromptText(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(TextSize))
-        :GetPromptText => FFI::Function.new( HRESULT, [THIS_, PSTR, ULONG, PULONG], @vtable[20], :convention=>:stdcall  ),
+        :GetPromptText => FFI::Function.new( HRESULT, [THIS_, PSTR_OUT, ULONG, PULONG], @vtable[20], :convention=>:stdcall  ),
         # OutputCurrentState(THIS_ In_(OutputControl) In_(Flags))
         :OutputCurrentState => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG], @vtable[21], :convention=>:stdcall  ),
         # OutputVersionInformation(THIS_ In_(OutputControl))
@@ -3294,7 +3271,7 @@ module RawBuggery
         # Assemble(THIS_ In_(Offset) In_(Instr) Out_(EndOffset))
         :Assemble => FFI::Function.new( HRESULT, [THIS_, ULONG64, PCSTR, PULONG64], @vtable[25], :convention=>:stdcall  ),
         # Disassemble(THIS_ In_(Offset) In_(Flags) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(DisassemblySize) Out_(EndOffset))
-        :Disassemble => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, PSTR, ULONG, PULONG, PULONG64], @vtable[26], :convention=>:stdcall  ),
+        :Disassemble => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, PSTR_OUT, ULONG, PULONG, PULONG64], @vtable[26], :convention=>:stdcall  ),
         # GetDisassembleEffectiveOffset(THIS_ Out_(Offset))
         :GetDisassembleEffectiveOffset => FFI::Function.new( HRESULT, [THIS_, PULONG64], @vtable[27], :convention=>:stdcall  ),
         # OutputDisassembly(THIS_ In_(OutputControl) In_(Offset) In_(Flags) Out_(EndOffset))
@@ -3322,7 +3299,7 @@ module RawBuggery
         # GetNumberProcessors(THIS_ Out_(Number))
         :GetNumberProcessors => FFI::Function.new( HRESULT, [THIS_, PULONG], @vtable[39], :convention=>:stdcall  ),
         # GetSystemVersion(THIS_ Out_(PlatformId) Out_(Major) Out_(Minor) Out_writes_opt_(ServicePackStringSize)(ServicePackString) In_(ServicePackStringSize) Out_opt_(ServicePackStringUsed) Out_(ServicePackNumber) Out_writes_opt_(BuildStringSize)(BuildString) In_(BuildStringSize) Out_opt_(BuildStringUsed))
-        :GetSystemVersion => FFI::Function.new( HRESULT, [THIS_, PULONG, PULONG, PULONG, PSTR, ULONG, PULONG, PULONG, PSTR, ULONG, PULONG], @vtable[40], :convention=>:stdcall  ),
+        :GetSystemVersion => FFI::Function.new( HRESULT, [THIS_, PULONG, PULONG, PULONG, PSTR_OUT, ULONG, PULONG, PULONG, PSTR_OUT, ULONG, PULONG], @vtable[40], :convention=>:stdcall  ),
         # GetPageSize(THIS_ Out_(Size))
         :GetPageSize => FFI::Function.new( HRESULT, [THIS_, PULONG], @vtable[41], :convention=>:stdcall  ),
         # IsPointer64Bit(THIS)
@@ -3334,7 +3311,7 @@ module RawBuggery
         # GetSupportedProcessorTypes(THIS_ In_(Start) In_(Count) Out_writes_(Count)(Types))
         :GetSupportedProcessorTypes => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG, PULONG], @vtable[45], :convention=>:stdcall  ),
         # GetProcessorTypeNames(THIS_ In_(Type) Out_writes_opt_(FullNameBufferSize)(FullNameBuffer) In_(FullNameBufferSize) Out_opt_(FullNameSize) Out_writes_opt_(AbbrevNameBufferSize)(AbbrevNameBuffer) In_(AbbrevNameBufferSize) Out_opt_(AbbrevNameSize))
-        :GetProcessorTypeNames => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR, ULONG, PULONG, PSTR, ULONG, PULONG], @vtable[46], :convention=>:stdcall  ),
+        :GetProcessorTypeNames => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR_OUT, ULONG, PULONG, PSTR_OUT, ULONG, PULONG], @vtable[46], :convention=>:stdcall  ),
         # GetEffectiveProcessorType(THIS_ Out_(Type))
         :GetEffectiveProcessorType => FFI::Function.new( HRESULT, [THIS_, PULONG], @vtable[47], :convention=>:stdcall  ),
         # SetEffectiveProcessorType(THIS_ In_(Type))
@@ -3360,7 +3337,7 @@ module RawBuggery
         # SetSystemErrorControl(THIS_ In_(OutputLevel) In_(BreakLevel))
         :SetSystemErrorControl => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG], @vtable[58], :convention=>:stdcall  ),
         # GetTextMacro(THIS_ In_(Slot) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(MacroSize))
-        :GetTextMacro => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR, ULONG, PULONG], @vtable[59], :convention=>:stdcall  ),
+        :GetTextMacro => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR_OUT, ULONG, PULONG], @vtable[59], :convention=>:stdcall  ),
         # SetTextMacro(THIS_ In_(Slot) In_(Macro))
         :SetTextMacro => FFI::Function.new( HRESULT, [THIS_, ULONG, PCSTR], @vtable[60], :convention=>:stdcall  ),
         # GetRadix(THIS_ Out_(Radix))
@@ -3406,9 +3383,9 @@ module RawBuggery
         # GetNumberEventFilters(THIS_ Out_(SpecificEvents) Out_(SpecificExceptions) Out_(ArbitraryExceptions))
         :GetNumberEventFilters => FFI::Function.new( HRESULT, [THIS_, PULONG, PULONG, PULONG], @vtable[81], :convention=>:stdcall  ),
         # GetEventFilterText(THIS_ In_(Index) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(TextSize))
-        :GetEventFilterText => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR, ULONG, PULONG], @vtable[82], :convention=>:stdcall  ),
+        :GetEventFilterText => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR_OUT, ULONG, PULONG], @vtable[82], :convention=>:stdcall  ),
         # GetEventFilterCommand(THIS_ In_(Index) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(CommandSize))
-        :GetEventFilterCommand => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR, ULONG, PULONG], @vtable[83], :convention=>:stdcall  ),
+        :GetEventFilterCommand => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR_OUT, ULONG, PULONG], @vtable[83], :convention=>:stdcall  ),
         # SetEventFilterCommand(THIS_ In_(Index) In_(Command))
         :SetEventFilterCommand => FFI::Function.new( HRESULT, [THIS_, ULONG, PCSTR], @vtable[84], :convention=>:stdcall  ),
         # GetSpecificFilterParameters(THIS_ In_(Start) In_(Count) Out_writes_(Count)(Params))
@@ -3416,7 +3393,7 @@ module RawBuggery
         # SetSpecificFilterParameters(THIS_ In_(Start) In_(Count) In_reads_(Count)(Params))
         :SetSpecificFilterParameters => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG, PDEBUG_SPECIFIC_FILTER_PARAMETERS], @vtable[86], :convention=>:stdcall  ),
         # GetSpecificFilterArgument(THIS_ In_(Index) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(ArgumentSize))
-        :GetSpecificFilterArgument => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR, ULONG, PULONG], @vtable[87], :convention=>:stdcall  ),
+        :GetSpecificFilterArgument => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR_OUT, ULONG, PULONG], @vtable[87], :convention=>:stdcall  ),
         # SetSpecificFilterArgument(THIS_ In_(Index) In_(Argument))
         :SetSpecificFilterArgument => FFI::Function.new( HRESULT, [THIS_, ULONG, PCSTR], @vtable[88], :convention=>:stdcall  ),
         # GetExceptionFilterParameters(THIS_ In_(Count) In_reads_opt_(Count)(Codes) In_(Start) Out_writes_(Count)(Params))
@@ -3424,13 +3401,13 @@ module RawBuggery
         # SetExceptionFilterParameters(THIS_ In_(Count) In_reads_(Count)(Params))
         :SetExceptionFilterParameters => FFI::Function.new( HRESULT, [THIS_, ULONG, PDEBUG_EXCEPTION_FILTER_PARAMETERS], @vtable[90], :convention=>:stdcall  ),
         # GetExceptionFilterSecondCommand(THIS_ In_(Index) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(CommandSize))
-        :GetExceptionFilterSecondCommand => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR, ULONG, PULONG], @vtable[91], :convention=>:stdcall  ),
+        :GetExceptionFilterSecondCommand => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR_OUT, ULONG, PULONG], @vtable[91], :convention=>:stdcall  ),
         # SetExceptionFilterSecondCommand(THIS_ In_(Index) In_(Command))
         :SetExceptionFilterSecondCommand => FFI::Function.new( HRESULT, [THIS_, ULONG, PCSTR], @vtable[92], :convention=>:stdcall  ),
         # WaitForEvent(THIS_ In_(Flags) In_(Timeout))
         :WaitForEvent => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG], @vtable[93], :convention=>:stdcall  ),
         # GetLastEventInformation(THIS_ Out_(Type) Out_(ProcessId) Out_(ThreadId) Out_writes_bytes_opt_(ExtraInformationSize)(ExtraInformation) In_(ExtraInformationSize) Out_opt_(ExtraInformationUsed) Out_writes_opt_(DescriptionSize)(Description) In_(DescriptionSize) Out_opt_(DescriptionUsed))
-        :GetLastEventInformation => FFI::Function.new( HRESULT, [THIS_, PULONG, PULONG, PULONG, PVOID, ULONG, PULONG, PSTR, ULONG, PULONG], @vtable[94], :convention=>:stdcall  ),
+        :GetLastEventInformation => FFI::Function.new( HRESULT, [THIS_, PULONG, PULONG, PULONG, PVOID, ULONG, PULONG, PSTR_OUT, ULONG, PULONG], @vtable[94], :convention=>:stdcall  ),
         # GetCurrentTimeDate(THIS_ Out_(TimeDate))
         :GetCurrentTimeDate => FFI::Function.new( HRESULT, [THIS_, PULONG], @vtable[95], :convention=>:stdcall  ),
         # GetCurrentSystemUpTime(THIS_ Out_(UpTime))
@@ -3440,7 +3417,7 @@ module RawBuggery
         # GetNumberTextReplacements(THIS_ Out_(NumRepl))
         :GetNumberTextReplacements => FFI::Function.new( HRESULT, [THIS_, PULONG], @vtable[98], :convention=>:stdcall  ),
         # GetTextReplacement(THIS_ In_opt_(SrcText) In_(Index) Out_writes_opt_(SrcBufferSize)(SrcBuffer) In_(SrcBufferSize) Out_opt_(SrcSize) Out_writes_opt_(DstBufferSize)(DstBuffer) In_(DstBufferSize) Out_opt_(DstSize))
-        :GetTextReplacement => FFI::Function.new( HRESULT, [THIS_, PCSTR, ULONG, PSTR, ULONG, PULONG, PSTR, ULONG, PULONG], @vtable[99], :convention=>:stdcall  ),
+        :GetTextReplacement => FFI::Function.new( HRESULT, [THIS_, PCSTR, ULONG, PSTR_OUT, ULONG, PULONG, PSTR_OUT, ULONG, PULONG], @vtable[99], :convention=>:stdcall  ),
         # SetTextReplacement(THIS_ In_(SrcText) In_opt_(DstText))
         :SetTextReplacement => FFI::Function.new( HRESULT, [THIS_, PCSTR, PCSTR], @vtable[100], :convention=>:stdcall  ),
         # RemoveTextReplacements(THIS)
@@ -3464,7 +3441,7 @@ module RawBuggery
         # GetNumberExpressionSyntaxes(THIS_ Out_(Number))
         :GetNumberExpressionSyntaxes => FFI::Function.new( HRESULT, [THIS_, PULONG], @vtable[110], :convention=>:stdcall  ),
         # GetExpressionSyntaxNames(THIS_ In_(Index) Out_writes_opt_(FullNameBufferSize)(FullNameBuffer) In_(FullNameBufferSize) Out_opt_(FullNameSize) Out_writes_opt_(AbbrevNameBufferSize)(AbbrevNameBuffer) In_(AbbrevNameBufferSize) Out_opt_(AbbrevNameSize))
-        :GetExpressionSyntaxNames => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR, ULONG, PULONG, PSTR, ULONG, PULONG], @vtable[111], :convention=>:stdcall  ),
+        :GetExpressionSyntaxNames => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR_OUT, ULONG, PULONG, PSTR_OUT, ULONG, PULONG], @vtable[111], :convention=>:stdcall  ),
         # GetNumberEvents(THIS_ Out_(Events))
         :GetNumberEvents => FFI::Function.new( HRESULT, [THIS_, PULONG], @vtable[112], :convention=>:stdcall  ),
         # GetEventIndexDescription(THIS_ In_(Index) In_(Which) In_opt_(Buffer) In_(BufferSize) Out_opt_(DescSize))
@@ -3474,35 +3451,35 @@ module RawBuggery
         # SetNextEventIndex(THIS_ In_(Relation) In_(Value) Out_(NextIndex))
         :SetNextEventIndex => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG, PULONG], @vtable[115], :convention=>:stdcall  ),
         # GetLogFileWide(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(FileSize) Out_(Append))
-        :GetLogFileWide => FFI::Function.new( HRESULT, [THIS_, PWSTR, ULONG, PULONG, PBOOL], @vtable[116], :convention=>:stdcall  ),
+        :GetLogFileWide => FFI::Function.new( HRESULT, [THIS_, PWSTR_OUT, ULONG, PULONG, PBOOL], @vtable[116], :convention=>:stdcall  ),
         # OpenLogFileWide(THIS_ In_(File) In_(Append))
         :OpenLogFileWide => FFI::Function.new( HRESULT, [THIS_, PCWSTR, BOOL], @vtable[117], :convention=>:stdcall  ),
         # InputWide(THIS_ Out_writes_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(InputSize))
-        :InputWide => FFI::Function.new( HRESULT, [THIS_, PWSTR, ULONG, PULONG], @vtable[118], :convention=>:stdcall  ),
+        :InputWide => FFI::Function.new( HRESULT, [THIS_, PWSTR_OUT, ULONG, PULONG], @vtable[118], :convention=>:stdcall  ),
         # ReturnInputWide(THIS_ In_(Buffer))
         :ReturnInputWide => FFI::Function.new( HRESULT, [THIS_, PCWSTR], @vtable[119], :convention=>:stdcall  ),
         # OutputWide(THIS_ In_(Mask) In_(Format) ..(...))
         :OutputWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PCWSTR, ], @vtable[120], :convention=>:stdcall  ),
         # OutputVaListWide(THIS_ In_(Mask) In_(Format) In_(Args))
-        :OutputVaListWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PCWSTR, va_list], @vtable[121], :convention=>:stdcall  ),
+        :OutputVaListWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PCWSTR, PVA_LIST], @vtable[121], :convention=>:stdcall  ),
         # ControlledOutputWide(THIS_ In_(OutputControl) In_(Mask) In_(Format) ..(...))
         :ControlledOutputWide => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG, PCWSTR, ], @vtable[122], :convention=>:stdcall  ),
         # ControlledOutputVaListWide(THIS_ In_(OutputControl) In_(Mask) In_(Format) In_(Args))
-        :ControlledOutputVaListWide => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG, PCWSTR, va_list], @vtable[123], :convention=>:stdcall  ),
+        :ControlledOutputVaListWide => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG, PCWSTR, PVA_LIST], @vtable[123], :convention=>:stdcall  ),
         # OutputPromptWide(THIS_ In_(OutputControl) In_opt_(Format) ..(...))
         :OutputPromptWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PCWSTR, ], @vtable[124], :convention=>:stdcall  ),
         # OutputPromptVaListWide(THIS_ In_(OutputControl) In_opt_(Format) In_(Args))
-        :OutputPromptVaListWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PCWSTR, va_list], @vtable[125], :convention=>:stdcall  ),
+        :OutputPromptVaListWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PCWSTR, PVA_LIST], @vtable[125], :convention=>:stdcall  ),
         # GetPromptTextWide(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(TextSize))
-        :GetPromptTextWide => FFI::Function.new( HRESULT, [THIS_, PWSTR, ULONG, PULONG], @vtable[126], :convention=>:stdcall  ),
+        :GetPromptTextWide => FFI::Function.new( HRESULT, [THIS_, PWSTR_OUT, ULONG, PULONG], @vtable[126], :convention=>:stdcall  ),
         # AssembleWide(THIS_ In_(Offset) In_(Instr) Out_(EndOffset))
         :AssembleWide => FFI::Function.new( HRESULT, [THIS_, ULONG64, PCWSTR, PULONG64], @vtable[127], :convention=>:stdcall  ),
         # DisassembleWide(THIS_ In_(Offset) In_(Flags) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(DisassemblySize) Out_(EndOffset))
-        :DisassembleWide => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, PWSTR, ULONG, PULONG, PULONG64], @vtable[128], :convention=>:stdcall  ),
+        :DisassembleWide => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, PWSTR_OUT, ULONG, PULONG, PULONG64], @vtable[128], :convention=>:stdcall  ),
         # GetProcessorTypeNamesWide(THIS_ In_(Type) Out_writes_opt_(FullNameBufferSize)(FullNameBuffer) In_(FullNameBufferSize) Out_opt_(FullNameSize) Out_writes_opt_(AbbrevNameBufferSize)(AbbrevNameBuffer) In_(AbbrevNameBufferSize) Out_opt_(AbbrevNameSize))
-        :GetProcessorTypeNamesWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PWSTR, ULONG, PULONG, PWSTR, ULONG, PULONG], @vtable[129], :convention=>:stdcall  ),
+        :GetProcessorTypeNamesWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PWSTR_OUT, ULONG, PULONG, PWSTR_OUT, ULONG, PULONG], @vtable[129], :convention=>:stdcall  ),
         # GetTextMacroWide(THIS_ In_(Slot) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(MacroSize))
-        :GetTextMacroWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PWSTR, ULONG, PULONG], @vtable[130], :convention=>:stdcall  ),
+        :GetTextMacroWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PWSTR_OUT, ULONG, PULONG], @vtable[130], :convention=>:stdcall  ),
         # SetTextMacroWide(THIS_ In_(Slot) In_(Macro))
         :SetTextMacroWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PCWSTR], @vtable[131], :convention=>:stdcall  ),
         # EvaluateWide(THIS_ In_(Expression) In_(DesiredType) Out_(Value) Out_opt_(RemainderIndex))
@@ -3528,45 +3505,45 @@ module RawBuggery
         # GetExtensionFunctionWide(THIS_ In_(Handle) In_(FuncName) Out_(Function))
         :GetExtensionFunctionWide => FFI::Function.new( HRESULT, [THIS_, ULONG64, PCWSTR, FARPROC], @vtable[142], :convention=>:stdcall  ),
         # GetEventFilterTextWide(THIS_ In_(Index) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(TextSize))
-        :GetEventFilterTextWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PWSTR, ULONG, PULONG], @vtable[143], :convention=>:stdcall  ),
+        :GetEventFilterTextWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PWSTR_OUT, ULONG, PULONG], @vtable[143], :convention=>:stdcall  ),
         # GetEventFilterCommandWide(THIS_ In_(Index) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(CommandSize))
-        :GetEventFilterCommandWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PWSTR, ULONG, PULONG], @vtable[144], :convention=>:stdcall  ),
+        :GetEventFilterCommandWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PWSTR_OUT, ULONG, PULONG], @vtable[144], :convention=>:stdcall  ),
         # SetEventFilterCommandWide(THIS_ In_(Index) In_(Command))
         :SetEventFilterCommandWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PCWSTR], @vtable[145], :convention=>:stdcall  ),
         # GetSpecificFilterArgumentWide(THIS_ In_(Index) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(ArgumentSize))
-        :GetSpecificFilterArgumentWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PWSTR, ULONG, PULONG], @vtable[146], :convention=>:stdcall  ),
+        :GetSpecificFilterArgumentWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PWSTR_OUT, ULONG, PULONG], @vtable[146], :convention=>:stdcall  ),
         # SetSpecificFilterArgumentWide(THIS_ In_(Index) In_(Argument))
         :SetSpecificFilterArgumentWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PCWSTR], @vtable[147], :convention=>:stdcall  ),
         # GetExceptionFilterSecondCommandWide(THIS_ In_(Index) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(CommandSize))
-        :GetExceptionFilterSecondCommandWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PWSTR, ULONG, PULONG], @vtable[148], :convention=>:stdcall  ),
+        :GetExceptionFilterSecondCommandWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PWSTR_OUT, ULONG, PULONG], @vtable[148], :convention=>:stdcall  ),
         # SetExceptionFilterSecondCommandWide(THIS_ In_(Index) In_(Command))
         :SetExceptionFilterSecondCommandWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PCWSTR], @vtable[149], :convention=>:stdcall  ),
         # GetLastEventInformationWide(THIS_ Out_(Type) Out_(ProcessId) Out_(ThreadId) Out_writes_bytes_opt_(ExtraInformationSize)(ExtraInformation) In_(ExtraInformationSize) Out_opt_(ExtraInformationUsed) Out_writes_opt_(DescriptionSize)(Description) In_(DescriptionSize) Out_opt_(DescriptionUsed))
-        :GetLastEventInformationWide => FFI::Function.new( HRESULT, [THIS_, PULONG, PULONG, PULONG, PVOID, ULONG, PULONG, PWSTR, ULONG, PULONG], @vtable[150], :convention=>:stdcall  ),
+        :GetLastEventInformationWide => FFI::Function.new( HRESULT, [THIS_, PULONG, PULONG, PULONG, PVOID, ULONG, PULONG, PWSTR_OUT, ULONG, PULONG], @vtable[150], :convention=>:stdcall  ),
         # GetTextReplacementWide(THIS_ In_opt_(SrcText) In_(Index) Out_writes_opt_(SrcBufferSize)(SrcBuffer) In_(SrcBufferSize) Out_opt_(SrcSize) Out_writes_opt_(DstBufferSize)(DstBuffer) In_(DstBufferSize) Out_opt_(DstSize))
-        :GetTextReplacementWide => FFI::Function.new( HRESULT, [THIS_, PCWSTR, ULONG, PWSTR, ULONG, PULONG, PWSTR, ULONG, PULONG], @vtable[151], :convention=>:stdcall  ),
+        :GetTextReplacementWide => FFI::Function.new( HRESULT, [THIS_, PCWSTR, ULONG, PWSTR_OUT, ULONG, PULONG, PWSTR_OUT, ULONG, PULONG], @vtable[151], :convention=>:stdcall  ),
         # SetTextReplacementWide(THIS_ In_(SrcText) In_opt_(DstText))
         :SetTextReplacementWide => FFI::Function.new( HRESULT, [THIS_, PCWSTR, PCWSTR], @vtable[152], :convention=>:stdcall  ),
         # SetExpressionSyntaxByNameWide(THIS_ In_(AbbrevName))
         :SetExpressionSyntaxByNameWide => FFI::Function.new( HRESULT, [THIS_, PCWSTR], @vtable[153], :convention=>:stdcall  ),
         # GetExpressionSyntaxNamesWide(THIS_ In_(Index) Out_writes_opt_(FullNameBufferSize)(FullNameBuffer) In_(FullNameBufferSize) Out_opt_(FullNameSize) Out_writes_opt_(AbbrevNameBufferSize)(AbbrevNameBuffer) In_(AbbrevNameBufferSize) Out_opt_(AbbrevNameSize))
-        :GetExpressionSyntaxNamesWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PWSTR, ULONG, PULONG, PWSTR, ULONG, PULONG], @vtable[154], :convention=>:stdcall  ),
+        :GetExpressionSyntaxNamesWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PWSTR_OUT, ULONG, PULONG, PWSTR_OUT, ULONG, PULONG], @vtable[154], :convention=>:stdcall  ),
         # GetEventIndexDescriptionWide(THIS_ In_(Index) In_(Which) In_opt_(Buffer) In_(BufferSize) Out_opt_(DescSize))
         :GetEventIndexDescriptionWide => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG, PWSTR, ULONG, PULONG], @vtable[155], :convention=>:stdcall  ),
         # GetLogFile2(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(FileSize) Out_(Flags))
-        :GetLogFile2 => FFI::Function.new( HRESULT, [THIS_, PSTR, ULONG, PULONG, PULONG], @vtable[156], :convention=>:stdcall  ),
+        :GetLogFile2 => FFI::Function.new( HRESULT, [THIS_, PSTR_OUT, ULONG, PULONG, PULONG], @vtable[156], :convention=>:stdcall  ),
         # OpenLogFile2(THIS_ In_(File) In_(Flags))
         :OpenLogFile2 => FFI::Function.new( HRESULT, [THIS_, PCSTR, ULONG], @vtable[157], :convention=>:stdcall  ),
         # GetLogFile2Wide(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(FileSize) Out_(Flags))
-        :GetLogFile2Wide => FFI::Function.new( HRESULT, [THIS_, PWSTR, ULONG, PULONG, PULONG], @vtable[158], :convention=>:stdcall  ),
+        :GetLogFile2Wide => FFI::Function.new( HRESULT, [THIS_, PWSTR_OUT, ULONG, PULONG, PULONG], @vtable[158], :convention=>:stdcall  ),
         # OpenLogFile2Wide(THIS_ In_(File) In_(Flags))
         :OpenLogFile2Wide => FFI::Function.new( HRESULT, [THIS_, PCWSTR, ULONG], @vtable[159], :convention=>:stdcall  ),
         # GetSystemVersionValues(THIS_ Out_(PlatformId) Out_(Win32Major) Out_(Win32Minor) Out_opt_(KdMajor) Out_opt_(KdMinor))
         :GetSystemVersionValues => FFI::Function.new( HRESULT, [THIS_, PULONG, PULONG, PULONG, PULONG, PULONG], @vtable[160], :convention=>:stdcall  ),
         # GetSystemVersionString(THIS_ In_(Which) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(StringSize))
-        :GetSystemVersionString => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR, ULONG, PULONG], @vtable[161], :convention=>:stdcall  ),
+        :GetSystemVersionString => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR_OUT, ULONG, PULONG], @vtable[161], :convention=>:stdcall  ),
         # GetSystemVersionStringWide(THIS_ In_(Which) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(StringSize))
-        :GetSystemVersionStringWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PWSTR, ULONG, PULONG], @vtable[162], :convention=>:stdcall  ),
+        :GetSystemVersionStringWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PWSTR_OUT, ULONG, PULONG], @vtable[162], :convention=>:stdcall  ),
         # GetContextStackTrace(THIS_ In_reads_bytes_opt_(StartContextSize)(StartContext) In_(StartContextSize) Out_writes_to_opt_(FramesSize,*FramesFilled)(Frames) In_(FramesSize) Out_writes_bytes_opt_(FrameContextsSize)(FrameContexts) In_(FrameContextsSize) In_(FrameContextsEntrySize) Out_opt_(FramesFilled))
         :GetContextStackTrace => FFI::Function.new( HRESULT, [THIS_, PVOID, ULONG, PDEBUG_STACK_FRAME, ULONG, PVOID, ULONG, ULONG, PULONG], @vtable[163], :convention=>:stdcall  ),
         # OutputContextStackTrace(THIS_ In_(OutputControl) In_reads_(FramesSize)(Frames) In_(FramesSize) In_reads_bytes_(FrameContextsSize)(FrameContexts) In_(FrameContextsSize) In_(FrameContextsEntrySize) In_(Flags))
@@ -3574,9 +3551,9 @@ module RawBuggery
         # GetStoredEventInformation(THIS_ Out_(Type) Out_(ProcessId) Out_(ThreadId) Out_writes_bytes_opt_(ContextSize)(Context) In_(ContextSize) Out_opt_(ContextUsed) Out_writes_bytes_opt_(ExtraInformationSize)(ExtraInformation) In_(ExtraInformationSize) Out_opt_(ExtraInformationUsed))
         :GetStoredEventInformation => FFI::Function.new( HRESULT, [THIS_, PULONG, PULONG, PULONG, PVOID, ULONG, PULONG, PVOID, ULONG, PULONG], @vtable[165], :convention=>:stdcall  ),
         # GetManagedStatus(THIS_ Out_opt_(Flags) In_(WhichString) Out_writes_opt_(StringSize)(String) In_(StringSize) Out_opt_(StringNeeded))
-        :GetManagedStatus => FFI::Function.new( HRESULT, [THIS_, PULONG, ULONG, PSTR, ULONG, PULONG], @vtable[166], :convention=>:stdcall  ),
+        :GetManagedStatus => FFI::Function.new( HRESULT, [THIS_, PULONG, ULONG, PSTR_OUT, ULONG, PULONG], @vtable[166], :convention=>:stdcall  ),
         # GetManagedStatusWide(THIS_ Out_opt_(Flags) In_(WhichString) Out_writes_opt_(StringSize)(String) In_(StringSize) Out_opt_(StringNeeded))
-        :GetManagedStatusWide => FFI::Function.new( HRESULT, [THIS_, PULONG, ULONG, PWSTR, ULONG, PULONG], @vtable[167], :convention=>:stdcall  ),
+        :GetManagedStatusWide => FFI::Function.new( HRESULT, [THIS_, PULONG, ULONG, PWSTR_OUT, ULONG, PULONG], @vtable[167], :convention=>:stdcall  ),
         # ResetManagedStatus(THIS_ In_(Flags))
         :ResetManagedStatus => FFI::Function.new( HRESULT, [THIS_, ULONG], @vtable[168], :convention=>:stdcall  ),
         # GetStackTraceEx(THIS_ In_(FrameOffset) In_(StackOffset) In_(InstructionOffset) Out_writes_to_(FramesSize,*FramesFilled)(Frames) In_(FramesSize) Out_opt_(FramesFilled))
@@ -3603,7 +3580,6 @@ module RawBuggery
   end
 
   class DebugControl6
-
     NUM_APIS = 176
 
     include Win32::WinTypes
@@ -3635,7 +3611,7 @@ module RawBuggery
         # SetInterruptTimeout(THIS_ In_(Seconds))
         :SetInterruptTimeout => FFI::Function.new( HRESULT, [THIS_, ULONG], @vtable[6], :convention=>:stdcall  ),
         # GetLogFile(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(FileSize) Out_(Append))
-        :GetLogFile => FFI::Function.new( HRESULT, [THIS_, PSTR, ULONG, PULONG, PBOOL], @vtable[7], :convention=>:stdcall  ),
+        :GetLogFile => FFI::Function.new( HRESULT, [THIS_, PSTR_OUT, ULONG, PULONG, PBOOL], @vtable[7], :convention=>:stdcall  ),
         # OpenLogFile(THIS_ In_(File) In_(Append))
         :OpenLogFile => FFI::Function.new( HRESULT, [THIS_, PCSTR, BOOL], @vtable[8], :convention=>:stdcall  ),
         # CloseLogFile(THIS)
@@ -3645,23 +3621,23 @@ module RawBuggery
         # SetLogMask(THIS_ In_(Mask))
         :SetLogMask => FFI::Function.new( HRESULT, [THIS_, ULONG], @vtable[11], :convention=>:stdcall  ),
         # Input(THIS_ Out_writes_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(InputSize))
-        :Input => FFI::Function.new( HRESULT, [THIS_, PSTR, ULONG, PULONG], @vtable[12], :convention=>:stdcall  ),
+        :Input => FFI::Function.new( HRESULT, [THIS_, PSTR_OUT, ULONG, PULONG], @vtable[12], :convention=>:stdcall  ),
         # ReturnInput(THIS_ In_(Buffer))
         :ReturnInput => FFI::Function.new( HRESULT, [THIS_, PCSTR], @vtable[13], :convention=>:stdcall  ),
         # Output(THIS_ In_(Mask) In_(Format) ..(...))
         :Output => FFI::Function.new( HRESULT, [THIS_, ULONG, PCSTR, ], @vtable[14], :convention=>:stdcall  ),
         # OutputVaList(THIS_ In_(Mask) In_(Format) In_(Args))
-        :OutputVaList => FFI::Function.new( HRESULT, [THIS_, ULONG, PCSTR, va_list], @vtable[15], :convention=>:stdcall  ),
+        :OutputVaList => FFI::Function.new( HRESULT, [THIS_, ULONG, PCSTR, PVA_LIST], @vtable[15], :convention=>:stdcall  ),
         # ControlledOutput(THIS_ In_(OutputControl) In_(Mask) In_(Format) ..(...))
         :ControlledOutput => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG, PCSTR, ], @vtable[16], :convention=>:stdcall  ),
         # ControlledOutputVaList(THIS_ In_(OutputControl) In_(Mask) In_(Format) In_(Args))
-        :ControlledOutputVaList => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG, PCSTR, va_list], @vtable[17], :convention=>:stdcall  ),
+        :ControlledOutputVaList => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG, PCSTR, PVA_LIST], @vtable[17], :convention=>:stdcall  ),
         # OutputPrompt(THIS_ In_(OutputControl) In_opt_(Format) ..(...))
         :OutputPrompt => FFI::Function.new( HRESULT, [THIS_, ULONG, PCSTR, ], @vtable[18], :convention=>:stdcall  ),
         # OutputPromptVaList(THIS_ In_(OutputControl) In_opt_(Format) In_(Args))
-        :OutputPromptVaList => FFI::Function.new( HRESULT, [THIS_, ULONG, PCSTR, va_list], @vtable[19], :convention=>:stdcall  ),
+        :OutputPromptVaList => FFI::Function.new( HRESULT, [THIS_, ULONG, PCSTR, PVA_LIST], @vtable[19], :convention=>:stdcall  ),
         # GetPromptText(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(TextSize))
-        :GetPromptText => FFI::Function.new( HRESULT, [THIS_, PSTR, ULONG, PULONG], @vtable[20], :convention=>:stdcall  ),
+        :GetPromptText => FFI::Function.new( HRESULT, [THIS_, PSTR_OUT, ULONG, PULONG], @vtable[20], :convention=>:stdcall  ),
         # OutputCurrentState(THIS_ In_(OutputControl) In_(Flags))
         :OutputCurrentState => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG], @vtable[21], :convention=>:stdcall  ),
         # OutputVersionInformation(THIS_ In_(OutputControl))
@@ -3673,7 +3649,7 @@ module RawBuggery
         # Assemble(THIS_ In_(Offset) In_(Instr) Out_(EndOffset))
         :Assemble => FFI::Function.new( HRESULT, [THIS_, ULONG64, PCSTR, PULONG64], @vtable[25], :convention=>:stdcall  ),
         # Disassemble(THIS_ In_(Offset) In_(Flags) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(DisassemblySize) Out_(EndOffset))
-        :Disassemble => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, PSTR, ULONG, PULONG, PULONG64], @vtable[26], :convention=>:stdcall  ),
+        :Disassemble => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, PSTR_OUT, ULONG, PULONG, PULONG64], @vtable[26], :convention=>:stdcall  ),
         # GetDisassembleEffectiveOffset(THIS_ Out_(Offset))
         :GetDisassembleEffectiveOffset => FFI::Function.new( HRESULT, [THIS_, PULONG64], @vtable[27], :convention=>:stdcall  ),
         # OutputDisassembly(THIS_ In_(OutputControl) In_(Offset) In_(Flags) Out_(EndOffset))
@@ -3701,7 +3677,7 @@ module RawBuggery
         # GetNumberProcessors(THIS_ Out_(Number))
         :GetNumberProcessors => FFI::Function.new( HRESULT, [THIS_, PULONG], @vtable[39], :convention=>:stdcall  ),
         # GetSystemVersion(THIS_ Out_(PlatformId) Out_(Major) Out_(Minor) Out_writes_opt_(ServicePackStringSize)(ServicePackString) In_(ServicePackStringSize) Out_opt_(ServicePackStringUsed) Out_(ServicePackNumber) Out_writes_opt_(BuildStringSize)(BuildString) In_(BuildStringSize) Out_opt_(BuildStringUsed))
-        :GetSystemVersion => FFI::Function.new( HRESULT, [THIS_, PULONG, PULONG, PULONG, PSTR, ULONG, PULONG, PULONG, PSTR, ULONG, PULONG], @vtable[40], :convention=>:stdcall  ),
+        :GetSystemVersion => FFI::Function.new( HRESULT, [THIS_, PULONG, PULONG, PULONG, PSTR_OUT, ULONG, PULONG, PULONG, PSTR_OUT, ULONG, PULONG], @vtable[40], :convention=>:stdcall  ),
         # GetPageSize(THIS_ Out_(Size))
         :GetPageSize => FFI::Function.new( HRESULT, [THIS_, PULONG], @vtable[41], :convention=>:stdcall  ),
         # IsPointer64Bit(THIS)
@@ -3713,7 +3689,7 @@ module RawBuggery
         # GetSupportedProcessorTypes(THIS_ In_(Start) In_(Count) Out_writes_(Count)(Types))
         :GetSupportedProcessorTypes => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG, PULONG], @vtable[45], :convention=>:stdcall  ),
         # GetProcessorTypeNames(THIS_ In_(Type) Out_writes_opt_(FullNameBufferSize)(FullNameBuffer) In_(FullNameBufferSize) Out_opt_(FullNameSize) Out_writes_opt_(AbbrevNameBufferSize)(AbbrevNameBuffer) In_(AbbrevNameBufferSize) Out_opt_(AbbrevNameSize))
-        :GetProcessorTypeNames => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR, ULONG, PULONG, PSTR, ULONG, PULONG], @vtable[46], :convention=>:stdcall  ),
+        :GetProcessorTypeNames => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR_OUT, ULONG, PULONG, PSTR_OUT, ULONG, PULONG], @vtable[46], :convention=>:stdcall  ),
         # GetEffectiveProcessorType(THIS_ Out_(Type))
         :GetEffectiveProcessorType => FFI::Function.new( HRESULT, [THIS_, PULONG], @vtable[47], :convention=>:stdcall  ),
         # SetEffectiveProcessorType(THIS_ In_(Type))
@@ -3739,7 +3715,7 @@ module RawBuggery
         # SetSystemErrorControl(THIS_ In_(OutputLevel) In_(BreakLevel))
         :SetSystemErrorControl => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG], @vtable[58], :convention=>:stdcall  ),
         # GetTextMacro(THIS_ In_(Slot) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(MacroSize))
-        :GetTextMacro => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR, ULONG, PULONG], @vtable[59], :convention=>:stdcall  ),
+        :GetTextMacro => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR_OUT, ULONG, PULONG], @vtable[59], :convention=>:stdcall  ),
         # SetTextMacro(THIS_ In_(Slot) In_(Macro))
         :SetTextMacro => FFI::Function.new( HRESULT, [THIS_, ULONG, PCSTR], @vtable[60], :convention=>:stdcall  ),
         # GetRadix(THIS_ Out_(Radix))
@@ -3785,9 +3761,9 @@ module RawBuggery
         # GetNumberEventFilters(THIS_ Out_(SpecificEvents) Out_(SpecificExceptions) Out_(ArbitraryExceptions))
         :GetNumberEventFilters => FFI::Function.new( HRESULT, [THIS_, PULONG, PULONG, PULONG], @vtable[81], :convention=>:stdcall  ),
         # GetEventFilterText(THIS_ In_(Index) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(TextSize))
-        :GetEventFilterText => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR, ULONG, PULONG], @vtable[82], :convention=>:stdcall  ),
+        :GetEventFilterText => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR_OUT, ULONG, PULONG], @vtable[82], :convention=>:stdcall  ),
         # GetEventFilterCommand(THIS_ In_(Index) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(CommandSize))
-        :GetEventFilterCommand => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR, ULONG, PULONG], @vtable[83], :convention=>:stdcall  ),
+        :GetEventFilterCommand => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR_OUT, ULONG, PULONG], @vtable[83], :convention=>:stdcall  ),
         # SetEventFilterCommand(THIS_ In_(Index) In_(Command))
         :SetEventFilterCommand => FFI::Function.new( HRESULT, [THIS_, ULONG, PCSTR], @vtable[84], :convention=>:stdcall  ),
         # GetSpecificFilterParameters(THIS_ In_(Start) In_(Count) Out_writes_(Count)(Params))
@@ -3795,7 +3771,7 @@ module RawBuggery
         # SetSpecificFilterParameters(THIS_ In_(Start) In_(Count) In_reads_(Count)(Params))
         :SetSpecificFilterParameters => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG, PDEBUG_SPECIFIC_FILTER_PARAMETERS], @vtable[86], :convention=>:stdcall  ),
         # GetSpecificFilterArgument(THIS_ In_(Index) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(ArgumentSize))
-        :GetSpecificFilterArgument => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR, ULONG, PULONG], @vtable[87], :convention=>:stdcall  ),
+        :GetSpecificFilterArgument => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR_OUT, ULONG, PULONG], @vtable[87], :convention=>:stdcall  ),
         # SetSpecificFilterArgument(THIS_ In_(Index) In_(Argument))
         :SetSpecificFilterArgument => FFI::Function.new( HRESULT, [THIS_, ULONG, PCSTR], @vtable[88], :convention=>:stdcall  ),
         # GetExceptionFilterParameters(THIS_ In_(Count) In_reads_opt_(Count)(Codes) In_(Start) Out_writes_(Count)(Params))
@@ -3803,13 +3779,13 @@ module RawBuggery
         # SetExceptionFilterParameters(THIS_ In_(Count) In_reads_(Count)(Params))
         :SetExceptionFilterParameters => FFI::Function.new( HRESULT, [THIS_, ULONG, PDEBUG_EXCEPTION_FILTER_PARAMETERS], @vtable[90], :convention=>:stdcall  ),
         # GetExceptionFilterSecondCommand(THIS_ In_(Index) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(CommandSize))
-        :GetExceptionFilterSecondCommand => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR, ULONG, PULONG], @vtable[91], :convention=>:stdcall  ),
+        :GetExceptionFilterSecondCommand => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR_OUT, ULONG, PULONG], @vtable[91], :convention=>:stdcall  ),
         # SetExceptionFilterSecondCommand(THIS_ In_(Index) In_(Command))
         :SetExceptionFilterSecondCommand => FFI::Function.new( HRESULT, [THIS_, ULONG, PCSTR], @vtable[92], :convention=>:stdcall  ),
         # WaitForEvent(THIS_ In_(Flags) In_(Timeout))
         :WaitForEvent => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG], @vtable[93], :convention=>:stdcall  ),
         # GetLastEventInformation(THIS_ Out_(Type) Out_(ProcessId) Out_(ThreadId) Out_writes_bytes_opt_(ExtraInformationSize)(ExtraInformation) In_(ExtraInformationSize) Out_opt_(ExtraInformationUsed) Out_writes_opt_(DescriptionSize)(Description) In_(DescriptionSize) Out_opt_(DescriptionUsed))
-        :GetLastEventInformation => FFI::Function.new( HRESULT, [THIS_, PULONG, PULONG, PULONG, PVOID, ULONG, PULONG, PSTR, ULONG, PULONG], @vtable[94], :convention=>:stdcall  ),
+        :GetLastEventInformation => FFI::Function.new( HRESULT, [THIS_, PULONG, PULONG, PULONG, PVOID, ULONG, PULONG, PSTR_OUT, ULONG, PULONG], @vtable[94], :convention=>:stdcall  ),
         # GetCurrentTimeDate(THIS_ Out_(TimeDate))
         :GetCurrentTimeDate => FFI::Function.new( HRESULT, [THIS_, PULONG], @vtable[95], :convention=>:stdcall  ),
         # GetCurrentSystemUpTime(THIS_ Out_(UpTime))
@@ -3819,7 +3795,7 @@ module RawBuggery
         # GetNumberTextReplacements(THIS_ Out_(NumRepl))
         :GetNumberTextReplacements => FFI::Function.new( HRESULT, [THIS_, PULONG], @vtable[98], :convention=>:stdcall  ),
         # GetTextReplacement(THIS_ In_opt_(SrcText) In_(Index) Out_writes_opt_(SrcBufferSize)(SrcBuffer) In_(SrcBufferSize) Out_opt_(SrcSize) Out_writes_opt_(DstBufferSize)(DstBuffer) In_(DstBufferSize) Out_opt_(DstSize))
-        :GetTextReplacement => FFI::Function.new( HRESULT, [THIS_, PCSTR, ULONG, PSTR, ULONG, PULONG, PSTR, ULONG, PULONG], @vtable[99], :convention=>:stdcall  ),
+        :GetTextReplacement => FFI::Function.new( HRESULT, [THIS_, PCSTR, ULONG, PSTR_OUT, ULONG, PULONG, PSTR_OUT, ULONG, PULONG], @vtable[99], :convention=>:stdcall  ),
         # SetTextReplacement(THIS_ In_(SrcText) In_opt_(DstText))
         :SetTextReplacement => FFI::Function.new( HRESULT, [THIS_, PCSTR, PCSTR], @vtable[100], :convention=>:stdcall  ),
         # RemoveTextReplacements(THIS)
@@ -3843,7 +3819,7 @@ module RawBuggery
         # GetNumberExpressionSyntaxes(THIS_ Out_(Number))
         :GetNumberExpressionSyntaxes => FFI::Function.new( HRESULT, [THIS_, PULONG], @vtable[110], :convention=>:stdcall  ),
         # GetExpressionSyntaxNames(THIS_ In_(Index) Out_writes_opt_(FullNameBufferSize)(FullNameBuffer) In_(FullNameBufferSize) Out_opt_(FullNameSize) Out_writes_opt_(AbbrevNameBufferSize)(AbbrevNameBuffer) In_(AbbrevNameBufferSize) Out_opt_(AbbrevNameSize))
-        :GetExpressionSyntaxNames => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR, ULONG, PULONG, PSTR, ULONG, PULONG], @vtable[111], :convention=>:stdcall  ),
+        :GetExpressionSyntaxNames => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR_OUT, ULONG, PULONG, PSTR_OUT, ULONG, PULONG], @vtable[111], :convention=>:stdcall  ),
         # GetNumberEvents(THIS_ Out_(Events))
         :GetNumberEvents => FFI::Function.new( HRESULT, [THIS_, PULONG], @vtable[112], :convention=>:stdcall  ),
         # GetEventIndexDescription(THIS_ In_(Index) In_(Which) In_opt_(Buffer) In_(BufferSize) Out_opt_(DescSize))
@@ -3853,35 +3829,35 @@ module RawBuggery
         # SetNextEventIndex(THIS_ In_(Relation) In_(Value) Out_(NextIndex))
         :SetNextEventIndex => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG, PULONG], @vtable[115], :convention=>:stdcall  ),
         # GetLogFileWide(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(FileSize) Out_(Append))
-        :GetLogFileWide => FFI::Function.new( HRESULT, [THIS_, PWSTR, ULONG, PULONG, PBOOL], @vtable[116], :convention=>:stdcall  ),
+        :GetLogFileWide => FFI::Function.new( HRESULT, [THIS_, PWSTR_OUT, ULONG, PULONG, PBOOL], @vtable[116], :convention=>:stdcall  ),
         # OpenLogFileWide(THIS_ In_(File) In_(Append))
         :OpenLogFileWide => FFI::Function.new( HRESULT, [THIS_, PCWSTR, BOOL], @vtable[117], :convention=>:stdcall  ),
         # InputWide(THIS_ Out_writes_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(InputSize))
-        :InputWide => FFI::Function.new( HRESULT, [THIS_, PWSTR, ULONG, PULONG], @vtable[118], :convention=>:stdcall  ),
+        :InputWide => FFI::Function.new( HRESULT, [THIS_, PWSTR_OUT, ULONG, PULONG], @vtable[118], :convention=>:stdcall  ),
         # ReturnInputWide(THIS_ In_(Buffer))
         :ReturnInputWide => FFI::Function.new( HRESULT, [THIS_, PCWSTR], @vtable[119], :convention=>:stdcall  ),
         # OutputWide(THIS_ In_(Mask) In_(Format) ..(...))
         :OutputWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PCWSTR, ], @vtable[120], :convention=>:stdcall  ),
         # OutputVaListWide(THIS_ In_(Mask) In_(Format) In_(Args))
-        :OutputVaListWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PCWSTR, va_list], @vtable[121], :convention=>:stdcall  ),
+        :OutputVaListWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PCWSTR, PVA_LIST], @vtable[121], :convention=>:stdcall  ),
         # ControlledOutputWide(THIS_ In_(OutputControl) In_(Mask) In_(Format) ..(...))
         :ControlledOutputWide => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG, PCWSTR, ], @vtable[122], :convention=>:stdcall  ),
         # ControlledOutputVaListWide(THIS_ In_(OutputControl) In_(Mask) In_(Format) In_(Args))
-        :ControlledOutputVaListWide => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG, PCWSTR, va_list], @vtable[123], :convention=>:stdcall  ),
+        :ControlledOutputVaListWide => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG, PCWSTR, PVA_LIST], @vtable[123], :convention=>:stdcall  ),
         # OutputPromptWide(THIS_ In_(OutputControl) In_opt_(Format) ..(...))
         :OutputPromptWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PCWSTR, ], @vtable[124], :convention=>:stdcall  ),
         # OutputPromptVaListWide(THIS_ In_(OutputControl) In_opt_(Format) In_(Args))
-        :OutputPromptVaListWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PCWSTR, va_list], @vtable[125], :convention=>:stdcall  ),
+        :OutputPromptVaListWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PCWSTR, PVA_LIST], @vtable[125], :convention=>:stdcall  ),
         # GetPromptTextWide(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(TextSize))
-        :GetPromptTextWide => FFI::Function.new( HRESULT, [THIS_, PWSTR, ULONG, PULONG], @vtable[126], :convention=>:stdcall  ),
+        :GetPromptTextWide => FFI::Function.new( HRESULT, [THIS_, PWSTR_OUT, ULONG, PULONG], @vtable[126], :convention=>:stdcall  ),
         # AssembleWide(THIS_ In_(Offset) In_(Instr) Out_(EndOffset))
         :AssembleWide => FFI::Function.new( HRESULT, [THIS_, ULONG64, PCWSTR, PULONG64], @vtable[127], :convention=>:stdcall  ),
         # DisassembleWide(THIS_ In_(Offset) In_(Flags) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(DisassemblySize) Out_(EndOffset))
-        :DisassembleWide => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, PWSTR, ULONG, PULONG, PULONG64], @vtable[128], :convention=>:stdcall  ),
+        :DisassembleWide => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, PWSTR_OUT, ULONG, PULONG, PULONG64], @vtable[128], :convention=>:stdcall  ),
         # GetProcessorTypeNamesWide(THIS_ In_(Type) Out_writes_opt_(FullNameBufferSize)(FullNameBuffer) In_(FullNameBufferSize) Out_opt_(FullNameSize) Out_writes_opt_(AbbrevNameBufferSize)(AbbrevNameBuffer) In_(AbbrevNameBufferSize) Out_opt_(AbbrevNameSize))
-        :GetProcessorTypeNamesWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PWSTR, ULONG, PULONG, PWSTR, ULONG, PULONG], @vtable[129], :convention=>:stdcall  ),
+        :GetProcessorTypeNamesWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PWSTR_OUT, ULONG, PULONG, PWSTR_OUT, ULONG, PULONG], @vtable[129], :convention=>:stdcall  ),
         # GetTextMacroWide(THIS_ In_(Slot) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(MacroSize))
-        :GetTextMacroWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PWSTR, ULONG, PULONG], @vtable[130], :convention=>:stdcall  ),
+        :GetTextMacroWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PWSTR_OUT, ULONG, PULONG], @vtable[130], :convention=>:stdcall  ),
         # SetTextMacroWide(THIS_ In_(Slot) In_(Macro))
         :SetTextMacroWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PCWSTR], @vtable[131], :convention=>:stdcall  ),
         # EvaluateWide(THIS_ In_(Expression) In_(DesiredType) Out_(Value) Out_opt_(RemainderIndex))
@@ -3907,45 +3883,45 @@ module RawBuggery
         # GetExtensionFunctionWide(THIS_ In_(Handle) In_(FuncName) Out_(Function))
         :GetExtensionFunctionWide => FFI::Function.new( HRESULT, [THIS_, ULONG64, PCWSTR, FARPROC], @vtable[142], :convention=>:stdcall  ),
         # GetEventFilterTextWide(THIS_ In_(Index) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(TextSize))
-        :GetEventFilterTextWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PWSTR, ULONG, PULONG], @vtable[143], :convention=>:stdcall  ),
+        :GetEventFilterTextWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PWSTR_OUT, ULONG, PULONG], @vtable[143], :convention=>:stdcall  ),
         # GetEventFilterCommandWide(THIS_ In_(Index) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(CommandSize))
-        :GetEventFilterCommandWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PWSTR, ULONG, PULONG], @vtable[144], :convention=>:stdcall  ),
+        :GetEventFilterCommandWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PWSTR_OUT, ULONG, PULONG], @vtable[144], :convention=>:stdcall  ),
         # SetEventFilterCommandWide(THIS_ In_(Index) In_(Command))
         :SetEventFilterCommandWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PCWSTR], @vtable[145], :convention=>:stdcall  ),
         # GetSpecificFilterArgumentWide(THIS_ In_(Index) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(ArgumentSize))
-        :GetSpecificFilterArgumentWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PWSTR, ULONG, PULONG], @vtable[146], :convention=>:stdcall  ),
+        :GetSpecificFilterArgumentWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PWSTR_OUT, ULONG, PULONG], @vtable[146], :convention=>:stdcall  ),
         # SetSpecificFilterArgumentWide(THIS_ In_(Index) In_(Argument))
         :SetSpecificFilterArgumentWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PCWSTR], @vtable[147], :convention=>:stdcall  ),
         # GetExceptionFilterSecondCommandWide(THIS_ In_(Index) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(CommandSize))
-        :GetExceptionFilterSecondCommandWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PWSTR, ULONG, PULONG], @vtable[148], :convention=>:stdcall  ),
+        :GetExceptionFilterSecondCommandWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PWSTR_OUT, ULONG, PULONG], @vtable[148], :convention=>:stdcall  ),
         # SetExceptionFilterSecondCommandWide(THIS_ In_(Index) In_(Command))
         :SetExceptionFilterSecondCommandWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PCWSTR], @vtable[149], :convention=>:stdcall  ),
         # GetLastEventInformationWide(THIS_ Out_(Type) Out_(ProcessId) Out_(ThreadId) Out_writes_bytes_opt_(ExtraInformationSize)(ExtraInformation) In_(ExtraInformationSize) Out_opt_(ExtraInformationUsed) Out_writes_opt_(DescriptionSize)(Description) In_(DescriptionSize) Out_opt_(DescriptionUsed))
-        :GetLastEventInformationWide => FFI::Function.new( HRESULT, [THIS_, PULONG, PULONG, PULONG, PVOID, ULONG, PULONG, PWSTR, ULONG, PULONG], @vtable[150], :convention=>:stdcall  ),
+        :GetLastEventInformationWide => FFI::Function.new( HRESULT, [THIS_, PULONG, PULONG, PULONG, PVOID, ULONG, PULONG, PWSTR_OUT, ULONG, PULONG], @vtable[150], :convention=>:stdcall  ),
         # GetTextReplacementWide(THIS_ In_opt_(SrcText) In_(Index) Out_writes_opt_(SrcBufferSize)(SrcBuffer) In_(SrcBufferSize) Out_opt_(SrcSize) Out_writes_opt_(DstBufferSize)(DstBuffer) In_(DstBufferSize) Out_opt_(DstSize))
-        :GetTextReplacementWide => FFI::Function.new( HRESULT, [THIS_, PCWSTR, ULONG, PWSTR, ULONG, PULONG, PWSTR, ULONG, PULONG], @vtable[151], :convention=>:stdcall  ),
+        :GetTextReplacementWide => FFI::Function.new( HRESULT, [THIS_, PCWSTR, ULONG, PWSTR_OUT, ULONG, PULONG, PWSTR_OUT, ULONG, PULONG], @vtable[151], :convention=>:stdcall  ),
         # SetTextReplacementWide(THIS_ In_(SrcText) In_opt_(DstText))
         :SetTextReplacementWide => FFI::Function.new( HRESULT, [THIS_, PCWSTR, PCWSTR], @vtable[152], :convention=>:stdcall  ),
         # SetExpressionSyntaxByNameWide(THIS_ In_(AbbrevName))
         :SetExpressionSyntaxByNameWide => FFI::Function.new( HRESULT, [THIS_, PCWSTR], @vtable[153], :convention=>:stdcall  ),
         # GetExpressionSyntaxNamesWide(THIS_ In_(Index) Out_writes_opt_(FullNameBufferSize)(FullNameBuffer) In_(FullNameBufferSize) Out_opt_(FullNameSize) Out_writes_opt_(AbbrevNameBufferSize)(AbbrevNameBuffer) In_(AbbrevNameBufferSize) Out_opt_(AbbrevNameSize))
-        :GetExpressionSyntaxNamesWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PWSTR, ULONG, PULONG, PWSTR, ULONG, PULONG], @vtable[154], :convention=>:stdcall  ),
+        :GetExpressionSyntaxNamesWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PWSTR_OUT, ULONG, PULONG, PWSTR_OUT, ULONG, PULONG], @vtable[154], :convention=>:stdcall  ),
         # GetEventIndexDescriptionWide(THIS_ In_(Index) In_(Which) In_opt_(Buffer) In_(BufferSize) Out_opt_(DescSize))
         :GetEventIndexDescriptionWide => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG, PWSTR, ULONG, PULONG], @vtable[155], :convention=>:stdcall  ),
         # GetLogFile2(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(FileSize) Out_(Flags))
-        :GetLogFile2 => FFI::Function.new( HRESULT, [THIS_, PSTR, ULONG, PULONG, PULONG], @vtable[156], :convention=>:stdcall  ),
+        :GetLogFile2 => FFI::Function.new( HRESULT, [THIS_, PSTR_OUT, ULONG, PULONG, PULONG], @vtable[156], :convention=>:stdcall  ),
         # OpenLogFile2(THIS_ In_(File) In_(Flags))
         :OpenLogFile2 => FFI::Function.new( HRESULT, [THIS_, PCSTR, ULONG], @vtable[157], :convention=>:stdcall  ),
         # GetLogFile2Wide(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(FileSize) Out_(Flags))
-        :GetLogFile2Wide => FFI::Function.new( HRESULT, [THIS_, PWSTR, ULONG, PULONG, PULONG], @vtable[158], :convention=>:stdcall  ),
+        :GetLogFile2Wide => FFI::Function.new( HRESULT, [THIS_, PWSTR_OUT, ULONG, PULONG, PULONG], @vtable[158], :convention=>:stdcall  ),
         # OpenLogFile2Wide(THIS_ In_(File) In_(Flags))
         :OpenLogFile2Wide => FFI::Function.new( HRESULT, [THIS_, PCWSTR, ULONG], @vtable[159], :convention=>:stdcall  ),
         # GetSystemVersionValues(THIS_ Out_(PlatformId) Out_(Win32Major) Out_(Win32Minor) Out_opt_(KdMajor) Out_opt_(KdMinor))
         :GetSystemVersionValues => FFI::Function.new( HRESULT, [THIS_, PULONG, PULONG, PULONG, PULONG, PULONG], @vtable[160], :convention=>:stdcall  ),
         # GetSystemVersionString(THIS_ In_(Which) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(StringSize))
-        :GetSystemVersionString => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR, ULONG, PULONG], @vtable[161], :convention=>:stdcall  ),
+        :GetSystemVersionString => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR_OUT, ULONG, PULONG], @vtable[161], :convention=>:stdcall  ),
         # GetSystemVersionStringWide(THIS_ In_(Which) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(StringSize))
-        :GetSystemVersionStringWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PWSTR, ULONG, PULONG], @vtable[162], :convention=>:stdcall  ),
+        :GetSystemVersionStringWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PWSTR_OUT, ULONG, PULONG], @vtable[162], :convention=>:stdcall  ),
         # GetContextStackTrace(THIS_ In_reads_bytes_opt_(StartContextSize)(StartContext) In_(StartContextSize) Out_writes_to_opt_(FramesSize,*FramesFilled)(Frames) In_(FramesSize) Out_writes_bytes_opt_(FrameContextsSize)(FrameContexts) In_(FrameContextsSize) In_(FrameContextsEntrySize) Out_opt_(FramesFilled))
         :GetContextStackTrace => FFI::Function.new( HRESULT, [THIS_, PVOID, ULONG, PDEBUG_STACK_FRAME, ULONG, PVOID, ULONG, ULONG, PULONG], @vtable[163], :convention=>:stdcall  ),
         # OutputContextStackTrace(THIS_ In_(OutputControl) In_reads_(FramesSize)(Frames) In_(FramesSize) In_reads_bytes_(FrameContextsSize)(FrameContexts) In_(FrameContextsSize) In_(FrameContextsEntrySize) In_(Flags))
@@ -3953,9 +3929,9 @@ module RawBuggery
         # GetStoredEventInformation(THIS_ Out_(Type) Out_(ProcessId) Out_(ThreadId) Out_writes_bytes_opt_(ContextSize)(Context) In_(ContextSize) Out_opt_(ContextUsed) Out_writes_bytes_opt_(ExtraInformationSize)(ExtraInformation) In_(ExtraInformationSize) Out_opt_(ExtraInformationUsed))
         :GetStoredEventInformation => FFI::Function.new( HRESULT, [THIS_, PULONG, PULONG, PULONG, PVOID, ULONG, PULONG, PVOID, ULONG, PULONG], @vtable[165], :convention=>:stdcall  ),
         # GetManagedStatus(THIS_ Out_opt_(Flags) In_(WhichString) Out_writes_opt_(StringSize)(String) In_(StringSize) Out_opt_(StringNeeded))
-        :GetManagedStatus => FFI::Function.new( HRESULT, [THIS_, PULONG, ULONG, PSTR, ULONG, PULONG], @vtable[166], :convention=>:stdcall  ),
+        :GetManagedStatus => FFI::Function.new( HRESULT, [THIS_, PULONG, ULONG, PSTR_OUT, ULONG, PULONG], @vtable[166], :convention=>:stdcall  ),
         # GetManagedStatusWide(THIS_ Out_opt_(Flags) In_(WhichString) Out_writes_opt_(StringSize)(String) In_(StringSize) Out_opt_(StringNeeded))
-        :GetManagedStatusWide => FFI::Function.new( HRESULT, [THIS_, PULONG, ULONG, PWSTR, ULONG, PULONG], @vtable[167], :convention=>:stdcall  ),
+        :GetManagedStatusWide => FFI::Function.new( HRESULT, [THIS_, PULONG, ULONG, PWSTR_OUT, ULONG, PULONG], @vtable[167], :convention=>:stdcall  ),
         # ResetManagedStatus(THIS_ In_(Flags))
         :ResetManagedStatus => FFI::Function.new( HRESULT, [THIS_, ULONG], @vtable[168], :convention=>:stdcall  ),
         # GetStackTraceEx(THIS_ In_(FrameOffset) In_(StackOffset) In_(InstructionOffset) Out_writes_to_(FramesSize,*FramesFilled)(Frames) In_(FramesSize) Out_opt_(FramesFilled))
@@ -3986,9 +3962,7 @@ module RawBuggery
   end
 
   class DebugControl7
-
     DEBUG_EXEC_FLAGS_NONBLOCK = 0x00000001
-
     NUM_APIS = 177
 
     include Win32::WinTypes
@@ -4020,7 +3994,7 @@ module RawBuggery
         # SetInterruptTimeout(THIS_ In_(Seconds))
         :SetInterruptTimeout => FFI::Function.new( HRESULT, [THIS_, ULONG], @vtable[6], :convention=>:stdcall  ),
         # GetLogFile(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(FileSize) Out_(Append))
-        :GetLogFile => FFI::Function.new( HRESULT, [THIS_, PSTR, ULONG, PULONG, PBOOL], @vtable[7], :convention=>:stdcall  ),
+        :GetLogFile => FFI::Function.new( HRESULT, [THIS_, PSTR_OUT, ULONG, PULONG, PBOOL], @vtable[7], :convention=>:stdcall  ),
         # OpenLogFile(THIS_ In_(File) In_(Append))
         :OpenLogFile => FFI::Function.new( HRESULT, [THIS_, PCSTR, BOOL], @vtable[8], :convention=>:stdcall  ),
         # CloseLogFile(THIS)
@@ -4030,23 +4004,23 @@ module RawBuggery
         # SetLogMask(THIS_ In_(Mask))
         :SetLogMask => FFI::Function.new( HRESULT, [THIS_, ULONG], @vtable[11], :convention=>:stdcall  ),
         # Input(THIS_ Out_writes_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(InputSize))
-        :Input => FFI::Function.new( HRESULT, [THIS_, PSTR, ULONG, PULONG], @vtable[12], :convention=>:stdcall  ),
+        :Input => FFI::Function.new( HRESULT, [THIS_, PSTR_OUT, ULONG, PULONG], @vtable[12], :convention=>:stdcall  ),
         # ReturnInput(THIS_ In_(Buffer))
         :ReturnInput => FFI::Function.new( HRESULT, [THIS_, PCSTR], @vtable[13], :convention=>:stdcall  ),
         # Output(THIS_ In_(Mask) In_(Format) ..(...))
         :Output => FFI::Function.new( HRESULT, [THIS_, ULONG, PCSTR, ], @vtable[14], :convention=>:stdcall  ),
         # OutputVaList(THIS_ In_(Mask) In_(Format) In_(Args))
-        :OutputVaList => FFI::Function.new( HRESULT, [THIS_, ULONG, PCSTR, va_list], @vtable[15], :convention=>:stdcall  ),
+        :OutputVaList => FFI::Function.new( HRESULT, [THIS_, ULONG, PCSTR, PVA_LIST], @vtable[15], :convention=>:stdcall  ),
         # ControlledOutput(THIS_ In_(OutputControl) In_(Mask) In_(Format) ..(...))
         :ControlledOutput => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG, PCSTR, ], @vtable[16], :convention=>:stdcall  ),
         # ControlledOutputVaList(THIS_ In_(OutputControl) In_(Mask) In_(Format) In_(Args))
-        :ControlledOutputVaList => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG, PCSTR, va_list], @vtable[17], :convention=>:stdcall  ),
+        :ControlledOutputVaList => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG, PCSTR, PVA_LIST], @vtable[17], :convention=>:stdcall  ),
         # OutputPrompt(THIS_ In_(OutputControl) In_opt_(Format) ..(...))
         :OutputPrompt => FFI::Function.new( HRESULT, [THIS_, ULONG, PCSTR, ], @vtable[18], :convention=>:stdcall  ),
         # OutputPromptVaList(THIS_ In_(OutputControl) In_opt_(Format) In_(Args))
-        :OutputPromptVaList => FFI::Function.new( HRESULT, [THIS_, ULONG, PCSTR, va_list], @vtable[19], :convention=>:stdcall  ),
+        :OutputPromptVaList => FFI::Function.new( HRESULT, [THIS_, ULONG, PCSTR, PVA_LIST], @vtable[19], :convention=>:stdcall  ),
         # GetPromptText(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(TextSize))
-        :GetPromptText => FFI::Function.new( HRESULT, [THIS_, PSTR, ULONG, PULONG], @vtable[20], :convention=>:stdcall  ),
+        :GetPromptText => FFI::Function.new( HRESULT, [THIS_, PSTR_OUT, ULONG, PULONG], @vtable[20], :convention=>:stdcall  ),
         # OutputCurrentState(THIS_ In_(OutputControl) In_(Flags))
         :OutputCurrentState => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG], @vtable[21], :convention=>:stdcall  ),
         # OutputVersionInformation(THIS_ In_(OutputControl))
@@ -4058,7 +4032,7 @@ module RawBuggery
         # Assemble(THIS_ In_(Offset) In_(Instr) Out_(EndOffset))
         :Assemble => FFI::Function.new( HRESULT, [THIS_, ULONG64, PCSTR, PULONG64], @vtable[25], :convention=>:stdcall  ),
         # Disassemble(THIS_ In_(Offset) In_(Flags) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(DisassemblySize) Out_(EndOffset))
-        :Disassemble => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, PSTR, ULONG, PULONG, PULONG64], @vtable[26], :convention=>:stdcall  ),
+        :Disassemble => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, PSTR_OUT, ULONG, PULONG, PULONG64], @vtable[26], :convention=>:stdcall  ),
         # GetDisassembleEffectiveOffset(THIS_ Out_(Offset))
         :GetDisassembleEffectiveOffset => FFI::Function.new( HRESULT, [THIS_, PULONG64], @vtable[27], :convention=>:stdcall  ),
         # OutputDisassembly(THIS_ In_(OutputControl) In_(Offset) In_(Flags) Out_(EndOffset))
@@ -4086,7 +4060,7 @@ module RawBuggery
         # GetNumberProcessors(THIS_ Out_(Number))
         :GetNumberProcessors => FFI::Function.new( HRESULT, [THIS_, PULONG], @vtable[39], :convention=>:stdcall  ),
         # GetSystemVersion(THIS_ Out_(PlatformId) Out_(Major) Out_(Minor) Out_writes_opt_(ServicePackStringSize)(ServicePackString) In_(ServicePackStringSize) Out_opt_(ServicePackStringUsed) Out_(ServicePackNumber) Out_writes_opt_(BuildStringSize)(BuildString) In_(BuildStringSize) Out_opt_(BuildStringUsed))
-        :GetSystemVersion => FFI::Function.new( HRESULT, [THIS_, PULONG, PULONG, PULONG, PSTR, ULONG, PULONG, PULONG, PSTR, ULONG, PULONG], @vtable[40], :convention=>:stdcall  ),
+        :GetSystemVersion => FFI::Function.new( HRESULT, [THIS_, PULONG, PULONG, PULONG, PSTR_OUT, ULONG, PULONG, PULONG, PSTR_OUT, ULONG, PULONG], @vtable[40], :convention=>:stdcall  ),
         # GetPageSize(THIS_ Out_(Size))
         :GetPageSize => FFI::Function.new( HRESULT, [THIS_, PULONG], @vtable[41], :convention=>:stdcall  ),
         # IsPointer64Bit(THIS)
@@ -4098,7 +4072,7 @@ module RawBuggery
         # GetSupportedProcessorTypes(THIS_ In_(Start) In_(Count) Out_writes_(Count)(Types))
         :GetSupportedProcessorTypes => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG, PULONG], @vtable[45], :convention=>:stdcall  ),
         # GetProcessorTypeNames(THIS_ In_(Type) Out_writes_opt_(FullNameBufferSize)(FullNameBuffer) In_(FullNameBufferSize) Out_opt_(FullNameSize) Out_writes_opt_(AbbrevNameBufferSize)(AbbrevNameBuffer) In_(AbbrevNameBufferSize) Out_opt_(AbbrevNameSize))
-        :GetProcessorTypeNames => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR, ULONG, PULONG, PSTR, ULONG, PULONG], @vtable[46], :convention=>:stdcall  ),
+        :GetProcessorTypeNames => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR_OUT, ULONG, PULONG, PSTR_OUT, ULONG, PULONG], @vtable[46], :convention=>:stdcall  ),
         # GetEffectiveProcessorType(THIS_ Out_(Type))
         :GetEffectiveProcessorType => FFI::Function.new( HRESULT, [THIS_, PULONG], @vtable[47], :convention=>:stdcall  ),
         # SetEffectiveProcessorType(THIS_ In_(Type))
@@ -4124,7 +4098,7 @@ module RawBuggery
         # SetSystemErrorControl(THIS_ In_(OutputLevel) In_(BreakLevel))
         :SetSystemErrorControl => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG], @vtable[58], :convention=>:stdcall  ),
         # GetTextMacro(THIS_ In_(Slot) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(MacroSize))
-        :GetTextMacro => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR, ULONG, PULONG], @vtable[59], :convention=>:stdcall  ),
+        :GetTextMacro => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR_OUT, ULONG, PULONG], @vtable[59], :convention=>:stdcall  ),
         # SetTextMacro(THIS_ In_(Slot) In_(Macro))
         :SetTextMacro => FFI::Function.new( HRESULT, [THIS_, ULONG, PCSTR], @vtable[60], :convention=>:stdcall  ),
         # GetRadix(THIS_ Out_(Radix))
@@ -4170,9 +4144,9 @@ module RawBuggery
         # GetNumberEventFilters(THIS_ Out_(SpecificEvents) Out_(SpecificExceptions) Out_(ArbitraryExceptions))
         :GetNumberEventFilters => FFI::Function.new( HRESULT, [THIS_, PULONG, PULONG, PULONG], @vtable[81], :convention=>:stdcall  ),
         # GetEventFilterText(THIS_ In_(Index) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(TextSize))
-        :GetEventFilterText => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR, ULONG, PULONG], @vtable[82], :convention=>:stdcall  ),
+        :GetEventFilterText => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR_OUT, ULONG, PULONG], @vtable[82], :convention=>:stdcall  ),
         # GetEventFilterCommand(THIS_ In_(Index) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(CommandSize))
-        :GetEventFilterCommand => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR, ULONG, PULONG], @vtable[83], :convention=>:stdcall  ),
+        :GetEventFilterCommand => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR_OUT, ULONG, PULONG], @vtable[83], :convention=>:stdcall  ),
         # SetEventFilterCommand(THIS_ In_(Index) In_(Command))
         :SetEventFilterCommand => FFI::Function.new( HRESULT, [THIS_, ULONG, PCSTR], @vtable[84], :convention=>:stdcall  ),
         # GetSpecificFilterParameters(THIS_ In_(Start) In_(Count) Out_writes_(Count)(Params))
@@ -4180,7 +4154,7 @@ module RawBuggery
         # SetSpecificFilterParameters(THIS_ In_(Start) In_(Count) In_reads_(Count)(Params))
         :SetSpecificFilterParameters => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG, PDEBUG_SPECIFIC_FILTER_PARAMETERS], @vtable[86], :convention=>:stdcall  ),
         # GetSpecificFilterArgument(THIS_ In_(Index) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(ArgumentSize))
-        :GetSpecificFilterArgument => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR, ULONG, PULONG], @vtable[87], :convention=>:stdcall  ),
+        :GetSpecificFilterArgument => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR_OUT, ULONG, PULONG], @vtable[87], :convention=>:stdcall  ),
         # SetSpecificFilterArgument(THIS_ In_(Index) In_(Argument))
         :SetSpecificFilterArgument => FFI::Function.new( HRESULT, [THIS_, ULONG, PCSTR], @vtable[88], :convention=>:stdcall  ),
         # GetExceptionFilterParameters(THIS_ In_(Count) In_reads_opt_(Count)(Codes) In_(Start) Out_writes_(Count)(Params))
@@ -4188,13 +4162,13 @@ module RawBuggery
         # SetExceptionFilterParameters(THIS_ In_(Count) In_reads_(Count)(Params))
         :SetExceptionFilterParameters => FFI::Function.new( HRESULT, [THIS_, ULONG, PDEBUG_EXCEPTION_FILTER_PARAMETERS], @vtable[90], :convention=>:stdcall  ),
         # GetExceptionFilterSecondCommand(THIS_ In_(Index) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(CommandSize))
-        :GetExceptionFilterSecondCommand => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR, ULONG, PULONG], @vtable[91], :convention=>:stdcall  ),
+        :GetExceptionFilterSecondCommand => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR_OUT, ULONG, PULONG], @vtable[91], :convention=>:stdcall  ),
         # SetExceptionFilterSecondCommand(THIS_ In_(Index) In_(Command))
         :SetExceptionFilterSecondCommand => FFI::Function.new( HRESULT, [THIS_, ULONG, PCSTR], @vtable[92], :convention=>:stdcall  ),
         # WaitForEvent(THIS_ In_(Flags) In_(Timeout))
         :WaitForEvent => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG], @vtable[93], :convention=>:stdcall  ),
         # GetLastEventInformation(THIS_ Out_(Type) Out_(ProcessId) Out_(ThreadId) Out_writes_bytes_opt_(ExtraInformationSize)(ExtraInformation) In_(ExtraInformationSize) Out_opt_(ExtraInformationUsed) Out_writes_opt_(DescriptionSize)(Description) In_(DescriptionSize) Out_opt_(DescriptionUsed))
-        :GetLastEventInformation => FFI::Function.new( HRESULT, [THIS_, PULONG, PULONG, PULONG, PVOID, ULONG, PULONG, PSTR, ULONG, PULONG], @vtable[94], :convention=>:stdcall  ),
+        :GetLastEventInformation => FFI::Function.new( HRESULT, [THIS_, PULONG, PULONG, PULONG, PVOID, ULONG, PULONG, PSTR_OUT, ULONG, PULONG], @vtable[94], :convention=>:stdcall  ),
         # GetCurrentTimeDate(THIS_ Out_(TimeDate))
         :GetCurrentTimeDate => FFI::Function.new( HRESULT, [THIS_, PULONG], @vtable[95], :convention=>:stdcall  ),
         # GetCurrentSystemUpTime(THIS_ Out_(UpTime))
@@ -4204,7 +4178,7 @@ module RawBuggery
         # GetNumberTextReplacements(THIS_ Out_(NumRepl))
         :GetNumberTextReplacements => FFI::Function.new( HRESULT, [THIS_, PULONG], @vtable[98], :convention=>:stdcall  ),
         # GetTextReplacement(THIS_ In_opt_(SrcText) In_(Index) Out_writes_opt_(SrcBufferSize)(SrcBuffer) In_(SrcBufferSize) Out_opt_(SrcSize) Out_writes_opt_(DstBufferSize)(DstBuffer) In_(DstBufferSize) Out_opt_(DstSize))
-        :GetTextReplacement => FFI::Function.new( HRESULT, [THIS_, PCSTR, ULONG, PSTR, ULONG, PULONG, PSTR, ULONG, PULONG], @vtable[99], :convention=>:stdcall  ),
+        :GetTextReplacement => FFI::Function.new( HRESULT, [THIS_, PCSTR, ULONG, PSTR_OUT, ULONG, PULONG, PSTR_OUT, ULONG, PULONG], @vtable[99], :convention=>:stdcall  ),
         # SetTextReplacement(THIS_ In_(SrcText) In_opt_(DstText))
         :SetTextReplacement => FFI::Function.new( HRESULT, [THIS_, PCSTR, PCSTR], @vtable[100], :convention=>:stdcall  ),
         # RemoveTextReplacements(THIS)
@@ -4228,7 +4202,7 @@ module RawBuggery
         # GetNumberExpressionSyntaxes(THIS_ Out_(Number))
         :GetNumberExpressionSyntaxes => FFI::Function.new( HRESULT, [THIS_, PULONG], @vtable[110], :convention=>:stdcall  ),
         # GetExpressionSyntaxNames(THIS_ In_(Index) Out_writes_opt_(FullNameBufferSize)(FullNameBuffer) In_(FullNameBufferSize) Out_opt_(FullNameSize) Out_writes_opt_(AbbrevNameBufferSize)(AbbrevNameBuffer) In_(AbbrevNameBufferSize) Out_opt_(AbbrevNameSize))
-        :GetExpressionSyntaxNames => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR, ULONG, PULONG, PSTR, ULONG, PULONG], @vtable[111], :convention=>:stdcall  ),
+        :GetExpressionSyntaxNames => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR_OUT, ULONG, PULONG, PSTR_OUT, ULONG, PULONG], @vtable[111], :convention=>:stdcall  ),
         # GetNumberEvents(THIS_ Out_(Events))
         :GetNumberEvents => FFI::Function.new( HRESULT, [THIS_, PULONG], @vtable[112], :convention=>:stdcall  ),
         # GetEventIndexDescription(THIS_ In_(Index) In_(Which) In_opt_(Buffer) In_(BufferSize) Out_opt_(DescSize))
@@ -4238,35 +4212,35 @@ module RawBuggery
         # SetNextEventIndex(THIS_ In_(Relation) In_(Value) Out_(NextIndex))
         :SetNextEventIndex => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG, PULONG], @vtable[115], :convention=>:stdcall  ),
         # GetLogFileWide(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(FileSize) Out_(Append))
-        :GetLogFileWide => FFI::Function.new( HRESULT, [THIS_, PWSTR, ULONG, PULONG, PBOOL], @vtable[116], :convention=>:stdcall  ),
+        :GetLogFileWide => FFI::Function.new( HRESULT, [THIS_, PWSTR_OUT, ULONG, PULONG, PBOOL], @vtable[116], :convention=>:stdcall  ),
         # OpenLogFileWide(THIS_ In_(File) In_(Append))
         :OpenLogFileWide => FFI::Function.new( HRESULT, [THIS_, PCWSTR, BOOL], @vtable[117], :convention=>:stdcall  ),
         # InputWide(THIS_ Out_writes_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(InputSize))
-        :InputWide => FFI::Function.new( HRESULT, [THIS_, PWSTR, ULONG, PULONG], @vtable[118], :convention=>:stdcall  ),
+        :InputWide => FFI::Function.new( HRESULT, [THIS_, PWSTR_OUT, ULONG, PULONG], @vtable[118], :convention=>:stdcall  ),
         # ReturnInputWide(THIS_ In_(Buffer))
         :ReturnInputWide => FFI::Function.new( HRESULT, [THIS_, PCWSTR], @vtable[119], :convention=>:stdcall  ),
         # OutputWide(THIS_ In_(Mask) In_(Format) ..(...))
         :OutputWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PCWSTR, ], @vtable[120], :convention=>:stdcall  ),
         # OutputVaListWide(THIS_ In_(Mask) In_(Format) In_(Args))
-        :OutputVaListWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PCWSTR, va_list], @vtable[121], :convention=>:stdcall  ),
+        :OutputVaListWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PCWSTR, PVA_LIST], @vtable[121], :convention=>:stdcall  ),
         # ControlledOutputWide(THIS_ In_(OutputControl) In_(Mask) In_(Format) ..(...))
         :ControlledOutputWide => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG, PCWSTR, ], @vtable[122], :convention=>:stdcall  ),
         # ControlledOutputVaListWide(THIS_ In_(OutputControl) In_(Mask) In_(Format) In_(Args))
-        :ControlledOutputVaListWide => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG, PCWSTR, va_list], @vtable[123], :convention=>:stdcall  ),
+        :ControlledOutputVaListWide => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG, PCWSTR, PVA_LIST], @vtable[123], :convention=>:stdcall  ),
         # OutputPromptWide(THIS_ In_(OutputControl) In_opt_(Format) ..(...))
         :OutputPromptWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PCWSTR, ], @vtable[124], :convention=>:stdcall  ),
         # OutputPromptVaListWide(THIS_ In_(OutputControl) In_opt_(Format) In_(Args))
-        :OutputPromptVaListWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PCWSTR, va_list], @vtable[125], :convention=>:stdcall  ),
+        :OutputPromptVaListWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PCWSTR, PVA_LIST], @vtable[125], :convention=>:stdcall  ),
         # GetPromptTextWide(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(TextSize))
-        :GetPromptTextWide => FFI::Function.new( HRESULT, [THIS_, PWSTR, ULONG, PULONG], @vtable[126], :convention=>:stdcall  ),
+        :GetPromptTextWide => FFI::Function.new( HRESULT, [THIS_, PWSTR_OUT, ULONG, PULONG], @vtable[126], :convention=>:stdcall  ),
         # AssembleWide(THIS_ In_(Offset) In_(Instr) Out_(EndOffset))
         :AssembleWide => FFI::Function.new( HRESULT, [THIS_, ULONG64, PCWSTR, PULONG64], @vtable[127], :convention=>:stdcall  ),
         # DisassembleWide(THIS_ In_(Offset) In_(Flags) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(DisassemblySize) Out_(EndOffset))
-        :DisassembleWide => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, PWSTR, ULONG, PULONG, PULONG64], @vtable[128], :convention=>:stdcall  ),
+        :DisassembleWide => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, PWSTR_OUT, ULONG, PULONG, PULONG64], @vtable[128], :convention=>:stdcall  ),
         # GetProcessorTypeNamesWide(THIS_ In_(Type) Out_writes_opt_(FullNameBufferSize)(FullNameBuffer) In_(FullNameBufferSize) Out_opt_(FullNameSize) Out_writes_opt_(AbbrevNameBufferSize)(AbbrevNameBuffer) In_(AbbrevNameBufferSize) Out_opt_(AbbrevNameSize))
-        :GetProcessorTypeNamesWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PWSTR, ULONG, PULONG, PWSTR, ULONG, PULONG], @vtable[129], :convention=>:stdcall  ),
+        :GetProcessorTypeNamesWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PWSTR_OUT, ULONG, PULONG, PWSTR_OUT, ULONG, PULONG], @vtable[129], :convention=>:stdcall  ),
         # GetTextMacroWide(THIS_ In_(Slot) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(MacroSize))
-        :GetTextMacroWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PWSTR, ULONG, PULONG], @vtable[130], :convention=>:stdcall  ),
+        :GetTextMacroWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PWSTR_OUT, ULONG, PULONG], @vtable[130], :convention=>:stdcall  ),
         # SetTextMacroWide(THIS_ In_(Slot) In_(Macro))
         :SetTextMacroWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PCWSTR], @vtable[131], :convention=>:stdcall  ),
         # EvaluateWide(THIS_ In_(Expression) In_(DesiredType) Out_(Value) Out_opt_(RemainderIndex))
@@ -4292,45 +4266,45 @@ module RawBuggery
         # GetExtensionFunctionWide(THIS_ In_(Handle) In_(FuncName) Out_(Function))
         :GetExtensionFunctionWide => FFI::Function.new( HRESULT, [THIS_, ULONG64, PCWSTR, FARPROC], @vtable[142], :convention=>:stdcall  ),
         # GetEventFilterTextWide(THIS_ In_(Index) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(TextSize))
-        :GetEventFilterTextWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PWSTR, ULONG, PULONG], @vtable[143], :convention=>:stdcall  ),
+        :GetEventFilterTextWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PWSTR_OUT, ULONG, PULONG], @vtable[143], :convention=>:stdcall  ),
         # GetEventFilterCommandWide(THIS_ In_(Index) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(CommandSize))
-        :GetEventFilterCommandWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PWSTR, ULONG, PULONG], @vtable[144], :convention=>:stdcall  ),
+        :GetEventFilterCommandWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PWSTR_OUT, ULONG, PULONG], @vtable[144], :convention=>:stdcall  ),
         # SetEventFilterCommandWide(THIS_ In_(Index) In_(Command))
         :SetEventFilterCommandWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PCWSTR], @vtable[145], :convention=>:stdcall  ),
         # GetSpecificFilterArgumentWide(THIS_ In_(Index) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(ArgumentSize))
-        :GetSpecificFilterArgumentWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PWSTR, ULONG, PULONG], @vtable[146], :convention=>:stdcall  ),
+        :GetSpecificFilterArgumentWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PWSTR_OUT, ULONG, PULONG], @vtable[146], :convention=>:stdcall  ),
         # SetSpecificFilterArgumentWide(THIS_ In_(Index) In_(Argument))
         :SetSpecificFilterArgumentWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PCWSTR], @vtable[147], :convention=>:stdcall  ),
         # GetExceptionFilterSecondCommandWide(THIS_ In_(Index) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(CommandSize))
-        :GetExceptionFilterSecondCommandWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PWSTR, ULONG, PULONG], @vtable[148], :convention=>:stdcall  ),
+        :GetExceptionFilterSecondCommandWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PWSTR_OUT, ULONG, PULONG], @vtable[148], :convention=>:stdcall  ),
         # SetExceptionFilterSecondCommandWide(THIS_ In_(Index) In_(Command))
         :SetExceptionFilterSecondCommandWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PCWSTR], @vtable[149], :convention=>:stdcall  ),
         # GetLastEventInformationWide(THIS_ Out_(Type) Out_(ProcessId) Out_(ThreadId) Out_writes_bytes_opt_(ExtraInformationSize)(ExtraInformation) In_(ExtraInformationSize) Out_opt_(ExtraInformationUsed) Out_writes_opt_(DescriptionSize)(Description) In_(DescriptionSize) Out_opt_(DescriptionUsed))
-        :GetLastEventInformationWide => FFI::Function.new( HRESULT, [THIS_, PULONG, PULONG, PULONG, PVOID, ULONG, PULONG, PWSTR, ULONG, PULONG], @vtable[150], :convention=>:stdcall  ),
+        :GetLastEventInformationWide => FFI::Function.new( HRESULT, [THIS_, PULONG, PULONG, PULONG, PVOID, ULONG, PULONG, PWSTR_OUT, ULONG, PULONG], @vtable[150], :convention=>:stdcall  ),
         # GetTextReplacementWide(THIS_ In_opt_(SrcText) In_(Index) Out_writes_opt_(SrcBufferSize)(SrcBuffer) In_(SrcBufferSize) Out_opt_(SrcSize) Out_writes_opt_(DstBufferSize)(DstBuffer) In_(DstBufferSize) Out_opt_(DstSize))
-        :GetTextReplacementWide => FFI::Function.new( HRESULT, [THIS_, PCWSTR, ULONG, PWSTR, ULONG, PULONG, PWSTR, ULONG, PULONG], @vtable[151], :convention=>:stdcall  ),
+        :GetTextReplacementWide => FFI::Function.new( HRESULT, [THIS_, PCWSTR, ULONG, PWSTR_OUT, ULONG, PULONG, PWSTR_OUT, ULONG, PULONG], @vtable[151], :convention=>:stdcall  ),
         # SetTextReplacementWide(THIS_ In_(SrcText) In_opt_(DstText))
         :SetTextReplacementWide => FFI::Function.new( HRESULT, [THIS_, PCWSTR, PCWSTR], @vtable[152], :convention=>:stdcall  ),
         # SetExpressionSyntaxByNameWide(THIS_ In_(AbbrevName))
         :SetExpressionSyntaxByNameWide => FFI::Function.new( HRESULT, [THIS_, PCWSTR], @vtable[153], :convention=>:stdcall  ),
         # GetExpressionSyntaxNamesWide(THIS_ In_(Index) Out_writes_opt_(FullNameBufferSize)(FullNameBuffer) In_(FullNameBufferSize) Out_opt_(FullNameSize) Out_writes_opt_(AbbrevNameBufferSize)(AbbrevNameBuffer) In_(AbbrevNameBufferSize) Out_opt_(AbbrevNameSize))
-        :GetExpressionSyntaxNamesWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PWSTR, ULONG, PULONG, PWSTR, ULONG, PULONG], @vtable[154], :convention=>:stdcall  ),
+        :GetExpressionSyntaxNamesWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PWSTR_OUT, ULONG, PULONG, PWSTR_OUT, ULONG, PULONG], @vtable[154], :convention=>:stdcall  ),
         # GetEventIndexDescriptionWide(THIS_ In_(Index) In_(Which) In_opt_(Buffer) In_(BufferSize) Out_opt_(DescSize))
         :GetEventIndexDescriptionWide => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG, PWSTR, ULONG, PULONG], @vtable[155], :convention=>:stdcall  ),
         # GetLogFile2(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(FileSize) Out_(Flags))
-        :GetLogFile2 => FFI::Function.new( HRESULT, [THIS_, PSTR, ULONG, PULONG, PULONG], @vtable[156], :convention=>:stdcall  ),
+        :GetLogFile2 => FFI::Function.new( HRESULT, [THIS_, PSTR_OUT, ULONG, PULONG, PULONG], @vtable[156], :convention=>:stdcall  ),
         # OpenLogFile2(THIS_ In_(File) In_(Flags))
         :OpenLogFile2 => FFI::Function.new( HRESULT, [THIS_, PCSTR, ULONG], @vtable[157], :convention=>:stdcall  ),
         # GetLogFile2Wide(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(FileSize) Out_(Flags))
-        :GetLogFile2Wide => FFI::Function.new( HRESULT, [THIS_, PWSTR, ULONG, PULONG, PULONG], @vtable[158], :convention=>:stdcall  ),
+        :GetLogFile2Wide => FFI::Function.new( HRESULT, [THIS_, PWSTR_OUT, ULONG, PULONG, PULONG], @vtable[158], :convention=>:stdcall  ),
         # OpenLogFile2Wide(THIS_ In_(File) In_(Flags))
         :OpenLogFile2Wide => FFI::Function.new( HRESULT, [THIS_, PCWSTR, ULONG], @vtable[159], :convention=>:stdcall  ),
         # GetSystemVersionValues(THIS_ Out_(PlatformId) Out_(Win32Major) Out_(Win32Minor) Out_opt_(KdMajor) Out_opt_(KdMinor))
         :GetSystemVersionValues => FFI::Function.new( HRESULT, [THIS_, PULONG, PULONG, PULONG, PULONG, PULONG], @vtable[160], :convention=>:stdcall  ),
         # GetSystemVersionString(THIS_ In_(Which) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(StringSize))
-        :GetSystemVersionString => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR, ULONG, PULONG], @vtable[161], :convention=>:stdcall  ),
+        :GetSystemVersionString => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR_OUT, ULONG, PULONG], @vtable[161], :convention=>:stdcall  ),
         # GetSystemVersionStringWide(THIS_ In_(Which) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(StringSize))
-        :GetSystemVersionStringWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PWSTR, ULONG, PULONG], @vtable[162], :convention=>:stdcall  ),
+        :GetSystemVersionStringWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PWSTR_OUT, ULONG, PULONG], @vtable[162], :convention=>:stdcall  ),
         # GetContextStackTrace(THIS_ In_reads_bytes_opt_(StartContextSize)(StartContext) In_(StartContextSize) Out_writes_to_opt_(FramesSize,*FramesFilled)(Frames) In_(FramesSize) Out_writes_bytes_opt_(FrameContextsSize)(FrameContexts) In_(FrameContextsSize) In_(FrameContextsEntrySize) Out_opt_(FramesFilled))
         :GetContextStackTrace => FFI::Function.new( HRESULT, [THIS_, PVOID, ULONG, PDEBUG_STACK_FRAME, ULONG, PVOID, ULONG, ULONG, PULONG], @vtable[163], :convention=>:stdcall  ),
         # OutputContextStackTrace(THIS_ In_(OutputControl) In_reads_(FramesSize)(Frames) In_(FramesSize) In_reads_bytes_(FrameContextsSize)(FrameContexts) In_(FrameContextsSize) In_(FrameContextsEntrySize) In_(Flags))
@@ -4338,9 +4312,9 @@ module RawBuggery
         # GetStoredEventInformation(THIS_ Out_(Type) Out_(ProcessId) Out_(ThreadId) Out_writes_bytes_opt_(ContextSize)(Context) In_(ContextSize) Out_opt_(ContextUsed) Out_writes_bytes_opt_(ExtraInformationSize)(ExtraInformation) In_(ExtraInformationSize) Out_opt_(ExtraInformationUsed))
         :GetStoredEventInformation => FFI::Function.new( HRESULT, [THIS_, PULONG, PULONG, PULONG, PVOID, ULONG, PULONG, PVOID, ULONG, PULONG], @vtable[165], :convention=>:stdcall  ),
         # GetManagedStatus(THIS_ Out_opt_(Flags) In_(WhichString) Out_writes_opt_(StringSize)(String) In_(StringSize) Out_opt_(StringNeeded))
-        :GetManagedStatus => FFI::Function.new( HRESULT, [THIS_, PULONG, ULONG, PSTR, ULONG, PULONG], @vtable[166], :convention=>:stdcall  ),
+        :GetManagedStatus => FFI::Function.new( HRESULT, [THIS_, PULONG, ULONG, PSTR_OUT, ULONG, PULONG], @vtable[166], :convention=>:stdcall  ),
         # GetManagedStatusWide(THIS_ Out_opt_(Flags) In_(WhichString) Out_writes_opt_(StringSize)(String) In_(StringSize) Out_opt_(StringNeeded))
-        :GetManagedStatusWide => FFI::Function.new( HRESULT, [THIS_, PULONG, ULONG, PWSTR, ULONG, PULONG], @vtable[167], :convention=>:stdcall  ),
+        :GetManagedStatusWide => FFI::Function.new( HRESULT, [THIS_, PULONG, ULONG, PWSTR_OUT, ULONG, PULONG], @vtable[167], :convention=>:stdcall  ),
         # ResetManagedStatus(THIS_ In_(Flags))
         :ResetManagedStatus => FFI::Function.new( HRESULT, [THIS_, ULONG], @vtable[168], :convention=>:stdcall  ),
         # GetStackTraceEx(THIS_ In_(FrameOffset) In_(StackOffset) In_(InstructionOffset) Out_writes_to_(FramesSize,*FramesFilled)(Frames) In_(FramesSize) Out_opt_(FramesFilled))
@@ -4373,136 +4347,134 @@ module RawBuggery
   end
 
   class DebugDataSpaces
-
-    DEBUG_DATA_SPACE_VIRTUAL                     = 0
-    DEBUG_DATA_SPACE_PHYSICAL                    = 1
-    DEBUG_DATA_SPACE_CONTROL                     = 2
-    DEBUG_DATA_SPACE_IO                          = 3
-    DEBUG_DATA_SPACE_MSR                         = 4
-    DEBUG_DATA_SPACE_BUS_DATA                    = 5
-    DEBUG_DATA_SPACE_DEBUGGER_DATA               = 6
-    DEBUG_DATA_SPACE_COUNT                       = 7
-    DEBUG_DATA_KernBase                          = 24
-    DEBUG_DATA_BreakpointWithStatusAddr          = 32
-    DEBUG_DATA_SavedContextAddr                  = 40
-    DEBUG_DATA_KiCallUserModeAddr                = 56
-    DEBUG_DATA_KeUserCallbackDispatcherAddr      = 64
-    DEBUG_DATA_PsLoadedModuleListAddr            = 72
-    DEBUG_DATA_PsActiveProcessHeadAddr           = 80
-    DEBUG_DATA_PspCidTableAddr                   = 88
-    DEBUG_DATA_ExpSystemResourcesListAddr        = 96
-    DEBUG_DATA_ExpPagedPoolDescriptorAddr        = 104
-    DEBUG_DATA_ExpNumberOfPagedPoolsAddr         = 112
-    DEBUG_DATA_KeTimeIncrementAddr               = 120
-    DEBUG_DATA_KeBugCheckCallbackListHeadAddr    = 128
-    DEBUG_DATA_KiBugcheckDataAddr                = 136
-    DEBUG_DATA_IopErrorLogListHeadAddr           = 144
-    DEBUG_DATA_ObpRootDirectoryObjectAddr        = 152
-    DEBUG_DATA_ObpTypeObjectTypeAddr             = 160
-    DEBUG_DATA_MmSystemCacheStartAddr            = 168
-    DEBUG_DATA_MmSystemCacheEndAddr              = 176
-    DEBUG_DATA_MmSystemCacheWsAddr               = 184
-    DEBUG_DATA_MmPfnDatabaseAddr                 = 192
-    DEBUG_DATA_MmSystemPtesStartAddr             = 200
-    DEBUG_DATA_MmSystemPtesEndAddr               = 208
-    DEBUG_DATA_MmSubsectionBaseAddr              = 216
-    DEBUG_DATA_MmNumberOfPagingFilesAddr         = 224
-    DEBUG_DATA_MmLowestPhysicalPageAddr          = 232
-    DEBUG_DATA_MmHighestPhysicalPageAddr         = 240
-    DEBUG_DATA_MmNumberOfPhysicalPagesAddr       = 248
-    DEBUG_DATA_MmMaximumNonPagedPoolInBytesAddr  = 256
-    DEBUG_DATA_MmNonPagedSystemStartAddr         = 264
-    DEBUG_DATA_MmNonPagedPoolStartAddr           = 272
-    DEBUG_DATA_MmNonPagedPoolEndAddr             = 280
-    DEBUG_DATA_MmPagedPoolStartAddr              = 288
-    DEBUG_DATA_MmPagedPoolEndAddr                = 296
-    DEBUG_DATA_MmPagedPoolInformationAddr        = 304
-    DEBUG_DATA_MmPageSize                        = 312
-    DEBUG_DATA_MmSizeOfPagedPoolInBytesAddr      = 320
-    DEBUG_DATA_MmTotalCommitLimitAddr            = 328
-    DEBUG_DATA_MmTotalCommittedPagesAddr         = 336
-    DEBUG_DATA_MmSharedCommitAddr                = 344
-    DEBUG_DATA_MmDriverCommitAddr                = 352
-    DEBUG_DATA_MmProcessCommitAddr               = 360
-    DEBUG_DATA_MmPagedPoolCommitAddr             = 368
-    DEBUG_DATA_MmExtendedCommitAddr              = 376
-    DEBUG_DATA_MmZeroedPageListHeadAddr          = 384
-    DEBUG_DATA_MmFreePageListHeadAddr            = 392
-    DEBUG_DATA_MmStandbyPageListHeadAddr         = 400
-    DEBUG_DATA_MmModifiedPageListHeadAddr        = 408
+    DEBUG_DATA_SPACE_VIRTUAL = 0
+    DEBUG_DATA_SPACE_PHYSICAL = 1
+    DEBUG_DATA_SPACE_CONTROL = 2
+    DEBUG_DATA_SPACE_IO = 3
+    DEBUG_DATA_SPACE_MSR = 4
+    DEBUG_DATA_SPACE_BUS_DATA = 5
+    DEBUG_DATA_SPACE_DEBUGGER_DATA = 6
+    DEBUG_DATA_SPACE_COUNT = 7
+    DEBUG_DATA_KernBase = 24
+    DEBUG_DATA_BreakpointWithStatusAddr = 32
+    DEBUG_DATA_SavedContextAddr = 40
+    DEBUG_DATA_KiCallUserModeAddr = 56
+    DEBUG_DATA_KeUserCallbackDispatcherAddr = 64
+    DEBUG_DATA_PsLoadedModuleListAddr = 72
+    DEBUG_DATA_PsActiveProcessHeadAddr = 80
+    DEBUG_DATA_PspCidTableAddr = 88
+    DEBUG_DATA_ExpSystemResourcesListAddr = 96
+    DEBUG_DATA_ExpPagedPoolDescriptorAddr = 104
+    DEBUG_DATA_ExpNumberOfPagedPoolsAddr = 112
+    DEBUG_DATA_KeTimeIncrementAddr = 120
+    DEBUG_DATA_KeBugCheckCallbackListHeadAddr = 128
+    DEBUG_DATA_KiBugcheckDataAddr = 136
+    DEBUG_DATA_IopErrorLogListHeadAddr = 144
+    DEBUG_DATA_ObpRootDirectoryObjectAddr = 152
+    DEBUG_DATA_ObpTypeObjectTypeAddr = 160
+    DEBUG_DATA_MmSystemCacheStartAddr = 168
+    DEBUG_DATA_MmSystemCacheEndAddr = 176
+    DEBUG_DATA_MmSystemCacheWsAddr = 184
+    DEBUG_DATA_MmPfnDatabaseAddr = 192
+    DEBUG_DATA_MmSystemPtesStartAddr = 200
+    DEBUG_DATA_MmSystemPtesEndAddr = 208
+    DEBUG_DATA_MmSubsectionBaseAddr = 216
+    DEBUG_DATA_MmNumberOfPagingFilesAddr = 224
+    DEBUG_DATA_MmLowestPhysicalPageAddr = 232
+    DEBUG_DATA_MmHighestPhysicalPageAddr = 240
+    DEBUG_DATA_MmNumberOfPhysicalPagesAddr = 248
+    DEBUG_DATA_MmMaximumNonPagedPoolInBytesAddr = 256
+    DEBUG_DATA_MmNonPagedSystemStartAddr = 264
+    DEBUG_DATA_MmNonPagedPoolStartAddr = 272
+    DEBUG_DATA_MmNonPagedPoolEndAddr = 280
+    DEBUG_DATA_MmPagedPoolStartAddr = 288
+    DEBUG_DATA_MmPagedPoolEndAddr = 296
+    DEBUG_DATA_MmPagedPoolInformationAddr = 304
+    DEBUG_DATA_MmPageSize = 312
+    DEBUG_DATA_MmSizeOfPagedPoolInBytesAddr = 320
+    DEBUG_DATA_MmTotalCommitLimitAddr = 328
+    DEBUG_DATA_MmTotalCommittedPagesAddr = 336
+    DEBUG_DATA_MmSharedCommitAddr = 344
+    DEBUG_DATA_MmDriverCommitAddr = 352
+    DEBUG_DATA_MmProcessCommitAddr = 360
+    DEBUG_DATA_MmPagedPoolCommitAddr = 368
+    DEBUG_DATA_MmExtendedCommitAddr = 376
+    DEBUG_DATA_MmZeroedPageListHeadAddr = 384
+    DEBUG_DATA_MmFreePageListHeadAddr = 392
+    DEBUG_DATA_MmStandbyPageListHeadAddr = 400
+    DEBUG_DATA_MmModifiedPageListHeadAddr = 408
     DEBUG_DATA_MmModifiedNoWritePageListHeadAddr = 416
-    DEBUG_DATA_MmAvailablePagesAddr              = 424
-    DEBUG_DATA_MmResidentAvailablePagesAddr      = 432
-    DEBUG_DATA_PoolTrackTableAddr                = 440
-    DEBUG_DATA_NonPagedPoolDescriptorAddr        = 448
-    DEBUG_DATA_MmHighestUserAddressAddr          = 456
-    DEBUG_DATA_MmSystemRangeStartAddr            = 464
-    DEBUG_DATA_MmUserProbeAddressAddr            = 472
-    DEBUG_DATA_KdPrintCircularBufferAddr         = 480
-    DEBUG_DATA_KdPrintCircularBufferEndAddr      = 488
-    DEBUG_DATA_KdPrintWritePointerAddr           = 496
-    DEBUG_DATA_KdPrintRolloverCountAddr          = 504
-    DEBUG_DATA_MmLoadedUserImageListAddr         = 512
-    DEBUG_DATA_NtBuildLabAddr                    = 520
-    DEBUG_DATA_KiNormalSystemCall                = 528
-    DEBUG_DATA_KiProcessorBlockAddr              = 536
-    DEBUG_DATA_MmUnloadedDriversAddr             = 544
-    DEBUG_DATA_MmLastUnloadedDriverAddr          = 552
-    DEBUG_DATA_MmTriageActionTakenAddr           = 560
-    DEBUG_DATA_MmSpecialPoolTagAddr              = 568
-    DEBUG_DATA_KernelVerifierAddr                = 576
-    DEBUG_DATA_MmVerifierDataAddr                = 584
-    DEBUG_DATA_MmAllocatedNonPagedPoolAddr       = 592
-    DEBUG_DATA_MmPeakCommitmentAddr              = 600
-    DEBUG_DATA_MmTotalCommitLimitMaximumAddr     = 608
-    DEBUG_DATA_CmNtCSDVersionAddr                = 616
-    DEBUG_DATA_MmPhysicalMemoryBlockAddr         = 624
-    DEBUG_DATA_MmSessionBase                     = 632
-    DEBUG_DATA_MmSessionSize                     = 640
-    DEBUG_DATA_MmSystemParentTablePage           = 648
-    DEBUG_DATA_MmVirtualTranslationBase          = 656
-    DEBUG_DATA_OffsetKThreadNextProcessor        = 664
-    DEBUG_DATA_OffsetKThreadTeb                  = 666
-    DEBUG_DATA_OffsetKThreadKernelStack          = 668
-    DEBUG_DATA_OffsetKThreadInitialStack         = 670
-    DEBUG_DATA_OffsetKThreadApcProcess           = 672
-    DEBUG_DATA_OffsetKThreadState                = 674
-    DEBUG_DATA_OffsetKThreadBStore               = 676
-    DEBUG_DATA_OffsetKThreadBStoreLimit          = 678
-    DEBUG_DATA_SizeEProcess                      = 680
-    DEBUG_DATA_OffsetEprocessPeb                 = 682
-    DEBUG_DATA_OffsetEprocessParentCID           = 684
-    DEBUG_DATA_OffsetEprocessDirectoryTableBase  = 686
-    DEBUG_DATA_SizePrcb                          = 688
-    DEBUG_DATA_OffsetPrcbDpcRoutine              = 690
-    DEBUG_DATA_OffsetPrcbCurrentThread           = 692
-    DEBUG_DATA_OffsetPrcbMhz                     = 694
-    DEBUG_DATA_OffsetPrcbCpuType                 = 696
-    DEBUG_DATA_OffsetPrcbVendorString            = 698
-    DEBUG_DATA_OffsetPrcbProcessorState          = 700
-    DEBUG_DATA_OffsetPrcbNumber                  = 702
-    DEBUG_DATA_SizeEThread                       = 704
-    DEBUG_DATA_KdPrintCircularBufferPtrAddr      = 712
-    DEBUG_DATA_KdPrintBufferSizeAddr             = 720
-    DEBUG_DATA_MmBadPagesDetected                = 800
-    DEBUG_DATA_EtwpDebuggerData                  = 816
-    DEBUG_DATA_PaeEnabled                        = 100000
-    DEBUG_DATA_SharedUserData                    = 100008
-    DEBUG_DATA_ProductType                       = 100016
-    DEBUG_DATA_SuiteMask                         = 100024
-    DEBUG_DATA_DumpWriterStatus                  = 100032
-    DEBUG_DATA_DumpFormatVersion                 = 100040
-    DEBUG_DATA_DumpWriterVersion                 = 100048
-    DEBUG_DATA_DumpPowerState                    = 100056
-    DEBUG_DATA_DumpMmStorage                     = 100064
-    DEBUG_DATA_DumpAttributes                    = 100072
-    DEBUG_DATA_KPCR_OFFSET                       = 0
-    DEBUG_DATA_KPRCB_OFFSET                      = 1
-    DEBUG_DATA_KTHREAD_OFFSET                    = 2
-    DEBUG_DATA_BASE_TRANSLATION_VIRTUAL_OFFSET   = 3
-    DEBUG_DATA_PROCESSOR_IDENTIFICATION          = 4
-    DEBUG_DATA_PROCESSOR_SPEED                   = 5
-
+    DEBUG_DATA_MmAvailablePagesAddr = 424
+    DEBUG_DATA_MmResidentAvailablePagesAddr = 432
+    DEBUG_DATA_PoolTrackTableAddr = 440
+    DEBUG_DATA_NonPagedPoolDescriptorAddr = 448
+    DEBUG_DATA_MmHighestUserAddressAddr = 456
+    DEBUG_DATA_MmSystemRangeStartAddr = 464
+    DEBUG_DATA_MmUserProbeAddressAddr = 472
+    DEBUG_DATA_KdPrintCircularBufferAddr = 480
+    DEBUG_DATA_KdPrintCircularBufferEndAddr = 488
+    DEBUG_DATA_KdPrintWritePointerAddr = 496
+    DEBUG_DATA_KdPrintRolloverCountAddr = 504
+    DEBUG_DATA_MmLoadedUserImageListAddr = 512
+    DEBUG_DATA_NtBuildLabAddr = 520
+    DEBUG_DATA_KiNormalSystemCall = 528
+    DEBUG_DATA_KiProcessorBlockAddr = 536
+    DEBUG_DATA_MmUnloadedDriversAddr = 544
+    DEBUG_DATA_MmLastUnloadedDriverAddr = 552
+    DEBUG_DATA_MmTriageActionTakenAddr = 560
+    DEBUG_DATA_MmSpecialPoolTagAddr = 568
+    DEBUG_DATA_KernelVerifierAddr = 576
+    DEBUG_DATA_MmVerifierDataAddr = 584
+    DEBUG_DATA_MmAllocatedNonPagedPoolAddr = 592
+    DEBUG_DATA_MmPeakCommitmentAddr = 600
+    DEBUG_DATA_MmTotalCommitLimitMaximumAddr = 608
+    DEBUG_DATA_CmNtCSDVersionAddr = 616
+    DEBUG_DATA_MmPhysicalMemoryBlockAddr = 624
+    DEBUG_DATA_MmSessionBase = 632
+    DEBUG_DATA_MmSessionSize = 640
+    DEBUG_DATA_MmSystemParentTablePage = 648
+    DEBUG_DATA_MmVirtualTranslationBase = 656
+    DEBUG_DATA_OffsetKThreadNextProcessor = 664
+    DEBUG_DATA_OffsetKThreadTeb = 666
+    DEBUG_DATA_OffsetKThreadKernelStack = 668
+    DEBUG_DATA_OffsetKThreadInitialStack = 670
+    DEBUG_DATA_OffsetKThreadApcProcess = 672
+    DEBUG_DATA_OffsetKThreadState = 674
+    DEBUG_DATA_OffsetKThreadBStore = 676
+    DEBUG_DATA_OffsetKThreadBStoreLimit = 678
+    DEBUG_DATA_SizeEProcess = 680
+    DEBUG_DATA_OffsetEprocessPeb = 682
+    DEBUG_DATA_OffsetEprocessParentCID = 684
+    DEBUG_DATA_OffsetEprocessDirectoryTableBase = 686
+    DEBUG_DATA_SizePrcb = 688
+    DEBUG_DATA_OffsetPrcbDpcRoutine = 690
+    DEBUG_DATA_OffsetPrcbCurrentThread = 692
+    DEBUG_DATA_OffsetPrcbMhz = 694
+    DEBUG_DATA_OffsetPrcbCpuType = 696
+    DEBUG_DATA_OffsetPrcbVendorString = 698
+    DEBUG_DATA_OffsetPrcbProcessorState = 700
+    DEBUG_DATA_OffsetPrcbNumber = 702
+    DEBUG_DATA_SizeEThread = 704
+    DEBUG_DATA_KdPrintCircularBufferPtrAddr = 712
+    DEBUG_DATA_KdPrintBufferSizeAddr = 720
+    DEBUG_DATA_MmBadPagesDetected = 800
+    DEBUG_DATA_EtwpDebuggerData = 816
+    DEBUG_DATA_PaeEnabled = 100000
+    DEBUG_DATA_SharedUserData = 100008
+    DEBUG_DATA_ProductType = 100016
+    DEBUG_DATA_SuiteMask = 100024
+    DEBUG_DATA_DumpWriterStatus = 100032
+    DEBUG_DATA_DumpFormatVersion = 100040
+    DEBUG_DATA_DumpWriterVersion = 100048
+    DEBUG_DATA_DumpPowerState = 100056
+    DEBUG_DATA_DumpMmStorage = 100064
+    DEBUG_DATA_DumpAttributes = 100072
+    DEBUG_DATA_KPCR_OFFSET = 0
+    DEBUG_DATA_KPRCB_OFFSET = 1
+    DEBUG_DATA_KTHREAD_OFFSET = 2
+    DEBUG_DATA_BASE_TRANSLATION_VIRTUAL_OFFSET = 3
+    DEBUG_DATA_PROCESSOR_IDENTIFICATION = 4
+    DEBUG_DATA_PROCESSOR_SPEED = 5
     NUM_APIS = 23
 
     include Win32::WinTypes
@@ -4579,23 +4551,21 @@ module RawBuggery
   end
 
   class DebugDataSpaces2
-
-    DEBUG_HANDLE_DATA_TYPE_BASIC                 = 0
-    DEBUG_HANDLE_DATA_TYPE_TYPE_NAME             = 1
-    DEBUG_HANDLE_DATA_TYPE_OBJECT_NAME           = 2
-    DEBUG_HANDLE_DATA_TYPE_HANDLE_COUNT          = 3
-    DEBUG_HANDLE_DATA_TYPE_TYPE_NAME_WIDE        = 4
-    DEBUG_HANDLE_DATA_TYPE_OBJECT_NAME_WIDE      = 5
-    DEBUG_HANDLE_DATA_TYPE_MINI_THREAD_1         = 6
-    DEBUG_HANDLE_DATA_TYPE_MINI_MUTANT_1         = 7
-    DEBUG_HANDLE_DATA_TYPE_MINI_MUTANT_2         = 8
+    DEBUG_HANDLE_DATA_TYPE_BASIC = 0
+    DEBUG_HANDLE_DATA_TYPE_TYPE_NAME = 1
+    DEBUG_HANDLE_DATA_TYPE_OBJECT_NAME = 2
+    DEBUG_HANDLE_DATA_TYPE_HANDLE_COUNT = 3
+    DEBUG_HANDLE_DATA_TYPE_TYPE_NAME_WIDE = 4
+    DEBUG_HANDLE_DATA_TYPE_OBJECT_NAME_WIDE = 5
+    DEBUG_HANDLE_DATA_TYPE_MINI_THREAD_1 = 6
+    DEBUG_HANDLE_DATA_TYPE_MINI_MUTANT_1 = 7
+    DEBUG_HANDLE_DATA_TYPE_MINI_MUTANT_2 = 8
     DEBUG_HANDLE_DATA_TYPE_PER_HANDLE_OPERATIONS = 9
     DEBUG_HANDLE_DATA_TYPE_ALL_HANDLE_OPERATIONS = 10
-    DEBUG_HANDLE_DATA_TYPE_MINI_PROCESS_1        = 11
-    DEBUG_HANDLE_DATA_TYPE_MINI_PROCESS_2        = 12
-    DEBUG_HANDLE_DATA_TYPE_MINI_EVENT_1          = 13
-    DEBUG_HANDLE_DATA_TYPE_MINI_SECTION_1        = 14
-
+    DEBUG_HANDLE_DATA_TYPE_MINI_PROCESS_1 = 11
+    DEBUG_HANDLE_DATA_TYPE_MINI_PROCESS_2 = 12
+    DEBUG_HANDLE_DATA_TYPE_MINI_EVENT_1 = 13
+    DEBUG_HANDLE_DATA_TYPE_MINI_SECTION_1 = 14
     NUM_APIS = 29
 
     include Win32::WinTypes
@@ -4684,7 +4654,6 @@ module RawBuggery
   end
 
   class DebugDataSpaces3
-
     NUM_APIS = 34
 
     include Win32::WinTypes
@@ -4783,19 +4752,17 @@ module RawBuggery
   end
 
   class DebugDataSpaces4
-
-    DEBUG_OFFSINFO_VIRTUAL_SOURCE      = 0x00000001
-    DEBUG_VSOURCE_INVALID              = 0x00000000
-    DEBUG_VSOURCE_DEBUGGEE             = 0x00000001
-    DEBUG_VSOURCE_MAPPED_IMAGE         = 0x00000002
+    DEBUG_OFFSINFO_VIRTUAL_SOURCE = 0x00000001
+    DEBUG_VSOURCE_INVALID = 0x00000000
+    DEBUG_VSOURCE_DEBUGGEE = 0x00000001
+    DEBUG_VSOURCE_MAPPED_IMAGE = 0x00000002
     DEBUG_VSOURCE_DUMP_WITHOUT_MEMINFO = 0x00000003
-    DEBUG_VSEARCH_DEFAULT              = 0x00000000
-    DEBUG_VSEARCH_WRITABLE_ONLY        = 0x00000001
-    DEBUG_PHYSICAL_DEFAULT             = 0x00000000
-    DEBUG_PHYSICAL_CACHED              = 0x00000001
-    DEBUG_PHYSICAL_UNCACHED            = 0x00000002
-    DEBUG_PHYSICAL_WRITE_COMBINED      = 0x00000003
-
+    DEBUG_VSEARCH_DEFAULT = 0x00000000
+    DEBUG_VSEARCH_WRITABLE_ONLY = 0x00000001
+    DEBUG_PHYSICAL_DEFAULT = 0x00000000
+    DEBUG_PHYSICAL_CACHED = 0x00000001
+    DEBUG_PHYSICAL_UNCACHED = 0x00000002
+    DEBUG_PHYSICAL_WRITE_COMBINED = 0x00000003
     NUM_APIS = 44
 
     include Win32::WinTypes
@@ -4889,13 +4856,13 @@ module RawBuggery
         # SearchVirtual2(THIS_ In_(Offset) In_(Length) In_(Flags) In_reads_bytes_(PatternSize)(Pattern) In_(PatternSize) In_(PatternGranularity) Out_(MatchOffset))
         :SearchVirtual2 => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG64, ULONG, PVOID, ULONG, ULONG, PULONG64], @vtable[37], :convention=>:stdcall  ),
         # ReadMultiByteStringVirtual(THIS_ In_(Offset) In_(MaxBytes) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(StringBytes))
-        :ReadMultiByteStringVirtual => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, PSTR, ULONG, PULONG], @vtable[38], :convention=>:stdcall  ),
+        :ReadMultiByteStringVirtual => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, PSTR_OUT, ULONG, PULONG], @vtable[38], :convention=>:stdcall  ),
         # ReadMultiByteStringVirtualWide(THIS_ In_(Offset) In_(MaxBytes) In_(CodePage) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(StringBytes))
-        :ReadMultiByteStringVirtualWide => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, ULONG, PWSTR, ULONG, PULONG], @vtable[39], :convention=>:stdcall  ),
+        :ReadMultiByteStringVirtualWide => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, ULONG, PWSTR_OUT, ULONG, PULONG], @vtable[39], :convention=>:stdcall  ),
         # ReadUnicodeStringVirtual(THIS_ In_(Offset) In_(MaxBytes) In_(CodePage) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(StringBytes))
-        :ReadUnicodeStringVirtual => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, ULONG, PSTR, ULONG, PULONG], @vtable[40], :convention=>:stdcall  ),
+        :ReadUnicodeStringVirtual => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, ULONG, PSTR_OUT, ULONG, PULONG], @vtable[40], :convention=>:stdcall  ),
         # ReadUnicodeStringVirtualWide(THIS_ In_(Offset) In_(MaxBytes) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(StringBytes))
-        :ReadUnicodeStringVirtualWide => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, PWSTR, ULONG, PULONG], @vtable[41], :convention=>:stdcall  ),
+        :ReadUnicodeStringVirtualWide => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, PWSTR_OUT, ULONG, PULONG], @vtable[41], :convention=>:stdcall  ),
         # ReadPhysical2(THIS_ In_(Offset) In_(Flags) Out_writes_bytes_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(BytesRead))
         :ReadPhysical2 => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, PVOID, ULONG, PULONG], @vtable[42], :convention=>:stdcall  ),
         # WritePhysical2(THIS_ In_(Offset) In_(Flags) In_reads_bytes_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(BytesWritten))
@@ -4914,73 +4881,71 @@ module RawBuggery
   end
 
   class DebugEventCallbacks
-
-    DEBUG_EVENT_BREAKPOINT                     = 0x00000001
-    DEBUG_EVENT_EXCEPTION                      = 0x00000002
-    DEBUG_EVENT_CREATE_THREAD                  = 0x00000004
-    DEBUG_EVENT_EXIT_THREAD                    = 0x00000008
-    DEBUG_EVENT_CREATE_PROCESS                 = 0x00000010
-    DEBUG_EVENT_EXIT_PROCESS                   = 0x00000020
-    DEBUG_EVENT_LOAD_MODULE                    = 0x00000040
-    DEBUG_EVENT_UNLOAD_MODULE                  = 0x00000080
-    DEBUG_EVENT_SYSTEM_ERROR                   = 0x00000100
-    DEBUG_EVENT_SESSION_STATUS                 = 0x00000200
-    DEBUG_EVENT_CHANGE_DEBUGGEE_STATE          = 0x00000400
-    DEBUG_EVENT_CHANGE_ENGINE_STATE            = 0x00000800
-    DEBUG_EVENT_CHANGE_SYMBOL_STATE            = 0x00001000
-    DEBUG_SESSION_ACTIVE                       = 0x00000000
+    DEBUG_EVENT_BREAKPOINT = 0x00000001
+    DEBUG_EVENT_EXCEPTION = 0x00000002
+    DEBUG_EVENT_CREATE_THREAD = 0x00000004
+    DEBUG_EVENT_EXIT_THREAD = 0x00000008
+    DEBUG_EVENT_CREATE_PROCESS = 0x00000010
+    DEBUG_EVENT_EXIT_PROCESS = 0x00000020
+    DEBUG_EVENT_LOAD_MODULE = 0x00000040
+    DEBUG_EVENT_UNLOAD_MODULE = 0x00000080
+    DEBUG_EVENT_SYSTEM_ERROR = 0x00000100
+    DEBUG_EVENT_SESSION_STATUS = 0x00000200
+    DEBUG_EVENT_CHANGE_DEBUGGEE_STATE = 0x00000400
+    DEBUG_EVENT_CHANGE_ENGINE_STATE = 0x00000800
+    DEBUG_EVENT_CHANGE_SYMBOL_STATE = 0x00001000
+    DEBUG_SESSION_ACTIVE = 0x00000000
     DEBUG_SESSION_END_SESSION_ACTIVE_TERMINATE = 0x00000001
-    DEBUG_SESSION_END_SESSION_ACTIVE_DETACH    = 0x00000002
-    DEBUG_SESSION_END_SESSION_PASSIVE          = 0x00000003
-    DEBUG_SESSION_END                          = 0x00000004
-    DEBUG_SESSION_REBOOT                       = 0x00000005
-    DEBUG_SESSION_HIBERNATE                    = 0x00000006
-    DEBUG_SESSION_FAILURE                      = 0x00000007
-    DEBUG_CDS_ALL                              = 0xffffffff
-    DEBUG_CDS_REGISTERS                        = 0x00000001
-    DEBUG_CDS_DATA                             = 0x00000002
-    DEBUG_CDS_REFRESH                          = 0x00000004
-    DEBUG_CDS_REFRESH_EVALUATE                 = 1
-    DEBUG_CDS_REFRESH_EXECUTE                  = 2
-    DEBUG_CDS_REFRESH_EXECUTECOMMANDFILE       = 3
-    DEBUG_CDS_REFRESH_ADDBREAKPOINT            = 4
-    DEBUG_CDS_REFRESH_REMOVEBREAKPOINT         = 5
-    DEBUG_CDS_REFRESH_WRITEVIRTUAL             = 6
-    DEBUG_CDS_REFRESH_WRITEVIRTUALUNCACHED     = 7
-    DEBUG_CDS_REFRESH_WRITEPHYSICAL            = 8
-    DEBUG_CDS_REFRESH_WRITEPHYSICAL2           = 9
-    DEBUG_CDS_REFRESH_SETVALUE                 = 10
-    DEBUG_CDS_REFRESH_SETVALUE2                = 11
-    DEBUG_CDS_REFRESH_SETSCOPE                 = 12
-    DEBUG_CDS_REFRESH_SETSCOPEFRAMEBYINDEX     = 13
+    DEBUG_SESSION_END_SESSION_ACTIVE_DETACH = 0x00000002
+    DEBUG_SESSION_END_SESSION_PASSIVE = 0x00000003
+    DEBUG_SESSION_END = 0x00000004
+    DEBUG_SESSION_REBOOT = 0x00000005
+    DEBUG_SESSION_HIBERNATE = 0x00000006
+    DEBUG_SESSION_FAILURE = 0x00000007
+    DEBUG_CDS_ALL = 0xffffffff
+    DEBUG_CDS_REGISTERS = 0x00000001
+    DEBUG_CDS_DATA = 0x00000002
+    DEBUG_CDS_REFRESH = 0x00000004
+    DEBUG_CDS_REFRESH_EVALUATE = 1
+    DEBUG_CDS_REFRESH_EXECUTE = 2
+    DEBUG_CDS_REFRESH_EXECUTECOMMANDFILE = 3
+    DEBUG_CDS_REFRESH_ADDBREAKPOINT = 4
+    DEBUG_CDS_REFRESH_REMOVEBREAKPOINT = 5
+    DEBUG_CDS_REFRESH_WRITEVIRTUAL = 6
+    DEBUG_CDS_REFRESH_WRITEVIRTUALUNCACHED = 7
+    DEBUG_CDS_REFRESH_WRITEPHYSICAL = 8
+    DEBUG_CDS_REFRESH_WRITEPHYSICAL2 = 9
+    DEBUG_CDS_REFRESH_SETVALUE = 10
+    DEBUG_CDS_REFRESH_SETVALUE2 = 11
+    DEBUG_CDS_REFRESH_SETSCOPE = 12
+    DEBUG_CDS_REFRESH_SETSCOPEFRAMEBYINDEX = 13
     DEBUG_CDS_REFRESH_SETSCOPEFROMJITDEBUGINFO = 14
-    DEBUG_CDS_REFRESH_SETSCOPEFROMSTOREDEVENT  = 15
-    DEBUG_CDS_REFRESH_INLINESTEP               = 16
-    DEBUG_CDS_REFRESH_INLINESTEP_PSEUDO        = 17
-    DEBUG_CES_ALL                              = 0xffffffff
-    DEBUG_CES_CURRENT_THREAD                   = 0x00000001
-    DEBUG_CES_EFFECTIVE_PROCESSOR              = 0x00000002
-    DEBUG_CES_BREAKPOINTS                      = 0x00000004
-    DEBUG_CES_CODE_LEVEL                       = 0x00000008
-    DEBUG_CES_EXECUTION_STATUS                 = 0x00000010
-    DEBUG_CES_ENGINE_OPTIONS                   = 0x00000020
-    DEBUG_CES_LOG_FILE                         = 0x00000040
-    DEBUG_CES_RADIX                            = 0x00000080
-    DEBUG_CES_EVENT_FILTERS                    = 0x00000100
-    DEBUG_CES_PROCESS_OPTIONS                  = 0x00000200
-    DEBUG_CES_EXTENSIONS                       = 0x00000400
-    DEBUG_CES_SYSTEMS                          = 0x00000800
-    DEBUG_CES_ASSEMBLY_OPTIONS                 = 0x00001000
-    DEBUG_CES_EXPRESSION_SYNTAX                = 0x00002000
-    DEBUG_CES_TEXT_REPLACEMENTS                = 0x00004000
-    DEBUG_CSS_ALL                              = 0xffffffff
-    DEBUG_CSS_LOADS                            = 0x00000001
-    DEBUG_CSS_UNLOADS                          = 0x00000002
-    DEBUG_CSS_SCOPE                            = 0x00000004
-    DEBUG_CSS_PATHS                            = 0x00000008
-    DEBUG_CSS_SYMBOL_OPTIONS                   = 0x00000010
-    DEBUG_CSS_TYPE_OPTIONS                     = 0x00000020
-
+    DEBUG_CDS_REFRESH_SETSCOPEFROMSTOREDEVENT = 15
+    DEBUG_CDS_REFRESH_INLINESTEP = 16
+    DEBUG_CDS_REFRESH_INLINESTEP_PSEUDO = 17
+    DEBUG_CES_ALL = 0xffffffff
+    DEBUG_CES_CURRENT_THREAD = 0x00000001
+    DEBUG_CES_EFFECTIVE_PROCESSOR = 0x00000002
+    DEBUG_CES_BREAKPOINTS = 0x00000004
+    DEBUG_CES_CODE_LEVEL = 0x00000008
+    DEBUG_CES_EXECUTION_STATUS = 0x00000010
+    DEBUG_CES_ENGINE_OPTIONS = 0x00000020
+    DEBUG_CES_LOG_FILE = 0x00000040
+    DEBUG_CES_RADIX = 0x00000080
+    DEBUG_CES_EVENT_FILTERS = 0x00000100
+    DEBUG_CES_PROCESS_OPTIONS = 0x00000200
+    DEBUG_CES_EXTENSIONS = 0x00000400
+    DEBUG_CES_SYSTEMS = 0x00000800
+    DEBUG_CES_ASSEMBLY_OPTIONS = 0x00001000
+    DEBUG_CES_EXPRESSION_SYNTAX = 0x00002000
+    DEBUG_CES_TEXT_REPLACEMENTS = 0x00004000
+    DEBUG_CSS_ALL = 0xffffffff
+    DEBUG_CSS_LOADS = 0x00000001
+    DEBUG_CSS_UNLOADS = 0x00000002
+    DEBUG_CSS_SCOPE = 0x00000004
+    DEBUG_CSS_PATHS = 0x00000008
+    DEBUG_CSS_SYMBOL_OPTIONS = 0x00000010
+    DEBUG_CSS_TYPE_OPTIONS = 0x00000020
     NUM_APIS = 17
 
     include Win32::WinTypes
@@ -5045,7 +5010,6 @@ module RawBuggery
   end
 
   class DebugEventCallbacksWide
-
     NUM_APIS = 17
 
     include Win32::WinTypes
@@ -5110,7 +5074,6 @@ module RawBuggery
   end
 
   class DebugEventContextCallbacks
-
     NUM_APIS = 17
 
     include Win32::WinTypes
@@ -5175,7 +5138,6 @@ module RawBuggery
   end
 
   class DebugInputCallbacks
-
     NUM_APIS = 5
 
     include Win32::WinTypes
@@ -5216,7 +5178,6 @@ module RawBuggery
   end
 
   class DebugOutputCallbacks
-
     NUM_APIS = 4
 
     include Win32::WinTypes
@@ -5255,7 +5216,6 @@ module RawBuggery
   end
 
   class DebugOutputCallbacksWide
-
     NUM_APIS = 4
 
     include Win32::WinTypes
@@ -5294,18 +5254,16 @@ module RawBuggery
   end
 
   class DebugOutputCallbacks2
-
-    DEBUG_OUTCBI_EXPLICIT_FLUSH             = 0x00000001
-    DEBUG_OUTCBI_TEXT                       = 0x00000002
-    DEBUG_OUTCBI_DML                        = 0x00000004
-    DEBUG_OUTCBI_ANY_FORMAT                 = 0x00000006
-    DEBUG_OUTCB_TEXT                        = 0
-    DEBUG_OUTCB_DML                         = 1
-    DEBUG_OUTCB_EXPLICIT_FLUSH              = 2
-    DEBUG_OUTCBF_COMBINED_EXPLICIT_FLUSH    = 0x00000001
-    DEBUG_OUTCBF_DML_HAS_TAGS               = 0x00000002
+    DEBUG_OUTCBI_EXPLICIT_FLUSH = 0x00000001
+    DEBUG_OUTCBI_TEXT = 0x00000002
+    DEBUG_OUTCBI_DML = 0x00000004
+    DEBUG_OUTCBI_ANY_FORMAT = 0x00000006
+    DEBUG_OUTCB_TEXT = 0
+    DEBUG_OUTCB_DML = 1
+    DEBUG_OUTCB_EXPLICIT_FLUSH = 2
+    DEBUG_OUTCBF_COMBINED_EXPLICIT_FLUSH = 0x00000001
+    DEBUG_OUTCBF_DML_HAS_TAGS = 0x00000002
     DEBUG_OUTCBF_DML_HAS_SPECIAL_CHARACTERS = 0x00000004
-
     NUM_APIS = 6
 
     include Win32::WinTypes
@@ -5348,14 +5306,12 @@ module RawBuggery
   end
 
   class DebugRegisters
-
-    DEBUG_REGISTERS_DEFAULT     = 0x00000000
-    DEBUG_REGISTERS_INT32       = 0x00000001
-    DEBUG_REGISTERS_INT64       = 0x00000002
-    DEBUG_REGISTERS_FLOAT       = 0x00000004
-    DEBUG_REGISTERS_ALL         = 0x00000007
+    DEBUG_REGISTERS_DEFAULT = 0x00000000
+    DEBUG_REGISTERS_INT32 = 0x00000001
+    DEBUG_REGISTERS_INT64 = 0x00000002
+    DEBUG_REGISTERS_FLOAT = 0x00000004
+    DEBUG_REGISTERS_ALL = 0x00000007
     DEBUG_REGISTER_SUB_REGISTER = 0x00000001
-
     NUM_APIS = 14
 
     include Win32::WinTypes
@@ -5381,7 +5337,7 @@ module RawBuggery
         # GetNumberRegisters(THIS_ Out_(Number))
         :GetNumberRegisters => FFI::Function.new( HRESULT, [THIS_, PULONG], @vtable[3], :convention=>:stdcall  ),
         # GetDescription(THIS_ In_(Register) Out_writes_opt_(NameBufferSize)(NameBuffer) In_(NameBufferSize) Out_opt_(NameSize) Out_opt_(Desc))
-        :GetDescription => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR, ULONG, PULONG, PDEBUG_REGISTER_DESCRIPTION], @vtable[4], :convention=>:stdcall  ),
+        :GetDescription => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR_OUT, ULONG, PULONG, PDEBUG_REGISTER_DESCRIPTION], @vtable[4], :convention=>:stdcall  ),
         # GetIndexByName(THIS_ In_(Name) Out_(Index))
         :GetIndexByName => FFI::Function.new( HRESULT, [THIS_, PCSTR, PULONG], @vtable[5], :convention=>:stdcall  ),
         # GetValue(THIS_ In_(Register) Out_(Value))
@@ -5414,11 +5370,9 @@ module RawBuggery
   end
 
   class DebugRegisters2
-
     DEBUG_REGSRC_DEBUGGEE = 0x00000000
     DEBUG_REGSRC_EXPLICIT = 0x00000001
-    DEBUG_REGSRC_FRAME    = 0x00000002
-
+    DEBUG_REGSRC_FRAME = 0x00000002
     NUM_APIS = 29
 
     include Win32::WinTypes
@@ -5444,7 +5398,7 @@ module RawBuggery
         # GetNumberRegisters(THIS_ Out_(Number))
         :GetNumberRegisters => FFI::Function.new( HRESULT, [THIS_, PULONG], @vtable[3], :convention=>:stdcall  ),
         # GetDescription(THIS_ In_(Register) Out_writes_opt_(NameBufferSize)(NameBuffer) In_(NameBufferSize) Out_opt_(NameSize) Out_opt_(Desc))
-        :GetDescription => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR, ULONG, PULONG, PDEBUG_REGISTER_DESCRIPTION], @vtable[4], :convention=>:stdcall  ),
+        :GetDescription => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR_OUT, ULONG, PULONG, PDEBUG_REGISTER_DESCRIPTION], @vtable[4], :convention=>:stdcall  ),
         # GetIndexByName(THIS_ In_(Name) Out_(Index))
         :GetIndexByName => FFI::Function.new( HRESULT, [THIS_, PCSTR, PULONG], @vtable[5], :convention=>:stdcall  ),
         # GetValue(THIS_ In_(Register) Out_(Value))
@@ -5464,15 +5418,15 @@ module RawBuggery
         # GetFrameOffset(THIS_ Out_(Offset))
         :GetFrameOffset => FFI::Function.new( HRESULT, [THIS_, PULONG64], @vtable[13], :convention=>:stdcall  ),
         # GetDescriptionWide(THIS_ In_(Register) Out_writes_opt_(NameBufferSize)(NameBuffer) In_(NameBufferSize) Out_opt_(NameSize) Out_opt_(Desc))
-        :GetDescriptionWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PWSTR, ULONG, PULONG, PDEBUG_REGISTER_DESCRIPTION], @vtable[14], :convention=>:stdcall  ),
+        :GetDescriptionWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PWSTR_OUT, ULONG, PULONG, PDEBUG_REGISTER_DESCRIPTION], @vtable[14], :convention=>:stdcall  ),
         # GetIndexByNameWide(THIS_ In_(Name) Out_(Index))
         :GetIndexByNameWide => FFI::Function.new( HRESULT, [THIS_, PCWSTR, PULONG], @vtable[15], :convention=>:stdcall  ),
         # GetNumberPseudoRegisters(THIS_ Out_(Number))
         :GetNumberPseudoRegisters => FFI::Function.new( HRESULT, [THIS_, PULONG], @vtable[16], :convention=>:stdcall  ),
         # GetPseudoDescription(THIS_ In_(Register) Out_writes_opt_(NameBufferSize)(NameBuffer) In_(NameBufferSize) Out_opt_(NameSize) Out_opt_(TypeModule) Out_opt_(TypeId))
-        :GetPseudoDescription => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR, ULONG, PULONG, PULONG64, PULONG], @vtable[17], :convention=>:stdcall  ),
+        :GetPseudoDescription => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR_OUT, ULONG, PULONG, PULONG64, PULONG], @vtable[17], :convention=>:stdcall  ),
         # GetPseudoDescriptionWide(THIS_ In_(Register) Out_writes_opt_(NameBufferSize)(NameBuffer) In_(NameBufferSize) Out_opt_(NameSize) Out_opt_(TypeModule) Out_opt_(TypeId))
-        :GetPseudoDescriptionWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PWSTR, ULONG, PULONG, PULONG64, PULONG], @vtable[18], :convention=>:stdcall  ),
+        :GetPseudoDescriptionWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PWSTR_OUT, ULONG, PULONG, PULONG64, PULONG], @vtable[18], :convention=>:stdcall  ),
         # GetPseudoIndexByName(THIS_ In_(Name) Out_(Index))
         :GetPseudoIndexByName => FFI::Function.new( HRESULT, [THIS_, PCSTR, PULONG], @vtable[19], :convention=>:stdcall  ),
         # GetPseudoIndexByNameWide(THIS_ In_(Name) Out_(Index))
@@ -5507,28 +5461,26 @@ module RawBuggery
   end
 
   class DebugSymbolGroup
-
-    DEBUG_OUTPUT_SYMBOLS_DEFAULT      = 0x00000000
-    DEBUG_OUTPUT_SYMBOLS_NO_NAMES     = 0x00000001
-    DEBUG_OUTPUT_SYMBOLS_NO_OFFSETS   = 0x00000002
-    DEBUG_OUTPUT_SYMBOLS_NO_VALUES    = 0x00000004
-    DEBUG_OUTPUT_SYMBOLS_NO_TYPES     = 0x00000010
-    DEBUG_OUTPUT_NAME_END             = "**NAME**"
-    DEBUG_OUTPUT_OFFSET_END           = "**OFF**"
-    DEBUG_OUTPUT_VALUE_END            = "**VALUE**"
-    DEBUG_OUTPUT_TYPE_END             = "**TYPE**"
-    DEBUG_OUTPUT_NAME_END_WIDE        = "*\x00*\x00N\x00A\x00M\x00E\x00*\x00*\x00"
-    DEBUG_OUTPUT_OFFSET_END_WIDE      = "*\x00*\x00O\x00F\x00F\x00*\x00*\x00"
-    DEBUG_OUTPUT_VALUE_END_WIDE       = "*\x00*\x00V\x00A\x00L\x00U\x00E\x00*\x00*\x00"
-    DEBUG_OUTPUT_TYPE_END_WIDE        = "*\x00*\x00T\x00Y\x00P\x00E\x00*\x00*\x00"
+    DEBUG_OUTPUT_SYMBOLS_DEFAULT = 0x00000000
+    DEBUG_OUTPUT_SYMBOLS_NO_NAMES = 0x00000001
+    DEBUG_OUTPUT_SYMBOLS_NO_OFFSETS = 0x00000002
+    DEBUG_OUTPUT_SYMBOLS_NO_VALUES = 0x00000004
+    DEBUG_OUTPUT_SYMBOLS_NO_TYPES = 0x00000010
+    DEBUG_OUTPUT_NAME_END = "**NAME**"
+    DEBUG_OUTPUT_OFFSET_END = "**OFF**"
+    DEBUG_OUTPUT_VALUE_END = "**VALUE**"
+    DEBUG_OUTPUT_TYPE_END = "**TYPE**"
+    # DEBUG_OUTPUT_NAME_END_WIDE = L"**NAME**"
+    # DEBUG_OUTPUT_OFFSET_END_WIDE = L"**OFF**"
+    # DEBUG_OUTPUT_VALUE_END_WIDE = L"**VALUE**"
+    # DEBUG_OUTPUT_TYPE_END_WIDE = L"**TYPE**"
     DEBUG_SYMBOL_EXPANSION_LEVEL_MASK = 0x0000000f
-    DEBUG_SYMBOL_EXPANDED             = 0x00000010
-    DEBUG_SYMBOL_READ_ONLY            = 0x00000020
-    DEBUG_SYMBOL_IS_ARRAY             = 0x00000040
-    DEBUG_SYMBOL_IS_FLOAT             = 0x00000080
-    DEBUG_SYMBOL_IS_ARGUMENT          = 0x00000100
-    DEBUG_SYMBOL_IS_LOCAL             = 0x00000200
-
+    DEBUG_SYMBOL_EXPANDED = 0x00000010
+    DEBUG_SYMBOL_READ_ONLY = 0x00000020
+    DEBUG_SYMBOL_IS_ARRAY = 0x00000040
+    DEBUG_SYMBOL_IS_FLOAT = 0x00000080
+    DEBUG_SYMBOL_IS_ARGUMENT = 0x00000100
+    DEBUG_SYMBOL_IS_LOCAL = 0x00000200
     NUM_APIS = 13
 
     include Win32::WinTypes
@@ -5560,7 +5512,7 @@ module RawBuggery
         # RemoveSymbolByIndex(THIS_ In_(Index))
         :RemoveSymbolByIndex => FFI::Function.new( HRESULT, [THIS_, ULONG], @vtable[6], :convention=>:stdcall  ),
         # GetSymbolName(THIS_ In_(Index) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(NameSize))
-        :GetSymbolName => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR, ULONG, PULONG], @vtable[7], :convention=>:stdcall  ),
+        :GetSymbolName => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR_OUT, ULONG, PULONG], @vtable[7], :convention=>:stdcall  ),
         # GetSymbolParameters(THIS_ In_(Start) In_(Count) Out_writes_(Count)(Params))
         :GetSymbolParameters => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG, PDEBUG_SYMBOL_PARAMETERS], @vtable[8], :convention=>:stdcall  ),
         # ExpandSymbol(THIS_ In_(Index) In_(Expand))
@@ -5585,14 +5537,12 @@ module RawBuggery
   end
 
   class DebugSymbolGroup2
-
-    DEBUG_SYMENT_IS_CODE      = 0x00000001
-    DEBUG_SYMENT_IS_DATA      = 0x00000002
+    DEBUG_SYMENT_IS_CODE = 0x00000001
+    DEBUG_SYMENT_IS_DATA = 0x00000002
     DEBUG_SYMENT_IS_PARAMETER = 0x00000004
-    DEBUG_SYMENT_IS_LOCAL     = 0x00000008
-    DEBUG_SYMENT_IS_MANAGED   = 0x00000010
+    DEBUG_SYMENT_IS_LOCAL = 0x00000008
+    DEBUG_SYMENT_IS_MANAGED = 0x00000010
     DEBUG_SYMENT_IS_SYNTHETIC = 0x00000020
-
     NUM_APIS = 26
 
     include Win32::WinTypes
@@ -5624,7 +5574,7 @@ module RawBuggery
         # RemoveSymbolByIndex(THIS_ In_(Index))
         :RemoveSymbolByIndex => FFI::Function.new( HRESULT, [THIS_, ULONG], @vtable[6], :convention=>:stdcall  ),
         # GetSymbolName(THIS_ In_(Index) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(NameSize))
-        :GetSymbolName => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR, ULONG, PULONG], @vtable[7], :convention=>:stdcall  ),
+        :GetSymbolName => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR_OUT, ULONG, PULONG], @vtable[7], :convention=>:stdcall  ),
         # GetSymbolParameters(THIS_ In_(Start) In_(Count) Out_writes_(Count)(Params))
         :GetSymbolParameters => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG, PDEBUG_SYMBOL_PARAMETERS], @vtable[8], :convention=>:stdcall  ),
         # ExpandSymbol(THIS_ In_(Index) In_(Expand))
@@ -5640,15 +5590,15 @@ module RawBuggery
         # RemoveSymbolByNameWide(THIS_ In_(Name))
         :RemoveSymbolByNameWide => FFI::Function.new( HRESULT, [THIS_, PCWSTR], @vtable[14], :convention=>:stdcall  ),
         # GetSymbolNameWide(THIS_ In_(Index) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(NameSize))
-        :GetSymbolNameWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PWSTR, ULONG, PULONG], @vtable[15], :convention=>:stdcall  ),
+        :GetSymbolNameWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PWSTR_OUT, ULONG, PULONG], @vtable[15], :convention=>:stdcall  ),
         # WriteSymbolWide(THIS_ In_(Index) In_(Value))
         :WriteSymbolWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PCWSTR], @vtable[16], :convention=>:stdcall  ),
         # OutputAsTypeWide(THIS_ In_(Index) In_(Type))
         :OutputAsTypeWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PCWSTR], @vtable[17], :convention=>:stdcall  ),
         # GetSymbolTypeName(THIS_ In_(Index) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(NameSize))
-        :GetSymbolTypeName => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR, ULONG, PULONG], @vtable[18], :convention=>:stdcall  ),
+        :GetSymbolTypeName => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR_OUT, ULONG, PULONG], @vtable[18], :convention=>:stdcall  ),
         # GetSymbolTypeNameWide(THIS_ In_(Index) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(NameSize))
-        :GetSymbolTypeNameWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PWSTR, ULONG, PULONG], @vtable[19], :convention=>:stdcall  ),
+        :GetSymbolTypeNameWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PWSTR_OUT, ULONG, PULONG], @vtable[19], :convention=>:stdcall  ),
         # GetSymbolSize(THIS_ In_(Index) Out_(Size))
         :GetSymbolSize => FFI::Function.new( HRESULT, [THIS_, ULONG, PULONG], @vtable[20], :convention=>:stdcall  ),
         # GetSymbolOffset(THIS_ In_(Index) Out_(Offset))
@@ -5656,9 +5606,9 @@ module RawBuggery
         # GetSymbolRegister(THIS_ In_(Index) Out_(Register))
         :GetSymbolRegister => FFI::Function.new( HRESULT, [THIS_, ULONG, PULONG], @vtable[22], :convention=>:stdcall  ),
         # GetSymbolValueText(THIS_ In_(Index) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(NameSize))
-        :GetSymbolValueText => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR, ULONG, PULONG], @vtable[23], :convention=>:stdcall  ),
+        :GetSymbolValueText => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR_OUT, ULONG, PULONG], @vtable[23], :convention=>:stdcall  ),
         # GetSymbolValueTextWide(THIS_ In_(Index) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(NameSize))
-        :GetSymbolValueTextWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PWSTR, ULONG, PULONG], @vtable[24], :convention=>:stdcall  ),
+        :GetSymbolValueTextWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PWSTR_OUT, ULONG, PULONG], @vtable[24], :convention=>:stdcall  ),
         # GetSymbolEntryInformation(THIS_ In_(Index) Out_(Entry))
         :GetSymbolEntryInformation => FFI::Function.new( HRESULT, [THIS_, ULONG, PDEBUG_SYMBOL_ENTRY], @vtable[25], :convention=>:stdcall  )
       }
@@ -5675,44 +5625,41 @@ module RawBuggery
   end
 
   class DebugSymbols
-
-    DEBUG_MODULE_LOADED            = 0x00000000
-    DEBUG_MODULE_UNLOADED          = 0x00000001
-    DEBUG_MODULE_USER_MODE         = 0x00000002
-    DEBUG_MODULE_EXE_MODULE        = 0x00000004
-    DEBUG_MODULE_EXPLICIT          = 0x00000008
-    DEBUG_MODULE_SECONDARY         = 0x00000010
-    DEBUG_MODULE_SYNTHETIC         = 0x00000020
-    DEBUG_MODULE_SYM_BAD_CHECKSUM  = 0x00010000
-    DEBUG_SYMTYPE_NONE             = 0
-    DEBUG_SYMTYPE_COFF             = 1
-    DEBUG_SYMTYPE_CODEVIEW         = 2
-    DEBUG_SYMTYPE_PDB              = 3
-    DEBUG_SYMTYPE_EXPORT           = 4
-    DEBUG_SYMTYPE_DEFERRED         = 5
-    DEBUG_SYMTYPE_SYM              = 6
-    DEBUG_SYMTYPE_DIA              = 7
-    DEBUG_SCOPE_GROUP_ARGUMENTS    = 0x00000001
-    DEBUG_SCOPE_GROUP_LOCALS       = 0x00000002
-    DEBUG_SCOPE_GROUP_ALL          = 0x00000003
-    DEBUG_OUTTYPE_DEFAULT          = 0x00000000
-    DEBUG_OUTTYPE_NO_INDENT        = 0x00000001
-    DEBUG_OUTTYPE_NO_OFFSET        = 0x00000002
-    DEBUG_OUTTYPE_VERBOSE          = 0x00000004
-    DEBUG_OUTTYPE_COMPACT_OUTPUT   = 0x00000008
-    DEBUG_OUTTYPE_ADDRESS_OF_FIELD = 0x00010000
-    DEBUG_OUTTYPE_ADDRESS_AT_END   = 0x00020000
-    DEBUG_OUTTYPE_BLOCK_RECURSE    = 0x00200000
-    DEBUG_FIND_SOURCE_DEFAULT      = 0x00000000
-    DEBUG_FIND_SOURCE_FULL_PATH    = 0x00000001
-    DEBUG_FIND_SOURCE_BEST_MATCH   = 0x00000002
-    DEBUG_FIND_SOURCE_NO_SRCSRV    = 0x00000004
+    DEBUG_MODULE_LOADED = 0x00000000
+    DEBUG_MODULE_UNLOADED = 0x00000001
+    DEBUG_MODULE_USER_MODE = 0x00000002
+    DEBUG_MODULE_EXE_MODULE = 0x00000004
+    DEBUG_MODULE_EXPLICIT = 0x00000008
+    DEBUG_MODULE_SECONDARY = 0x00000010
+    DEBUG_MODULE_SYNTHETIC = 0x00000020
+    DEBUG_MODULE_SYM_BAD_CHECKSUM = 0x00010000
+    DEBUG_SYMTYPE_NONE = 0
+    DEBUG_SYMTYPE_COFF = 1
+    DEBUG_SYMTYPE_CODEVIEW = 2
+    DEBUG_SYMTYPE_PDB = 3
+    DEBUG_SYMTYPE_EXPORT = 4
+    DEBUG_SYMTYPE_DEFERRED = 5
+    DEBUG_SYMTYPE_SYM = 6
+    DEBUG_SYMTYPE_DIA = 7
+    DEBUG_SCOPE_GROUP_ARGUMENTS = 0x00000001
+    DEBUG_SCOPE_GROUP_LOCALS = 0x00000002
+    DEBUG_SCOPE_GROUP_ALL = 0x00000003
+    DEBUG_OUTTYPE_DEFAULT = 0x00000000
+    DEBUG_OUTTYPE_NO_INDENT = 0x00000001
+    DEBUG_OUTTYPE_NO_OFFSET = 0x00000002
+    DEBUG_OUTTYPE_VERBOSE = 0x00000004
+    DEBUG_OUTTYPE_COMPACT_OUTPUT = 0x00000008
+    DEBUG_OUTTYPE_ADDRESS_AT_END = 0x00020000
+    DEBUG_OUTTYPE_BLOCK_RECURSE = 0x00200000
+    DEBUG_FIND_SOURCE_DEFAULT = 0x00000000
+    DEBUG_FIND_SOURCE_FULL_PATH = 0x00000001
+    DEBUG_FIND_SOURCE_BEST_MATCH = 0x00000002
+    DEBUG_FIND_SOURCE_NO_SRCSRV = 0x00000004
     DEBUG_FIND_SOURCE_TOKEN_LOOKUP = 0x00000008
-    DEBUG_INVALID_OFFSET           = 0xffffffffffffffff
-    MODULE_ORDERS_MASK             = 0xF0000000
-    MODULE_ORDERS_LOADTIME         = 0x10000000
-    MODULE_ORDERS_MODULENAME       = 0x20000000
-
+    DEBUG_INVALID_OFFSET = ((2**64)-1)
+    MODULE_ORDERS_MASK = 0xF0000000
+    MODULE_ORDERS_LOADTIME = 0x10000000
+    MODULE_ORDERS_MODULENAME = 0x20000000
     NUM_APIS = 52
 
     include Win32::WinTypes
@@ -5744,13 +5691,13 @@ module RawBuggery
         # SetSymbolOptions(THIS_ In_(Options))
         :SetSymbolOptions => FFI::Function.new( HRESULT, [THIS_, ULONG], @vtable[6], :convention=>:stdcall  ),
         # GetNameByOffset(THIS_ In_(Offset) Out_writes_opt_(NameBufferSize)(NameBuffer) In_(NameBufferSize) Out_opt_(NameSize) Out_opt_(Displacement))
-        :GetNameByOffset => FFI::Function.new( HRESULT, [THIS_, ULONG64, PSTR, ULONG, PULONG, PULONG64], @vtable[7], :convention=>:stdcall  ),
+        :GetNameByOffset => FFI::Function.new( HRESULT, [THIS_, ULONG64, PSTR_OUT, ULONG, PULONG, PULONG64], @vtable[7], :convention=>:stdcall  ),
         # GetOffsetByName(THIS_ In_(Symbol) Out_(Offset))
         :GetOffsetByName => FFI::Function.new( HRESULT, [THIS_, PCSTR, PULONG64], @vtable[8], :convention=>:stdcall  ),
         # GetNearNameByOffset(THIS_ In_(Offset) In_(Delta) Out_writes_opt_(NameBufferSize)(NameBuffer) In_(NameBufferSize) Out_opt_(NameSize) Out_opt_(Displacement))
-        :GetNearNameByOffset => FFI::Function.new( HRESULT, [THIS_, ULONG64, LONG, PSTR, ULONG, PULONG, PULONG64], @vtable[9], :convention=>:stdcall  ),
+        :GetNearNameByOffset => FFI::Function.new( HRESULT, [THIS_, ULONG64, LONG, PSTR_OUT, ULONG, PULONG, PULONG64], @vtable[9], :convention=>:stdcall  ),
         # GetLineByOffset(THIS_ In_(Offset) Out_opt_(Line) Out_writes_opt_(FileBufferSize)(FileBuffer) In_(FileBufferSize) Out_opt_(FileSize) Out_opt_(Displacement))
-        :GetLineByOffset => FFI::Function.new( HRESULT, [THIS_, ULONG64, PULONG, PSTR, ULONG, PULONG, PULONG64], @vtable[10], :convention=>:stdcall  ),
+        :GetLineByOffset => FFI::Function.new( HRESULT, [THIS_, ULONG64, PULONG, PSTR_OUT, ULONG, PULONG, PULONG64], @vtable[10], :convention=>:stdcall  ),
         # GetOffsetByLine(THIS_ In_(Line) In_(File) Out_(Offset))
         :GetOffsetByLine => FFI::Function.new( HRESULT, [THIS_, ULONG, PCSTR, PULONG64], @vtable[11], :convention=>:stdcall  ),
         # GetNumberModules(THIS_ Out_(Loaded) Out_(Unloaded))
@@ -5762,13 +5709,13 @@ module RawBuggery
         # GetModuleByOffset(THIS_ In_(Offset) In_(StartIndex) Out_opt_(Index) Out_opt_(Base))
         :GetModuleByOffset => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, PULONG, PULONG64], @vtable[15], :convention=>:stdcall  ),
         # GetModuleNames(THIS_ In_(Index) In_(Base) Out_writes_opt_(ImageNameBufferSize)(ImageNameBuffer) In_(ImageNameBufferSize) Out_opt_(ImageNameSize) Out_writes_opt_(ModuleNameBufferSize)(ModuleNameBuffer) In_(ModuleNameBufferSize) Out_opt_(ModuleNameSize) Out_writes_opt_(LoadedImageNameBufferSize)(LoadedImageNameBuffer) In_(LoadedImageNameBufferSize) Out_opt_(LoadedImageNameSize))
-        :GetModuleNames => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG64, PSTR, ULONG, PULONG, PSTR, ULONG, PULONG, PSTR, ULONG, PULONG], @vtable[16], :convention=>:stdcall  ),
+        :GetModuleNames => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG64, PSTR_OUT, ULONG, PULONG, PSTR_OUT, ULONG, PULONG, PSTR_OUT, ULONG, PULONG], @vtable[16], :convention=>:stdcall  ),
         # GetModuleParameters(THIS_ In_(Count) In_reads_opt_(Count)(Bases) In_(Start) Out_writes_(Count)(Params))
         :GetModuleParameters => FFI::Function.new( HRESULT, [THIS_, ULONG, PULONG64, ULONG, PDEBUG_MODULE_PARAMETERS], @vtable[17], :convention=>:stdcall  ),
         # GetSymbolModule(THIS_ In_(Symbol) Out_(Base))
         :GetSymbolModule => FFI::Function.new( HRESULT, [THIS_, PCSTR, PULONG64], @vtable[18], :convention=>:stdcall  ),
         # GetTypeName(THIS_ In_(Module) In_(TypeId) Out_writes_opt_(NameBufferSize)(NameBuffer) In_(NameBufferSize) Out_opt_(NameSize))
-        :GetTypeName => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, PSTR, ULONG, PULONG], @vtable[19], :convention=>:stdcall  ),
+        :GetTypeName => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, PSTR_OUT, ULONG, PULONG], @vtable[19], :convention=>:stdcall  ),
         # GetTypeId(THIS_ In_(Module) In_(Name) Out_(TypeId))
         :GetTypeId => FFI::Function.new( HRESULT, [THIS_, ULONG64, PCSTR, PULONG], @vtable[20], :convention=>:stdcall  ),
         # GetTypeSize(THIS_ In_(Module) In_(TypeId) Out_(Size))
@@ -5804,33 +5751,33 @@ module RawBuggery
         # StartSymbolMatch(THIS_ In_(Pattern) Out_(Handle))
         :StartSymbolMatch => FFI::Function.new( HRESULT, [THIS_, PCSTR, PULONG64], @vtable[36], :convention=>:stdcall  ),
         # GetNextSymbolMatch(THIS_ In_(Handle) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(MatchSize) Out_opt_(Offset))
-        :GetNextSymbolMatch => FFI::Function.new( HRESULT, [THIS_, ULONG64, PSTR, ULONG, PULONG, PULONG64], @vtable[37], :convention=>:stdcall  ),
+        :GetNextSymbolMatch => FFI::Function.new( HRESULT, [THIS_, ULONG64, PSTR_OUT, ULONG, PULONG, PULONG64], @vtable[37], :convention=>:stdcall  ),
         # EndSymbolMatch(THIS_ In_(Handle))
         :EndSymbolMatch => FFI::Function.new( HRESULT, [THIS_, ULONG64], @vtable[38], :convention=>:stdcall  ),
         # Reload(THIS_ In_(Module))
         :Reload => FFI::Function.new( HRESULT, [THIS_, PCSTR], @vtable[39], :convention=>:stdcall  ),
         # GetSymbolPath(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(PathSize))
-        :GetSymbolPath => FFI::Function.new( HRESULT, [THIS_, PSTR, ULONG, PULONG], @vtable[40], :convention=>:stdcall  ),
+        :GetSymbolPath => FFI::Function.new( HRESULT, [THIS_, PSTR_OUT, ULONG, PULONG], @vtable[40], :convention=>:stdcall  ),
         # SetSymbolPath(THIS_ In_(Path))
         :SetSymbolPath => FFI::Function.new( HRESULT, [THIS_, PCSTR], @vtable[41], :convention=>:stdcall  ),
         # AppendSymbolPath(THIS_ In_(Addition))
         :AppendSymbolPath => FFI::Function.new( HRESULT, [THIS_, PCSTR], @vtable[42], :convention=>:stdcall  ),
         # GetImagePath(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(PathSize))
-        :GetImagePath => FFI::Function.new( HRESULT, [THIS_, PSTR, ULONG, PULONG], @vtable[43], :convention=>:stdcall  ),
+        :GetImagePath => FFI::Function.new( HRESULT, [THIS_, PSTR_OUT, ULONG, PULONG], @vtable[43], :convention=>:stdcall  ),
         # SetImagePath(THIS_ In_(Path))
         :SetImagePath => FFI::Function.new( HRESULT, [THIS_, PCSTR], @vtable[44], :convention=>:stdcall  ),
         # AppendImagePath(THIS_ In_(Addition))
         :AppendImagePath => FFI::Function.new( HRESULT, [THIS_, PCSTR], @vtable[45], :convention=>:stdcall  ),
         # GetSourcePath(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(PathSize))
-        :GetSourcePath => FFI::Function.new( HRESULT, [THIS_, PSTR, ULONG, PULONG], @vtable[46], :convention=>:stdcall  ),
+        :GetSourcePath => FFI::Function.new( HRESULT, [THIS_, PSTR_OUT, ULONG, PULONG], @vtable[46], :convention=>:stdcall  ),
         # GetSourcePathElement(THIS_ In_(Index) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(ElementSize))
-        :GetSourcePathElement => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR, ULONG, PULONG], @vtable[47], :convention=>:stdcall  ),
+        :GetSourcePathElement => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR_OUT, ULONG, PULONG], @vtable[47], :convention=>:stdcall  ),
         # SetSourcePath(THIS_ In_(Path))
         :SetSourcePath => FFI::Function.new( HRESULT, [THIS_, PCSTR], @vtable[48], :convention=>:stdcall  ),
         # AppendSourcePath(THIS_ In_(Addition))
         :AppendSourcePath => FFI::Function.new( HRESULT, [THIS_, PCSTR], @vtable[49], :convention=>:stdcall  ),
         # FindSourceFile(THIS_ In_(StartElement) In_(File) In_(Flags) Out_opt_(FoundElement) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(FoundSize))
-        :FindSourceFile => FFI::Function.new( HRESULT, [THIS_, ULONG, PCSTR, ULONG, PULONG, PSTR, ULONG, PULONG], @vtable[50], :convention=>:stdcall  ),
+        :FindSourceFile => FFI::Function.new( HRESULT, [THIS_, ULONG, PCSTR, ULONG, PULONG, PSTR_OUT, ULONG, PULONG], @vtable[50], :convention=>:stdcall  ),
         # GetSourceFileLineOffsets(THIS_ In_(File) Out_writes_opt_(BufferLines)(Buffer) In_(BufferLines) Out_opt_(FileLines))
         :GetSourceFileLineOffsets => FFI::Function.new( HRESULT, [THIS_, PCSTR, PULONG64, ULONG, PULONG], @vtable[51], :convention=>:stdcall  )
       }
@@ -5847,17 +5794,15 @@ module RawBuggery
   end
 
   class DebugSymbols2
-
-    DEBUG_MODNAME_IMAGE               = 0x00000000
-    DEBUG_MODNAME_MODULE              = 0x00000001
-    DEBUG_MODNAME_LOADED_IMAGE        = 0x00000002
-    DEBUG_MODNAME_SYMBOL_FILE         = 0x00000003
-    DEBUG_MODNAME_MAPPED_IMAGE        = 0x00000004
-    DEBUG_TYPEOPTS_UNICODE_DISPLAY    = 0x00000001
+    DEBUG_MODNAME_IMAGE = 0x00000000
+    DEBUG_MODNAME_MODULE = 0x00000001
+    DEBUG_MODNAME_LOADED_IMAGE = 0x00000002
+    DEBUG_MODNAME_SYMBOL_FILE = 0x00000003
+    DEBUG_MODNAME_MAPPED_IMAGE = 0x00000004
+    DEBUG_TYPEOPTS_UNICODE_DISPLAY = 0x00000001
     DEBUG_TYPEOPTS_LONGSTATUS_DISPLAY = 0x00000002
-    DEBUG_TYPEOPTS_FORCERADIX_OUTPUT  = 0x00000004
-    DEBUG_TYPEOPTS_MATCH_MAXSIZE      = 0x00000008
-
+    DEBUG_TYPEOPTS_FORCERADIX_OUTPUT = 0x00000004
+    DEBUG_TYPEOPTS_MATCH_MAXSIZE = 0x00000008
     NUM_APIS = 60
 
     include Win32::WinTypes
@@ -5889,13 +5834,13 @@ module RawBuggery
         # SetSymbolOptions(THIS_ In_(Options))
         :SetSymbolOptions => FFI::Function.new( HRESULT, [THIS_, ULONG], @vtable[6], :convention=>:stdcall  ),
         # GetNameByOffset(THIS_ In_(Offset) Out_writes_opt_(NameBufferSize)(NameBuffer) In_(NameBufferSize) Out_opt_(NameSize) Out_opt_(Displacement))
-        :GetNameByOffset => FFI::Function.new( HRESULT, [THIS_, ULONG64, PSTR, ULONG, PULONG, PULONG64], @vtable[7], :convention=>:stdcall  ),
+        :GetNameByOffset => FFI::Function.new( HRESULT, [THIS_, ULONG64, PSTR_OUT, ULONG, PULONG, PULONG64], @vtable[7], :convention=>:stdcall  ),
         # GetOffsetByName(THIS_ In_(Symbol) Out_(Offset))
         :GetOffsetByName => FFI::Function.new( HRESULT, [THIS_, PCSTR, PULONG64], @vtable[8], :convention=>:stdcall  ),
         # GetNearNameByOffset(THIS_ In_(Offset) In_(Delta) Out_writes_opt_(NameBufferSize)(NameBuffer) In_(NameBufferSize) Out_opt_(NameSize) Out_opt_(Displacement))
-        :GetNearNameByOffset => FFI::Function.new( HRESULT, [THIS_, ULONG64, LONG, PSTR, ULONG, PULONG, PULONG64], @vtable[9], :convention=>:stdcall  ),
+        :GetNearNameByOffset => FFI::Function.new( HRESULT, [THIS_, ULONG64, LONG, PSTR_OUT, ULONG, PULONG, PULONG64], @vtable[9], :convention=>:stdcall  ),
         # GetLineByOffset(THIS_ In_(Offset) Out_opt_(Line) Out_writes_opt_(FileBufferSize)(FileBuffer) In_(FileBufferSize) Out_opt_(FileSize) Out_opt_(Displacement))
-        :GetLineByOffset => FFI::Function.new( HRESULT, [THIS_, ULONG64, PULONG, PSTR, ULONG, PULONG, PULONG64], @vtable[10], :convention=>:stdcall  ),
+        :GetLineByOffset => FFI::Function.new( HRESULT, [THIS_, ULONG64, PULONG, PSTR_OUT, ULONG, PULONG, PULONG64], @vtable[10], :convention=>:stdcall  ),
         # GetOffsetByLine(THIS_ In_(Line) In_(File) Out_(Offset))
         :GetOffsetByLine => FFI::Function.new( HRESULT, [THIS_, ULONG, PCSTR, PULONG64], @vtable[11], :convention=>:stdcall  ),
         # GetNumberModules(THIS_ Out_(Loaded) Out_(Unloaded))
@@ -5907,13 +5852,13 @@ module RawBuggery
         # GetModuleByOffset(THIS_ In_(Offset) In_(StartIndex) Out_opt_(Index) Out_opt_(Base))
         :GetModuleByOffset => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, PULONG, PULONG64], @vtable[15], :convention=>:stdcall  ),
         # GetModuleNames(THIS_ In_(Index) In_(Base) Out_writes_opt_(ImageNameBufferSize)(ImageNameBuffer) In_(ImageNameBufferSize) Out_opt_(ImageNameSize) Out_writes_opt_(ModuleNameBufferSize)(ModuleNameBuffer) In_(ModuleNameBufferSize) Out_opt_(ModuleNameSize) Out_writes_opt_(LoadedImageNameBufferSize)(LoadedImageNameBuffer) In_(LoadedImageNameBufferSize) Out_opt_(LoadedImageNameSize))
-        :GetModuleNames => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG64, PSTR, ULONG, PULONG, PSTR, ULONG, PULONG, PSTR, ULONG, PULONG], @vtable[16], :convention=>:stdcall  ),
+        :GetModuleNames => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG64, PSTR_OUT, ULONG, PULONG, PSTR_OUT, ULONG, PULONG, PSTR_OUT, ULONG, PULONG], @vtable[16], :convention=>:stdcall  ),
         # GetModuleParameters(THIS_ In_(Count) In_reads_opt_(Count)(Bases) In_(Start) Out_writes_(Count)(Params))
         :GetModuleParameters => FFI::Function.new( HRESULT, [THIS_, ULONG, PULONG64, ULONG, PDEBUG_MODULE_PARAMETERS], @vtable[17], :convention=>:stdcall  ),
         # GetSymbolModule(THIS_ In_(Symbol) Out_(Base))
         :GetSymbolModule => FFI::Function.new( HRESULT, [THIS_, PCSTR, PULONG64], @vtable[18], :convention=>:stdcall  ),
         # GetTypeName(THIS_ In_(Module) In_(TypeId) Out_writes_opt_(NameBufferSize)(NameBuffer) In_(NameBufferSize) Out_opt_(NameSize))
-        :GetTypeName => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, PSTR, ULONG, PULONG], @vtable[19], :convention=>:stdcall  ),
+        :GetTypeName => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, PSTR_OUT, ULONG, PULONG], @vtable[19], :convention=>:stdcall  ),
         # GetTypeId(THIS_ In_(Module) In_(Name) Out_(TypeId))
         :GetTypeId => FFI::Function.new( HRESULT, [THIS_, ULONG64, PCSTR, PULONG], @vtable[20], :convention=>:stdcall  ),
         # GetTypeSize(THIS_ In_(Module) In_(TypeId) Out_(Size))
@@ -5949,43 +5894,43 @@ module RawBuggery
         # StartSymbolMatch(THIS_ In_(Pattern) Out_(Handle))
         :StartSymbolMatch => FFI::Function.new( HRESULT, [THIS_, PCSTR, PULONG64], @vtable[36], :convention=>:stdcall  ),
         # GetNextSymbolMatch(THIS_ In_(Handle) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(MatchSize) Out_opt_(Offset))
-        :GetNextSymbolMatch => FFI::Function.new( HRESULT, [THIS_, ULONG64, PSTR, ULONG, PULONG, PULONG64], @vtable[37], :convention=>:stdcall  ),
+        :GetNextSymbolMatch => FFI::Function.new( HRESULT, [THIS_, ULONG64, PSTR_OUT, ULONG, PULONG, PULONG64], @vtable[37], :convention=>:stdcall  ),
         # EndSymbolMatch(THIS_ In_(Handle))
         :EndSymbolMatch => FFI::Function.new( HRESULT, [THIS_, ULONG64], @vtable[38], :convention=>:stdcall  ),
         # Reload(THIS_ In_(Module))
         :Reload => FFI::Function.new( HRESULT, [THIS_, PCSTR], @vtable[39], :convention=>:stdcall  ),
         # GetSymbolPath(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(PathSize))
-        :GetSymbolPath => FFI::Function.new( HRESULT, [THIS_, PSTR, ULONG, PULONG], @vtable[40], :convention=>:stdcall  ),
+        :GetSymbolPath => FFI::Function.new( HRESULT, [THIS_, PSTR_OUT, ULONG, PULONG], @vtable[40], :convention=>:stdcall  ),
         # SetSymbolPath(THIS_ In_(Path))
         :SetSymbolPath => FFI::Function.new( HRESULT, [THIS_, PCSTR], @vtable[41], :convention=>:stdcall  ),
         # AppendSymbolPath(THIS_ In_(Addition))
         :AppendSymbolPath => FFI::Function.new( HRESULT, [THIS_, PCSTR], @vtable[42], :convention=>:stdcall  ),
         # GetImagePath(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(PathSize))
-        :GetImagePath => FFI::Function.new( HRESULT, [THIS_, PSTR, ULONG, PULONG], @vtable[43], :convention=>:stdcall  ),
+        :GetImagePath => FFI::Function.new( HRESULT, [THIS_, PSTR_OUT, ULONG, PULONG], @vtable[43], :convention=>:stdcall  ),
         # SetImagePath(THIS_ In_(Path))
         :SetImagePath => FFI::Function.new( HRESULT, [THIS_, PCSTR], @vtable[44], :convention=>:stdcall  ),
         # AppendImagePath(THIS_ In_(Addition))
         :AppendImagePath => FFI::Function.new( HRESULT, [THIS_, PCSTR], @vtable[45], :convention=>:stdcall  ),
         # GetSourcePath(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(PathSize))
-        :GetSourcePath => FFI::Function.new( HRESULT, [THIS_, PSTR, ULONG, PULONG], @vtable[46], :convention=>:stdcall  ),
+        :GetSourcePath => FFI::Function.new( HRESULT, [THIS_, PSTR_OUT, ULONG, PULONG], @vtable[46], :convention=>:stdcall  ),
         # GetSourcePathElement(THIS_ In_(Index) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(ElementSize))
-        :GetSourcePathElement => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR, ULONG, PULONG], @vtable[47], :convention=>:stdcall  ),
+        :GetSourcePathElement => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR_OUT, ULONG, PULONG], @vtable[47], :convention=>:stdcall  ),
         # SetSourcePath(THIS_ In_(Path))
         :SetSourcePath => FFI::Function.new( HRESULT, [THIS_, PCSTR], @vtable[48], :convention=>:stdcall  ),
         # AppendSourcePath(THIS_ In_(Addition))
         :AppendSourcePath => FFI::Function.new( HRESULT, [THIS_, PCSTR], @vtable[49], :convention=>:stdcall  ),
         # FindSourceFile(THIS_ In_(StartElement) In_(File) In_(Flags) Out_opt_(FoundElement) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(FoundSize))
-        :FindSourceFile => FFI::Function.new( HRESULT, [THIS_, ULONG, PCSTR, ULONG, PULONG, PSTR, ULONG, PULONG], @vtable[50], :convention=>:stdcall  ),
+        :FindSourceFile => FFI::Function.new( HRESULT, [THIS_, ULONG, PCSTR, ULONG, PULONG, PSTR_OUT, ULONG, PULONG], @vtable[50], :convention=>:stdcall  ),
         # GetSourceFileLineOffsets(THIS_ In_(File) Out_writes_opt_(BufferLines)(Buffer) In_(BufferLines) Out_opt_(FileLines))
         :GetSourceFileLineOffsets => FFI::Function.new( HRESULT, [THIS_, PCSTR, PULONG64, ULONG, PULONG], @vtable[51], :convention=>:stdcall  ),
         # GetModuleVersionInformation(THIS_ In_(Index) In_(Base) In_(Item) Out_writes_bytes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(VerInfoSize))
         :GetModuleVersionInformation => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG64, PCSTR, PVOID, ULONG, PULONG], @vtable[52], :convention=>:stdcall  ),
         # GetModuleNameString(THIS_ In_(Which) In_(Index) In_(Base) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(NameSize))
-        :GetModuleNameString => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG, ULONG64, PSTR, ULONG, PULONG], @vtable[53], :convention=>:stdcall  ),
+        :GetModuleNameString => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG, ULONG64, PSTR_OUT, ULONG, PULONG], @vtable[53], :convention=>:stdcall  ),
         # GetConstantName(THIS_ In_(Module) In_(TypeId) In_(Value) Out_writes_opt_(NameBufferSize)(NameBuffer) In_(NameBufferSize) Out_opt_(NameSize))
-        :GetConstantName => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, ULONG64, PSTR, ULONG, PULONG], @vtable[54], :convention=>:stdcall  ),
+        :GetConstantName => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, ULONG64, PSTR_OUT, ULONG, PULONG], @vtable[54], :convention=>:stdcall  ),
         # GetFieldName(THIS_ In_(Module) In_(TypeId) In_(FieldIndex) Out_writes_opt_(NameBufferSize)(NameBuffer) In_(NameBufferSize) Out_opt_(NameSize))
-        :GetFieldName => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, ULONG, PSTR, ULONG, PULONG], @vtable[55], :convention=>:stdcall  ),
+        :GetFieldName => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, ULONG, PSTR_OUT, ULONG, PULONG], @vtable[55], :convention=>:stdcall  ),
         # GetTypeOptions(THIS_ Out_(Options))
         :GetTypeOptions => FFI::Function.new( HRESULT, [THIS_, PULONG], @vtable[56], :convention=>:stdcall  ),
         # AddTypeOptions(THIS_ In_(Options))
@@ -6008,27 +5953,25 @@ module RawBuggery
   end
 
   class DebugSymbols3
-
-    DEBUG_GETMOD_DEFAULT             = 0x00000000
-    DEBUG_GETMOD_NO_LOADED_MODULES   = 0x00000001
+    DEBUG_GETMOD_DEFAULT = 0x00000000
+    DEBUG_GETMOD_NO_LOADED_MODULES = 0x00000001
     DEBUG_GETMOD_NO_UNLOADED_MODULES = 0x00000002
-    DEBUG_ADDSYNTHMOD_DEFAULT        = 0x00000000
-    DEBUG_ADDSYNTHMOD_ZEROBASE       = 0x00000001
-    DEBUG_ADDSYNTHSYM_DEFAULT        = 0x00000000
-    DEBUG_OUTSYM_DEFAULT             = 0x00000000
-    DEBUG_OUTSYM_FORCE_OFFSET        = 0x00000001
-    DEBUG_OUTSYM_SOURCE_LINE         = 0x00000002
-    DEBUG_OUTSYM_ALLOW_DISPLACEMENT  = 0x00000004
-    DEBUG_GETFNENT_DEFAULT           = 0x00000000
-    DEBUG_GETFNENT_RAW_ENTRY_ONLY    = 0x00000001
-    DEBUG_SOURCE_IS_STATEMENT        = 0x00000001
-    DEBUG_GSEL_DEFAULT               = 0x00000000
-    DEBUG_GSEL_NO_SYMBOL_LOADS       = 0x00000001
-    DEBUG_GSEL_ALLOW_LOWER           = 0x00000002
-    DEBUG_GSEL_ALLOW_HIGHER          = 0x00000004
-    DEBUG_GSEL_NEAREST_ONLY          = 0x00000008
-    DEBUG_GSEL_INLINE_CALLSITE       = 0x00000010
-
+    DEBUG_ADDSYNTHMOD_DEFAULT = 0x00000000
+    DEBUG_ADDSYNTHMOD_ZEROBASE = 0x00000001
+    DEBUG_ADDSYNTHSYM_DEFAULT = 0x00000000
+    DEBUG_OUTSYM_DEFAULT = 0x00000000
+    DEBUG_OUTSYM_FORCE_OFFSET = 0x00000001
+    DEBUG_OUTSYM_SOURCE_LINE = 0x00000002
+    DEBUG_OUTSYM_ALLOW_DISPLACEMENT = 0x00000004
+    DEBUG_GETFNENT_DEFAULT = 0x00000000
+    DEBUG_GETFNENT_RAW_ENTRY_ONLY = 0x00000001
+    DEBUG_SOURCE_IS_STATEMENT = 0x00000001
+    DEBUG_GSEL_DEFAULT = 0x00000000
+    DEBUG_GSEL_NO_SYMBOL_LOADS = 0x00000001
+    DEBUG_GSEL_ALLOW_LOWER = 0x00000002
+    DEBUG_GSEL_ALLOW_HIGHER = 0x00000004
+    DEBUG_GSEL_NEAREST_ONLY = 0x00000008
+    DEBUG_GSEL_INLINE_CALLSITE = 0x00000010
     NUM_APIS = 126
 
     include Win32::WinTypes
@@ -6060,13 +6003,13 @@ module RawBuggery
         # SetSymbolOptions(THIS_ In_(Options))
         :SetSymbolOptions => FFI::Function.new( HRESULT, [THIS_, ULONG], @vtable[6], :convention=>:stdcall  ),
         # GetNameByOffset(THIS_ In_(Offset) Out_writes_opt_(NameBufferSize)(NameBuffer) In_(NameBufferSize) Out_opt_(NameSize) Out_opt_(Displacement))
-        :GetNameByOffset => FFI::Function.new( HRESULT, [THIS_, ULONG64, PSTR, ULONG, PULONG, PULONG64], @vtable[7], :convention=>:stdcall  ),
+        :GetNameByOffset => FFI::Function.new( HRESULT, [THIS_, ULONG64, PSTR_OUT, ULONG, PULONG, PULONG64], @vtable[7], :convention=>:stdcall  ),
         # GetOffsetByName(THIS_ In_(Symbol) Out_(Offset))
         :GetOffsetByName => FFI::Function.new( HRESULT, [THIS_, PCSTR, PULONG64], @vtable[8], :convention=>:stdcall  ),
         # GetNearNameByOffset(THIS_ In_(Offset) In_(Delta) Out_writes_opt_(NameBufferSize)(NameBuffer) In_(NameBufferSize) Out_opt_(NameSize) Out_opt_(Displacement))
-        :GetNearNameByOffset => FFI::Function.new( HRESULT, [THIS_, ULONG64, LONG, PSTR, ULONG, PULONG, PULONG64], @vtable[9], :convention=>:stdcall  ),
+        :GetNearNameByOffset => FFI::Function.new( HRESULT, [THIS_, ULONG64, LONG, PSTR_OUT, ULONG, PULONG, PULONG64], @vtable[9], :convention=>:stdcall  ),
         # GetLineByOffset(THIS_ In_(Offset) Out_opt_(Line) Out_writes_opt_(FileBufferSize)(FileBuffer) In_(FileBufferSize) Out_opt_(FileSize) Out_opt_(Displacement))
-        :GetLineByOffset => FFI::Function.new( HRESULT, [THIS_, ULONG64, PULONG, PSTR, ULONG, PULONG, PULONG64], @vtable[10], :convention=>:stdcall  ),
+        :GetLineByOffset => FFI::Function.new( HRESULT, [THIS_, ULONG64, PULONG, PSTR_OUT, ULONG, PULONG, PULONG64], @vtable[10], :convention=>:stdcall  ),
         # GetOffsetByLine(THIS_ In_(Line) In_(File) Out_(Offset))
         :GetOffsetByLine => FFI::Function.new( HRESULT, [THIS_, ULONG, PCSTR, PULONG64], @vtable[11], :convention=>:stdcall  ),
         # GetNumberModules(THIS_ Out_(Loaded) Out_(Unloaded))
@@ -6078,13 +6021,13 @@ module RawBuggery
         # GetModuleByOffset(THIS_ In_(Offset) In_(StartIndex) Out_opt_(Index) Out_opt_(Base))
         :GetModuleByOffset => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, PULONG, PULONG64], @vtable[15], :convention=>:stdcall  ),
         # GetModuleNames(THIS_ In_(Index) In_(Base) Out_writes_opt_(ImageNameBufferSize)(ImageNameBuffer) In_(ImageNameBufferSize) Out_opt_(ImageNameSize) Out_writes_opt_(ModuleNameBufferSize)(ModuleNameBuffer) In_(ModuleNameBufferSize) Out_opt_(ModuleNameSize) Out_writes_opt_(LoadedImageNameBufferSize)(LoadedImageNameBuffer) In_(LoadedImageNameBufferSize) Out_opt_(LoadedImageNameSize))
-        :GetModuleNames => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG64, PSTR, ULONG, PULONG, PSTR, ULONG, PULONG, PSTR, ULONG, PULONG], @vtable[16], :convention=>:stdcall  ),
+        :GetModuleNames => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG64, PSTR_OUT, ULONG, PULONG, PSTR_OUT, ULONG, PULONG, PSTR_OUT, ULONG, PULONG], @vtable[16], :convention=>:stdcall  ),
         # GetModuleParameters(THIS_ In_(Count) In_reads_opt_(Count)(Bases) In_(Start) Out_writes_(Count)(Params))
         :GetModuleParameters => FFI::Function.new( HRESULT, [THIS_, ULONG, PULONG64, ULONG, PDEBUG_MODULE_PARAMETERS], @vtable[17], :convention=>:stdcall  ),
         # GetSymbolModule(THIS_ In_(Symbol) Out_(Base))
         :GetSymbolModule => FFI::Function.new( HRESULT, [THIS_, PCSTR, PULONG64], @vtable[18], :convention=>:stdcall  ),
         # GetTypeName(THIS_ In_(Module) In_(TypeId) Out_writes_opt_(NameBufferSize)(NameBuffer) In_(NameBufferSize) Out_opt_(NameSize))
-        :GetTypeName => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, PSTR, ULONG, PULONG], @vtable[19], :convention=>:stdcall  ),
+        :GetTypeName => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, PSTR_OUT, ULONG, PULONG], @vtable[19], :convention=>:stdcall  ),
         # GetTypeId(THIS_ In_(Module) In_(Name) Out_(TypeId))
         :GetTypeId => FFI::Function.new( HRESULT, [THIS_, ULONG64, PCSTR, PULONG], @vtable[20], :convention=>:stdcall  ),
         # GetTypeSize(THIS_ In_(Module) In_(TypeId) Out_(Size))
@@ -6120,43 +6063,43 @@ module RawBuggery
         # StartSymbolMatch(THIS_ In_(Pattern) Out_(Handle))
         :StartSymbolMatch => FFI::Function.new( HRESULT, [THIS_, PCSTR, PULONG64], @vtable[36], :convention=>:stdcall  ),
         # GetNextSymbolMatch(THIS_ In_(Handle) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(MatchSize) Out_opt_(Offset))
-        :GetNextSymbolMatch => FFI::Function.new( HRESULT, [THIS_, ULONG64, PSTR, ULONG, PULONG, PULONG64], @vtable[37], :convention=>:stdcall  ),
+        :GetNextSymbolMatch => FFI::Function.new( HRESULT, [THIS_, ULONG64, PSTR_OUT, ULONG, PULONG, PULONG64], @vtable[37], :convention=>:stdcall  ),
         # EndSymbolMatch(THIS_ In_(Handle))
         :EndSymbolMatch => FFI::Function.new( HRESULT, [THIS_, ULONG64], @vtable[38], :convention=>:stdcall  ),
         # Reload(THIS_ In_(Module))
         :Reload => FFI::Function.new( HRESULT, [THIS_, PCSTR], @vtable[39], :convention=>:stdcall  ),
         # GetSymbolPath(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(PathSize))
-        :GetSymbolPath => FFI::Function.new( HRESULT, [THIS_, PSTR, ULONG, PULONG], @vtable[40], :convention=>:stdcall  ),
+        :GetSymbolPath => FFI::Function.new( HRESULT, [THIS_, PSTR_OUT, ULONG, PULONG], @vtable[40], :convention=>:stdcall  ),
         # SetSymbolPath(THIS_ In_(Path))
         :SetSymbolPath => FFI::Function.new( HRESULT, [THIS_, PCSTR], @vtable[41], :convention=>:stdcall  ),
         # AppendSymbolPath(THIS_ In_(Addition))
         :AppendSymbolPath => FFI::Function.new( HRESULT, [THIS_, PCSTR], @vtable[42], :convention=>:stdcall  ),
         # GetImagePath(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(PathSize))
-        :GetImagePath => FFI::Function.new( HRESULT, [THIS_, PSTR, ULONG, PULONG], @vtable[43], :convention=>:stdcall  ),
+        :GetImagePath => FFI::Function.new( HRESULT, [THIS_, PSTR_OUT, ULONG, PULONG], @vtable[43], :convention=>:stdcall  ),
         # SetImagePath(THIS_ In_(Path))
         :SetImagePath => FFI::Function.new( HRESULT, [THIS_, PCSTR], @vtable[44], :convention=>:stdcall  ),
         # AppendImagePath(THIS_ In_(Addition))
         :AppendImagePath => FFI::Function.new( HRESULT, [THIS_, PCSTR], @vtable[45], :convention=>:stdcall  ),
         # GetSourcePath(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(PathSize))
-        :GetSourcePath => FFI::Function.new( HRESULT, [THIS_, PSTR, ULONG, PULONG], @vtable[46], :convention=>:stdcall  ),
+        :GetSourcePath => FFI::Function.new( HRESULT, [THIS_, PSTR_OUT, ULONG, PULONG], @vtable[46], :convention=>:stdcall  ),
         # GetSourcePathElement(THIS_ In_(Index) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(ElementSize))
-        :GetSourcePathElement => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR, ULONG, PULONG], @vtable[47], :convention=>:stdcall  ),
+        :GetSourcePathElement => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR_OUT, ULONG, PULONG], @vtable[47], :convention=>:stdcall  ),
         # SetSourcePath(THIS_ In_(Path))
         :SetSourcePath => FFI::Function.new( HRESULT, [THIS_, PCSTR], @vtable[48], :convention=>:stdcall  ),
         # AppendSourcePath(THIS_ In_(Addition))
         :AppendSourcePath => FFI::Function.new( HRESULT, [THIS_, PCSTR], @vtable[49], :convention=>:stdcall  ),
         # FindSourceFile(THIS_ In_(StartElement) In_(File) In_(Flags) Out_opt_(FoundElement) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(FoundSize))
-        :FindSourceFile => FFI::Function.new( HRESULT, [THIS_, ULONG, PCSTR, ULONG, PULONG, PSTR, ULONG, PULONG], @vtable[50], :convention=>:stdcall  ),
+        :FindSourceFile => FFI::Function.new( HRESULT, [THIS_, ULONG, PCSTR, ULONG, PULONG, PSTR_OUT, ULONG, PULONG], @vtable[50], :convention=>:stdcall  ),
         # GetSourceFileLineOffsets(THIS_ In_(File) Out_writes_opt_(BufferLines)(Buffer) In_(BufferLines) Out_opt_(FileLines))
         :GetSourceFileLineOffsets => FFI::Function.new( HRESULT, [THIS_, PCSTR, PULONG64, ULONG, PULONG], @vtable[51], :convention=>:stdcall  ),
         # GetModuleVersionInformation(THIS_ In_(Index) In_(Base) In_(Item) Out_writes_bytes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(VerInfoSize))
         :GetModuleVersionInformation => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG64, PCSTR, PVOID, ULONG, PULONG], @vtable[52], :convention=>:stdcall  ),
         # GetModuleNameString(THIS_ In_(Which) In_(Index) In_(Base) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(NameSize))
-        :GetModuleNameString => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG, ULONG64, PSTR, ULONG, PULONG], @vtable[53], :convention=>:stdcall  ),
+        :GetModuleNameString => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG, ULONG64, PSTR_OUT, ULONG, PULONG], @vtable[53], :convention=>:stdcall  ),
         # GetConstantName(THIS_ In_(Module) In_(TypeId) In_(Value) Out_writes_opt_(NameBufferSize)(NameBuffer) In_(NameBufferSize) Out_opt_(NameSize))
-        :GetConstantName => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, ULONG64, PSTR, ULONG, PULONG], @vtable[54], :convention=>:stdcall  ),
+        :GetConstantName => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, ULONG64, PSTR_OUT, ULONG, PULONG], @vtable[54], :convention=>:stdcall  ),
         # GetFieldName(THIS_ In_(Module) In_(TypeId) In_(FieldIndex) Out_writes_opt_(NameBufferSize)(NameBuffer) In_(NameBufferSize) Out_opt_(NameSize))
-        :GetFieldName => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, ULONG, PSTR, ULONG, PULONG], @vtable[55], :convention=>:stdcall  ),
+        :GetFieldName => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, ULONG, PSTR_OUT, ULONG, PULONG], @vtable[55], :convention=>:stdcall  ),
         # GetTypeOptions(THIS_ Out_(Options))
         :GetTypeOptions => FFI::Function.new( HRESULT, [THIS_, PULONG], @vtable[56], :convention=>:stdcall  ),
         # AddTypeOptions(THIS_ In_(Options))
@@ -6166,13 +6109,13 @@ module RawBuggery
         # SetTypeOptions(THIS_ In_(Options))
         :SetTypeOptions => FFI::Function.new( HRESULT, [THIS_, ULONG], @vtable[59], :convention=>:stdcall  ),
         # GetNameByOffsetWide(THIS_ In_(Offset) Out_writes_opt_(NameBufferSize)(NameBuffer) In_(NameBufferSize) Out_opt_(NameSize) Out_opt_(Displacement))
-        :GetNameByOffsetWide => FFI::Function.new( HRESULT, [THIS_, ULONG64, PWSTR, ULONG, PULONG, PULONG64], @vtable[60], :convention=>:stdcall  ),
+        :GetNameByOffsetWide => FFI::Function.new( HRESULT, [THIS_, ULONG64, PWSTR_OUT, ULONG, PULONG, PULONG64], @vtable[60], :convention=>:stdcall  ),
         # GetOffsetByNameWide(THIS_ In_(Symbol) Out_(Offset))
         :GetOffsetByNameWide => FFI::Function.new( HRESULT, [THIS_, PCWSTR, PULONG64], @vtable[61], :convention=>:stdcall  ),
         # GetNearNameByOffsetWide(THIS_ In_(Offset) In_(Delta) Out_writes_opt_(NameBufferSize)(NameBuffer) In_(NameBufferSize) Out_opt_(NameSize) Out_opt_(Displacement))
-        :GetNearNameByOffsetWide => FFI::Function.new( HRESULT, [THIS_, ULONG64, LONG, PWSTR, ULONG, PULONG, PULONG64], @vtable[62], :convention=>:stdcall  ),
+        :GetNearNameByOffsetWide => FFI::Function.new( HRESULT, [THIS_, ULONG64, LONG, PWSTR_OUT, ULONG, PULONG, PULONG64], @vtable[62], :convention=>:stdcall  ),
         # GetLineByOffsetWide(THIS_ In_(Offset) Out_opt_(Line) Out_writes_opt_(FileBufferSize)(FileBuffer) In_(FileBufferSize) Out_opt_(FileSize) Out_opt_(Displacement))
-        :GetLineByOffsetWide => FFI::Function.new( HRESULT, [THIS_, ULONG64, PULONG, PWSTR, ULONG, PULONG, PULONG64], @vtable[63], :convention=>:stdcall  ),
+        :GetLineByOffsetWide => FFI::Function.new( HRESULT, [THIS_, ULONG64, PULONG, PWSTR_OUT, ULONG, PULONG, PULONG64], @vtable[63], :convention=>:stdcall  ),
         # GetOffsetByLineWide(THIS_ In_(Line) In_(File) Out_(Offset))
         :GetOffsetByLineWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PCWSTR, PULONG64], @vtable[64], :convention=>:stdcall  ),
         # GetModuleByModuleNameWide(THIS_ In_(Name) In_(StartIndex) Out_opt_(Index) Out_opt_(Base))
@@ -6180,7 +6123,7 @@ module RawBuggery
         # GetSymbolModuleWide(THIS_ In_(Symbol) Out_(Base))
         :GetSymbolModuleWide => FFI::Function.new( HRESULT, [THIS_, PCWSTR, PULONG64], @vtable[66], :convention=>:stdcall  ),
         # GetTypeNameWide(THIS_ In_(Module) In_(TypeId) Out_writes_opt_(NameBufferSize)(NameBuffer) In_(NameBufferSize) Out_opt_(NameSize))
-        :GetTypeNameWide => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, PWSTR, ULONG, PULONG], @vtable[67], :convention=>:stdcall  ),
+        :GetTypeNameWide => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, PWSTR_OUT, ULONG, PULONG], @vtable[67], :convention=>:stdcall  ),
         # GetTypeIdWide(THIS_ In_(Module) In_(Name) Out_(TypeId))
         :GetTypeIdWide => FFI::Function.new( HRESULT, [THIS_, ULONG64, PCWSTR, PULONG], @vtable[68], :convention=>:stdcall  ),
         # GetFieldOffsetWide(THIS_ In_(Module) In_(TypeId) In_(Field) Out_(Offset))
@@ -6194,41 +6137,41 @@ module RawBuggery
         # StartSymbolMatchWide(THIS_ In_(Pattern) Out_(Handle))
         :StartSymbolMatchWide => FFI::Function.new( HRESULT, [THIS_, PCWSTR, PULONG64], @vtable[73], :convention=>:stdcall  ),
         # GetNextSymbolMatchWide(THIS_ In_(Handle) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(MatchSize) Out_opt_(Offset))
-        :GetNextSymbolMatchWide => FFI::Function.new( HRESULT, [THIS_, ULONG64, PWSTR, ULONG, PULONG, PULONG64], @vtable[74], :convention=>:stdcall  ),
+        :GetNextSymbolMatchWide => FFI::Function.new( HRESULT, [THIS_, ULONG64, PWSTR_OUT, ULONG, PULONG, PULONG64], @vtable[74], :convention=>:stdcall  ),
         # ReloadWide(THIS_ In_(Module))
         :ReloadWide => FFI::Function.new( HRESULT, [THIS_, PCWSTR], @vtable[75], :convention=>:stdcall  ),
         # GetSymbolPathWide(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(PathSize))
-        :GetSymbolPathWide => FFI::Function.new( HRESULT, [THIS_, PWSTR, ULONG, PULONG], @vtable[76], :convention=>:stdcall  ),
+        :GetSymbolPathWide => FFI::Function.new( HRESULT, [THIS_, PWSTR_OUT, ULONG, PULONG], @vtable[76], :convention=>:stdcall  ),
         # SetSymbolPathWide(THIS_ In_(Path))
         :SetSymbolPathWide => FFI::Function.new( HRESULT, [THIS_, PCWSTR], @vtable[77], :convention=>:stdcall  ),
         # AppendSymbolPathWide(THIS_ In_(Addition))
         :AppendSymbolPathWide => FFI::Function.new( HRESULT, [THIS_, PCWSTR], @vtable[78], :convention=>:stdcall  ),
         # GetImagePathWide(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(PathSize))
-        :GetImagePathWide => FFI::Function.new( HRESULT, [THIS_, PWSTR, ULONG, PULONG], @vtable[79], :convention=>:stdcall  ),
+        :GetImagePathWide => FFI::Function.new( HRESULT, [THIS_, PWSTR_OUT, ULONG, PULONG], @vtable[79], :convention=>:stdcall  ),
         # SetImagePathWide(THIS_ In_(Path))
         :SetImagePathWide => FFI::Function.new( HRESULT, [THIS_, PCWSTR], @vtable[80], :convention=>:stdcall  ),
         # AppendImagePathWide(THIS_ In_(Addition))
         :AppendImagePathWide => FFI::Function.new( HRESULT, [THIS_, PCWSTR], @vtable[81], :convention=>:stdcall  ),
         # GetSourcePathWide(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(PathSize))
-        :GetSourcePathWide => FFI::Function.new( HRESULT, [THIS_, PWSTR, ULONG, PULONG], @vtable[82], :convention=>:stdcall  ),
+        :GetSourcePathWide => FFI::Function.new( HRESULT, [THIS_, PWSTR_OUT, ULONG, PULONG], @vtable[82], :convention=>:stdcall  ),
         # GetSourcePathElementWide(THIS_ In_(Index) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(ElementSize))
-        :GetSourcePathElementWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PWSTR, ULONG, PULONG], @vtable[83], :convention=>:stdcall  ),
+        :GetSourcePathElementWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PWSTR_OUT, ULONG, PULONG], @vtable[83], :convention=>:stdcall  ),
         # SetSourcePathWide(THIS_ In_(Path))
         :SetSourcePathWide => FFI::Function.new( HRESULT, [THIS_, PCWSTR], @vtable[84], :convention=>:stdcall  ),
         # AppendSourcePathWide(THIS_ In_(Addition))
         :AppendSourcePathWide => FFI::Function.new( HRESULT, [THIS_, PCWSTR], @vtable[85], :convention=>:stdcall  ),
         # FindSourceFileWide(THIS_ In_(StartElement) In_(File) In_(Flags) Out_opt_(FoundElement) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(FoundSize))
-        :FindSourceFileWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PCWSTR, ULONG, PULONG, PWSTR, ULONG, PULONG], @vtable[86], :convention=>:stdcall  ),
+        :FindSourceFileWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PCWSTR, ULONG, PULONG, PWSTR_OUT, ULONG, PULONG], @vtable[86], :convention=>:stdcall  ),
         # GetSourceFileLineOffsetsWide(THIS_ In_(File) Out_writes_opt_(BufferLines)(Buffer) In_(BufferLines) Out_opt_(FileLines))
         :GetSourceFileLineOffsetsWide => FFI::Function.new( HRESULT, [THIS_, PCWSTR, PULONG64, ULONG, PULONG], @vtable[87], :convention=>:stdcall  ),
         # GetModuleVersionInformationWide(THIS_ In_(Index) In_(Base) In_(Item) Out_writes_bytes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(VerInfoSize))
         :GetModuleVersionInformationWide => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG64, PCWSTR, PVOID, ULONG, PULONG], @vtable[88], :convention=>:stdcall  ),
         # GetModuleNameStringWide(THIS_ In_(Which) In_(Index) In_(Base) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(NameSize))
-        :GetModuleNameStringWide => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG, ULONG64, PWSTR, ULONG, PULONG], @vtable[89], :convention=>:stdcall  ),
+        :GetModuleNameStringWide => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG, ULONG64, PWSTR_OUT, ULONG, PULONG], @vtable[89], :convention=>:stdcall  ),
         # GetConstantNameWide(THIS_ In_(Module) In_(TypeId) In_(Value) Out_writes_opt_(NameBufferSize)(NameBuffer) In_(NameBufferSize) Out_opt_(NameSize))
-        :GetConstantNameWide => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, ULONG64, PWSTR, ULONG, PULONG], @vtable[90], :convention=>:stdcall  ),
+        :GetConstantNameWide => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, ULONG64, PWSTR_OUT, ULONG, PULONG], @vtable[90], :convention=>:stdcall  ),
         # GetFieldNameWide(THIS_ In_(Module) In_(TypeId) In_(FieldIndex) Out_writes_opt_(NameBufferSize)(NameBuffer) In_(NameBufferSize) Out_opt_(NameSize))
-        :GetFieldNameWide => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, ULONG, PWSTR, ULONG, PULONG], @vtable[91], :convention=>:stdcall  ),
+        :GetFieldNameWide => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, ULONG, PWSTR_OUT, ULONG, PULONG], @vtable[91], :convention=>:stdcall  ),
         # IsManagedModule(THIS_ In_(Index) In_(Base))
         :IsManagedModule => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG64], @vtable[92], :convention=>:stdcall  ),
         # GetModuleByModuleName2(THIS_ In_(Name) In_(StartIndex) In_(Flags) Out_opt_(Index) Out_opt_(Base))
@@ -6276,9 +6219,9 @@ module RawBuggery
         # GetSymbolEntryInformation(THIS_ In_(Id) Out_(Info))
         :GetSymbolEntryInformation => FFI::Function.new( HRESULT, [THIS_, PDEBUG_MODULE_AND_ID, PDEBUG_SYMBOL_ENTRY], @vtable[114], :convention=>:stdcall  ),
         # GetSymbolEntryString(THIS_ In_(Id) In_(Which) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(StringSize))
-        :GetSymbolEntryString => FFI::Function.new( HRESULT, [THIS_, PDEBUG_MODULE_AND_ID, ULONG, PSTR, ULONG, PULONG], @vtable[115], :convention=>:stdcall  ),
+        :GetSymbolEntryString => FFI::Function.new( HRESULT, [THIS_, PDEBUG_MODULE_AND_ID, ULONG, PSTR_OUT, ULONG, PULONG], @vtable[115], :convention=>:stdcall  ),
         # GetSymbolEntryStringWide(THIS_ In_(Id) In_(Which) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(StringSize))
-        :GetSymbolEntryStringWide => FFI::Function.new( HRESULT, [THIS_, PDEBUG_MODULE_AND_ID, ULONG, PWSTR, ULONG, PULONG], @vtable[116], :convention=>:stdcall  ),
+        :GetSymbolEntryStringWide => FFI::Function.new( HRESULT, [THIS_, PDEBUG_MODULE_AND_ID, ULONG, PWSTR_OUT, ULONG, PULONG], @vtable[116], :convention=>:stdcall  ),
         # GetSymbolEntryOffsetRegions(THIS_ In_(Id) In_(Flags) Out_writes_opt_(RegionsCount)(Regions) In_(RegionsCount) Out_opt_(RegionsAvail))
         :GetSymbolEntryOffsetRegions => FFI::Function.new( HRESULT, [THIS_, PDEBUG_MODULE_AND_ID, ULONG, PDEBUG_OFFSET_REGION, ULONG, PULONG], @vtable[117], :convention=>:stdcall  ),
         # GetSymbolEntryBySymbolEntry(THIS_ In_(FromId) In_(Flags) Out_(ToId))
@@ -6290,9 +6233,9 @@ module RawBuggery
         # GetSourceEntriesByLineWide(THIS_ In_(Line) In_(File) In_(Flags) Out_writes_opt_(EntriesCount)(Entries) In_(EntriesCount) Out_opt_(EntriesAvail))
         :GetSourceEntriesByLineWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PCWSTR, ULONG, PDEBUG_SYMBOL_SOURCE_ENTRY, ULONG, PULONG], @vtable[121], :convention=>:stdcall  ),
         # GetSourceEntryString(THIS_ In_(Entry) In_(Which) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(StringSize))
-        :GetSourceEntryString => FFI::Function.new( HRESULT, [THIS_, PDEBUG_SYMBOL_SOURCE_ENTRY, ULONG, PSTR, ULONG, PULONG], @vtable[122], :convention=>:stdcall  ),
+        :GetSourceEntryString => FFI::Function.new( HRESULT, [THIS_, PDEBUG_SYMBOL_SOURCE_ENTRY, ULONG, PSTR_OUT, ULONG, PULONG], @vtable[122], :convention=>:stdcall  ),
         # GetSourceEntryStringWide(THIS_ In_(Entry) In_(Which) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(StringSize))
-        :GetSourceEntryStringWide => FFI::Function.new( HRESULT, [THIS_, PDEBUG_SYMBOL_SOURCE_ENTRY, ULONG, PWSTR, ULONG, PULONG], @vtable[123], :convention=>:stdcall  ),
+        :GetSourceEntryStringWide => FFI::Function.new( HRESULT, [THIS_, PDEBUG_SYMBOL_SOURCE_ENTRY, ULONG, PWSTR_OUT, ULONG, PULONG], @vtable[123], :convention=>:stdcall  ),
         # GetSourceEntryOffsetRegions(THIS_ In_(Entry) In_(Flags) Out_writes_opt_(RegionsCount)(Regions) In_(RegionsCount) Out_opt_(RegionsAvail))
         :GetSourceEntryOffsetRegions => FFI::Function.new( HRESULT, [THIS_, PDEBUG_SYMBOL_SOURCE_ENTRY, ULONG, PDEBUG_OFFSET_REGION, ULONG, PULONG], @vtable[124], :convention=>:stdcall  ),
         # GetSourceEntryBySourceEntry(THIS_ In_(FromEntry) In_(Flags) Out_(ToEntry))
@@ -6311,7 +6254,6 @@ module RawBuggery
   end
 
   class DebugSymbols4
-
     NUM_APIS = 133
 
     include Win32::WinTypes
@@ -6343,13 +6285,13 @@ module RawBuggery
         # SetSymbolOptions(THIS_ In_(Options))
         :SetSymbolOptions => FFI::Function.new( HRESULT, [THIS_, ULONG], @vtable[6], :convention=>:stdcall  ),
         # GetNameByOffset(THIS_ In_(Offset) Out_writes_opt_(NameBufferSize)(NameBuffer) In_(NameBufferSize) Out_opt_(NameSize) Out_opt_(Displacement))
-        :GetNameByOffset => FFI::Function.new( HRESULT, [THIS_, ULONG64, PSTR, ULONG, PULONG, PULONG64], @vtable[7], :convention=>:stdcall  ),
+        :GetNameByOffset => FFI::Function.new( HRESULT, [THIS_, ULONG64, PSTR_OUT, ULONG, PULONG, PULONG64], @vtable[7], :convention=>:stdcall  ),
         # GetOffsetByName(THIS_ In_(Symbol) Out_(Offset))
         :GetOffsetByName => FFI::Function.new( HRESULT, [THIS_, PCSTR, PULONG64], @vtable[8], :convention=>:stdcall  ),
         # GetNearNameByOffset(THIS_ In_(Offset) In_(Delta) Out_writes_opt_(NameBufferSize)(NameBuffer) In_(NameBufferSize) Out_opt_(NameSize) Out_opt_(Displacement))
-        :GetNearNameByOffset => FFI::Function.new( HRESULT, [THIS_, ULONG64, LONG, PSTR, ULONG, PULONG, PULONG64], @vtable[9], :convention=>:stdcall  ),
+        :GetNearNameByOffset => FFI::Function.new( HRESULT, [THIS_, ULONG64, LONG, PSTR_OUT, ULONG, PULONG, PULONG64], @vtable[9], :convention=>:stdcall  ),
         # GetLineByOffset(THIS_ In_(Offset) Out_opt_(Line) Out_writes_opt_(FileBufferSize)(FileBuffer) In_(FileBufferSize) Out_opt_(FileSize) Out_opt_(Displacement))
-        :GetLineByOffset => FFI::Function.new( HRESULT, [THIS_, ULONG64, PULONG, PSTR, ULONG, PULONG, PULONG64], @vtable[10], :convention=>:stdcall  ),
+        :GetLineByOffset => FFI::Function.new( HRESULT, [THIS_, ULONG64, PULONG, PSTR_OUT, ULONG, PULONG, PULONG64], @vtable[10], :convention=>:stdcall  ),
         # GetOffsetByLine(THIS_ In_(Line) In_(File) Out_(Offset))
         :GetOffsetByLine => FFI::Function.new( HRESULT, [THIS_, ULONG, PCSTR, PULONG64], @vtable[11], :convention=>:stdcall  ),
         # GetNumberModules(THIS_ Out_(Loaded) Out_(Unloaded))
@@ -6361,13 +6303,13 @@ module RawBuggery
         # GetModuleByOffset(THIS_ In_(Offset) In_(StartIndex) Out_opt_(Index) Out_opt_(Base))
         :GetModuleByOffset => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, PULONG, PULONG64], @vtable[15], :convention=>:stdcall  ),
         # GetModuleNames(THIS_ In_(Index) In_(Base) Out_writes_opt_(ImageNameBufferSize)(ImageNameBuffer) In_(ImageNameBufferSize) Out_opt_(ImageNameSize) Out_writes_opt_(ModuleNameBufferSize)(ModuleNameBuffer) In_(ModuleNameBufferSize) Out_opt_(ModuleNameSize) Out_writes_opt_(LoadedImageNameBufferSize)(LoadedImageNameBuffer) In_(LoadedImageNameBufferSize) Out_opt_(LoadedImageNameSize))
-        :GetModuleNames => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG64, PSTR, ULONG, PULONG, PSTR, ULONG, PULONG, PSTR, ULONG, PULONG], @vtable[16], :convention=>:stdcall  ),
+        :GetModuleNames => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG64, PSTR_OUT, ULONG, PULONG, PSTR_OUT, ULONG, PULONG, PSTR_OUT, ULONG, PULONG], @vtable[16], :convention=>:stdcall  ),
         # GetModuleParameters(THIS_ In_(Count) In_reads_opt_(Count)(Bases) In_(Start) Out_writes_(Count)(Params))
         :GetModuleParameters => FFI::Function.new( HRESULT, [THIS_, ULONG, PULONG64, ULONG, PDEBUG_MODULE_PARAMETERS], @vtable[17], :convention=>:stdcall  ),
         # GetSymbolModule(THIS_ In_(Symbol) Out_(Base))
         :GetSymbolModule => FFI::Function.new( HRESULT, [THIS_, PCSTR, PULONG64], @vtable[18], :convention=>:stdcall  ),
         # GetTypeName(THIS_ In_(Module) In_(TypeId) Out_writes_opt_(NameBufferSize)(NameBuffer) In_(NameBufferSize) Out_opt_(NameSize))
-        :GetTypeName => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, PSTR, ULONG, PULONG], @vtable[19], :convention=>:stdcall  ),
+        :GetTypeName => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, PSTR_OUT, ULONG, PULONG], @vtable[19], :convention=>:stdcall  ),
         # GetTypeId(THIS_ In_(Module) In_(Name) Out_(TypeId))
         :GetTypeId => FFI::Function.new( HRESULT, [THIS_, ULONG64, PCSTR, PULONG], @vtable[20], :convention=>:stdcall  ),
         # GetTypeSize(THIS_ In_(Module) In_(TypeId) Out_(Size))
@@ -6403,43 +6345,43 @@ module RawBuggery
         # StartSymbolMatch(THIS_ In_(Pattern) Out_(Handle))
         :StartSymbolMatch => FFI::Function.new( HRESULT, [THIS_, PCSTR, PULONG64], @vtable[36], :convention=>:stdcall  ),
         # GetNextSymbolMatch(THIS_ In_(Handle) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(MatchSize) Out_opt_(Offset))
-        :GetNextSymbolMatch => FFI::Function.new( HRESULT, [THIS_, ULONG64, PSTR, ULONG, PULONG, PULONG64], @vtable[37], :convention=>:stdcall  ),
+        :GetNextSymbolMatch => FFI::Function.new( HRESULT, [THIS_, ULONG64, PSTR_OUT, ULONG, PULONG, PULONG64], @vtable[37], :convention=>:stdcall  ),
         # EndSymbolMatch(THIS_ In_(Handle))
         :EndSymbolMatch => FFI::Function.new( HRESULT, [THIS_, ULONG64], @vtable[38], :convention=>:stdcall  ),
         # Reload(THIS_ In_(Module))
         :Reload => FFI::Function.new( HRESULT, [THIS_, PCSTR], @vtable[39], :convention=>:stdcall  ),
         # GetSymbolPath(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(PathSize))
-        :GetSymbolPath => FFI::Function.new( HRESULT, [THIS_, PSTR, ULONG, PULONG], @vtable[40], :convention=>:stdcall  ),
+        :GetSymbolPath => FFI::Function.new( HRESULT, [THIS_, PSTR_OUT, ULONG, PULONG], @vtable[40], :convention=>:stdcall  ),
         # SetSymbolPath(THIS_ In_(Path))
         :SetSymbolPath => FFI::Function.new( HRESULT, [THIS_, PCSTR], @vtable[41], :convention=>:stdcall  ),
         # AppendSymbolPath(THIS_ In_(Addition))
         :AppendSymbolPath => FFI::Function.new( HRESULT, [THIS_, PCSTR], @vtable[42], :convention=>:stdcall  ),
         # GetImagePath(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(PathSize))
-        :GetImagePath => FFI::Function.new( HRESULT, [THIS_, PSTR, ULONG, PULONG], @vtable[43], :convention=>:stdcall  ),
+        :GetImagePath => FFI::Function.new( HRESULT, [THIS_, PSTR_OUT, ULONG, PULONG], @vtable[43], :convention=>:stdcall  ),
         # SetImagePath(THIS_ In_(Path))
         :SetImagePath => FFI::Function.new( HRESULT, [THIS_, PCSTR], @vtable[44], :convention=>:stdcall  ),
         # AppendImagePath(THIS_ In_(Addition))
         :AppendImagePath => FFI::Function.new( HRESULT, [THIS_, PCSTR], @vtable[45], :convention=>:stdcall  ),
         # GetSourcePath(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(PathSize))
-        :GetSourcePath => FFI::Function.new( HRESULT, [THIS_, PSTR, ULONG, PULONG], @vtable[46], :convention=>:stdcall  ),
+        :GetSourcePath => FFI::Function.new( HRESULT, [THIS_, PSTR_OUT, ULONG, PULONG], @vtable[46], :convention=>:stdcall  ),
         # GetSourcePathElement(THIS_ In_(Index) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(ElementSize))
-        :GetSourcePathElement => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR, ULONG, PULONG], @vtable[47], :convention=>:stdcall  ),
+        :GetSourcePathElement => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR_OUT, ULONG, PULONG], @vtable[47], :convention=>:stdcall  ),
         # SetSourcePath(THIS_ In_(Path))
         :SetSourcePath => FFI::Function.new( HRESULT, [THIS_, PCSTR], @vtable[48], :convention=>:stdcall  ),
         # AppendSourcePath(THIS_ In_(Addition))
         :AppendSourcePath => FFI::Function.new( HRESULT, [THIS_, PCSTR], @vtable[49], :convention=>:stdcall  ),
         # FindSourceFile(THIS_ In_(StartElement) In_(File) In_(Flags) Out_opt_(FoundElement) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(FoundSize))
-        :FindSourceFile => FFI::Function.new( HRESULT, [THIS_, ULONG, PCSTR, ULONG, PULONG, PSTR, ULONG, PULONG], @vtable[50], :convention=>:stdcall  ),
+        :FindSourceFile => FFI::Function.new( HRESULT, [THIS_, ULONG, PCSTR, ULONG, PULONG, PSTR_OUT, ULONG, PULONG], @vtable[50], :convention=>:stdcall  ),
         # GetSourceFileLineOffsets(THIS_ In_(File) Out_writes_opt_(BufferLines)(Buffer) In_(BufferLines) Out_opt_(FileLines))
         :GetSourceFileLineOffsets => FFI::Function.new( HRESULT, [THIS_, PCSTR, PULONG64, ULONG, PULONG], @vtable[51], :convention=>:stdcall  ),
         # GetModuleVersionInformation(THIS_ In_(Index) In_(Base) In_(Item) Out_writes_bytes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(VerInfoSize))
         :GetModuleVersionInformation => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG64, PCSTR, PVOID, ULONG, PULONG], @vtable[52], :convention=>:stdcall  ),
         # GetModuleNameString(THIS_ In_(Which) In_(Index) In_(Base) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(NameSize))
-        :GetModuleNameString => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG, ULONG64, PSTR, ULONG, PULONG], @vtable[53], :convention=>:stdcall  ),
+        :GetModuleNameString => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG, ULONG64, PSTR_OUT, ULONG, PULONG], @vtable[53], :convention=>:stdcall  ),
         # GetConstantName(THIS_ In_(Module) In_(TypeId) In_(Value) Out_writes_opt_(NameBufferSize)(NameBuffer) In_(NameBufferSize) Out_opt_(NameSize))
-        :GetConstantName => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, ULONG64, PSTR, ULONG, PULONG], @vtable[54], :convention=>:stdcall  ),
+        :GetConstantName => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, ULONG64, PSTR_OUT, ULONG, PULONG], @vtable[54], :convention=>:stdcall  ),
         # GetFieldName(THIS_ In_(Module) In_(TypeId) In_(FieldIndex) Out_writes_opt_(NameBufferSize)(NameBuffer) In_(NameBufferSize) Out_opt_(NameSize))
-        :GetFieldName => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, ULONG, PSTR, ULONG, PULONG], @vtable[55], :convention=>:stdcall  ),
+        :GetFieldName => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, ULONG, PSTR_OUT, ULONG, PULONG], @vtable[55], :convention=>:stdcall  ),
         # GetTypeOptions(THIS_ Out_(Options))
         :GetTypeOptions => FFI::Function.new( HRESULT, [THIS_, PULONG], @vtable[56], :convention=>:stdcall  ),
         # AddTypeOptions(THIS_ In_(Options))
@@ -6449,13 +6391,13 @@ module RawBuggery
         # SetTypeOptions(THIS_ In_(Options))
         :SetTypeOptions => FFI::Function.new( HRESULT, [THIS_, ULONG], @vtable[59], :convention=>:stdcall  ),
         # GetNameByOffsetWide(THIS_ In_(Offset) Out_writes_opt_(NameBufferSize)(NameBuffer) In_(NameBufferSize) Out_opt_(NameSize) Out_opt_(Displacement))
-        :GetNameByOffsetWide => FFI::Function.new( HRESULT, [THIS_, ULONG64, PWSTR, ULONG, PULONG, PULONG64], @vtable[60], :convention=>:stdcall  ),
+        :GetNameByOffsetWide => FFI::Function.new( HRESULT, [THIS_, ULONG64, PWSTR_OUT, ULONG, PULONG, PULONG64], @vtable[60], :convention=>:stdcall  ),
         # GetOffsetByNameWide(THIS_ In_(Symbol) Out_(Offset))
         :GetOffsetByNameWide => FFI::Function.new( HRESULT, [THIS_, PCWSTR, PULONG64], @vtable[61], :convention=>:stdcall  ),
         # GetNearNameByOffsetWide(THIS_ In_(Offset) In_(Delta) Out_writes_opt_(NameBufferSize)(NameBuffer) In_(NameBufferSize) Out_opt_(NameSize) Out_opt_(Displacement))
-        :GetNearNameByOffsetWide => FFI::Function.new( HRESULT, [THIS_, ULONG64, LONG, PWSTR, ULONG, PULONG, PULONG64], @vtable[62], :convention=>:stdcall  ),
+        :GetNearNameByOffsetWide => FFI::Function.new( HRESULT, [THIS_, ULONG64, LONG, PWSTR_OUT, ULONG, PULONG, PULONG64], @vtable[62], :convention=>:stdcall  ),
         # GetLineByOffsetWide(THIS_ In_(Offset) Out_opt_(Line) Out_writes_opt_(FileBufferSize)(FileBuffer) In_(FileBufferSize) Out_opt_(FileSize) Out_opt_(Displacement))
-        :GetLineByOffsetWide => FFI::Function.new( HRESULT, [THIS_, ULONG64, PULONG, PWSTR, ULONG, PULONG, PULONG64], @vtable[63], :convention=>:stdcall  ),
+        :GetLineByOffsetWide => FFI::Function.new( HRESULT, [THIS_, ULONG64, PULONG, PWSTR_OUT, ULONG, PULONG, PULONG64], @vtable[63], :convention=>:stdcall  ),
         # GetOffsetByLineWide(THIS_ In_(Line) In_(File) Out_(Offset))
         :GetOffsetByLineWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PCWSTR, PULONG64], @vtable[64], :convention=>:stdcall  ),
         # GetModuleByModuleNameWide(THIS_ In_(Name) In_(StartIndex) Out_opt_(Index) Out_opt_(Base))
@@ -6463,7 +6405,7 @@ module RawBuggery
         # GetSymbolModuleWide(THIS_ In_(Symbol) Out_(Base))
         :GetSymbolModuleWide => FFI::Function.new( HRESULT, [THIS_, PCWSTR, PULONG64], @vtable[66], :convention=>:stdcall  ),
         # GetTypeNameWide(THIS_ In_(Module) In_(TypeId) Out_writes_opt_(NameBufferSize)(NameBuffer) In_(NameBufferSize) Out_opt_(NameSize))
-        :GetTypeNameWide => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, PWSTR, ULONG, PULONG], @vtable[67], :convention=>:stdcall  ),
+        :GetTypeNameWide => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, PWSTR_OUT, ULONG, PULONG], @vtable[67], :convention=>:stdcall  ),
         # GetTypeIdWide(THIS_ In_(Module) In_(Name) Out_(TypeId))
         :GetTypeIdWide => FFI::Function.new( HRESULT, [THIS_, ULONG64, PCWSTR, PULONG], @vtable[68], :convention=>:stdcall  ),
         # GetFieldOffsetWide(THIS_ In_(Module) In_(TypeId) In_(Field) Out_(Offset))
@@ -6477,41 +6419,41 @@ module RawBuggery
         # StartSymbolMatchWide(THIS_ In_(Pattern) Out_(Handle))
         :StartSymbolMatchWide => FFI::Function.new( HRESULT, [THIS_, PCWSTR, PULONG64], @vtable[73], :convention=>:stdcall  ),
         # GetNextSymbolMatchWide(THIS_ In_(Handle) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(MatchSize) Out_opt_(Offset))
-        :GetNextSymbolMatchWide => FFI::Function.new( HRESULT, [THIS_, ULONG64, PWSTR, ULONG, PULONG, PULONG64], @vtable[74], :convention=>:stdcall  ),
+        :GetNextSymbolMatchWide => FFI::Function.new( HRESULT, [THIS_, ULONG64, PWSTR_OUT, ULONG, PULONG, PULONG64], @vtable[74], :convention=>:stdcall  ),
         # ReloadWide(THIS_ In_(Module))
         :ReloadWide => FFI::Function.new( HRESULT, [THIS_, PCWSTR], @vtable[75], :convention=>:stdcall  ),
         # GetSymbolPathWide(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(PathSize))
-        :GetSymbolPathWide => FFI::Function.new( HRESULT, [THIS_, PWSTR, ULONG, PULONG], @vtable[76], :convention=>:stdcall  ),
+        :GetSymbolPathWide => FFI::Function.new( HRESULT, [THIS_, PWSTR_OUT, ULONG, PULONG], @vtable[76], :convention=>:stdcall  ),
         # SetSymbolPathWide(THIS_ In_(Path))
         :SetSymbolPathWide => FFI::Function.new( HRESULT, [THIS_, PCWSTR], @vtable[77], :convention=>:stdcall  ),
         # AppendSymbolPathWide(THIS_ In_(Addition))
         :AppendSymbolPathWide => FFI::Function.new( HRESULT, [THIS_, PCWSTR], @vtable[78], :convention=>:stdcall  ),
         # GetImagePathWide(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(PathSize))
-        :GetImagePathWide => FFI::Function.new( HRESULT, [THIS_, PWSTR, ULONG, PULONG], @vtable[79], :convention=>:stdcall  ),
+        :GetImagePathWide => FFI::Function.new( HRESULT, [THIS_, PWSTR_OUT, ULONG, PULONG], @vtable[79], :convention=>:stdcall  ),
         # SetImagePathWide(THIS_ In_(Path))
         :SetImagePathWide => FFI::Function.new( HRESULT, [THIS_, PCWSTR], @vtable[80], :convention=>:stdcall  ),
         # AppendImagePathWide(THIS_ In_(Addition))
         :AppendImagePathWide => FFI::Function.new( HRESULT, [THIS_, PCWSTR], @vtable[81], :convention=>:stdcall  ),
         # GetSourcePathWide(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(PathSize))
-        :GetSourcePathWide => FFI::Function.new( HRESULT, [THIS_, PWSTR, ULONG, PULONG], @vtable[82], :convention=>:stdcall  ),
+        :GetSourcePathWide => FFI::Function.new( HRESULT, [THIS_, PWSTR_OUT, ULONG, PULONG], @vtable[82], :convention=>:stdcall  ),
         # GetSourcePathElementWide(THIS_ In_(Index) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(ElementSize))
-        :GetSourcePathElementWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PWSTR, ULONG, PULONG], @vtable[83], :convention=>:stdcall  ),
+        :GetSourcePathElementWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PWSTR_OUT, ULONG, PULONG], @vtable[83], :convention=>:stdcall  ),
         # SetSourcePathWide(THIS_ In_(Path))
         :SetSourcePathWide => FFI::Function.new( HRESULT, [THIS_, PCWSTR], @vtable[84], :convention=>:stdcall  ),
         # AppendSourcePathWide(THIS_ In_(Addition))
         :AppendSourcePathWide => FFI::Function.new( HRESULT, [THIS_, PCWSTR], @vtable[85], :convention=>:stdcall  ),
         # FindSourceFileWide(THIS_ In_(StartElement) In_(File) In_(Flags) Out_opt_(FoundElement) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(FoundSize))
-        :FindSourceFileWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PCWSTR, ULONG, PULONG, PWSTR, ULONG, PULONG], @vtable[86], :convention=>:stdcall  ),
+        :FindSourceFileWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PCWSTR, ULONG, PULONG, PWSTR_OUT, ULONG, PULONG], @vtable[86], :convention=>:stdcall  ),
         # GetSourceFileLineOffsetsWide(THIS_ In_(File) Out_writes_opt_(BufferLines)(Buffer) In_(BufferLines) Out_opt_(FileLines))
         :GetSourceFileLineOffsetsWide => FFI::Function.new( HRESULT, [THIS_, PCWSTR, PULONG64, ULONG, PULONG], @vtable[87], :convention=>:stdcall  ),
         # GetModuleVersionInformationWide(THIS_ In_(Index) In_(Base) In_(Item) Out_writes_bytes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(VerInfoSize))
         :GetModuleVersionInformationWide => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG64, PCWSTR, PVOID, ULONG, PULONG], @vtable[88], :convention=>:stdcall  ),
         # GetModuleNameStringWide(THIS_ In_(Which) In_(Index) In_(Base) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(NameSize))
-        :GetModuleNameStringWide => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG, ULONG64, PWSTR, ULONG, PULONG], @vtable[89], :convention=>:stdcall  ),
+        :GetModuleNameStringWide => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG, ULONG64, PWSTR_OUT, ULONG, PULONG], @vtable[89], :convention=>:stdcall  ),
         # GetConstantNameWide(THIS_ In_(Module) In_(TypeId) In_(Value) Out_writes_opt_(NameBufferSize)(NameBuffer) In_(NameBufferSize) Out_opt_(NameSize))
-        :GetConstantNameWide => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, ULONG64, PWSTR, ULONG, PULONG], @vtable[90], :convention=>:stdcall  ),
+        :GetConstantNameWide => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, ULONG64, PWSTR_OUT, ULONG, PULONG], @vtable[90], :convention=>:stdcall  ),
         # GetFieldNameWide(THIS_ In_(Module) In_(TypeId) In_(FieldIndex) Out_writes_opt_(NameBufferSize)(NameBuffer) In_(NameBufferSize) Out_opt_(NameSize))
-        :GetFieldNameWide => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, ULONG, PWSTR, ULONG, PULONG], @vtable[91], :convention=>:stdcall  ),
+        :GetFieldNameWide => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, ULONG, PWSTR_OUT, ULONG, PULONG], @vtable[91], :convention=>:stdcall  ),
         # IsManagedModule(THIS_ In_(Index) In_(Base))
         :IsManagedModule => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG64], @vtable[92], :convention=>:stdcall  ),
         # GetModuleByModuleName2(THIS_ In_(Name) In_(StartIndex) In_(Flags) Out_opt_(Index) Out_opt_(Base))
@@ -6559,9 +6501,9 @@ module RawBuggery
         # GetSymbolEntryInformation(THIS_ In_(Id) Out_(Info))
         :GetSymbolEntryInformation => FFI::Function.new( HRESULT, [THIS_, PDEBUG_MODULE_AND_ID, PDEBUG_SYMBOL_ENTRY], @vtable[114], :convention=>:stdcall  ),
         # GetSymbolEntryString(THIS_ In_(Id) In_(Which) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(StringSize))
-        :GetSymbolEntryString => FFI::Function.new( HRESULT, [THIS_, PDEBUG_MODULE_AND_ID, ULONG, PSTR, ULONG, PULONG], @vtable[115], :convention=>:stdcall  ),
+        :GetSymbolEntryString => FFI::Function.new( HRESULT, [THIS_, PDEBUG_MODULE_AND_ID, ULONG, PSTR_OUT, ULONG, PULONG], @vtable[115], :convention=>:stdcall  ),
         # GetSymbolEntryStringWide(THIS_ In_(Id) In_(Which) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(StringSize))
-        :GetSymbolEntryStringWide => FFI::Function.new( HRESULT, [THIS_, PDEBUG_MODULE_AND_ID, ULONG, PWSTR, ULONG, PULONG], @vtable[116], :convention=>:stdcall  ),
+        :GetSymbolEntryStringWide => FFI::Function.new( HRESULT, [THIS_, PDEBUG_MODULE_AND_ID, ULONG, PWSTR_OUT, ULONG, PULONG], @vtable[116], :convention=>:stdcall  ),
         # GetSymbolEntryOffsetRegions(THIS_ In_(Id) In_(Flags) Out_writes_opt_(RegionsCount)(Regions) In_(RegionsCount) Out_opt_(RegionsAvail))
         :GetSymbolEntryOffsetRegions => FFI::Function.new( HRESULT, [THIS_, PDEBUG_MODULE_AND_ID, ULONG, PDEBUG_OFFSET_REGION, ULONG, PULONG], @vtable[117], :convention=>:stdcall  ),
         # GetSymbolEntryBySymbolEntry(THIS_ In_(FromId) In_(Flags) Out_(ToId))
@@ -6573,9 +6515,9 @@ module RawBuggery
         # GetSourceEntriesByLineWide(THIS_ In_(Line) In_(File) In_(Flags) Out_writes_opt_(EntriesCount)(Entries) In_(EntriesCount) Out_opt_(EntriesAvail))
         :GetSourceEntriesByLineWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PCWSTR, ULONG, PDEBUG_SYMBOL_SOURCE_ENTRY, ULONG, PULONG], @vtable[121], :convention=>:stdcall  ),
         # GetSourceEntryString(THIS_ In_(Entry) In_(Which) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(StringSize))
-        :GetSourceEntryString => FFI::Function.new( HRESULT, [THIS_, PDEBUG_SYMBOL_SOURCE_ENTRY, ULONG, PSTR, ULONG, PULONG], @vtable[122], :convention=>:stdcall  ),
+        :GetSourceEntryString => FFI::Function.new( HRESULT, [THIS_, PDEBUG_SYMBOL_SOURCE_ENTRY, ULONG, PSTR_OUT, ULONG, PULONG], @vtable[122], :convention=>:stdcall  ),
         # GetSourceEntryStringWide(THIS_ In_(Entry) In_(Which) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(StringSize))
-        :GetSourceEntryStringWide => FFI::Function.new( HRESULT, [THIS_, PDEBUG_SYMBOL_SOURCE_ENTRY, ULONG, PWSTR, ULONG, PULONG], @vtable[123], :convention=>:stdcall  ),
+        :GetSourceEntryStringWide => FFI::Function.new( HRESULT, [THIS_, PDEBUG_SYMBOL_SOURCE_ENTRY, ULONG, PWSTR_OUT, ULONG, PULONG], @vtable[123], :convention=>:stdcall  ),
         # GetSourceEntryOffsetRegions(THIS_ In_(Entry) In_(Flags) Out_writes_opt_(RegionsCount)(Regions) In_(RegionsCount) Out_opt_(RegionsAvail))
         :GetSourceEntryOffsetRegions => FFI::Function.new( HRESULT, [THIS_, PDEBUG_SYMBOL_SOURCE_ENTRY, ULONG, PDEBUG_OFFSET_REGION, ULONG, PULONG], @vtable[124], :convention=>:stdcall  ),
         # GetSourceEntryBySourceEntry(THIS_ In_(FromEntry) In_(Flags) Out_(ToEntry))
@@ -6585,13 +6527,13 @@ module RawBuggery
         # SetScopeEx(THIS_ In_(InstructionOffset) In_opt_(ScopeFrame) In_reads_bytes_opt_(ScopeContextSize)(ScopeContext) In_(ScopeContextSize))
         :SetScopeEx => FFI::Function.new( HRESULT, [THIS_, ULONG64, PDEBUG_STACK_FRAME_EX, PVOID, ULONG], @vtable[127], :convention=>:stdcall  ),
         # GetNameByInlineContext(THIS_ In_(Offset) In_(InlineContext) Out_writes_opt_(NameBufferSize)(NameBuffer) In_(NameBufferSize) Out_opt_(NameSize) Out_opt_(Displacement))
-        :GetNameByInlineContext => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, PSTR, ULONG, PULONG, PULONG64], @vtable[128], :convention=>:stdcall  ),
+        :GetNameByInlineContext => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, PSTR_OUT, ULONG, PULONG, PULONG64], @vtable[128], :convention=>:stdcall  ),
         # GetNameByInlineContextWide(THIS_ In_(Offset) In_(InlineContext) Out_writes_opt_(NameBufferSize)(NameBuffer) In_(NameBufferSize) Out_opt_(NameSize) Out_opt_(Displacement))
-        :GetNameByInlineContextWide => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, PWSTR, ULONG, PULONG, PULONG64], @vtable[129], :convention=>:stdcall  ),
+        :GetNameByInlineContextWide => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, PWSTR_OUT, ULONG, PULONG, PULONG64], @vtable[129], :convention=>:stdcall  ),
         # GetLineByInlineContext(THIS_ In_(Offset) In_(InlineContext) Out_opt_(Line) Out_writes_opt_(FileBufferSize)(FileBuffer) In_(FileBufferSize) Out_opt_(FileSize) Out_opt_(Displacement))
-        :GetLineByInlineContext => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, PULONG, PSTR, ULONG, PULONG, PULONG64], @vtable[130], :convention=>:stdcall  ),
+        :GetLineByInlineContext => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, PULONG, PSTR_OUT, ULONG, PULONG, PULONG64], @vtable[130], :convention=>:stdcall  ),
         # GetLineByInlineContextWide(THIS_ In_(Offset) In_(InlineContext) Out_opt_(Line) Out_writes_opt_(FileBufferSize)(FileBuffer) In_(FileBufferSize) Out_opt_(FileSize) Out_opt_(Displacement))
-        :GetLineByInlineContextWide => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, PULONG, PWSTR, ULONG, PULONG, PULONG64], @vtable[131], :convention=>:stdcall  ),
+        :GetLineByInlineContextWide => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, PULONG, PWSTR_OUT, ULONG, PULONG, PULONG64], @vtable[131], :convention=>:stdcall  ),
         # OutputSymbolByInlineContext(THIS_ In_(OutputControl) In_(Flags) In_(Offset) In_(InlineContext))
         :OutputSymbolByInlineContext => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG, ULONG64, ULONG], @vtable[132], :convention=>:stdcall  )
       }
@@ -6608,10 +6550,8 @@ module RawBuggery
   end
 
   class DebugSymbols5
-
-    DEBUG_FRAME_DEFAULT       = 0
+    DEBUG_FRAME_DEFAULT = 0
     DEBUG_FRAME_IGNORE_INLINE = 0x00000001
-
     NUM_APIS = 135
 
     include Win32::WinTypes
@@ -6643,13 +6583,13 @@ module RawBuggery
         # SetSymbolOptions(THIS_ In_(Options))
         :SetSymbolOptions => FFI::Function.new( HRESULT, [THIS_, ULONG], @vtable[6], :convention=>:stdcall  ),
         # GetNameByOffset(THIS_ In_(Offset) Out_writes_opt_(NameBufferSize)(NameBuffer) In_(NameBufferSize) Out_opt_(NameSize) Out_opt_(Displacement))
-        :GetNameByOffset => FFI::Function.new( HRESULT, [THIS_, ULONG64, PSTR, ULONG, PULONG, PULONG64], @vtable[7], :convention=>:stdcall  ),
+        :GetNameByOffset => FFI::Function.new( HRESULT, [THIS_, ULONG64, PSTR_OUT, ULONG, PULONG, PULONG64], @vtable[7], :convention=>:stdcall  ),
         # GetOffsetByName(THIS_ In_(Symbol) Out_(Offset))
         :GetOffsetByName => FFI::Function.new( HRESULT, [THIS_, PCSTR, PULONG64], @vtable[8], :convention=>:stdcall  ),
         # GetNearNameByOffset(THIS_ In_(Offset) In_(Delta) Out_writes_opt_(NameBufferSize)(NameBuffer) In_(NameBufferSize) Out_opt_(NameSize) Out_opt_(Displacement))
-        :GetNearNameByOffset => FFI::Function.new( HRESULT, [THIS_, ULONG64, LONG, PSTR, ULONG, PULONG, PULONG64], @vtable[9], :convention=>:stdcall  ),
+        :GetNearNameByOffset => FFI::Function.new( HRESULT, [THIS_, ULONG64, LONG, PSTR_OUT, ULONG, PULONG, PULONG64], @vtable[9], :convention=>:stdcall  ),
         # GetLineByOffset(THIS_ In_(Offset) Out_opt_(Line) Out_writes_opt_(FileBufferSize)(FileBuffer) In_(FileBufferSize) Out_opt_(FileSize) Out_opt_(Displacement))
-        :GetLineByOffset => FFI::Function.new( HRESULT, [THIS_, ULONG64, PULONG, PSTR, ULONG, PULONG, PULONG64], @vtable[10], :convention=>:stdcall  ),
+        :GetLineByOffset => FFI::Function.new( HRESULT, [THIS_, ULONG64, PULONG, PSTR_OUT, ULONG, PULONG, PULONG64], @vtable[10], :convention=>:stdcall  ),
         # GetOffsetByLine(THIS_ In_(Line) In_(File) Out_(Offset))
         :GetOffsetByLine => FFI::Function.new( HRESULT, [THIS_, ULONG, PCSTR, PULONG64], @vtable[11], :convention=>:stdcall  ),
         # GetNumberModules(THIS_ Out_(Loaded) Out_(Unloaded))
@@ -6661,13 +6601,13 @@ module RawBuggery
         # GetModuleByOffset(THIS_ In_(Offset) In_(StartIndex) Out_opt_(Index) Out_opt_(Base))
         :GetModuleByOffset => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, PULONG, PULONG64], @vtable[15], :convention=>:stdcall  ),
         # GetModuleNames(THIS_ In_(Index) In_(Base) Out_writes_opt_(ImageNameBufferSize)(ImageNameBuffer) In_(ImageNameBufferSize) Out_opt_(ImageNameSize) Out_writes_opt_(ModuleNameBufferSize)(ModuleNameBuffer) In_(ModuleNameBufferSize) Out_opt_(ModuleNameSize) Out_writes_opt_(LoadedImageNameBufferSize)(LoadedImageNameBuffer) In_(LoadedImageNameBufferSize) Out_opt_(LoadedImageNameSize))
-        :GetModuleNames => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG64, PSTR, ULONG, PULONG, PSTR, ULONG, PULONG, PSTR, ULONG, PULONG], @vtable[16], :convention=>:stdcall  ),
+        :GetModuleNames => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG64, PSTR_OUT, ULONG, PULONG, PSTR_OUT, ULONG, PULONG, PSTR_OUT, ULONG, PULONG], @vtable[16], :convention=>:stdcall  ),
         # GetModuleParameters(THIS_ In_(Count) In_reads_opt_(Count)(Bases) In_(Start) Out_writes_(Count)(Params))
         :GetModuleParameters => FFI::Function.new( HRESULT, [THIS_, ULONG, PULONG64, ULONG, PDEBUG_MODULE_PARAMETERS], @vtable[17], :convention=>:stdcall  ),
         # GetSymbolModule(THIS_ In_(Symbol) Out_(Base))
         :GetSymbolModule => FFI::Function.new( HRESULT, [THIS_, PCSTR, PULONG64], @vtable[18], :convention=>:stdcall  ),
         # GetTypeName(THIS_ In_(Module) In_(TypeId) Out_writes_opt_(NameBufferSize)(NameBuffer) In_(NameBufferSize) Out_opt_(NameSize))
-        :GetTypeName => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, PSTR, ULONG, PULONG], @vtable[19], :convention=>:stdcall  ),
+        :GetTypeName => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, PSTR_OUT, ULONG, PULONG], @vtable[19], :convention=>:stdcall  ),
         # GetTypeId(THIS_ In_(Module) In_(Name) Out_(TypeId))
         :GetTypeId => FFI::Function.new( HRESULT, [THIS_, ULONG64, PCSTR, PULONG], @vtable[20], :convention=>:stdcall  ),
         # GetTypeSize(THIS_ In_(Module) In_(TypeId) Out_(Size))
@@ -6703,43 +6643,43 @@ module RawBuggery
         # StartSymbolMatch(THIS_ In_(Pattern) Out_(Handle))
         :StartSymbolMatch => FFI::Function.new( HRESULT, [THIS_, PCSTR, PULONG64], @vtable[36], :convention=>:stdcall  ),
         # GetNextSymbolMatch(THIS_ In_(Handle) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(MatchSize) Out_opt_(Offset))
-        :GetNextSymbolMatch => FFI::Function.new( HRESULT, [THIS_, ULONG64, PSTR, ULONG, PULONG, PULONG64], @vtable[37], :convention=>:stdcall  ),
+        :GetNextSymbolMatch => FFI::Function.new( HRESULT, [THIS_, ULONG64, PSTR_OUT, ULONG, PULONG, PULONG64], @vtable[37], :convention=>:stdcall  ),
         # EndSymbolMatch(THIS_ In_(Handle))
         :EndSymbolMatch => FFI::Function.new( HRESULT, [THIS_, ULONG64], @vtable[38], :convention=>:stdcall  ),
         # Reload(THIS_ In_(Module))
         :Reload => FFI::Function.new( HRESULT, [THIS_, PCSTR], @vtable[39], :convention=>:stdcall  ),
         # GetSymbolPath(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(PathSize))
-        :GetSymbolPath => FFI::Function.new( HRESULT, [THIS_, PSTR, ULONG, PULONG], @vtable[40], :convention=>:stdcall  ),
+        :GetSymbolPath => FFI::Function.new( HRESULT, [THIS_, PSTR_OUT, ULONG, PULONG], @vtable[40], :convention=>:stdcall  ),
         # SetSymbolPath(THIS_ In_(Path))
         :SetSymbolPath => FFI::Function.new( HRESULT, [THIS_, PCSTR], @vtable[41], :convention=>:stdcall  ),
         # AppendSymbolPath(THIS_ In_(Addition))
         :AppendSymbolPath => FFI::Function.new( HRESULT, [THIS_, PCSTR], @vtable[42], :convention=>:stdcall  ),
         # GetImagePath(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(PathSize))
-        :GetImagePath => FFI::Function.new( HRESULT, [THIS_, PSTR, ULONG, PULONG], @vtable[43], :convention=>:stdcall  ),
+        :GetImagePath => FFI::Function.new( HRESULT, [THIS_, PSTR_OUT, ULONG, PULONG], @vtable[43], :convention=>:stdcall  ),
         # SetImagePath(THIS_ In_(Path))
         :SetImagePath => FFI::Function.new( HRESULT, [THIS_, PCSTR], @vtable[44], :convention=>:stdcall  ),
         # AppendImagePath(THIS_ In_(Addition))
         :AppendImagePath => FFI::Function.new( HRESULT, [THIS_, PCSTR], @vtable[45], :convention=>:stdcall  ),
         # GetSourcePath(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(PathSize))
-        :GetSourcePath => FFI::Function.new( HRESULT, [THIS_, PSTR, ULONG, PULONG], @vtable[46], :convention=>:stdcall  ),
+        :GetSourcePath => FFI::Function.new( HRESULT, [THIS_, PSTR_OUT, ULONG, PULONG], @vtable[46], :convention=>:stdcall  ),
         # GetSourcePathElement(THIS_ In_(Index) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(ElementSize))
-        :GetSourcePathElement => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR, ULONG, PULONG], @vtable[47], :convention=>:stdcall  ),
+        :GetSourcePathElement => FFI::Function.new( HRESULT, [THIS_, ULONG, PSTR_OUT, ULONG, PULONG], @vtable[47], :convention=>:stdcall  ),
         # SetSourcePath(THIS_ In_(Path))
         :SetSourcePath => FFI::Function.new( HRESULT, [THIS_, PCSTR], @vtable[48], :convention=>:stdcall  ),
         # AppendSourcePath(THIS_ In_(Addition))
         :AppendSourcePath => FFI::Function.new( HRESULT, [THIS_, PCSTR], @vtable[49], :convention=>:stdcall  ),
         # FindSourceFile(THIS_ In_(StartElement) In_(File) In_(Flags) Out_opt_(FoundElement) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(FoundSize))
-        :FindSourceFile => FFI::Function.new( HRESULT, [THIS_, ULONG, PCSTR, ULONG, PULONG, PSTR, ULONG, PULONG], @vtable[50], :convention=>:stdcall  ),
+        :FindSourceFile => FFI::Function.new( HRESULT, [THIS_, ULONG, PCSTR, ULONG, PULONG, PSTR_OUT, ULONG, PULONG], @vtable[50], :convention=>:stdcall  ),
         # GetSourceFileLineOffsets(THIS_ In_(File) Out_writes_opt_(BufferLines)(Buffer) In_(BufferLines) Out_opt_(FileLines))
         :GetSourceFileLineOffsets => FFI::Function.new( HRESULT, [THIS_, PCSTR, PULONG64, ULONG, PULONG], @vtable[51], :convention=>:stdcall  ),
         # GetModuleVersionInformation(THIS_ In_(Index) In_(Base) In_(Item) Out_writes_bytes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(VerInfoSize))
         :GetModuleVersionInformation => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG64, PCSTR, PVOID, ULONG, PULONG], @vtable[52], :convention=>:stdcall  ),
         # GetModuleNameString(THIS_ In_(Which) In_(Index) In_(Base) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(NameSize))
-        :GetModuleNameString => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG, ULONG64, PSTR, ULONG, PULONG], @vtable[53], :convention=>:stdcall  ),
+        :GetModuleNameString => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG, ULONG64, PSTR_OUT, ULONG, PULONG], @vtable[53], :convention=>:stdcall  ),
         # GetConstantName(THIS_ In_(Module) In_(TypeId) In_(Value) Out_writes_opt_(NameBufferSize)(NameBuffer) In_(NameBufferSize) Out_opt_(NameSize))
-        :GetConstantName => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, ULONG64, PSTR, ULONG, PULONG], @vtable[54], :convention=>:stdcall  ),
+        :GetConstantName => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, ULONG64, PSTR_OUT, ULONG, PULONG], @vtable[54], :convention=>:stdcall  ),
         # GetFieldName(THIS_ In_(Module) In_(TypeId) In_(FieldIndex) Out_writes_opt_(NameBufferSize)(NameBuffer) In_(NameBufferSize) Out_opt_(NameSize))
-        :GetFieldName => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, ULONG, PSTR, ULONG, PULONG], @vtable[55], :convention=>:stdcall  ),
+        :GetFieldName => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, ULONG, PSTR_OUT, ULONG, PULONG], @vtable[55], :convention=>:stdcall  ),
         # GetTypeOptions(THIS_ Out_(Options))
         :GetTypeOptions => FFI::Function.new( HRESULT, [THIS_, PULONG], @vtable[56], :convention=>:stdcall  ),
         # AddTypeOptions(THIS_ In_(Options))
@@ -6749,13 +6689,13 @@ module RawBuggery
         # SetTypeOptions(THIS_ In_(Options))
         :SetTypeOptions => FFI::Function.new( HRESULT, [THIS_, ULONG], @vtable[59], :convention=>:stdcall  ),
         # GetNameByOffsetWide(THIS_ In_(Offset) Out_writes_opt_(NameBufferSize)(NameBuffer) In_(NameBufferSize) Out_opt_(NameSize) Out_opt_(Displacement))
-        :GetNameByOffsetWide => FFI::Function.new( HRESULT, [THIS_, ULONG64, PWSTR, ULONG, PULONG, PULONG64], @vtable[60], :convention=>:stdcall  ),
+        :GetNameByOffsetWide => FFI::Function.new( HRESULT, [THIS_, ULONG64, PWSTR_OUT, ULONG, PULONG, PULONG64], @vtable[60], :convention=>:stdcall  ),
         # GetOffsetByNameWide(THIS_ In_(Symbol) Out_(Offset))
         :GetOffsetByNameWide => FFI::Function.new( HRESULT, [THIS_, PCWSTR, PULONG64], @vtable[61], :convention=>:stdcall  ),
         # GetNearNameByOffsetWide(THIS_ In_(Offset) In_(Delta) Out_writes_opt_(NameBufferSize)(NameBuffer) In_(NameBufferSize) Out_opt_(NameSize) Out_opt_(Displacement))
-        :GetNearNameByOffsetWide => FFI::Function.new( HRESULT, [THIS_, ULONG64, LONG, PWSTR, ULONG, PULONG, PULONG64], @vtable[62], :convention=>:stdcall  ),
+        :GetNearNameByOffsetWide => FFI::Function.new( HRESULT, [THIS_, ULONG64, LONG, PWSTR_OUT, ULONG, PULONG, PULONG64], @vtable[62], :convention=>:stdcall  ),
         # GetLineByOffsetWide(THIS_ In_(Offset) Out_opt_(Line) Out_writes_opt_(FileBufferSize)(FileBuffer) In_(FileBufferSize) Out_opt_(FileSize) Out_opt_(Displacement))
-        :GetLineByOffsetWide => FFI::Function.new( HRESULT, [THIS_, ULONG64, PULONG, PWSTR, ULONG, PULONG, PULONG64], @vtable[63], :convention=>:stdcall  ),
+        :GetLineByOffsetWide => FFI::Function.new( HRESULT, [THIS_, ULONG64, PULONG, PWSTR_OUT, ULONG, PULONG, PULONG64], @vtable[63], :convention=>:stdcall  ),
         # GetOffsetByLineWide(THIS_ In_(Line) In_(File) Out_(Offset))
         :GetOffsetByLineWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PCWSTR, PULONG64], @vtable[64], :convention=>:stdcall  ),
         # GetModuleByModuleNameWide(THIS_ In_(Name) In_(StartIndex) Out_opt_(Index) Out_opt_(Base))
@@ -6763,7 +6703,7 @@ module RawBuggery
         # GetSymbolModuleWide(THIS_ In_(Symbol) Out_(Base))
         :GetSymbolModuleWide => FFI::Function.new( HRESULT, [THIS_, PCWSTR, PULONG64], @vtable[66], :convention=>:stdcall  ),
         # GetTypeNameWide(THIS_ In_(Module) In_(TypeId) Out_writes_opt_(NameBufferSize)(NameBuffer) In_(NameBufferSize) Out_opt_(NameSize))
-        :GetTypeNameWide => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, PWSTR, ULONG, PULONG], @vtable[67], :convention=>:stdcall  ),
+        :GetTypeNameWide => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, PWSTR_OUT, ULONG, PULONG], @vtable[67], :convention=>:stdcall  ),
         # GetTypeIdWide(THIS_ In_(Module) In_(Name) Out_(TypeId))
         :GetTypeIdWide => FFI::Function.new( HRESULT, [THIS_, ULONG64, PCWSTR, PULONG], @vtable[68], :convention=>:stdcall  ),
         # GetFieldOffsetWide(THIS_ In_(Module) In_(TypeId) In_(Field) Out_(Offset))
@@ -6777,41 +6717,41 @@ module RawBuggery
         # StartSymbolMatchWide(THIS_ In_(Pattern) Out_(Handle))
         :StartSymbolMatchWide => FFI::Function.new( HRESULT, [THIS_, PCWSTR, PULONG64], @vtable[73], :convention=>:stdcall  ),
         # GetNextSymbolMatchWide(THIS_ In_(Handle) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(MatchSize) Out_opt_(Offset))
-        :GetNextSymbolMatchWide => FFI::Function.new( HRESULT, [THIS_, ULONG64, PWSTR, ULONG, PULONG, PULONG64], @vtable[74], :convention=>:stdcall  ),
+        :GetNextSymbolMatchWide => FFI::Function.new( HRESULT, [THIS_, ULONG64, PWSTR_OUT, ULONG, PULONG, PULONG64], @vtable[74], :convention=>:stdcall  ),
         # ReloadWide(THIS_ In_(Module))
         :ReloadWide => FFI::Function.new( HRESULT, [THIS_, PCWSTR], @vtable[75], :convention=>:stdcall  ),
         # GetSymbolPathWide(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(PathSize))
-        :GetSymbolPathWide => FFI::Function.new( HRESULT, [THIS_, PWSTR, ULONG, PULONG], @vtable[76], :convention=>:stdcall  ),
+        :GetSymbolPathWide => FFI::Function.new( HRESULT, [THIS_, PWSTR_OUT, ULONG, PULONG], @vtable[76], :convention=>:stdcall  ),
         # SetSymbolPathWide(THIS_ In_(Path))
         :SetSymbolPathWide => FFI::Function.new( HRESULT, [THIS_, PCWSTR], @vtable[77], :convention=>:stdcall  ),
         # AppendSymbolPathWide(THIS_ In_(Addition))
         :AppendSymbolPathWide => FFI::Function.new( HRESULT, [THIS_, PCWSTR], @vtable[78], :convention=>:stdcall  ),
         # GetImagePathWide(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(PathSize))
-        :GetImagePathWide => FFI::Function.new( HRESULT, [THIS_, PWSTR, ULONG, PULONG], @vtable[79], :convention=>:stdcall  ),
+        :GetImagePathWide => FFI::Function.new( HRESULT, [THIS_, PWSTR_OUT, ULONG, PULONG], @vtable[79], :convention=>:stdcall  ),
         # SetImagePathWide(THIS_ In_(Path))
         :SetImagePathWide => FFI::Function.new( HRESULT, [THIS_, PCWSTR], @vtable[80], :convention=>:stdcall  ),
         # AppendImagePathWide(THIS_ In_(Addition))
         :AppendImagePathWide => FFI::Function.new( HRESULT, [THIS_, PCWSTR], @vtable[81], :convention=>:stdcall  ),
         # GetSourcePathWide(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(PathSize))
-        :GetSourcePathWide => FFI::Function.new( HRESULT, [THIS_, PWSTR, ULONG, PULONG], @vtable[82], :convention=>:stdcall  ),
+        :GetSourcePathWide => FFI::Function.new( HRESULT, [THIS_, PWSTR_OUT, ULONG, PULONG], @vtable[82], :convention=>:stdcall  ),
         # GetSourcePathElementWide(THIS_ In_(Index) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(ElementSize))
-        :GetSourcePathElementWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PWSTR, ULONG, PULONG], @vtable[83], :convention=>:stdcall  ),
+        :GetSourcePathElementWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PWSTR_OUT, ULONG, PULONG], @vtable[83], :convention=>:stdcall  ),
         # SetSourcePathWide(THIS_ In_(Path))
         :SetSourcePathWide => FFI::Function.new( HRESULT, [THIS_, PCWSTR], @vtable[84], :convention=>:stdcall  ),
         # AppendSourcePathWide(THIS_ In_(Addition))
         :AppendSourcePathWide => FFI::Function.new( HRESULT, [THIS_, PCWSTR], @vtable[85], :convention=>:stdcall  ),
         # FindSourceFileWide(THIS_ In_(StartElement) In_(File) In_(Flags) Out_opt_(FoundElement) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(FoundSize))
-        :FindSourceFileWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PCWSTR, ULONG, PULONG, PWSTR, ULONG, PULONG], @vtable[86], :convention=>:stdcall  ),
+        :FindSourceFileWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PCWSTR, ULONG, PULONG, PWSTR_OUT, ULONG, PULONG], @vtable[86], :convention=>:stdcall  ),
         # GetSourceFileLineOffsetsWide(THIS_ In_(File) Out_writes_opt_(BufferLines)(Buffer) In_(BufferLines) Out_opt_(FileLines))
         :GetSourceFileLineOffsetsWide => FFI::Function.new( HRESULT, [THIS_, PCWSTR, PULONG64, ULONG, PULONG], @vtable[87], :convention=>:stdcall  ),
         # GetModuleVersionInformationWide(THIS_ In_(Index) In_(Base) In_(Item) Out_writes_bytes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(VerInfoSize))
         :GetModuleVersionInformationWide => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG64, PCWSTR, PVOID, ULONG, PULONG], @vtable[88], :convention=>:stdcall  ),
         # GetModuleNameStringWide(THIS_ In_(Which) In_(Index) In_(Base) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(NameSize))
-        :GetModuleNameStringWide => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG, ULONG64, PWSTR, ULONG, PULONG], @vtable[89], :convention=>:stdcall  ),
+        :GetModuleNameStringWide => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG, ULONG64, PWSTR_OUT, ULONG, PULONG], @vtable[89], :convention=>:stdcall  ),
         # GetConstantNameWide(THIS_ In_(Module) In_(TypeId) In_(Value) Out_writes_opt_(NameBufferSize)(NameBuffer) In_(NameBufferSize) Out_opt_(NameSize))
-        :GetConstantNameWide => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, ULONG64, PWSTR, ULONG, PULONG], @vtable[90], :convention=>:stdcall  ),
+        :GetConstantNameWide => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, ULONG64, PWSTR_OUT, ULONG, PULONG], @vtable[90], :convention=>:stdcall  ),
         # GetFieldNameWide(THIS_ In_(Module) In_(TypeId) In_(FieldIndex) Out_writes_opt_(NameBufferSize)(NameBuffer) In_(NameBufferSize) Out_opt_(NameSize))
-        :GetFieldNameWide => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, ULONG, PWSTR, ULONG, PULONG], @vtable[91], :convention=>:stdcall  ),
+        :GetFieldNameWide => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, ULONG, PWSTR_OUT, ULONG, PULONG], @vtable[91], :convention=>:stdcall  ),
         # IsManagedModule(THIS_ In_(Index) In_(Base))
         :IsManagedModule => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG64], @vtable[92], :convention=>:stdcall  ),
         # GetModuleByModuleName2(THIS_ In_(Name) In_(StartIndex) In_(Flags) Out_opt_(Index) Out_opt_(Base))
@@ -6859,9 +6799,9 @@ module RawBuggery
         # GetSymbolEntryInformation(THIS_ In_(Id) Out_(Info))
         :GetSymbolEntryInformation => FFI::Function.new( HRESULT, [THIS_, PDEBUG_MODULE_AND_ID, PDEBUG_SYMBOL_ENTRY], @vtable[114], :convention=>:stdcall  ),
         # GetSymbolEntryString(THIS_ In_(Id) In_(Which) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(StringSize))
-        :GetSymbolEntryString => FFI::Function.new( HRESULT, [THIS_, PDEBUG_MODULE_AND_ID, ULONG, PSTR, ULONG, PULONG], @vtable[115], :convention=>:stdcall  ),
+        :GetSymbolEntryString => FFI::Function.new( HRESULT, [THIS_, PDEBUG_MODULE_AND_ID, ULONG, PSTR_OUT, ULONG, PULONG], @vtable[115], :convention=>:stdcall  ),
         # GetSymbolEntryStringWide(THIS_ In_(Id) In_(Which) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(StringSize))
-        :GetSymbolEntryStringWide => FFI::Function.new( HRESULT, [THIS_, PDEBUG_MODULE_AND_ID, ULONG, PWSTR, ULONG, PULONG], @vtable[116], :convention=>:stdcall  ),
+        :GetSymbolEntryStringWide => FFI::Function.new( HRESULT, [THIS_, PDEBUG_MODULE_AND_ID, ULONG, PWSTR_OUT, ULONG, PULONG], @vtable[116], :convention=>:stdcall  ),
         # GetSymbolEntryOffsetRegions(THIS_ In_(Id) In_(Flags) Out_writes_opt_(RegionsCount)(Regions) In_(RegionsCount) Out_opt_(RegionsAvail))
         :GetSymbolEntryOffsetRegions => FFI::Function.new( HRESULT, [THIS_, PDEBUG_MODULE_AND_ID, ULONG, PDEBUG_OFFSET_REGION, ULONG, PULONG], @vtable[117], :convention=>:stdcall  ),
         # GetSymbolEntryBySymbolEntry(THIS_ In_(FromId) In_(Flags) Out_(ToId))
@@ -6873,9 +6813,9 @@ module RawBuggery
         # GetSourceEntriesByLineWide(THIS_ In_(Line) In_(File) In_(Flags) Out_writes_opt_(EntriesCount)(Entries) In_(EntriesCount) Out_opt_(EntriesAvail))
         :GetSourceEntriesByLineWide => FFI::Function.new( HRESULT, [THIS_, ULONG, PCWSTR, ULONG, PDEBUG_SYMBOL_SOURCE_ENTRY, ULONG, PULONG], @vtable[121], :convention=>:stdcall  ),
         # GetSourceEntryString(THIS_ In_(Entry) In_(Which) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(StringSize))
-        :GetSourceEntryString => FFI::Function.new( HRESULT, [THIS_, PDEBUG_SYMBOL_SOURCE_ENTRY, ULONG, PSTR, ULONG, PULONG], @vtable[122], :convention=>:stdcall  ),
+        :GetSourceEntryString => FFI::Function.new( HRESULT, [THIS_, PDEBUG_SYMBOL_SOURCE_ENTRY, ULONG, PSTR_OUT, ULONG, PULONG], @vtable[122], :convention=>:stdcall  ),
         # GetSourceEntryStringWide(THIS_ In_(Entry) In_(Which) Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(StringSize))
-        :GetSourceEntryStringWide => FFI::Function.new( HRESULT, [THIS_, PDEBUG_SYMBOL_SOURCE_ENTRY, ULONG, PWSTR, ULONG, PULONG], @vtable[123], :convention=>:stdcall  ),
+        :GetSourceEntryStringWide => FFI::Function.new( HRESULT, [THIS_, PDEBUG_SYMBOL_SOURCE_ENTRY, ULONG, PWSTR_OUT, ULONG, PULONG], @vtable[123], :convention=>:stdcall  ),
         # GetSourceEntryOffsetRegions(THIS_ In_(Entry) In_(Flags) Out_writes_opt_(RegionsCount)(Regions) In_(RegionsCount) Out_opt_(RegionsAvail))
         :GetSourceEntryOffsetRegions => FFI::Function.new( HRESULT, [THIS_, PDEBUG_SYMBOL_SOURCE_ENTRY, ULONG, PDEBUG_OFFSET_REGION, ULONG, PULONG], @vtable[124], :convention=>:stdcall  ),
         # GetSourceEntryBySourceEntry(THIS_ In_(FromEntry) In_(Flags) Out_(ToEntry))
@@ -6885,13 +6825,13 @@ module RawBuggery
         # SetScopeEx(THIS_ In_(InstructionOffset) In_opt_(ScopeFrame) In_reads_bytes_opt_(ScopeContextSize)(ScopeContext) In_(ScopeContextSize))
         :SetScopeEx => FFI::Function.new( HRESULT, [THIS_, ULONG64, PDEBUG_STACK_FRAME_EX, PVOID, ULONG], @vtable[127], :convention=>:stdcall  ),
         # GetNameByInlineContext(THIS_ In_(Offset) In_(InlineContext) Out_writes_opt_(NameBufferSize)(NameBuffer) In_(NameBufferSize) Out_opt_(NameSize) Out_opt_(Displacement))
-        :GetNameByInlineContext => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, PSTR, ULONG, PULONG, PULONG64], @vtable[128], :convention=>:stdcall  ),
+        :GetNameByInlineContext => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, PSTR_OUT, ULONG, PULONG, PULONG64], @vtable[128], :convention=>:stdcall  ),
         # GetNameByInlineContextWide(THIS_ In_(Offset) In_(InlineContext) Out_writes_opt_(NameBufferSize)(NameBuffer) In_(NameBufferSize) Out_opt_(NameSize) Out_opt_(Displacement))
-        :GetNameByInlineContextWide => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, PWSTR, ULONG, PULONG, PULONG64], @vtable[129], :convention=>:stdcall  ),
+        :GetNameByInlineContextWide => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, PWSTR_OUT, ULONG, PULONG, PULONG64], @vtable[129], :convention=>:stdcall  ),
         # GetLineByInlineContext(THIS_ In_(Offset) In_(InlineContext) Out_opt_(Line) Out_writes_opt_(FileBufferSize)(FileBuffer) In_(FileBufferSize) Out_opt_(FileSize) Out_opt_(Displacement))
-        :GetLineByInlineContext => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, PULONG, PSTR, ULONG, PULONG, PULONG64], @vtable[130], :convention=>:stdcall  ),
+        :GetLineByInlineContext => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, PULONG, PSTR_OUT, ULONG, PULONG, PULONG64], @vtable[130], :convention=>:stdcall  ),
         # GetLineByInlineContextWide(THIS_ In_(Offset) In_(InlineContext) Out_opt_(Line) Out_writes_opt_(FileBufferSize)(FileBuffer) In_(FileBufferSize) Out_opt_(FileSize) Out_opt_(Displacement))
-        :GetLineByInlineContextWide => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, PULONG, PWSTR, ULONG, PULONG, PULONG64], @vtable[131], :convention=>:stdcall  ),
+        :GetLineByInlineContextWide => FFI::Function.new( HRESULT, [THIS_, ULONG64, ULONG, PULONG, PWSTR_OUT, ULONG, PULONG, PULONG64], @vtable[131], :convention=>:stdcall  ),
         # OutputSymbolByInlineContext(THIS_ In_(OutputControl) In_(Flags) In_(Offset) In_(InlineContext))
         :OutputSymbolByInlineContext => FFI::Function.new( HRESULT, [THIS_, ULONG, ULONG, ULONG64, ULONG], @vtable[132], :convention=>:stdcall  ),
         # GetCurrentScopeFrameIndexEx(THIS_ In_(Flags) Out_(Index))
@@ -6912,7 +6852,6 @@ module RawBuggery
   end
 
   class DebugSystemObjects
-
     NUM_APIS = 32
 
     include Win32::WinTypes
@@ -6992,7 +6931,7 @@ module RawBuggery
         # GetProcessIdByHandle(THIS_ In_(Handle) Out_(Id))
         :GetProcessIdByHandle => FFI::Function.new( HRESULT, [THIS_, ULONG64, PULONG], @vtable[30], :convention=>:stdcall  ),
         # GetCurrentProcessExecutableName(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(ExeSize))
-        :GetCurrentProcessExecutableName => FFI::Function.new( HRESULT, [THIS_, PSTR, ULONG, PULONG], @vtable[31], :convention=>:stdcall  )
+        :GetCurrentProcessExecutableName => FFI::Function.new( HRESULT, [THIS_, PSTR_OUT, ULONG, PULONG], @vtable[31], :convention=>:stdcall  )
       }
     end
 
@@ -7007,7 +6946,6 @@ module RawBuggery
   end
 
   class DebugSystemObjects2
-
     NUM_APIS = 37
 
     include Win32::WinTypes
@@ -7087,7 +7025,7 @@ module RawBuggery
         # GetProcessIdByHandle(THIS_ In_(Handle) Out_(Id))
         :GetProcessIdByHandle => FFI::Function.new( HRESULT, [THIS_, ULONG64, PULONG], @vtable[30], :convention=>:stdcall  ),
         # GetCurrentProcessExecutableName(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(ExeSize))
-        :GetCurrentProcessExecutableName => FFI::Function.new( HRESULT, [THIS_, PSTR, ULONG, PULONG], @vtable[31], :convention=>:stdcall  ),
+        :GetCurrentProcessExecutableName => FFI::Function.new( HRESULT, [THIS_, PSTR_OUT, ULONG, PULONG], @vtable[31], :convention=>:stdcall  ),
         # GetCurrentProcessUpTime(THIS_ Out_(UpTime))
         :GetCurrentProcessUpTime => FFI::Function.new( HRESULT, [THIS_, PULONG], @vtable[32], :convention=>:stdcall  ),
         # GetImplicitThreadDataOffset(THIS_ Out_(Offset))
@@ -7112,7 +7050,6 @@ module RawBuggery
   end
 
   class DebugSystemObjects3
-
     NUM_APIS = 46
 
     include Win32::WinTypes
@@ -7192,7 +7129,7 @@ module RawBuggery
         # GetProcessIdByHandle(THIS_ In_(Handle) Out_(Id))
         :GetProcessIdByHandle => FFI::Function.new( HRESULT, [THIS_, ULONG64, PULONG], @vtable[30], :convention=>:stdcall  ),
         # GetCurrentProcessExecutableName(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(ExeSize))
-        :GetCurrentProcessExecutableName => FFI::Function.new( HRESULT, [THIS_, PSTR, ULONG, PULONG], @vtable[31], :convention=>:stdcall  ),
+        :GetCurrentProcessExecutableName => FFI::Function.new( HRESULT, [THIS_, PSTR_OUT, ULONG, PULONG], @vtable[31], :convention=>:stdcall  ),
         # GetCurrentProcessUpTime(THIS_ Out_(UpTime))
         :GetCurrentProcessUpTime => FFI::Function.new( HRESULT, [THIS_, PULONG], @vtable[32], :convention=>:stdcall  ),
         # GetImplicitThreadDataOffset(THIS_ Out_(Offset))
@@ -7220,7 +7157,7 @@ module RawBuggery
         # GetSystemByServer(THIS_ In_(Server) Out_(Id))
         :GetSystemByServer => FFI::Function.new( HRESULT, [THIS_, ULONG64, PULONG], @vtable[44], :convention=>:stdcall  ),
         # GetCurrentSystemServerName(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(NameSize))
-        :GetCurrentSystemServerName => FFI::Function.new( HRESULT, [THIS_, PSTR, ULONG, PULONG], @vtable[45], :convention=>:stdcall  )
+        :GetCurrentSystemServerName => FFI::Function.new( HRESULT, [THIS_, PSTR_OUT, ULONG, PULONG], @vtable[45], :convention=>:stdcall  )
       }
     end
 
@@ -7235,7 +7172,6 @@ module RawBuggery
   end
 
   class DebugSystemObjects4
-
     NUM_APIS = 48
 
     include Win32::WinTypes
@@ -7315,7 +7251,7 @@ module RawBuggery
         # GetProcessIdByHandle(THIS_ In_(Handle) Out_(Id))
         :GetProcessIdByHandle => FFI::Function.new( HRESULT, [THIS_, ULONG64, PULONG], @vtable[30], :convention=>:stdcall  ),
         # GetCurrentProcessExecutableName(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(ExeSize))
-        :GetCurrentProcessExecutableName => FFI::Function.new( HRESULT, [THIS_, PSTR, ULONG, PULONG], @vtable[31], :convention=>:stdcall  ),
+        :GetCurrentProcessExecutableName => FFI::Function.new( HRESULT, [THIS_, PSTR_OUT, ULONG, PULONG], @vtable[31], :convention=>:stdcall  ),
         # GetCurrentProcessUpTime(THIS_ Out_(UpTime))
         :GetCurrentProcessUpTime => FFI::Function.new( HRESULT, [THIS_, PULONG], @vtable[32], :convention=>:stdcall  ),
         # GetImplicitThreadDataOffset(THIS_ Out_(Offset))
@@ -7343,11 +7279,11 @@ module RawBuggery
         # GetSystemByServer(THIS_ In_(Server) Out_(Id))
         :GetSystemByServer => FFI::Function.new( HRESULT, [THIS_, ULONG64, PULONG], @vtable[44], :convention=>:stdcall  ),
         # GetCurrentSystemServerName(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(NameSize))
-        :GetCurrentSystemServerName => FFI::Function.new( HRESULT, [THIS_, PSTR, ULONG, PULONG], @vtable[45], :convention=>:stdcall  ),
+        :GetCurrentSystemServerName => FFI::Function.new( HRESULT, [THIS_, PSTR_OUT, ULONG, PULONG], @vtable[45], :convention=>:stdcall  ),
         # GetCurrentProcessExecutableNameWide(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(ExeSize))
-        :GetCurrentProcessExecutableNameWide => FFI::Function.new( HRESULT, [THIS_, PWSTR, ULONG, PULONG], @vtable[46], :convention=>:stdcall  ),
+        :GetCurrentProcessExecutableNameWide => FFI::Function.new( HRESULT, [THIS_, PWSTR_OUT, ULONG, PULONG], @vtable[46], :convention=>:stdcall  ),
         # GetCurrentSystemServerNameWide(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(NameSize))
-        :GetCurrentSystemServerNameWide => FFI::Function.new( HRESULT, [THIS_, PWSTR, ULONG, PULONG], @vtable[47], :convention=>:stdcall  )
+        :GetCurrentSystemServerNameWide => FFI::Function.new( HRESULT, [THIS_, PWSTR_OUT, ULONG, PULONG], @vtable[47], :convention=>:stdcall  )
       }
     end
 

@@ -62,7 +62,7 @@ module Win32
     # pass a string to __in params, but for __out params we need to pass a
     # pointer to the FFI func and read_string to get the filled value.
     PSTR_OUT = PWSTR_OUT = POINTER
-    PCSTR = PSTR = PCWSTR = FFI::TypeDefs[:string]
+    PCSTR = PSTR = PCWSTR = PWSTR = FFI::TypeDefs[:string]
 
     # WARNING! NOT IMPLEMENTED
     PVA_LIST = POINTER

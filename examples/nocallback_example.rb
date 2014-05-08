@@ -6,7 +6,7 @@ require 'buggery'
 
 debug_client=Buggery.new
 
-puts "Creating..."
+puts "Buggery version #{Buggery::VERSION}> Creating..."
 debug_client.create_process("notepad.exe")
 debug_client.execute ".symopt+0x100" # NO_UNQUALIFIED_LOADS
 debug_client.execute ".sympath C:\\windows\\system32;C:\\localsymbols"
