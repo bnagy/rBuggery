@@ -25,6 +25,7 @@ module Win32
     end
     ULONG     = FFI::TypeDefs[:ulong]
     ULONG64   = FFI::TypeDefs[:ulong_long]
+    LONG64    = FFI::TypeDefs[:long_long]
     LONG      = FFI::TypeDefs[:long]
     INT       = FFI::TypeDefs[:int]
     WORD      = FFI::TypeDefs[:uint16]
@@ -36,6 +37,7 @@ module Win32
     UINT      = FFI::TypeDefs[:uint]
     POINTER   = FFI::TypeDefs[:pointer]
     SHORT     = FFI::TypeDefs[:short]
+    USHORT    = FFI::TypeDefs[:ushort]
     VOID      = FFI::TypeDefs[:void]
     THIS_     = POINTER
     REFIID    = POINTER
@@ -84,7 +86,7 @@ module Win32
       PEXCEPTION_RECORD64 = PDEBUG_BREAKPOINT2 = PDEBUG_REGISTER_DESCRIPTION =
       PDEBUG_SYMBOL_PARAMETERS = PDEBUG_MODULE_PARAMETERS = PDEBUG_SYMBOL_GROUP =
       PDEBUG_SYMBOL_GROUP2 = PDEBUG_MODULE_AND_ID = PDEBUG_SYMBOL_SOURCE_ENTRY =
-      PDEBUG_OFFSET_REGION = POINTER
+      PDEBUG_OFFSET_REGION = P_EXCEPTION_RECORD64 = POINTER
 
   end
 end

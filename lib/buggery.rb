@@ -7,22 +7,24 @@
 # result.
 #
 # Author: Ben Nagy
-# Copyright: Copyright (c) Ben Nagy, 2012 - 2013.
-# License: The MIT License
+# Copyright: Copyright (c) Ben Nagy, 2012 - 2014.
+# License: BSD Style, see LICENSE file for details
 # (See http://www.opensource.org/licenses/mit-license.php for details.)
+
+require_relative 'structs/exception_record64'
+require_relative 'structs/debug_breakpoint_parameters'
+require_relative 'structs/debug_value'
 
 require_relative 'buggery/raw'
 require_relative 'buggery/fake_com'
 require_relative 'buggery/event_callbacks'
-require_relative 'buggery/breakpoint'
-require_relative 'buggery/exception'
-require_relative 'buggery/debug_value'
 require_relative 'buggery/sugar'
 
 require_relative 'win32/wintypes'
 require_relative 'win32/winerror'
 
-require_relative 'structs/exception_record64'
+
+
 
 require 'ffi'
 
@@ -34,6 +36,7 @@ module Buggery
 
     extend FFI::Library
     include Win32::WinTypes
+
     ffi_lib "kernel32"
     ffi_convention :stdcall
 
@@ -263,11 +266,11 @@ module Buggery
     # API if you really need to change that).
     def registers
       @indices           ||= (0...register_count).to_a.pack('L*')
-      @register_buffer   ||= FFI::MemoryPointer.new DEBUG_VALUE, register_count
+      @register_buffer   ||= FFI::MemoryPointer.new DebugValue, register_count
       retval = @debug_client.DebugRegisters.GetValues( register_count, @indices, 42, @register_buffer )
       raise_errorcode( retval, __method__ ) unless retval.zero? # S_OK
       values = register_count.times.map {|idx|
-        DEBUG_VALUE.new( @register_buffer + idx * DEBUG_VALUE.size ).get_value
+        DebugValue.new( @register_buffer + idx * DebugValue.size ).get_value
       }
       Hash[ register_descriptions.zip(values) ]
     end

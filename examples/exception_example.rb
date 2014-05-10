@@ -1,14 +1,14 @@
 require 'pp'
 require 'buggery'
 
+include Buggery::Structs
+
 debug_client=Buggery::Debugger.new
 
 exception_callback=lambda {|args|
-  # FFI::Struct, with some extra sugar in the class
-  exr=Buggery::Structs::ExceptionRecord64.new args[:exception_record]
-  unless exr[:record].null?
-    puts "debug: #{exr[:record][:code]}"
-  end
+
+  exr = ExceptionRecord64.new args[:exception_record]
+  
   if args[:first_chance].zero?
     # We can either use the ExceptionRecord64 directly
     puts "#{"%8.8x" % exr[:code]} - Second chance"
@@ -29,11 +29,11 @@ exception_callback=lambda {|args|
 }
 
 debug_client.event_callbacks.add( :exception=>exception_callback )
-
 debug_client.create_process(
   "C:\\Program Files\\Microsoft Office\\Office15\\WINWORD.EXE #{ARGV[0]}"
 )
 debug_client.execute "!load winext\\msec.dll"
+
 loop do
   debug_client.wait_for_event 10
   break if @fatal_exception

@@ -21,6 +21,7 @@ puts debug_client.execute 'r'
 puts debug_client.execute '!address -summary'
 puts debug_client.disassemble( debug_client.pseudo_register( '$ip' ), 10 ).map {|ary| ary.join(' ')}
 # should be the same
+puts
 puts debug_client.disassemble( debug_client.current_offset, 10 ).map {|ary| ary.join(' ')}
 debug_client.go
 debug_client.wait_for_event 2000    # 2 second timeout, returns false if no event

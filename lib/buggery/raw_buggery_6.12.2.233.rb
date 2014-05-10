@@ -3,8 +3,8 @@
 # Sorry for the lack of code formatting etc, compyoota done it.
 #
 # Author: Ben Nagy
-# Copyright: Copyright (c) Ben Nagy, 2012 - 2013.
-# License: The MIT License
+# Copyright: Copyright (c) Ben Nagy, 2012 - 2014.
+# License: BSD Style, see LICENSE file for details
 # (See http://www.opensource.org/licenses/mit-license.php for details.)
 
 require 'buggery/fake_com'

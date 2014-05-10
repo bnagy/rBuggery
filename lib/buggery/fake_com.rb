@@ -2,8 +2,8 @@
 # comtypes, and you're too lazy to write C? FakeCOM!
 #
 # Author: Ben Nagy
-# Copyright: Copyright (c) Ben Nagy, 2012 - 2013.
-# License: The MIT License
+# Copyright: Copyright (c) Ben Nagy, 2012 - 2014.
+# License: BSD Style, see LICENSE file for details
 # (See http://www.opensource.org/licenses/mit-license.php for details.)
 #
 # THANKS: Daniel Berger and especially Park Heesob, for the initial code behind

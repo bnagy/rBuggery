@@ -13,6 +13,7 @@ require 'win32/wintypes'
 
 module Buggery
   module Structs
+
     class ExceptionRecord64 < FFI::Struct
 
       EXCEPTION_MAXIMUM_PARAMETERS = 15
@@ -42,5 +43,6 @@ module Buggery
       end
 
     end
+    
   end
 end

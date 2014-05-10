@@ -3,12 +3,14 @@
 # Sorry for the lack of code formatting etc, compyoota done it.
 #
 # Author: Ben Nagy
-# Copyright: Copyright (c) Ben Nagy, 2012 - 2013.
-# License: The MIT License
+# Copyright: Copyright (c) Ben Nagy, 2012 - 2014.
+# License: BSD Style, see LICENSE file for details
 # (See http://www.opensource.org/licenses/mit-license.php for details.)
 
 require 'win32/wintypes'
 require 'ffi'
+
+require 'structs/debug_breakpoint_parameters'
 
 if ENV['DEBUGGER_PATH']
   DEBUGGER_PATH = ENV['DEBUGGER_PATH']
@@ -25,7 +27,7 @@ unless File.exists? DEBUGGER_DLL
 end
 
 module Buggery
-  
+
   module Raw
 
     module Kernel32
@@ -481,29 +483,28 @@ module Buggery
     end
 
     class DebugBreakpoint
-      DEBUG_BREAKPOINT_CODE = 0
-      DEBUG_BREAKPOINT_DATA = 1
-      DEBUG_BREAKPOINT_TIME = 2
-      DEBUG_BREAKPOINT_INLINE = 3
-      DEBUG_BREAKPOINT_GO_ONLY = 0x00000001
-      DEBUG_BREAKPOINT_DEFERRED = 0x00000002
-      DEBUG_BREAKPOINT_ENABLED = 0x00000004
+
+      DEBUG_BREAKPOINT_CODE       = 0
+      DEBUG_BREAKPOINT_DATA       = 1
+      DEBUG_BREAKPOINT_TIME       = 2
+      DEBUG_BREAKPOINT_INLINE     = 3
+      DEBUG_BREAKPOINT_GO_ONLY    = 0x00000001
+      DEBUG_BREAKPOINT_DEFERRED   = 0x00000002
+      DEBUG_BREAKPOINT_ENABLED    = 0x00000004
       DEBUG_BREAKPOINT_ADDER_ONLY = 0x00000008
-      DEBUG_BREAKPOINT_ONE_SHOT = 0x00000010
-      DEBUG_BREAK_READ = 0x00000001
-      DEBUG_BREAK_WRITE = 0x00000002
-      DEBUG_BREAK_EXECUTE = 0x00000004
-      DEBUG_BREAK_IO = 0x00000008
+      DEBUG_BREAKPOINT_ONE_SHOT   = 0x00000010
+      DEBUG_BREAK_READ            = 0x00000001
+      DEBUG_BREAK_WRITE           = 0x00000002
+      DEBUG_BREAK_EXECUTE         = 0x00000004
+      DEBUG_BREAK_IO              = 0x00000008
+      
       NUM_APIS = 24
 
       include Win32::WinTypes
 
-      def initialize( parent )
+      def initialize( ptr )
 
-        # Get a pointer to the interface
-        p=FFI::MemoryPointer.new(:pointer)
-        parent.QueryInterface(IIDS[self.class], p)
-        @interface_ptr = p.get_pointer(0)
+        @interface_ptr = ptr
         @vtable=@interface_ptr.get_pointer(0).read_array_of_pointer( NUM_APIS ).map {|addr|
           FFI::Pointer.new( addr )
         }
@@ -572,16 +573,14 @@ module Buggery
     end
 
     class DebugBreakpoint2
+
       NUM_APIS = 28
 
       include Win32::WinTypes
 
-      def initialize( parent )
+      def initialize( ptr )
 
-        # Get a pointer to the interface
-        p=FFI::MemoryPointer.new(:pointer)
-        parent.QueryInterface(IIDS[self.class], p)
-        @interface_ptr = p.get_pointer(0)
+        @interface_ptr = ptr
         @vtable=@interface_ptr.get_pointer(0).read_array_of_pointer( NUM_APIS ).map {|addr|
           FFI::Pointer.new( addr )
         }
@@ -658,16 +657,16 @@ module Buggery
     end
 
     class DebugBreakpoint3
+
+      # This class will be created from a pointer
+
       NUM_APIS = 29
 
       include Win32::WinTypes
 
-      def initialize( parent )
+      def initialize( ptr )
 
-        # Get a pointer to the interface
-        p=FFI::MemoryPointer.new(:pointer)
-        parent.QueryInterface(IIDS[self.class], p)
-        @interface_ptr = p.get_pointer(0)
+        @interface_ptr = ptr
         @vtable=@interface_ptr.get_pointer(0).read_array_of_pointer( NUM_APIS ).map {|addr|
           FFI::Pointer.new( addr )
         }
@@ -721,7 +720,7 @@ module Buggery
           # SetOffsetExpression(THIS_ In_(Expression))
           :SetOffsetExpression => FFI::Function.new( HRESULT, [THIS_, PCSTR], @vtable[22], :convention=>:stdcall  ),
           # GetParameters(THIS_ Out_(Params))
-          :GetParameters => FFI::Function.new( HRESULT, [THIS_, PDEBUG_BREAKPOINT_PARAMETERS], @vtable[23], :convention=>:stdcall  ),
+          :GetParameters => FFI::Function.new( HRESULT, [THIS_, Structs::DebugBreakpointParameters.ptr], @vtable[23], :convention=>:stdcall  ),
           # GetCommandWide(THIS_ Out_writes_opt_(BufferSize)(Buffer) In_(BufferSize) Out_opt_(CommandSize))
           :GetCommandWide => FFI::Function.new( HRESULT, [THIS_, PWSTR_OUT, ULONG, PULONG], @vtable[24], :convention=>:stdcall  ),
           # SetCommandWide(THIS_ In_(Command))

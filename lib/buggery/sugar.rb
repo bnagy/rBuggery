@@ -1,11 +1,12 @@
 # To be included in the Buggery class. Relies on the methods debug_client and
-# raise_errorcode. The intention is that Buggery object eventually hold only
-# critical methods for the interface itself, and that syntactic sugar for
+# raise_errorcode, as well as the private pointer creation shortcut methods
+# p_int, p_ulong etc etc. The intention is that Buggery object eventually hold
+# only critical methods for the interface itself, and that syntactic sugar for
 # various purposes be collected into themed modules.
 #
 # Author: Ben Nagy
-# Copyright: Copyright (c) Ben Nagy, 2012 - 2013.
-# License: The MIT License
+# Copyright: Copyright (c) Ben Nagy, 2012 - 2014.
+# License: BSD Style, see LICENSE file for details
 # (See http://www.opensource.org/licenses/mit-license.php for details.)
 
 module Buggery
@@ -13,6 +14,7 @@ module Buggery
   module Sugar
 
     include Raw
+    include Structs
 
     # In: Nothing
     # Out: Numeric( current_offset )
@@ -54,7 +56,7 @@ module Buggery
       @p_idx ||= p_ulong
       retval = self.debug_client.DebugRegisters2.GetPseudoIndexByName reg, @p_idx
       raise_errorcode( retval, __method__ ) unless retval.zero? # S_OK
-      @p_debug_value ||= FFI::MemoryPointer.new DEBUG_VALUE
+      @p_debug_value ||= FFI::MemoryPointer.new DebugValue
       retval = self.debug_client.DebugRegisters2.GetPseudoValues(
         DebugRegisters2::DEBUG_REGSRC_DEBUGGEE,
         1,
@@ -63,7 +65,7 @@ module Buggery
         @p_debug_value
       )
       raise_errorcode( retval, __method__ ) unless retval.zero? # S_OK
-      DEBUG_VALUE.new( @p_debug_value ).get_value
+      DebugValue.new( @p_debug_value ).get_value
     end
 
     # In: Nothing

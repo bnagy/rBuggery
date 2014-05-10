@@ -1,4 +1,3 @@
-require 'rubygems'
 require 'pp'
 require 'drb'
 require 'trollop'
@@ -21,6 +20,7 @@ sleep 5 # give it time to start up
 
 debug_client=DRbObject.new nil, "druby://127.0.0.1:#{OPTS[:port]}"
 mark=Time.now
+
 loop do
   # Just do some random stuff....
   debug_client.execute ".symopt+0x100" # NO_UNQUALIFIED_LOADS
@@ -37,5 +37,6 @@ loop do
   debug_client.go
   debug_client.terminate_process
 end
-puts Time.now - mark # ~140s on my MBP
+
+puts Time.now - mark # ~140s for 1000 iterations on my MBP
 debug_client.destroy rescue nil
