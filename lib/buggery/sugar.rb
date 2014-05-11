@@ -7,7 +7,6 @@
 # Author: Ben Nagy
 # Copyright: Copyright (c) Ben Nagy, 2012 - 2014.
 # License: BSD Style, see LICENSE file for details
-# (See http://www.opensource.org/licenses/mit-license.php for details.)
 
 module Buggery
 
@@ -31,6 +30,7 @@ module Buggery
     # The displacement returned is from the symbol base. If there is no matching
     # symbol, the address is returned as a hexstring.
     def offset_to_symbol offset
+
       @p_sym ||= p_char 256
       @p_displacement ||= p_ulong_long
       retval = self.debug_client.DebugSymbols.GetNameByOffset(
@@ -40,11 +40,13 @@ module Buggery
         nil, # size of returned name, we don't care because we read as a CSTR
         @p_displacement
       )
+
       if retval.zero? #S_OK
         [ @p_sym.read_string, @p_displacement.read_ulong_long ]
       else
         [ offset.to_s(16), '00']
       end
+      
     end
 
     # In: String( regname )
@@ -53,9 +55,11 @@ module Buggery
     # The pseudo register needs to be specified as in the debugging tools
     # documentation, including the $, eg "$ra"
     def pseudo_register reg
+
       @p_idx ||= p_ulong
       retval = self.debug_client.DebugRegisters2.GetPseudoIndexByName reg, @p_idx
       raise_errorcode( retval, __method__ ) unless retval.zero? # S_OK
+
       @p_debug_value ||= FFI::MemoryPointer.new DebugValue
       retval = self.debug_client.DebugRegisters2.GetPseudoValues(
         DebugRegisters2::DEBUG_REGSRC_DEBUGGEE,
@@ -65,7 +69,9 @@ module Buggery
         @p_debug_value
       )
       raise_errorcode( retval, __method__ ) unless retval.zero? # S_OK
+
       DebugValue.new( @p_debug_value ).get_value
+
     end
 
     # In: Nothing

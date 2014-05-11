@@ -1,3 +1,7 @@
+# Author: Ben Nagy
+# Copyright: Copyright (c) Ben Nagy, 2012 - 2014.
+# License: BSD Style, see LICENSE file for details
+
 # Quick script to parse GUIDs from dbgeng.h into copy paste Ruby form
 # Output might need modification afterwards, but it's close enough.
 

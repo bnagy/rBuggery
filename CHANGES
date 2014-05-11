@@ -22,3 +22,8 @@
 * Completely overhaul raw_buggery to use native Windows looking types
 * Tests pass against newest SDK
 * Slight tweaking of examples, possibly unstable there
+= 1.0.1 ( in unstable )
+* Start refactoring all structs into their own namespace
+* Namespace the whole lot, should have done ages ago
+* Clean up examples, better comments
+* Change license to BSD style for no real reason

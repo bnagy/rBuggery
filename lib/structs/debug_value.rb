@@ -1,3 +1,7 @@
+# Author: Ben Nagy
+# Copyright: Copyright (c) Ben Nagy, 2012 - 2014.
+# License: BSD Style, see LICENSE file for details
+
 require 'ffi'
 require 'win32/wintypes'
 
@@ -76,8 +80,8 @@ class I64Nat < FFI::Struct
   include Win32::WinTypes
 
   layout(
-    :I64, :uint64,
-    :nat, :int
+    :I64, ULONG64,
+    :nat, BOOL
   )
 end
 

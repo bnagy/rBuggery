@@ -3,9 +3,8 @@
 # directly from MSDN.
 #
 # Author: Ben Nagy
-# Copyright: Copyright (c) Ben Nagy, 2006-2013.
-# License: The MIT License
-# (See http://www.opensource.org/licenses/mit-license.php for details.)
+# Copyright: Copyright (c) Ben Nagy, 2012 - 2014.
+# License: BSD Style, see LICENSE file for details
 
 require 'ffi'
 
@@ -46,7 +45,7 @@ module Win32
     CHAR      = UCHAR = BYTE
     LPVOID    = POINTER
     PVOID     = POINTER
-    HANDLE    = ULONG_PTR               # handles are pointers, lol
+    HANDLE    = ULONG_PTR               # handles aren't pointers, lol
     HRESULT   = LONG                    # HRESULT is not a handle, lol
     NTSTATUS  = LONG
     HWND      = HICON = HCURSOR = HBRUSH = HDC = HINSTANCE = HGDIOBJ =
@@ -75,7 +74,7 @@ module Win32
     # indicating a pointer to that struct and allowing better checking.
     #
     # OLD: FFI::Function.new( HRESULT, [THIS_, PDEBUG_SYMBOL_GROUP], ...
-    # NEW: FFI::Function.new( HRESULT, [THIS_, Buggery::Structs::DebugSymbolGroup], ...
+    # NEW: FFI::Function.new( HRESULT, [THIS_, Buggery::Structs::DebugSymbolGroup.ptr], ...
 
     PDEBUG_CLIENT = PDEBUG_INPUT_CALLBACKS = PDEBUG_OUTPUT_CALLBACKS =
       PDEBUG_EVENT_CALLBACKS = PDEBUG_BREAKPOINT_PARAMETERS = PDEBUG_OUTPUT_CALLBACKS_WIDE =

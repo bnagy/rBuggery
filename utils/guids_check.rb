@@ -1,3 +1,7 @@
+# Author: Ben Nagy
+# Copyright: Copyright (c) Ben Nagy, 2012 - 2014.
+# License: BSD Style, see LICENSE file for details
+
 # The idea of this script is to make sure that RawBuggery is loading the correct
 # DLLs for dbgeng and dbghlp. If you see no IIDs with a version > 2, you're 
 # probably only loading the old DLLs from system32

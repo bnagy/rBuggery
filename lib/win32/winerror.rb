@@ -1,9 +1,8 @@
 # Quick wrapper to get nice Win32 error messages.
 #
 # Author: Ben Nagy
-# Copyright: Copyright (c) Ben Nagy, 2006-2013.
-# License: The MIT License
-# (See http://www.opensource.org/licenses/mit-license.php for details.)
+# Copyright: Copyright (c) Ben Nagy, 2012 - 2014.
+# License: BSD Style, see LICENSE file for details
 
 require 'ffi'
 

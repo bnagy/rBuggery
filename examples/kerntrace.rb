@@ -19,7 +19,7 @@ INSANITY_LIMIT = 30
 
 warn "Attempting to trace #{OPTS[:symbol]} with max depth #{OPTS[:depth]}"
 
-@debugger = Buggery.new
+@debugger = Buggery::Debugger.new
 
 def detach
   @debugger.go

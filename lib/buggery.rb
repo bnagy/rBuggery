@@ -9,28 +9,24 @@
 # Author: Ben Nagy
 # Copyright: Copyright (c) Ben Nagy, 2012 - 2014.
 # License: BSD Style, see LICENSE file for details
-# (See http://www.opensource.org/licenses/mit-license.php for details.)
-
-require_relative 'structs/exception_record64'
-require_relative 'structs/debug_breakpoint_parameters'
-require_relative 'structs/debug_value'
-
-require_relative 'buggery/raw'
-require_relative 'buggery/fake_com'
-require_relative 'buggery/event_callbacks'
-require_relative 'buggery/sugar'
-
-require_relative 'win32/wintypes'
-require_relative 'win32/winerror'
-
-
-
 
 require 'ffi'
 
+require 'structs/exception_record64'
+require 'structs/debug_breakpoint_parameters'
+require 'structs/debug_value'
+require 'structs/debug_event_callbacks'
+
+require 'buggery/raw'
+require 'buggery/fake_com'
+require 'buggery/sugar'
+
+require 'win32/wintypes'
+require 'win32/winerror'
+
 module Buggery
 
-  VERSION   = "1.0"
+  VERSION = "1.0.1"
 
   module Kernel32
 
@@ -60,6 +56,7 @@ module Buggery
       'E_UNEXPECTED' => 0x8000FFFF
     }
     ERRORS.update ERRORS.invert
+
     EVENTS={
       'DEBUG_EVENT_BREAKPOINT'            => 0x00000001,
       'DEBUG_EVENT_EXCEPTION'             => 0x00000002,
@@ -113,7 +110,7 @@ module Buggery
         retval = @debug_client.SetOutputMask DebugClient::DEBUG_OUTPUT_NORMAL
       end
       raise_errorcode( retval, __method__ ) unless retval.zero? # S_OK
-      @callback_handler = EventCallbacks.new( @debug_client )
+      @callback_handler = DebugEventCallbacks.new( @debug_client )
     end
 
     # DOES NOT WORK DISTRIBUTED because when you want to add a callback,

@@ -3,7 +3,9 @@
 * README_LOCAL_KERNEL
 * LICENSE
 * Rakefile
+
 * bin/drb_debug_server
+
 * examples/breakpoint_example.rb
 * examples/multiple_callbacks.rb
 * examples/callback_example.rb
@@ -11,17 +13,23 @@
 * examples/exception_example.rb
 * examples/nocallback_example.rb
 * examples/kerntrace.rb
+
 * lib/buggery.rb
-* lib/buggery/breakpoint.rb
-* lib/buggery/buggery_sugar.rb
-* lib/buggery/debug_value.rb
-* lib/buggery/event_callbacks.rb
-* lib/buggery/exception.rb
+
+* lib/buggery/sugar.rb
 * lib/buggery/fake_com.rb
-* lib/buggery/raw_buggery.rb
-* lib/buggery/raw_buggery_6.12.2.233.rb
-* lib/buggery/winerror.rb
+* lib/buggery/raw.rb
+
+* lib/buggery/win32/winerror.rb
+* lib/buggery/win32/wintypes.rb
+
+* lib/buggery/structs/debug_breakpoint_parameters.rb
+* lib/buggery/structs/debug_event_callbacks.rb
+* lib/buggery/structs/debug_value.rb
+* lib/buggery/structs/exception_record64.rb
+
 * test/test_buggery.rb
+
 * utils/dbgeng_parse_ffi.rb
 * utils/guids_check.rb
 * utils/guid_parse.rb

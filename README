@@ -12,8 +12,7 @@ Currently working:
 * Remote and Local kernel debugging
 
 To do
-* Get callbacks working via DRb
-* Migrate many structs to a nicer namespace and format
+* Get callbacks working via DRb?
 
 NOTE: Set the DEBUGGER_PATH environment variable to the root directory of your
 debugging tools.

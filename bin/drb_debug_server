@@ -3,7 +3,6 @@
 # License: The MIT License
 # (See README.TXT or http://www.opensource.org/licenses/mit-license.php for details.)
 
-require 'rubygems'
 require 'trollop'
 require 'drb'
 require 'buggery'
@@ -13,8 +12,10 @@ OPTS=Trollop::options do
 	opt :debug, "Debug output", :type=>:boolean
 end
 
-debugger=Buggery.new OPTS[:debug]
+debugger = Buggery::Debugger.new OPTS[:debug]
 DRb.start_service( "druby://127.0.0.1:#{OPTS[:port]}", debugger )
-puts "#{RbConfig::CONFIG['ruby_version']} / #{RbConfig::CONFIG['arch']} running on #{RbConfig::CONFIG['host_os']}"
+
+puts "#{Time.now} Ruby #{RbConfig::CONFIG['ruby_version']} / #{RbConfig::CONFIG['arch']} running on #{RbConfig::CONFIG['host_os']}"
 puts "Server running at #{DRb.uri}"
 DRb.thread.join
+puts "#{Time.now} Shutting down."

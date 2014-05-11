@@ -1,3 +1,7 @@
+# Author: Ben Nagy
+# Copyright: Copyright (c) Ben Nagy, 2012 - 2014.
+# License: BSD Style, see LICENSE file for details
+
 # Let's never speak of this script again.
 
 s=File.read ARGV[0]
@@ -35,6 +39,8 @@ end
 end
 
 END
+
+# LOOK MA I'M WRITING PERL LOL!!1!
 
 apis=[]
 defines = []
@@ -115,13 +121,15 @@ s.each_line {|l|
 
       args = l.split
       # Generally we'll have __in, __out, __out_opt etc etc too many options
-      # SPACE <typename> (which we want) SPACE param name which is irrelevant
+      # SPACE <typename> (which we want) SPACE param name 
       if args[0]=~/THIS/
-        this_api_comment << args.first
 
         # THIS_ doesn't have an in/out desc
+        this_api_comment << args.first
         this_api_args << 'THIS_'
+
       else
+
         this_api_comment << "#{args.first[1..-1]}(#{args.last.tr(',','')})"
 
         # Used to translate here - not doing it anymore, we will use constants
@@ -132,17 +140,23 @@ s.each_line {|l|
         # Solution - take args[-2] not args[1]
         type = args[-2]
         if args[-2] =~ /P.*STR/ && args[0]=~/out/i
+
           # This creates a bullshit special type for any pointer to a string
           # that will be used for engine output. By doing this I can make the
           # FFI signatures take a :pointer for output strings, but use
           # :string for input strings, which is less fiddly for the user
           type = "#{args[-2]}_OUT"
+
         end
 
+        # Trim trailing * for stuff like PDEBUG_VALUES*
         if type && type[-1] == '*'
           type = type[0..-2]
         end
 
+        # NOT IMPLEMENTED, but at least make the raw FFI layer not complain
+        # about the weird Windows varargs. These methods will RuntimeError if
+        # you try and use them.
         if type == 'va_list'
           type = "PVA_LIST"
         end

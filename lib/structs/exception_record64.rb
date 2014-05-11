@@ -1,3 +1,7 @@
+# Author: Ben Nagy
+# Copyright: Copyright (c) Ben Nagy, 2012 - 2014.
+# License: BSD Style, see LICENSE file for details
+
 require 'ffi'
 require 'win32/wintypes'
 
@@ -23,7 +27,7 @@ module Buggery
       layout(
         :code, DWORD,
         :flags, DWORD,
-        :record, ExceptionRecord64.ptr,
+        :record, PEXCEPTION_RECORD64,
         :address, DWORD64,
         :number_parameters, DWORD,
         :__unused, DWORD,
