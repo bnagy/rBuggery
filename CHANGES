@@ -27,3 +27,5 @@
 * Namespace the whole lot, should have done ages ago
 * Clean up examples, better comments
 * Change license to BSD style for no real reason
+= 1.1.0
+* Add a JSON-RPC interface

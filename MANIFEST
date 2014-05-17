@@ -5,6 +5,7 @@
 * Rakefile
 
 * bin/drb_debug_server
+* bin/json_debug_server
 
 * examples/breakpoint_example.rb
 * examples/multiple_callbacks.rb

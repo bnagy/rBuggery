@@ -1,0 +1,51 @@
+#! /usr/bin/env ruby
+
+
+begin
+  require 'sinatra'
+  require 'sinatra/json'
+rescue LoadError
+  fail "Sinatra not found. If you want to use the JSON server, " <<
+    " gem install sinatra and ( recommended ) either thin ( MRI ) puma " <<
+    "( rubinius ) or trinidad ( jruby )"
+end
+
+require 'json'
+require 'buggery'
+
+puts <<-END_BANNER
+=== WARNING WARNING WARNING WARNING ===
+
+You are now running a remotely accessible debugger, which is a hilariously insecure thing to do.
+
+JSON API is at 0.0.0.0:4567/debugger
+
+POST {'method':'foo', 'args':['bar','baz']}
+
+eg:
+curl -X POST -d '{"method":"execute","args":["version"]}' 172.16.216.133:4567/debugger
+
+=== WARNING WARNING WARNING WARNING ===
+END_BANNER
+
+configure {
+  set :port, 4567
+  set :bind, '0.0.0.0'
+}
+
+disable :logging
+
+debugger = Buggery::Debugger.new
+
+post '/debugger' do
+
+  begin
+    req = JSON.parse(request.body.read)
+    resp = debugger.send req['method'], *req['args']
+  rescue
+    resp = {'exception' => $@}
+  end
+
+  json resp
+
+end

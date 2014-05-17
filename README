@@ -3,7 +3,7 @@ COM objects to be accessed through Ruby without the hefty comtypes style approac
 DLLs and such.
 
 Currently working:
-* General wrapping, non-callback based, local and remote (via DRb)
+* General wrapping, non-callback based, local and remote (via DRb or RESTish JSON)
 * Callback support, in local process only
 * IDebugBreakpoint wrapped via Breakpoint class
 * x86 in MRI and JRuby

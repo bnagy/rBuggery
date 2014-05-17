@@ -21,7 +21,7 @@ http://msdn.microsoft.com/en-us/library/windows/desktop/ff468902(v=vs.85).aspx
 
 Open kd.exe or windbg.exe. You will see a resource of type 17476, name 30583.
 This is the driver that will be used to communicate with the kernel. Save that
-file out to disk. With Resource Hacker it will save as a .exe which is fine.
+file out to disk. With Resource Hacker it will save as 30583.exe which is fine.
 
 Reading the code for dbgeng!LocalLiveKernelTargetInfo::InitDriver you will see
 that FindResourceW is called with a handle of NULL, type 0x4444, name 0x7777
@@ -33,9 +33,9 @@ dbgeng!LocalLiveKernelTargetInfo::InitDriver+0x87:
 00000000`6dc8bcc4 ff157656ceff    call    qword ptr [dbgeng!_imp_FindResourceW (00000000`6d971340)]
 
 Flier Lu talks about hooking FindResourceW, but it's easier ( if hackier ) to
-just add the resource to the .exe that will be running. In my case ( JRuby ) it
-will be jruby.exe or java.exe, depending on platform. For MRI it would be
-ruby.exe.
+just add the resource to the .exe that will be running. In my case ( JRuby )
+it will be jruby.exe or java.exe, depending on platform ( java.exe on x64,
+where jruby.exe is just a launcher ). For MRI it would be ruby.exe.
 
 So, with Resource Hacker, again, add a new resource, fill in the type and name (
 in decimal, so 17476 and 30583 ) and add the resource you saved earlier. Save
@@ -69,12 +69,24 @@ dbgeng!LocalLiveKernelTargetInfo::InitDriver+0x33:
 
 ^^ patch 742a ( jz ) to eb2a ( jmp )
 
-If you don't have a nice tool like IDA Pro that will let you apply a patch to
-the input file with a few easy clicks, you'll need to get the module base, and
-subtract it from the address you see in your debugger, and then patch with a hex
-editor. The Internet will tell you how to do that.
+( notice that we now always jump to the snippet above that loads the resource ) 
 
+If you don't have a nice tool like IDA Pro that will let you apply a patch
+to the input file with a few easy clicks, you'll need to get the module base,
+and subtract it from the address you see in your debugger, and then patch with
+a hex editor. The Internet will tell you how to do that.
+
+NOTE: Missing Symbols
+---
+
+If you find the symbols aren't available for the dbgeng.dll version you're
+looking at, the easiest way to find the right function is just to look for
+xrefs to FindResourceW - there are only a couple, and the hex constants stick
+out like a sore thumb.
+
+===
 Step 3 - Local Kernel Debugging!
+===
 
 C:\zmq>irb
 irb(main):001:0> require 'buggery'

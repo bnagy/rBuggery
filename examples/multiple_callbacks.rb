@@ -90,9 +90,8 @@ debugger.event_callbacks.add( :breakpoint=>bp_callback, :exception=>exception_ca
 # POSSIBLE BUG? Must load msec before create process, here
 debugger.execute "!load winext\\msec.dll"
 
-debugger.create_process(
-  "notepad.exe #{ARGV[0]}"
-)
+debugger.create_process "notepad.exe #{ARGV[0]}"
+
 debugger.execute "bp12 kernel32!CreateFileW"
 
 loop do

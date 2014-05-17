@@ -26,7 +26,7 @@ require 'win32/winerror'
 
 module Buggery
 
-  VERSION = "1.0.1"
+  VERSION = "1.1.0"
 
   module Kernel32
 

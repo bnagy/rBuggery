@@ -1,3 +1,5 @@
+#! /usr/bin/env ruby
+
 # Author: Ben Nagy
 # Copyright: Copyright (c) Ben Nagy, 2006-2011.
 # License: The MIT License
@@ -8,8 +10,8 @@ require 'drb'
 require 'buggery'
 
 OPTS=Trollop::options do
-	opt :port, "Port to listen on.", :type=>:integer, :default=>8889
-	opt :debug, "Debug output", :type=>:boolean
+  opt :port, "Port to listen on.", :type=>:integer, :default=>8889
+  opt :debug, "Debug output", :type=>:boolean
 end
 
 debugger = Buggery::Debugger.new OPTS[:debug]
