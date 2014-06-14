@@ -278,9 +278,9 @@ module Buggery
     # After attaching, you still need to wait for an event! You probably want
     # to #break first but it depends on the option_mask you're using.
     def attach pid, option_mask=DebugClient::DEBUG_ATTACH_DEFAULT
-      retval = @debug_client.AttachProcess( 0, Integer( pid ), Integer( option_mask ) )
+      retval = @debug_client.AttachProcess( 0, Integer(pid), Integer( option_mask ) )
       raise_errorcode( retval, __method__ ) unless retval.zero? # S_OK
-      @pid=pid
+      @pid = Integer(pid)
       true
     end
 
