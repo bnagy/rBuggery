@@ -46,14 +46,15 @@ module Buggery
       else
         [ offset.to_s(16), '00']
       end
-      
+
     end
 
     # In: String( regname )
     # Out: Either a Numeric or an Array of Numerics, depending on the register
     #
-    # The pseudo register needs to be specified as in the debugging tools
-    # documentation, including the $, eg "$ra"
+    # Gets the value held in a given pseudo-register. The pseudo register
+    # needs to be specified as in the debugging tools documentation, including
+    # the $, eg "$ra"
     def pseudo_register reg
 
       @p_idx ||= p_ulong
@@ -91,6 +92,39 @@ module Buggery
       self.raise_errorcode( retval, __method__ ) unless retval.zero? # S_OK
       current_process = @p_pid.read_int
       current_process
+    end
+
+    # In Numeric( offset ), Numeric( len )
+    # Out: String( contents ) or raise
+    #
+    # Reads len bytes from the given offset in the target's virtual address
+    # space and returns the contents as a string. If the read succeeds it may
+    # still return less bytes than specified.
+    def read_virtual offset, len
+
+      outbuf = p_char len
+      outlen = p_ulong
+      retval = self.debug_client.DebugDataSpaces.ReadVirtual( Integer(offset), outbuf, Integer(len), outlen )
+      self.raise_errorcode( retval, __method__ ) unless retval.zero? # S_OK
+
+      outbuf.read_array_of_char(outlen.read_ulong).pack('c*')
+
+    end
+
+    def read_pointers offset, count=1
+      # HRESULT ReadPointersVirtual(
+      #   [in]   ULONG Count,
+      #   [in]   ULONG64 Offset,
+      #   [out]  PULONG64 Ptrs
+      # );
+      count = Integer(count)
+      offset = Integer(offset)
+      outbuf = FFI::MemoryPointer.new :pointer, count
+      retval = self.debug_client.DebugDataSpaces.ReadPointersVirtual(count, offset, outbuf)
+      self.raise_errorcode( retval, __method__ ) unless retval.zero? # S_OK
+
+      outbuf.read_array_of_pointer count
+
     end
 
   end
