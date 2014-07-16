@@ -111,12 +111,28 @@ module Buggery
 
     end
 
+
+    # In Numeric( offset ), String( data )
+    # Out: Numeric( bytes_written ) or raise
+    #
+    # Writes the given string into the target's virtual address space and
+    # returns the number of bytes written. The write may be partially
+    # successful, so bytes_written may be less than data.bytesize
+    def write_virtual offset, data
+      outlen = p_ulong
+      retval = self.debug_client.DebugDataSpaces.WriteVirtual( Integer(offset), data, data.bytesize, outlen )
+      self.raise_errorcode( retval, __method__ ) unless retval.zero? # S_OK
+      outlen.read_ulong
+    end
+
+    # In Numeric( offset ), Numeric( count ) [default 1]
+    # Out: Array of [ FFI::Pointer ]
+    #
+    # Reads count native pointers from the specified offset. Unlike
+    # read_virtual, this method will raise unless the specified number of
+    # pointers could all be read.
     def read_pointers offset, count=1
-      # HRESULT ReadPointersVirtual(
-      #   [in]   ULONG Count,
-      #   [in]   ULONG64 Offset,
-      #   [out]  PULONG64 Ptrs
-      # );
+
       count = Integer(count)
       offset = Integer(offset)
       outbuf = FFI::MemoryPointer.new :pointer, count
