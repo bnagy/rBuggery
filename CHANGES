@@ -29,3 +29,5 @@
 * Change license to BSD style for no real reason
 = 1.1.0
 * Add a JSON-RPC interface
+= 1.1.1
+* New LazyBreakpoint class. If this pattern works well I'll convert all of Raw.

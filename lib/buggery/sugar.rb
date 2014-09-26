@@ -108,7 +108,6 @@ module Buggery
       self.raise_errorcode( retval, __method__ ) unless retval.zero? # S_OK
 
       outbuf.read_array_of_char(outlen.read_ulong).pack('c*')
-
     end
 
 
@@ -122,6 +121,7 @@ module Buggery
       outlen = p_ulong
       retval = self.debug_client.DebugDataSpaces.WriteVirtual( Integer(offset), data, data.bytesize, outlen )
       self.raise_errorcode( retval, __method__ ) unless retval.zero? # S_OK
+
       outlen.read_ulong
     end
 

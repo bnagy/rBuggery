@@ -16,6 +16,7 @@ require 'structs/exception_record64'
 require 'structs/debug_breakpoint_parameters'
 require 'structs/debug_value'
 require 'structs/debug_event_callbacks'
+require 'structs/lazy_breakpoint'
 
 require 'buggery/raw'
 require 'buggery/fake_com'
@@ -26,7 +27,7 @@ require 'win32/winerror'
 
 module Buggery
 
-  VERSION = "1.1.0"
+  VERSION = "1.1.1"
 
   module Kernel32
 
@@ -426,8 +427,6 @@ module Buggery
       DRb.thread.exit rescue exit
     end
 
-    private
-
     def raise_errorcode retval, meth
       if ERRORS[retval]
         raise "#{meth} returned #{ERRORS[retval]}"
@@ -436,6 +435,8 @@ module Buggery
         raise "#{meth} returned unknown error code: #{"0x%.8x" % retval}"
       end
     end
+
+    private
 
     def lookup_error error_string
       ERRORS[error_string]
