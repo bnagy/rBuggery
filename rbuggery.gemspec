@@ -1,6 +1,6 @@
 Gem::Specification.new do |spec|
   spec.name       = 'rbuggery'
-  spec.version    = '1.1.0'
+  spec.version    = '1.1.1'
   spec.author     = 'Ben Nagy'
   spec.license    = 'BSD'
   spec.email      = 'ben@iagu.net'

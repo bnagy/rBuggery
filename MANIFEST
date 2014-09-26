@@ -28,6 +28,7 @@
 * lib/buggery/structs/debug_event_callbacks.rb
 * lib/buggery/structs/debug_value.rb
 * lib/buggery/structs/exception_record64.rb
+* lib/buggery/structs/lazy_breakpoint.rb
 
 * test/test_buggery.rb
 
