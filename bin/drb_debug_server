@@ -19,5 +19,6 @@ DRb.start_service( "druby://127.0.0.1:#{OPTS[:port]}", debugger )
 
 puts "#{Time.now} Ruby #{RbConfig::CONFIG['ruby_version']} / #{RbConfig::CONFIG['arch']} running on #{RbConfig::CONFIG['host_os']}"
 puts "Server running at #{DRb.uri}"
+puts debugger.execute 'version'
 DRb.thread.join
 puts "#{Time.now} Shutting down."

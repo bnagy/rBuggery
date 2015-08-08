@@ -16,7 +16,7 @@ Thread.new {
   # Need to thread out for JRuby compatability, because system hangs.
   system("start drb_debug_server -p #{OPTS[:port]} #{OPTS[:debug]? ' -d' : ''}")
 }
-sleep 5 # give it time to start up
+sleep 15 # give it time to start up
 
 debug_client=DRbObject.new nil, "druby://127.0.0.1:#{OPTS[:port]}"
 mark=Time.now

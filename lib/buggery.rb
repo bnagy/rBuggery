@@ -114,6 +114,10 @@ module Buggery
       @callback_handler = DebugEventCallbacks.new( @debug_client )
     end
 
+    def version
+      Buggery::VERSION
+    end
+
     # DOES NOT WORK DISTRIBUTED because when you want to add a callback,
     # Proc will not Marshal.
     def event_callbacks
